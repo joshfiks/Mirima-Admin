@@ -810,17 +810,34 @@ content.innerHTML = `
 
         </div>
 
-        <div class="billing-details-card">
+      <div class="billing-details-card">
 
+    <div class="billing-card-header">
+
+        <div>
             <h4>
                 Current Bill
             </h4>
 
             <p>
-                No charges have been added yet.
+                Add and manage charges for this guest.
             </p>
-
         </div>
+
+        <button
+            class="billing-add-charge-button"
+            id="billingAddChargeButton"
+        >
+            + Add Charge
+        </button>
+
+    </div>
+
+    <p>
+        No charges have been added yet.
+    </p>
+
+</div>
 
     </div>
 `;
@@ -837,6 +854,24 @@ if (backButton) {
             renderReceptionSection(
                 "billing",
                 getCurrentSession()
+            );
+
+        }
+    );
+
+}
+const addChargeButton =
+    document.getElementById("billingAddChargeButton");
+
+if (addChargeButton) {
+
+    addChargeButton.addEventListener(
+        "click",
+        function () {
+
+            console.log(
+                "Add charge for:",
+                cottageId
             );
 
         }
