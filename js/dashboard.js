@@ -1142,9 +1142,53 @@ function setupGuestModal() {
 
                 event.preventDefault();
 
-               console.log(
-    "Guest form submitted successfully"
-        );
+            const guestDetails = {
+
+    name:
+        document.getElementById(
+            "guestName"
+        ).value,
+
+    phone:
+        document.getElementById(
+            "guestPhone"
+        ).value,
+
+    cottageId:
+        document.getElementById(
+            "guestCottage"
+        ).value,
+
+    checkInDate:
+        document.getElementById(
+            "checkInDate"
+        ).value,
+
+    checkInTime:
+        document.getElementById(
+            "checkInTime"
+        ).value,
+
+    checkoutDate:
+        document.getElementById(
+            "checkoutDate"
+        ).value,
+
+    checkoutTime:
+        document.getElementById(
+            "checkoutTime"
+        ).value,
+
+    notes:
+        document.getElementById(
+            "guestNotes"
+        ).value
+
+};
+
+console.log(
+    guestDetails
+);
 
             }
         );
