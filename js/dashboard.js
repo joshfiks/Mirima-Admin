@@ -766,6 +766,20 @@ setupCheckoutButtons();
 setupBillingButtons();
 }
 
+// =========================================================
+// BILL DETAILS
+// =========================================================
+
+function openCottageBill(cottageId) {
+
+    const bill = getCottageBill(cottageId);
+
+    console.log(
+        "Bill details:",
+        bill
+    );
+
+}
 
 // =========================================================
 // CURRENT GUESTS
@@ -1935,10 +1949,7 @@ function setupBillingButtons() {
                     const cottageId =
                         button.dataset.billingCottage;
 
-                    console.log(
-                        "Opening bill for:",
-                        cottageId
-                    );
+                    openCottageBill(cottageId);
 
                 }
             );
