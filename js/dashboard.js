@@ -1638,8 +1638,8 @@ function getBillingContent() {
                                     </span>
 
                                     <h4>
-                                        ${cottage.name}
-                                    </h4>
+                                    Cottage ${cottage.number}
+                                   </h4>
 
                                 </div>
 
