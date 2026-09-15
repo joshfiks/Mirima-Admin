@@ -1142,9 +1142,9 @@ function setupGuestModal() {
 
                 event.preventDefault();
 
-                console.log(
-                    "Guest form submitted"
-                );
+               console.log(
+    "Guest form submitted successfully"
+        );
 
             }
         );
