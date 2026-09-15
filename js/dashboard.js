@@ -1059,6 +1059,62 @@ function getGuestsContent() {
 
 }
 
+function setupGuestModal() {
+
+    const modal =
+        document.getElementById("guestModal");
+
+    const closeButton =
+        document.getElementById(
+            "closeGuestModal"
+        );
+
+    const cancelButton =
+        document.getElementById(
+            "cancelGuestButton"
+        );
+
+
+    if (!modal) {
+
+        return;
+
+    }
+
+
+    function closeModal() {
+
+        modal.classList.remove("open");
+
+        modal.setAttribute(
+            "aria-hidden",
+            "true"
+        );
+
+    }
+
+
+    if (closeButton) {
+
+        closeButton.addEventListener(
+            "click",
+            closeModal
+        );
+
+    }
+
+
+    if (cancelButton) {
+
+        cancelButton.addEventListener(
+            "click",
+            closeModal
+        );
+
+    }
+
+}
+
 // =========================================================
 // COTTAGE CARD
 // =========================================================
