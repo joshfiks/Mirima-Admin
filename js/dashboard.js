@@ -1755,7 +1755,16 @@ function setupCheckoutButtons() {
                         console.log(
                             result
                         );
+                       
+if (result.success) {
 
+    renderReceptionSection(
+        "guests",
+        getCurrentSession()
+    );
+
+}
+                       
                     }
                 );
 
