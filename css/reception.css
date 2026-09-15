@@ -1731,3 +1731,54 @@
         padding: 16px;
     }
 }
+/* =========================================
+   BILL DETAILS
+   ========================================= */
+
+.billing-details-page {
+    width: 100%;
+}
+
+.billing-back-button {
+    margin-bottom: 20px;
+    padding: 9px 14px;
+    border: 1px solid rgba(212, 175, 55, 0.25);
+    border-radius: 9px;
+    background: transparent;
+    color: #d4af37;
+    font-size: 13px;
+    cursor: pointer;
+}
+
+.billing-back-button:hover {
+    background: rgba(212, 175, 55, 0.08);
+}
+
+.billing-details-header {
+    margin-bottom: 20px;
+}
+
+.billing-details-header h3 {
+    margin: 4px 0 0;
+    color: #f5f1e6;
+    font-size: 24px;
+}
+
+.billing-details-card {
+    padding: 22px;
+    background: #101713;
+    border: 1px solid rgba(212, 175, 55, 0.2);
+    border-radius: 16px;
+}
+
+.billing-details-card h4 {
+    margin: 0 0 8px;
+    color: #f5f1e6;
+    font-size: 18px;
+}
+
+.billing-details-card p {
+    margin: 0;
+    color: #8f9a93;
+    font-size: 14px;
+}
