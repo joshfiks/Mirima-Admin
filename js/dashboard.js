@@ -758,6 +758,7 @@ function renderReceptionSection(section, session) {
     }
 
    setupSectionButtons(session);
+   setupCheckoutButtons();
    
 }
 
