@@ -1186,8 +1186,11 @@ function setupGuestModal() {
 
 };
 
+const result =
+    addGuest(guestDetails);
+
 console.log(
-    guestDetails
+    result
 );
 
             }
