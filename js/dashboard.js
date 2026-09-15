@@ -824,7 +824,26 @@ content.innerHTML = `
 
     </div>
 `;
+   
+const backButton =
+    document.getElementById("billingBackButton");
 
+if (backButton) {
+
+    backButton.addEventListener(
+        "click",
+        function () {
+
+            renderReceptionSection(
+                "billing",
+                getCurrentSession()
+            );
+
+        }
+    );
+
+}
+   
 }
 
 // =========================================================
