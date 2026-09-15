@@ -765,79 +765,42 @@ function renderReceptionSection(section, session) {
 
 function getGuestsContent() {
 
-    const cottages =
-        getCottages();
+    const cottages = getCottages();
 
-    const guests =
-        getActiveGuests();
-
+    const activeGuests = getActiveGuests();
 
     return `
+        <section class="page-section">
 
-        <div class="page-introduction">
+            <div class="section-heading">
 
-            <div>
+                <div>
+                    <h2>Current Guests</h2>
 
-                <p class="content-eyebrow">
-                    COTTAGE MANAGEMENT
-                </p>
+                    <p>
+                        Manage guests currently staying at Mirima Kibale Lodge.
+                    </p>
+                </div>
 
-                <h3>
-                    Current Guests
-                </h3>
-
-                <p>
-                    Manage the guest currently staying
-                    in each cottage.
-                </p>
-
-            </div>
-
-
-            <button
-                id="newGuestButton"
-                class="primary-action"
-            >
-                + New Guest
-            </button>
-
-        </div>
-
-
-        <div class="guest-management-notice">
-
-            <div class="notice-icon">
-                i
-            </div>
-
-            <div>
-
-                <strong>
-                    Active guest records
-                </strong>
-
-                <p>
-                    Each occupied cottage is connected
-                    to its current guest. When a guest
-                    checks out, their active stay will
-                    be cleared.
-                </p>
+                <button
+                    class="primary-button"
+                    onclick="openGuestModal()"
+                >
+                    + Add Guest
+                </button>
 
             </div>
 
-        </div>
 
+            <div class="cottage-grid">
 
-        <div class="cottage-grid">
-
-            ${cottages.map(
-                function (cottage) {
+                ${cottages.map(function (cottage) {
 
                     const guest =
-                        guests.find(
-                            function (item) {
+                        activeGuests.find(
+                            function (guest) {
 
-                                return item.cottageId ===
+                                return guest.cottageId ===
                                     cottage.id;
 
                             }
@@ -848,10 +811,13 @@ function getGuestsContent() {
                         guest
                     );
 
-                }
-            ).join("")}
+                }).join("")}
 
-        </div>
+            </div>
+
+        </section>
+    `;
+}
 
 
         <!-- =========================================
