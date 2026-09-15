@@ -773,11 +773,57 @@ setupBillingButtons();
 function openCottageBill(cottageId) {
 
     const bill = getCottageBill(cottageId);
+   
+   const cottage =
+    getCottages().find(function (item) {
+        return item.id === cottageId;
+    });
 
-    console.log(
-        "Bill details:",
-        bill
-    );
+   const content =
+    document.getElementById("receptionContent");
+
+if (!content) {
+    return;
+}
+
+content.innerHTML = `
+    <div class="billing-details-page">
+
+        <button
+            class="billing-back-button"
+            id="billingBackButton"
+        >
+            ← Back to Billing
+        </button>
+
+        <div class="billing-details-header">
+
+            <div>
+                <p class="content-eyebrow">
+                    GUEST ACCOUNT
+                </p>
+
+                <h3>
+                    Cottage ${cottage.number}
+                </h3>
+            </div>
+
+        </div>
+
+        <div class="billing-details-card">
+
+            <h4>
+                Current Bill
+            </h4>
+
+            <p>
+                No charges have been added yet.
+            </p>
+
+        </div>
+
+    </div>
+`;
 
 }
 
