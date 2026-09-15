@@ -1918,7 +1918,34 @@ function setupSectionButtons(session) {
     });
 
 }
+// =========================================================
+// BILLING BUTTONS
+// =========================================================
 
+function setupBillingButtons() {
+
+    document
+        .querySelectorAll(".billing-view-button")
+        .forEach(function (button) {
+
+            button.addEventListener(
+                "click",
+                function () {
+
+                    const cottageId =
+                        button.dataset.billingCottage;
+
+                    console.log(
+                        "Opening bill for:",
+                        cottageId
+                    );
+
+                }
+            );
+
+        });
+
+}
 
 // =========================================================
 // MOBILE MENU
