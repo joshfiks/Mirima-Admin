@@ -761,9 +761,9 @@ function renderReceptionSection(section, session) {
 
     }
 
-   setupSectionButtons(session);
-   setupCheckoutButtons();
-   
+setupSectionButtons(session);
+setupCheckoutButtons();
+setupBillingButtons();
 }
 
 
