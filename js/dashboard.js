@@ -781,14 +781,7 @@ function getGuestsContent() {
                         Manage guests currently staying at Mirima Kibale Lodge.
                     </p>
                 </div>
-
-                <button
-                    class="primary-button"
-                    onclick="openGuestModal()"
-                >
-                    + Add Guest
-                </button>
-
+                
             </div>
 
 
@@ -1186,11 +1179,11 @@ function createCottageCard(
 
 
                 <button
-                    class="cottage-action"
-                    data-add-cottage="${cottage.id}"
-                >
-                    Add Guest
-                </button>
+    class="cottage-action"
+    onclick="openGuestModal('${cottage.id}')"
+     >
+         Add Guest
+           </button>
 
             </article>
 
