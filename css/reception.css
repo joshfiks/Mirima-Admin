@@ -1439,3 +1439,25 @@
     color: #f5f1e6;
     border: 1px solid rgba(255, 255, 255, 0.18);
 }
+@media (max-width: 700px) {
+    .guest-form-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .guest-form-group.full-width {
+        grid-column: auto;
+    }
+
+    .guest-modal-card {
+        width: 94%;
+        padding: 20px;
+    }
+
+    .guest-form-actions {
+        flex-direction: column-reverse;
+    }
+
+    .guest-form-actions button {
+        width: 100%;
+    }
+}
