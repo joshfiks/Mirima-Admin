@@ -1589,3 +1589,145 @@
 .occupied-cottage .cottage-header {
     margin-bottom: 4px;
 }
+/* =========================================
+   BILLING & RECEIPTS
+   ========================================= */
+
+.billing-page {
+    width: 100%;
+}
+
+.billing-intro {
+    margin-bottom: 24px;
+}
+
+.billing-intro h3 {
+    margin: 4px 0 8px;
+    color: #f5f1e6;
+    font-size: 24px;
+}
+
+.billing-intro p:last-child {
+    margin: 0;
+    color: #8f9a93;
+    font-size: 14px;
+}
+
+.billing-cottage-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+}
+
+.billing-cottage-card {
+    padding: 20px;
+    background: #101713;
+    border: 1px solid rgba(212, 175, 55, 0.2);
+    border-radius: 16px;
+}
+
+.billing-cottage-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 12px;
+}
+
+.billing-label {
+    display: block;
+    margin-bottom: 6px;
+    color: #8f9a93;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.8px;
+}
+
+.billing-cottage-header h4 {
+    margin: 0;
+    color: #f5f1e6;
+    font-size: 18px;
+}
+
+.billing-status {
+    padding: 5px 9px;
+    border-radius: 20px;
+    background: rgba(212, 175, 55, 0.1);
+    color: #d4af37;
+    font-size: 11px;
+    font-weight: 600;
+}
+
+.billing-guest {
+    margin-top: 20px;
+    padding: 12px;
+    background: #18211c;
+    border-radius: 10px;
+}
+
+.billing-guest strong {
+    color: #f5f1e6;
+    font-size: 14px;
+}
+
+.billing-total {
+    margin-top: 12px;
+    padding: 14px;
+    background: rgba(212, 175, 55, 0.08);
+    border: 1px solid rgba(212, 175, 55, 0.15);
+    border-radius: 10px;
+}
+
+.billing-total span {
+    display: block;
+    margin-bottom: 5px;
+    color: #8f9a93;
+    font-size: 10px;
+    font-weight: 700;
+}
+
+.billing-total strong {
+    color: #d4af37;
+    font-size: 18px;
+}
+
+.billing-view-button {
+    width: 100%;
+    margin-top: 12px;
+    padding: 11px 16px;
+    border: 1px solid rgba(212, 175, 55, 0.3);
+    border-radius: 10px;
+    background: transparent;
+    color: #d4af37;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.billing-view-button:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.billing-empty {
+    margin-top: 20px;
+    padding: 18px;
+    text-align: center;
+    background: #18211c;
+    border-radius: 10px;
+    color: #8f9a93;
+    font-size: 13px;
+}
+@media (max-width: 1000px) {
+    .billing-cottage-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 700px) {
+    .billing-cottage-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .billing-cottage-card {
+        padding: 16px;
+    }
+}
