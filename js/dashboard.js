@@ -22,9 +22,8 @@ import {
 } from "./guests.js";
 
 import {
-    getBillingData,
-    saveBillingData,
-    getCottageBill
+    getCottageBill,
+    getBillTotal
 } from "./billing.js";
 // =========================================================
 // SHOW RECEPTION DASHBOARD
