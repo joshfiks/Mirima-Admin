@@ -21,6 +21,11 @@ import {
     removeGuest
 } from "./guests.js";
 
+import {
+    getBillingData,
+    saveBillingData,
+    getCottageBill
+} from "./billing.js";
 // =========================================================
 // SHOW RECEPTION DASHBOARD
 // =========================================================
