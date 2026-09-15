@@ -14,7 +14,12 @@
 
    Firebase will be connected later.
 */
-
+import {
+    getCottages,
+    getActiveGuests,
+    addGuest,
+    removeGuest
+} from "./guests.js";
 
 // =========================================================
 // SHOW RECEPTION DASHBOARD
