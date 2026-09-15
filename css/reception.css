@@ -1461,3 +1461,131 @@
         width: 100%;
     }
 }
+/* =========================================
+   OCCUPIED COTTAGE CARD
+   ========================================= */
+
+.occupied-cottage {
+    background: #101713;
+    border: 1px solid rgba(212, 175, 55, 0.28);
+}
+
+.occupied-cottage .cottage-number {
+    color: #d4af37;
+}
+
+.active-guest-card {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-top: 18px;
+    padding: 14px;
+    background: #18211c;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.guest-avatar {
+    width: 42px;
+    height: 42px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: #d4af37;
+    color: #101713;
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.active-guest-info {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.active-guest-info strong {
+    color: #f5f1e6;
+    font-size: 15px;
+}
+
+.active-guest-info span {
+    color: #aeb8b1;
+    font-size: 13px;
+}
+.stay-details {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-top: 14px;
+}
+
+.stay-details > div {
+    padding: 12px;
+    background: #18211c;
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.stay-details span,
+.cottage-bill-summary span {
+    display: block;
+    margin-bottom: 5px;
+    color: #8f9a93;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.8px;
+}
+
+.stay-details strong {
+    color: #f5f1e6;
+    font-size: 13px;
+}
+
+.cottage-bill-summary {
+    margin-top: 12px;
+    padding: 12px;
+    background: rgba(212, 175, 55, 0.08);
+    border: 1px solid rgba(212, 175, 55, 0.18);
+    border-radius: 10px;
+}
+
+.cottage-bill-summary strong {
+    color: #d4af37;
+    font-size: 15px;
+}
+.checkout-action {
+    width: 100%;
+    margin-top: 14px;
+    padding: 11px 16px;
+    border: 1px solid rgba(212, 175, 55, 0.28);
+    border-radius: 10px;
+    background: transparent;
+    color: #d4af37;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.checkout-action:hover {
+    background: rgba(212, 175, 55, 0.1);
+    border-color: #d4af37;
+}
+
+.checkout-action:active {
+    transform: scale(0.98);
+}
+.occupied-cottage {
+    padding: 18px;
+}
+
+.occupied-cottage .cottage-status {
+    color: #d4af37;
+    font-weight: 600;
+}
+
+.occupied-cottage .cottage-header {
+    margin-bottom: 4px;
+}
