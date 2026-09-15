@@ -15,6 +15,10 @@
    Firebase will be connected later.
 */
 import {
+    getCurrentSession
+} from "./auth.js";
+
+import {
     getCottages,
     getActiveGuests,
     addGuest,
