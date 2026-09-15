@@ -1803,3 +1803,43 @@
     font-size: 20px;
     font-weight: 700;
 }
+.billing-items {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.billing-item {
+    padding: 14px;
+    background: #18211c;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 10px;
+}
+
+.billing-item > div {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+}
+
+.billing-item strong {
+    color: #f5f1e6;
+    font-size: 14px;
+}
+
+.billing-item span {
+    color: #d4af37;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.billing-items > p {
+    margin: 0;
+    padding: 18px;
+    text-align: center;
+    color: #8f9a93;
+    background: #18211c;
+    border-radius: 10px;
+}
