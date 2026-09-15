@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Mirima Admin</title>
+
+    <!-- Main application styles -->
+    <link rel="stylesheet" href="css/global.css">
+
+    <!-- Login page styles -->
+    <link rel="stylesheet" href="css/login.css">
+</head>
+
+<body>
+
+    <!--
+        =====================================================
+        MIRIMA ADMIN APPLICATION
+        =====================================================
+
+        This is the main HTML file for Mirima Admin.
+
+        The actual functionality will be separated into
+        JavaScript modules inside the /js folder.
+    -->
+
+
+    <!-- =========================
+         LOGIN SCREEN
+         ========================= -->
+
+    <main id="loginScreen" class="login-screen">
+
+        <section class="login-container">
+
+            <!-- Mirima branding -->
+            <div class="brand">
+
+                <div class="brand-mark">
+                    M
+                </div>
+
+                <h1>Mirima</h1>
+
+                <p>Admin</p>
+
+            </div>
+
+
+            <!-- Login form -->
+            <form id="loginForm" class="login-form">
+
+                <h2>Welcome Back</h2>
+
+                <p class="login-subtitle">
+                    Sign in to access the Mirima operations system.
+                </p>
+
+
+                <!-- Role -->
+                <div class="form-group">
+
+                    <label for="role">
+                        Role
+                    </label>
+
+                    <select id="role" name="role" required>
+
+                        <option value="" selected disabled>
+                            Select your role
+                        </option>
+
+                        <option value="security">
+                            Security
+                        </option>
+
+                        <option value="kitchen">
+                            Kitchen
+                        </option>
+
+                        <option value="reception">
+                            Reception
+                        </option>
+
+                        <option value="housekeeping">
+                            Housekeeping
+                        </option>
+
+                        <option value="spa">
+                            Spa
+                        </option>
+
+                        <option value="management">
+                            Management
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <!-- Staff name -->
+                <div class="form-group">
+
+                    <label for="staffName">
+                        Name
+                    </label>
+
+                    <input
+                        type="text"
+                        id="staffName"
+                        name="staffName"
+                        placeholder="Enter your name"
+                        autocomplete="name"
+                        required
+                    >
+
+                </div>
+
+
+                <!-- Password -->
+                <div class="form-group">
+
+                    <label for="password">
+                        Password
+                    </label>
+
+                    <input
+                        type="password"
+                        id="password"
+                        name="password"
+                        placeholder="Enter your password"
+                        autocomplete="current-password"
+                        required
+                    >
+
+                </div>
+
+
+                <!-- Login error -->
+                <div
+                    id="loginError"
+                    class="login-error"
+                    role="alert"
+                    aria-live="polite"
+                ></div>
+
+
+                <!-- Login button -->
+                <button
+                    type="submit"
+                    id="loginButton"
+                    class="login-button"
+                >
+                    Login
+                </button>
+
+            </form>
+
+
+            <!-- Footer -->
+            <footer class="login-footer">
+
+                <p>
+                    Mirima Kibale Lodge
+                </p>
+
+                <span>
+                    Secure Operations System
+                </span>
+
+            </footer>
+
+        </section>
+
+    </main>
+
+
+    <!--
+        =====================================================
+        JAVASCRIPT MODULES
+        =====================================================
+
+        We are using type="module".
+
+        This allows us to split the application's JavaScript
+        into separate files instead of putting everything
+        into one huge script.js file.
+    -->
+
+    <script type="module" src="js/app.js"></script>
+
+</body>
+
+</html>
