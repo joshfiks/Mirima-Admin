@@ -765,6 +765,13 @@ function renderReceptionSection(section, session) {
 
 function getGuestsContent() {
 
+    const cottages =
+        getCottages();
+
+    const guests =
+        getActiveGuests();
+
+
     return `
 
         <div class="page-introduction">
@@ -780,14 +787,17 @@ function getGuestsContent() {
                 </h3>
 
                 <p>
-                    Manage the guest currently staying in
-                    each cottage.
+                    Manage the guest currently staying
+                    in each cottage.
                 </p>
 
             </div>
 
 
-            <button class="primary-action">
+            <button
+                id="newGuestButton"
+                class="primary-action"
+            >
                 + New Guest
             </button>
 
@@ -803,14 +813,14 @@ function getGuestsContent() {
             <div>
 
                 <strong>
-                    Guest information
+                    Active guest records
                 </strong>
 
                 <p>
-                    Reception will enter the guest's details
-                    at check-in. The active guest will later
-                    be connected to their cottage's Mirima
-                    Connect experience.
+                    Each occupied cottage is connected
+                    to its current guest. When a guest
+                    checks out, their active stay will
+                    be cleared.
                 </p>
 
             </div>
@@ -820,12 +830,266 @@ function getGuestsContent() {
 
         <div class="cottage-grid">
 
-            ${createCottageCard(1)}
-            ${createCottageCard(2)}
-            ${createCottageCard(3)}
-            ${createCottageCard(4)}
-            ${createCottageCard(5)}
-            ${createCottageCard(6)}
+            ${cottages.map(
+                function (cottage) {
+
+                    const guest =
+                        guests.find(
+                            function (item) {
+
+                                return item.cottageId ===
+                                    cottage.id;
+
+                            }
+                        );
+
+                    return createCottageCard(
+                        cottage,
+                        guest
+                    );
+
+                }
+            ).join("")}
+
+        </div>
+
+
+        <!-- =========================================
+             ADD GUEST MODAL
+             ========================================= -->
+
+        <div
+            id="guestModal"
+            class="guest-modal"
+            aria-hidden="true"
+        >
+
+            <div class="guest-modal-overlay"></div>
+
+
+            <div class="guest-modal-card">
+
+                <div class="guest-modal-header">
+
+                    <div>
+
+                        <p class="content-eyebrow">
+                            GUEST CHECK-IN
+                        </p>
+
+                        <h4>
+                            Add Guest
+                        </h4>
+
+                    </div>
+
+
+                    <button
+                        type="button"
+                        id="closeGuestModal"
+                        class="guest-modal-close"
+                        aria-label="Close"
+                    >
+                        ×
+                    </button>
+
+                </div>
+
+
+                <form
+                    id="guestForm"
+                    class="guest-form"
+                >
+
+                    <div class="guest-form-grid">
+
+                        <div class="guest-form-group">
+
+                            <label for="guestName">
+                                Guest Name
+                            </label>
+
+                            <input
+                                type="text"
+                                id="guestName"
+                                required
+                                placeholder="Enter guest name"
+                            >
+
+                        </div>
+
+
+                        <div class="guest-form-group">
+
+                            <label for="guestPhone">
+                                Phone Number
+                            </label>
+
+                            <input
+                                type="tel"
+                                id="guestPhone"
+                                placeholder="Enter phone number"
+                            >
+
+                        </div>
+
+
+                        <div class="guest-form-group">
+
+                            <label for="guestCottage">
+                                Cottage
+                            </label>
+
+                            <select
+                                id="guestCottage"
+                                required
+                            >
+
+                                <option
+                                    value=""
+                                    disabled
+                                    selected
+                                >
+                                    Select cottage
+                                </option>
+
+                                ${cottages.map(
+                                    function (cottage) {
+
+                                        const occupied =
+                                            guests.some(
+                                                function (guest) {
+
+                                                    return guest.cottageId ===
+                                                        cottage.id;
+
+                                                }
+                                            );
+
+                                        return `
+                                            <option
+                                                value="${cottage.id}"
+                                                ${occupied ? "disabled" : ""}
+                                            >
+                                                Cottage ${cottage.number}
+                                                ${occupied ? " — Occupied" : ""}
+                                            </option>
+                                        `;
+
+                                    }
+                                ).join("")}
+
+                            </select>
+
+                        </div>
+
+
+                        <div class="guest-form-group">
+
+                            <label for="checkInDate">
+                                Check-in Date
+                            </label>
+
+                            <input
+                                type="date"
+                                id="checkInDate"
+                                required
+                            >
+
+                        </div>
+
+
+                        <div class="guest-form-group">
+
+                            <label for="checkInTime">
+                                Check-in Time
+                            </label>
+
+                            <input
+                                type="time"
+                                id="checkInTime"
+                                required
+                            >
+
+                        </div>
+
+
+                        <div class="guest-form-group">
+
+                            <label for="checkoutDate">
+                                Checkout Date
+                            </label>
+
+                            <input
+                                type="date"
+                                id="checkoutDate"
+                                required
+                            >
+
+                        </div>
+
+
+                        <div class="guest-form-group">
+
+                            <label for="checkoutTime">
+                                Checkout Time
+                            </label>
+
+                            <input
+                                type="time"
+                                id="checkoutTime"
+                                required
+                            >
+
+                        </div>
+
+
+                        <div class="guest-form-group full-width">
+
+                            <label for="guestNotes">
+                                Guest Notes
+                            </label>
+
+                            <textarea
+                                id="guestNotes"
+                                rows="3"
+                                placeholder="Optional guest details or notes"
+                            ></textarea>
+
+                        </div>
+
+                    </div>
+
+
+                    <div
+                        id="guestFormError"
+                        class="guest-form-error"
+                        role="alert"
+                    ></div>
+
+
+                    <div class="guest-form-actions">
+
+                        <button
+                            type="button"
+                            id="cancelGuestButton"
+                            class="secondary-action"
+                        >
+                            Cancel
+                        </button>
+
+                        <button
+                            type="submit"
+                            class="primary-action"
+                        >
+                            Save Guest
+                        </button>
+
+                    </div>
+
+                </form>
+
+            </div>
 
         </div>
 
@@ -833,16 +1097,73 @@ function getGuestsContent() {
 
 }
 
-
 // =========================================================
 // COTTAGE CARD
 // =========================================================
 
-function createCottageCard(number) {
+function createCottageCard(
+    cottage,
+    guest
+) {
+
+    if (!guest) {
+
+        return `
+
+            <article class="cottage-card">
+
+                <div class="cottage-card-header">
+
+                    <div>
+
+                        <span class="cottage-label">
+                            COTTAGE
+                        </span>
+
+                        <h4>
+                            ${cottage.number}
+                        </h4>
+
+                    </div>
+
+
+                    <span class="occupancy-badge available">
+                        Available
+                    </span>
+
+                </div>
+
+
+                <div class="cottage-empty">
+
+                    <div class="cottage-icon">
+                        ⌂
+                    </div>
+
+                    <p>
+                        No active guest
+                    </p>
+
+                </div>
+
+
+                <button
+                    class="cottage-action"
+                    data-add-cottage="${cottage.id}"
+                >
+                    Add Guest
+                </button>
+
+            </article>
+
+        `;
+
+    }
+
 
     return `
 
-        <article class="cottage-card">
+        <article class="cottage-card occupied-cottage">
 
             <div class="cottage-card-header">
 
@@ -853,36 +1174,83 @@ function createCottageCard(number) {
                     </span>
 
                     <h4>
-                        ${number}
+                        ${cottage.number}
                     </h4>
 
                 </div>
 
 
-                <span class="occupancy-badge available">
-                    Available
+                <span class="occupancy-badge occupied">
+                    Occupied
                 </span>
 
             </div>
 
 
-            <div class="cottage-empty">
+            <div class="active-guest-card">
 
-                <div class="cottage-icon">
-                    ⌂
+                <div class="guest-avatar">
+                    ${getInitials(guest.name)}
                 </div>
 
-                <p>
-                    No active guest
-                </p>
+
+                <div class="active-guest-info">
+
+                    <strong>
+                        ${escapeHTML(guest.name)}
+                    </strong>
+
+                    <span>
+                        ${escapeHTML(
+                            guest.phone ||
+                            "No phone number"
+                        )}
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <div class="stay-details">
+
+                <div>
+
+                    <span>
+                        CHECK-IN
+                    </span>
+
+                    <strong>
+                        ${formatDate(
+                            guest.checkInDate
+                        )}
+                    </strong>
+
+                </div>
+
+
+                <div>
+
+                    <span>
+                        CHECKOUT
+                    </span>
+
+                    <strong>
+                        ${formatDate(
+                            guest.checkoutDate
+                        )}
+                    </strong>
+
+                </div>
 
             </div>
 
 
             <button
-                class="cottage-action"
+                class="cottage-action checkout-action"
+                data-checkout-guest="${guest.id}"
             >
-                Add Guest
+                Check Out Guest
             </button>
 
         </article>
@@ -890,7 +1258,6 @@ function createCottageCard(number) {
     `;
 
 }
-
 
 // =========================================================
 // REQUESTS
