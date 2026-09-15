@@ -775,6 +775,9 @@ function openCottageBill(cottageId) {
 
     const bill = getCottageBill(cottageId);
    
+   const total =
+    getBillTotal(cottageId);
+   
    const cottage =
     getCottages().find(function (item) {
         return item.id === cottageId;
@@ -834,9 +837,37 @@ content.innerHTML = `
 
     </div>
 
-    <p>
-        No charges have been added yet.
-    </p>
+   <div class="billing-items">
+
+    ${
+        bill.items.length > 0
+            ? bill.items.map(function (item) {
+
+                return `
+                    <div class="billing-item">
+
+                        <div>
+                            <strong>
+                                ${escapeHTML(item.description)}
+                            </strong>
+
+                            <span>
+                                UGX ${Number(item.amount).toLocaleString()}
+                            </span>
+                        </div>
+
+                    </div>
+                `;
+
+            }).join("")
+            : `
+                <p>
+                    No charges have been added yet.
+                </p>
+            `
+    }
+
+</div>
 
 </div>
 
