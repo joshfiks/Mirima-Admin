@@ -1,655 +1,1453 @@
 /* =========================================================
-   MIRIMA ADMIN — DASHBOARD STYLES
-   ========================================================= */
+   MIRIMA ADMIN — RECEPTION DASHBOARD
+   =========================================================
+
+   This module controls the Reception workspace.
+
+   Reception is responsible for:
+   - Current guest records
+   - Cottage occupancy
+   - Guest requests
+   - Live chat
+   - Billing and receipts
+   - Emergency alerts
+
+   Firebase will be connected later.
+*/
 
 
-/* =========================================================
-   DASHBOARD LAYOUT
-   ========================================================= */
+// =========================================================
+// SHOW RECEPTION DASHBOARD
+// =========================================================
 
-.dashboard {
-    min-height: 100vh;
+export function showDashboard(session) {
 
-    display: flex;
+    const loginScreen =
+        document.getElementById("loginScreen");
 
-    background: #101411;
+
+    loginScreen.innerHTML = `
+
+        <div class="reception-app">
+
+            <!-- =========================================
+                 MOBILE HEADER
+                 ========================================= -->
+
+            <header class="mobile-header">
+
+                <button
+                    id="mobileMenuButton"
+                    class="mobile-menu-button"
+                    aria-label="Open menu"
+                >
+                    ☰
+                </button>
+
+
+                <div class="mobile-brand">
+
+                    <strong>
+                        Mirima
+                    </strong>
+
+                    <span>
+                        Reception
+                    </span>
+
+                </div>
+
+
+                <button
+                    id="mobileNotificationButton"
+                    class="mobile-notification-button"
+                    aria-label="Notifications"
+                >
+                    🔔
+                </button>
+
+            </header>
+
+
+            <!-- =========================================
+                 SIDEBAR
+                 ========================================= -->
+
+            <aside
+                id="receptionSidebar"
+                class="reception-sidebar"
+            >
+
+                <div class="reception-brand">
+
+                    <div class="reception-brand-mark">
+                        M
+                    </div>
+
+                    <div>
+
+                        <h1>
+                            Mirima
+                        </h1>
+
+                        <span>
+                            Reception
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Staff -->
+
+                <div class="reception-staff">
+
+                    <div class="reception-avatar">
+
+                        ${getInitials(session.name)}
+
+                    </div>
+
+
+                    <div>
+
+                        <strong>
+                            ${escapeHTML(session.name)}
+                        </strong>
+
+                        <span>
+                            Reception
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Navigation -->
+
+                <nav class="reception-navigation">
+
+                    <button
+                        class="reception-nav-item active"
+                        data-section="overview"
+                    >
+                        <span>⌂</span>
+                        Overview
+                    </button>
+
+
+                    <button
+                        class="reception-nav-item"
+                        data-section="guests"
+                    >
+                        <span>♙</span>
+                        Current Guests
+                    </button>
+
+
+                    <button
+                        class="reception-nav-item"
+                        data-section="requests"
+                    >
+                        <span>☷</span>
+                        Guest Requests
+
+                        <b
+                            id="requestCount"
+                            class="nav-count"
+                        >
+                            0
+                        </b>
+
+                    </button>
+
+
+                    <button
+                        class="reception-nav-item"
+                        data-section="chat"
+                    >
+                        <span>✉</span>
+                        Live Chat
+
+                        <b
+                            id="chatCount"
+                            class="nav-count"
+                        >
+                            0
+                        </b>
+
+                    </button>
+
+
+                    <button
+                        class="reception-nav-item"
+                        data-section="billing"
+                    >
+                        <span>▣</span>
+                        Billing & Receipts
+                    </button>
+
+
+                    <button
+                        class="reception-nav-item emergency-nav"
+                        data-section="emergency"
+                    >
+                        <span>!</span>
+                        Emergency Alerts
+
+                        <b
+                            id="emergencyCount"
+                            class="nav-count emergency-count"
+                        >
+                            0
+                        </b>
+
+                    </button>
+
+                </nav>
+
+
+                <!-- Sidebar bottom -->
+
+                <div class="reception-sidebar-bottom">
+
+                    <div class="connection-status">
+
+                        <span></span>
+
+                        System Online
+
+                    </div>
+
+
+                    <button
+                        id="receptionLogout"
+                        class="reception-logout"
+                    >
+                        Logout
+                    </button>
+
+                </div>
+
+            </aside>
+
+
+            <!-- =========================================
+                 SIDEBAR OVERLAY
+                 ========================================= -->
+
+            <div
+                id="sidebarOverlay"
+                class="sidebar-overlay"
+            ></div>
+
+
+            <!-- =========================================
+                 MAIN CONTENT
+                 ========================================= -->
+
+            <main class="reception-main">
+
+                <!-- Desktop header -->
+
+                <header class="reception-header">
+
+                    <div>
+
+                        <p class="reception-eyebrow">
+                            MIRIMA ADMIN / RECEPTION
+                        </p>
+
+                        <h2 id="receptionPageTitle">
+                            Reception Overview
+                        </h2>
+
+                    </div>
+
+
+                    <div class="reception-header-actions">
+
+                        <button
+                            id="notificationButton"
+                            class="header-icon-button"
+                            aria-label="Notifications"
+                        >
+                            🔔
+
+                            <span
+                                id="headerNotificationCount"
+                                class="header-notification-count"
+                            >
+                                0
+                            </span>
+
+                        </button>
+
+
+                        <div class="header-staff">
+
+                            <span>
+                                ${escapeHTML(session.name)}
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                </header>
+
+
+                <!-- Dynamic page -->
+
+                <section
+                    id="receptionContent"
+                    class="reception-content"
+                ></section>
+
+            </main>
+
+        </div>
+
+    `;
+
+
+    // Render overview
+
+    renderReceptionSection(
+        "overview",
+        session
+    );
+
+
+    // Setup navigation
+
+    setupReceptionNavigation(session);
+
+
+    // Setup mobile menu
+
+    setupMobileMenu();
+
+
+    // Setup logout
+
+    setupReceptionLogout();
+
 }
 
 
-/* =========================================================
-   SIDEBAR
-   ========================================================= */
+// =========================================================
+// RECEPTION OVERVIEW
+// =========================================================
 
-.dashboard-sidebar {
-    width: 260px;
+function getOverviewContent() {
 
-    min-height: 100vh;
+    return `
 
-    display: flex;
-    flex-direction: column;
+        <div class="reception-welcome">
 
-    padding: 28px 18px;
+            <div>
 
-    background: #141b16;
+                <p class="content-eyebrow">
+                    OPERATIONS OVERVIEW
+                </p>
 
-    border-right: 1px solid rgba(205, 170, 92, 0.16);
+                <h3>
+                    Good to see you.
+                </h3>
+
+                <p>
+                    Manage guests, cottages, requests,
+                    communication and reception services
+                    from one workspace.
+                </p>
+
+            </div>
+
+
+            <button
+                class="primary-action"
+                data-section="guests"
+            >
+                + Manage Guests
+            </button>
+
+        </div>
+
+
+        <!-- Statistics -->
+
+        <div class="reception-stat-grid">
+
+            <article class="reception-stat-card">
+
+                <div class="stat-icon">
+                    ♙
+                </div>
+
+                <div>
+
+                    <span>
+                        Current Guests
+                    </span>
+
+                    <strong>
+                        0
+                    </strong>
+
+                    <small>
+                        Active stays
+                    </small>
+
+                </div>
+
+            </article>
+
+
+            <article class="reception-stat-card">
+
+                <div class="stat-icon">
+                    ☷
+                </div>
+
+                <div>
+
+                    <span>
+                        Guest Requests
+                    </span>
+
+                    <strong>
+                        0
+                    </strong>
+
+                    <small>
+                        Awaiting attention
+                    </small>
+
+                </div>
+
+            </article>
+
+
+            <article class="reception-stat-card">
+
+                <div class="stat-icon">
+                    ✉
+                </div>
+
+                <div>
+
+                    <span>
+                        Live Chats
+                    </span>
+
+                    <strong>
+                        0
+                    </strong>
+
+                    <small>
+                        Active conversations
+                    </small>
+
+                </div>
+
+            </article>
+
+
+            <article class="reception-stat-card emergency-stat">
+
+                <div class="stat-icon">
+                    !
+                </div>
+
+                <div>
+
+                    <span>
+                        Emergency Alerts
+                    </span>
+
+                    <strong>
+                        0
+                    </strong>
+
+                    <small>
+                        Requires attention
+                    </small>
+
+                </div>
+
+            </article>
+
+        </div>
+
+
+        <!-- Current cottage activity -->
+
+        <div class="reception-panel">
+
+            <div class="panel-heading">
+
+                <div>
+
+                    <p class="content-eyebrow">
+                        COTTAGE ACTIVITY
+                    </p>
+
+                    <h4>
+                        Current Guests
+                    </h4>
+
+                </div>
+
+
+                <button
+                    class="text-action"
+                    data-section="guests"
+                >
+                    View all
+                </button>
+
+            </div>
+
+
+            <div class="empty-reception-state">
+
+                <div class="empty-state-icon">
+                    ♙
+                </div>
+
+                <h4>
+                    No active guests
+                </h4>
+
+                <p>
+                    Guest information entered by Reception
+                    will appear here.
+                </p>
+
+
+                <button
+                    class="secondary-action"
+                    data-section="guests"
+                >
+                    Add Guest
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <!-- Requests -->
+
+        <div class="reception-panel">
+
+            <div class="panel-heading">
+
+                <div>
+
+                    <p class="content-eyebrow">
+                        GUEST SERVICES
+                    </p>
+
+                    <h4>
+                        Recent Requests
+                    </h4>
+
+                </div>
+
+
+                <button
+                    class="text-action"
+                    data-section="requests"
+                >
+                    View requests
+                </button>
+
+            </div>
+
+
+            <div class="request-preview">
+
+                <div class="preview-row">
+
+                    <div class="preview-icon">
+                        ✈
+                    </div>
+
+                    <div class="preview-info">
+
+                        <strong>
+                            Airport Transfer
+                        </strong>
+
+                        <span>
+                            No pending requests
+                        </span>
+
+                    </div>
+
+                    <span class="preview-status">
+                        0
+                    </span>
+
+                </div>
+
+
+                <div class="preview-row">
+
+                    <div class="preview-icon">
+                        🧳
+                    </div>
+
+                    <div class="preview-info">
+
+                        <strong>
+                            Luggage Assistance
+                        </strong>
+
+                        <span>
+                            No pending requests
+                        </span>
+
+                    </div>
+
+                    <span class="preview-status">
+                        0
+                    </span>
+
+                </div>
+
+
+                <div class="preview-row">
+
+                    <div class="preview-icon">
+                        📅
+                    </div>
+
+                    <div class="preview-info">
+
+                        <strong>
+                            Stay Extensions
+                        </strong>
+
+                        <span>
+                            No pending requests
+                        </span>
+
+                    </div>
+
+                    <span class="preview-status">
+                        0
+                    </span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    `;
+
 }
 
 
-/* =========================================================
-   DASHBOARD BRAND
-   ========================================================= */
+// =========================================================
+// SECTION RENDERING
+// =========================================================
 
-.dashboard-brand {
-    display: flex;
-    align-items: center;
+function renderReceptionSection(section, session) {
 
-    gap: 12px;
+    const content =
+        document.getElementById(
+            "receptionContent"
+        );
 
-    padding: 4px 10px 28px;
-}
 
+    const title =
+        document.getElementById(
+            "receptionPageTitle"
+        );
 
-.dashboard-brand-mark {
-    width: 42px;
-    height: 42px;
 
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    if (!content) {
 
-    border: 1px solid #cdaa5c;
+        return;
 
-    border-radius: 50%;
-
-    color: #cdaa5c;
-
-    font-family: Georgia, "Times New Roman", serif;
-
-    font-size: 18px;
-    font-weight: 700;
-}
-
-
-.dashboard-brand h1 {
-    margin: 0;
-
-    color: #e2c47b;
-
-    font-family: Georgia, "Times New Roman", serif;
-
-    font-size: 23px;
-
-    letter-spacing: 1px;
-}
-
-
-.dashboard-brand span {
-    display: block;
-
-    margin-top: 2px;
-
-    color: #858d82;
-
-    font-size: 9px;
-
-    text-transform: uppercase;
-
-    letter-spacing: 3px;
-}
-
-
-/* =========================================================
-   STAFF PROFILE
-   ========================================================= */
-
-.staff-profile {
-    display: flex;
-    align-items: center;
-
-    gap: 11px;
-
-    margin: 0 4px 25px;
-
-    padding: 14px;
-
-    background: #111713;
-
-    border: 1px solid #293329;
-
-    border-radius: 10px;
-}
-
-
-.staff-avatar {
-    width: 38px;
-    height: 38px;
-
-    flex-shrink: 0;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    border-radius: 50%;
-
-    background: #cdaa5c;
-
-    color: #171b16;
-
-    font-size: 12px;
-    font-weight: 700;
-}
-
-
-.staff-details {
-    min-width: 0;
-
-    display: flex;
-    flex-direction: column;
-
-    gap: 4px;
-}
-
-
-.staff-details strong {
-    overflow: hidden;
-
-    color: #eeeade;
-
-    font-size: 13px;
-
-    text-overflow: ellipsis;
-
-    white-space: nowrap;
-}
-
-
-.staff-details span {
-    color: #858d82;
-
-    font-size: 11px;
-}
-
-
-/* =========================================================
-   NAVIGATION
-   ========================================================= */
-
-.dashboard-navigation {
-    display: flex;
-    flex-direction: column;
-
-    gap: 5px;
-}
-
-
-.nav-item {
-    width: 100%;
-
-    display: flex;
-    align-items: center;
-
-    gap: 12px;
-
-    padding: 12px 13px;
-
-    border: 1px solid transparent;
-
-    border-radius: 8px;
-
-    background: transparent;
-
-    color: #9ca398;
-
-    text-align: left;
-
-    font-size: 13px;
-
-    transition:
-        background 0.2s ease,
-        color 0.2s ease,
-        border-color 0.2s ease;
-}
-
-
-.nav-item span {
-    width: 18px;
-
-    color: #727a70;
-
-    font-size: 14px;
-
-    text-align: center;
-}
-
-
-.nav-item:hover {
-    background: #1b241d;
-
-    color: #e2e0d5;
-}
-
-
-.nav-item.active {
-    background: rgba(205, 170, 92, 0.10);
-
-    border-color: rgba(205, 170, 92, 0.18);
-
-    color: #e2c47b;
-}
-
-
-.nav-item.active span {
-    color: #cdaa5c;
-}
-
-
-/* =========================================================
-   SIDEBAR BOTTOM
-   ========================================================= */
-
-.sidebar-bottom {
-    margin-top: auto;
-
-    padding-top: 20px;
-}
-
-
-.logout-button {
-    width: 100%;
-
-    padding: 11px 13px;
-
-    border: 1px solid #303a31;
-
-    border-radius: 8px;
-
-    background: transparent;
-
-    color: #969d92;
-
-    font-size: 12px;
-
-    transition:
-        background 0.2s ease,
-        color 0.2s ease,
-        border-color 0.2s ease;
-}
-
-
-.logout-button:hover {
-    background: rgba(233, 143, 130, 0.08);
-
-    border-color: rgba(233, 143, 130, 0.25);
-
-    color: #e98f82;
-}
-
-
-/* =========================================================
-   MAIN AREA
-   ========================================================= */
-
-.dashboard-main {
-    flex: 1;
-
-    min-width: 0;
-
-    padding: 0 40px 40px;
-}
-
-
-/* =========================================================
-   HEADER
-   ========================================================= */
-
-.dashboard-header {
-    min-height: 105px;
-
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-
-    gap: 20px;
-
-    border-bottom: 1px solid #252e27;
-}
-
-
-.dashboard-label,
-.section-label {
-    margin-bottom: 7px;
-
-    color: #8b9388;
-
-    font-size: 10px;
-
-    font-weight: 700;
-
-    letter-spacing: 2px;
-
-    text-transform: uppercase;
-}
-
-
-.dashboard-header h2 {
-    color: #f0ede2;
-
-    font-size: 25px;
-
-    font-weight: 600;
-}
-
-
-.header-role {
-    padding: 8px 13px;
-
-    border: 1px solid rgba(205, 170, 92, 0.25);
-
-    border-radius: 20px;
-
-    background: rgba(205, 170, 92, 0.07);
-
-    color: #d8bd77;
-
-    font-size: 11px;
-
-    text-transform: uppercase;
-
-    letter-spacing: 1px;
-}
-
-
-/* =========================================================
-   DASHBOARD CONTENT
-   ========================================================= */
-
-.dashboard-content {
-    padding-top: 35px;
-}
-
-
-.overview-intro {
-    max-width: 720px;
-
-    margin-bottom: 30px;
-}
-
-
-.overview-intro h3 {
-    margin-bottom: 9px;
-
-    color: #eeeade;
-
-    font-size: 22px;
-}
-
-
-.overview-intro > p:last-child {
-    color: #858d82;
-
-    font-size: 13px;
-
-    line-height: 1.7;
-}
-
-
-/* =========================================================
-   STATISTICS CARDS
-   ========================================================= */
-
-.dashboard-cards {
-    display: grid;
-
-    grid-template-columns:
-        repeat(4, minmax(0, 1fr));
-
-    gap: 15px;
-
-    margin-bottom: 25px;
-}
-
-
-.dashboard-card {
-    min-height: 145px;
-
-    display: flex;
-    flex-direction: column;
-
-    padding: 20px;
-
-    border: 1px solid #293329;
-
-    border-radius: 11px;
-
-    background: #141b16;
-}
-
-
-.card-label {
-    margin-bottom: auto;
-
-    color: #858d82;
-
-    font-size: 11px;
-
-    text-transform: uppercase;
-
-    letter-spacing: 0.7px;
-}
-
-
-.dashboard-card strong {
-    display: block;
-
-    margin: 12px 0 5px;
-
-    color: #e2c47b;
-
-    font-size: 27px;
-
-    font-weight: 600;
-}
-
-
-.dashboard-card small {
-    color: #697169;
-
-    font-size: 11px;
-}
-
-
-/* =========================================================
-   PANELS
-   ========================================================= */
-
-.dashboard-panel {
-    padding: 24px;
-
-    border: 1px solid #293329;
-
-    border-radius: 12px;
-
-    background: #141b16;
-}
-
-
-.panel-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-
-    margin-bottom: 25px;
-}
-
-
-.panel-header h4 {
-    color: #eeeade;
-
-    font-size: 17px;
-
-    font-weight: 600;
-}
-
-
-.dashboard-panel > h3 {
-    margin-bottom: 10px;
-
-    color: #eeeade;
-
-    font-size: 20px;
-}
-
-
-.dashboard-panel > p:last-child {
-    color: #858d82;
-
-    font-size: 13px;
-
-    line-height: 1.7;
-}
-
-
-/* =========================================================
-   EMPTY STATE
-   ========================================================= */
-
-.empty-state {
-    padding: 35px 20px;
-
-    border: 1px dashed #303a31;
-
-    border-radius: 10px;
-
-    text-align: center;
-}
-
-
-.empty-icon {
-    width: 42px;
-    height: 42px;
-
-    margin: 0 auto 14px;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    border-radius: 50%;
-
-    background: rgba(205, 170, 92, 0.09);
-
-    color: #cdaa5c;
-
-    font-size: 18px;
-}
-
-
-.empty-state h4 {
-    margin-bottom: 7px;
-
-    color: #d8d6c9;
-
-    font-size: 14px;
-}
-
-
-.empty-state p {
-    max-width: 450px;
-
-    margin: 0 auto;
-
-    color: #737b72;
-
-    font-size: 12px;
-
-    line-height: 1.6;
-}
-
-
-/* =========================================================
-   MOBILE
-   ========================================================= */
-
-@media (max-width: 900px) {
-
-    .dashboard-sidebar {
-        width: 220px;
     }
 
 
-    .dashboard-main {
-        padding-left: 25px;
-        padding-right: 25px;
+    switch (section) {
+
+        case "overview":
+
+            title.textContent =
+                "Reception Overview";
+
+            content.innerHTML =
+                getOverviewContent();
+
+            break;
+
+
+        case "guests":
+
+            title.textContent =
+                "Current Guests";
+
+            content.innerHTML =
+                getGuestsContent();
+
+            break;
+
+
+        case "requests":
+
+            title.textContent =
+                "Guest Requests";
+
+            content.innerHTML =
+                getRequestsContent();
+
+            break;
+
+
+        case "chat":
+
+            title.textContent =
+                "Live Chat";
+
+            content.innerHTML =
+                getChatContent();
+
+            break;
+
+
+        case "billing":
+
+            title.textContent =
+                "Billing & Receipts";
+
+            content.innerHTML =
+                getBillingContent();
+
+            break;
+
+
+        case "emergency":
+
+            title.textContent =
+                "Emergency Alerts";
+
+            content.innerHTML =
+                getEmergencyContent();
+
+            break;
+
     }
 
 
-    .dashboard-cards {
-        grid-template-columns:
-            repeat(2, minmax(0, 1fr));
+    setupSectionButtons(session);
+
+}
+
+
+// =========================================================
+// CURRENT GUESTS
+// =========================================================
+
+function getGuestsContent() {
+
+    return `
+
+        <div class="page-introduction">
+
+            <div>
+
+                <p class="content-eyebrow">
+                    COTTAGE MANAGEMENT
+                </p>
+
+                <h3>
+                    Current Guests
+                </h3>
+
+                <p>
+                    Manage the guest currently staying in
+                    each cottage.
+                </p>
+
+            </div>
+
+
+            <button class="primary-action">
+                + New Guest
+            </button>
+
+        </div>
+
+
+        <div class="guest-management-notice">
+
+            <div class="notice-icon">
+                i
+            </div>
+
+            <div>
+
+                <strong>
+                    Guest information
+                </strong>
+
+                <p>
+                    Reception will enter the guest's details
+                    at check-in. The active guest will later
+                    be connected to their cottage's Mirima
+                    Connect experience.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="cottage-grid">
+
+            ${createCottageCard(1)}
+            ${createCottageCard(2)}
+            ${createCottageCard(3)}
+            ${createCottageCard(4)}
+            ${createCottageCard(5)}
+            ${createCottageCard(6)}
+
+        </div>
+
+    `;
+
+}
+
+
+// =========================================================
+// COTTAGE CARD
+// =========================================================
+
+function createCottageCard(number) {
+
+    return `
+
+        <article class="cottage-card">
+
+            <div class="cottage-card-header">
+
+                <div>
+
+                    <span class="cottage-label">
+                        COTTAGE
+                    </span>
+
+                    <h4>
+                        ${number}
+                    </h4>
+
+                </div>
+
+
+                <span class="occupancy-badge available">
+                    Available
+                </span>
+
+            </div>
+
+
+            <div class="cottage-empty">
+
+                <div class="cottage-icon">
+                    ⌂
+                </div>
+
+                <p>
+                    No active guest
+                </p>
+
+            </div>
+
+
+            <button
+                class="cottage-action"
+            >
+                Add Guest
+            </button>
+
+        </article>
+
+    `;
+
+}
+
+
+// =========================================================
+// REQUESTS
+// =========================================================
+
+function getRequestsContent() {
+
+    return `
+
+        <div class="page-introduction">
+
+            <div>
+
+                <p class="content-eyebrow">
+                    GUEST SERVICES
+                </p>
+
+                <h3>
+                    Guest Requests
+                </h3>
+
+                <p>
+                    Requests received from Mirima Connect
+                    and requiring Reception attention.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="request-category-grid">
+
+            ${createRequestCategory(
+                "✈",
+                "Airport Transfer",
+                "Arrange guest airport transportation."
+            )}
+
+
+            ${createRequestCategory(
+                "🧳",
+                "Luggage Assistance",
+                "Assist guests with luggage."
+            )}
+
+
+            ${createRequestCategory(
+                "📅",
+                "Extend Your Stay",
+                "Review and manage stay extensions."
+            )}
+
+
+            ${createRequestCategory(
+                "🔧",
+                "Maintenance Request",
+                "Receive and coordinate maintenance issues."
+            )}
+
+
+            ${createRequestCategory(
+                "🚨",
+                "Emergency Assistance",
+                "Handle urgent guest assistance."
+            )}
+
+
+            ${createRequestCategory(
+                "💬",
+                "Speak to Reception",
+                "Open the live guest conversation."
+            )}
+
+        </div>
+
+    `;
+
+}
+
+
+// =========================================================
+// REQUEST CATEGORY
+// =========================================================
+
+function createRequestCategory(
+    icon,
+    title,
+    description
+) {
+
+    return `
+
+        <article class="request-category-card">
+
+            <div class="request-category-icon">
+                ${icon}
+            </div>
+
+            <div>
+
+                <h4>
+                    ${title}
+                </h4>
+
+                <p>
+                    ${description}
+                </p>
+
+            </div>
+
+            <span class="request-category-count">
+                0
+            </span>
+
+        </article>
+
+    `;
+
+}
+
+
+// =========================================================
+// LIVE CHAT
+// =========================================================
+
+function getChatContent() {
+
+    return `
+
+        <div class="page-introduction">
+
+            <div>
+
+                <p class="content-eyebrow">
+                    GUEST COMMUNICATION
+                </p>
+
+                <h3>
+                    Live Chat
+                </h3>
+
+                <p>
+                    Speak directly with guests currently
+                    staying at the lodge.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="chat-empty-state">
+
+            <div class="chat-empty-icon">
+                ✉
+            </div>
+
+            <h4>
+                No active conversations
+            </h4>
+
+            <p>
+                When a guest selects "Speak to Reception"
+                in Mirima Connect, their conversation will
+                appear here.
+            </p>
+
+        </div>
+
+    `;
+
+}
+
+
+// =========================================================
+// BILLING
+// =========================================================
+
+function getBillingContent() {
+
+    return `
+
+        <div class="page-introduction">
+
+            <div>
+
+                <p class="content-eyebrow">
+                    GUEST ACCOUNTS
+                </p>
+
+                <h3>
+                    Billing & Receipts
+                </h3>
+
+                <p>
+                    Manage guest charges, payments and
+                    receipts.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="billing-empty-state">
+
+            <div class="billing-icon">
+                ▣
+            </div>
+
+            <h4>
+                No active guest accounts
+            </h4>
+
+            <p>
+                Billing information will appear when
+                Reception creates an active guest stay.
+            </p>
+
+        </div>
+
+    `;
+
+}
+
+
+// =========================================================
+// EMERGENCY
+// =========================================================
+
+function getEmergencyContent() {
+
+    return `
+
+        <div class="page-introduction">
+
+            <div>
+
+                <p class="content-eyebrow emergency-eyebrow">
+                    PRIORITY RESPONSE
+                </p>
+
+                <h3>
+                    Emergency Alerts
+                </h3>
+
+                <p>
+                    Emergency assistance requiring Reception
+                    attention will appear here.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="emergency-empty-state">
+
+            <div class="emergency-large-icon">
+                !
+            </div>
+
+            <h4>
+                No active emergencies
+            </h4>
+
+            <p>
+                Security emergencies will appear here
+                and will also be sent to the Security team.
+            </p>
+
+        </div>
+
+    `;
+
+}
+
+
+// =========================================================
+// NAVIGATION
+// =========================================================
+
+function setupReceptionNavigation(session) {
+
+    const navigationItems =
+        document.querySelectorAll(
+            ".reception-nav-item"
+        );
+
+
+    navigationItems.forEach(function (item) {
+
+        item.addEventListener(
+            "click",
+            function () {
+
+                navigationItems.forEach(
+                    function (navItem) {
+
+                        navItem.classList.remove(
+                            "active"
+                        );
+
+                    }
+                );
+
+
+                item.classList.add("active");
+
+
+                renderReceptionSection(
+                    item.dataset.section,
+                    session
+                );
+
+
+                closeMobileMenu();
+
+            }
+        );
+
+    });
+
+}
+
+
+// =========================================================
+// BUTTONS INSIDE SECTIONS
+// =========================================================
+
+function setupSectionButtons(session) {
+
+    const sectionButtons =
+        document.querySelectorAll(
+            "[data-section]"
+        );
+
+
+    sectionButtons.forEach(function (button) {
+
+        if (
+            button.classList.contains(
+                "reception-nav-item"
+            )
+        ) {
+
+            return;
+
+        }
+
+
+        button.addEventListener(
+            "click",
+            function () {
+
+                const section =
+                    button.dataset.section;
+
+
+                document
+                    .querySelectorAll(
+                        ".reception-nav-item"
+                    )
+                    .forEach(
+                        function (item) {
+
+                            item.classList.toggle(
+                                "active",
+                                item.dataset.section ===
+                                section
+                            );
+
+                        }
+                    );
+
+
+                renderReceptionSection(
+                    section,
+                    session
+                );
+
+            }
+        );
+
+    });
+
+}
+
+
+// =========================================================
+// MOBILE MENU
+// =========================================================
+
+function setupMobileMenu() {
+
+    const menuButton =
+        document.getElementById(
+            "mobileMenuButton"
+        );
+
+
+    const sidebar =
+        document.getElementById(
+            "receptionSidebar"
+        );
+
+
+    const overlay =
+        document.getElementById(
+            "sidebarOverlay"
+        );
+
+
+    if (!menuButton || !sidebar) {
+
+        return;
+
+    }
+
+
+    menuButton.addEventListener(
+        "click",
+        function () {
+
+            sidebar.classList.toggle(
+                "mobile-open"
+            );
+
+
+            overlay.classList.toggle(
+                "visible"
+            );
+
+        }
+    );
+
+
+    overlay.addEventListener(
+        "click",
+        closeMobileMenu
+    );
+
+}
+
+
+function closeMobileMenu() {
+
+    const sidebar =
+        document.getElementById(
+            "receptionSidebar"
+        );
+
+
+    const overlay =
+        document.getElementById(
+            "sidebarOverlay"
+        );
+
+
+    if (sidebar) {
+
+        sidebar.classList.remove(
+            "mobile-open"
+        );
+
+    }
+
+
+    if (overlay) {
+
+        overlay.classList.remove(
+            "visible"
+        );
+
     }
 
 }
 
 
-@media (max-width: 650px) {
+// =========================================================
+// LOGOUT
+// =========================================================
 
-    .dashboard {
-        display: block;
+function setupReceptionLogout() {
+
+    const logoutButton =
+        document.getElementById(
+            "receptionLogout"
+        );
+
+
+    if (!logoutButton) {
+
+        return;
+
     }
 
 
-    .dashboard-sidebar {
-        width: 100%;
+    logoutButton.addEventListener(
+        "click",
+        function () {
 
-        min-height: auto;
+            sessionStorage.removeItem(
+                "mirimaSession"
+            );
 
-        padding: 18px;
+
+            window.location.reload();
+
+        }
+    );
+
+}
+
+
+// =========================================================
+// INITIALS
+// =========================================================
+
+function getInitials(name) {
+
+    if (!name) {
+
+        return "M";
+
     }
 
 
-    .dashboard-brand {
-        padding-bottom: 18px;
+    const words =
+        name.trim().split(/\s+/);
+
+
+    if (words.length === 1) {
+
+        return words[0]
+            .substring(0, 2)
+            .toUpperCase();
+
     }
 
 
-    .staff-profile {
-        margin-bottom: 15px;
-    }
+    return (
+        words[0].charAt(0)
+        +
+        words[words.length - 1].charAt(0)
+    ).toUpperCase();
+
+}
 
 
-    .dashboard-navigation {
-        display: grid;
+// =========================================================
+// BASIC HTML SAFETY
+// =========================================================
 
-        grid-template-columns:
-            repeat(2, 1fr);
-    }
+function escapeHTML(value) {
 
-
-    .sidebar-bottom {
-        margin-top: 15px;
-    }
-
-
-    .dashboard-main {
-        padding: 0 18px 30px;
-    }
-
-
-    .dashboard-header {
-        min-height: 100px;
-
-        align-items: flex-start;
-
-        flex-direction: column;
-
-        justify-content: center;
-    }
-
-
-    .dashboard-cards {
-        grid-template-columns: 1fr;
-    }
+    return String(value)
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
 
 }
