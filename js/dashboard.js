@@ -1601,7 +1601,7 @@ function setupSectionButtons(session) {
                     section,
                     session
                 );
-
+               setupGuestModal();
             }
         );
 
