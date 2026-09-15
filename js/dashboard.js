@@ -1192,7 +1192,16 @@ const result =
 console.log(
     result
 );
+if (result.success) {
 
+    closeModal();
+
+    renderReceptionSection(
+        "guests",
+        getCurrentSession()
+    );
+
+}
             }
         );
 
