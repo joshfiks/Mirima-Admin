@@ -76,6 +76,57 @@ function getCottageBill(cottageId) {
 
 }
 
+function addBillItem(
+    cottageId,
+    description,
+    amount
+) {
+
+    const billingData =
+        getBillingData();
+
+    if (!billingData[cottageId]) {
+
+        billingData[cottageId] = {
+
+            cottageId: cottageId,
+
+            items: [],
+
+            payments: []
+
+        };
+
+    }
+
+    const billItem = {
+
+        id:
+            "bill-" +
+            Date.now(),
+
+        description:
+            description,
+
+        amount:
+            Number(amount),
+
+        createdAt:
+            new Date().toISOString()
+
+    };
+
+    billingData[cottageId].items.push(
+        billItem
+    );
+
+    saveBillingData(
+        billingData
+    );
+
+    return billItem;
+
+}
 
 export {
     getBillingData,
