@@ -1587,11 +1587,13 @@ function getChatContent() {
 
 function getBillingContent() {
 
+    const cottages = getCottages();
+    const activeGuests = getActiveGuests();
+
     return `
+        <div class="billing-page">
 
-        <div class="page-introduction">
-
-            <div>
+            <div class="billing-intro">
 
                 <p class="content-eyebrow">
                     GUEST ACCOUNTS
@@ -1602,36 +1604,118 @@ function getBillingContent() {
                 </h3>
 
                 <p>
-                    Manage guest charges, payments and
-                    receipts.
+                    View and manage the current bill
+                    for each occupied cottage.
                 </p>
 
             </div>
 
-        </div>
+
+            <div class="billing-cottage-grid">
+
+                ${cottages.map(function (cottage) {
+
+                    const guest = activeGuests.find(
+                        function (item) {
+                            return item.cottageId === cottage.id;
+                        }
+                    );
+
+                    const total =
+                        getBillTotal(cottage.id);
 
 
-        <div class="billing-empty-state">
+                    return `
 
-            <div class="billing-icon">
-                ▣
+                        <article class="billing-cottage-card">
+
+                            <div class="billing-cottage-header">
+
+                                <div>
+
+                                    <span class="billing-label">
+                                        COTTAGE
+                                    </span>
+
+                                    <h4>
+                                        ${cottage.name}
+                                    </h4>
+
+                                </div>
+
+
+                                <span class="billing-status">
+
+                                    ${guest
+                                        ? "Occupied"
+                                        : "Available"}
+
+                                </span>
+
+                            </div>
+
+
+                            ${
+                                guest
+                                    ? `
+
+                                        <div class="billing-guest">
+
+                                            <span class="billing-label">
+                                                GUEST
+                                            </span>
+
+                                            <strong>
+                                                ${escapeHTML(guest.name)}
+                                            </strong>
+
+                                        </div>
+
+
+                                        <div class="billing-total">
+
+                                            <span>
+                                                CURRENT BILL
+                                            </span>
+
+                                            <strong>
+                                                UGX ${total.toLocaleString()}
+                                            </strong>
+
+                                        </div>
+
+
+                                        <button
+                                            class="billing-view-button"
+                                            data-billing-cottage="${cottage.id}"
+                                        >
+                                            View Bill
+                                        </button>
+
+                                    `
+
+                                    : `
+
+                                        <div class="billing-empty">
+
+                                            No active guest
+
+                                        </div>
+
+                                    `
+                            }
+
+                        </article>
+
+                    `;
+
+                }).join("")}
+
             </div>
 
-            <h4>
-                No active guest accounts
-            </h4>
-
-            <p>
-                Billing information will appear when
-                Reception creates an active guest stay.
-            </p>
-
         </div>
-
     `;
-
 }
-
 
 // =========================================================
 // EMERGENCY
