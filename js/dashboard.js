@@ -1133,6 +1133,23 @@ function setupGuestModal() {
         document.getElementById(
             "guestForm"
         );
+
+       if (guestForm) {
+
+        guestForm.addEventListener(
+            "submit",
+            function (event) {
+
+                event.preventDefault();
+
+                console.log(
+                    "Guest form submitted"
+                );
+
+            }
+        );
+
+    }
 }
 
 // =========================================================
