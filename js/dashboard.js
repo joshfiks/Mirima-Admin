@@ -837,7 +837,7 @@ content.innerHTML = `
 
     </div>
 
-   <div class="billing-items">
+  <div class="billing-items">
 
     ${
         bill.items.length > 0
@@ -866,6 +866,16 @@ content.innerHTML = `
                 </p>
             `
     }
+
+</div>
+
+<div class="billing-total-row">
+
+    <span>TOTAL</span>
+
+    <strong>
+        UGX ${total.toLocaleString()}
+    </strong>
 
 </div>
 
@@ -924,7 +934,9 @@ if (
         "Charge added:",
         newCharge
     );
-
+   
+openCottageBill(cottageId);
+   
 }
         }
     );
