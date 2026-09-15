@@ -1337,3 +1337,105 @@
     padding: 28px;
     box-sizing: border-box;
 }
+.guest-modal-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 24px;
+}
+
+.guest-modal-header h4 {
+    margin: 4px 0 0;
+    font-size: 24px;
+    color: #f5f1e6;
+}
+
+.guest-modal-close {
+    width: 36px;
+    height: 36px;
+    border: 1px solid rgba(212, 175, 55, 0.35);
+    border-radius: 50%;
+    background: transparent;
+    color: #d4af37;
+    font-size: 24px;
+    cursor: pointer;
+}
+.guest-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.guest-form-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 18px;
+}
+
+.guest-form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.guest-form-group.full-width {
+    grid-column: 1 / -1;
+}
+
+.guest-form-group label {
+    font-size: 13px;
+    font-weight: 600;
+    color: #d4af37;
+}
+.guest-form-group input,
+.guest-form-group select,
+.guest-form-group textarea {
+    width: 100%;
+    padding: 12px 14px;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 10px;
+    background: #18211c;
+    color: #f5f1e6;
+    font-size: 14px;
+    box-sizing: border-box;
+    outline: none;
+}
+
+.guest-form-group input:focus,
+.guest-form-group select:focus,
+.guest-form-group textarea:focus {
+    border-color: #d4af37;
+    box-shadow: 0 0 0 2px rgba(212, 175, 55, 0.12);
+}
+
+.guest-form-group textarea {
+    resize: vertical;
+    min-height: 90px;
+}
+.guest-form-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    margin-top: 4px;
+}
+
+.guest-form-actions button {
+    min-width: 120px;
+    padding: 12px 18px;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.guest-form-actions .primary-action {
+    background: #d4af37;
+    color: #101713;
+    border: 1px solid #d4af37;
+}
+
+.guest-form-actions .secondary-action {
+    background: transparent;
+    color: #f5f1e6;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+}
