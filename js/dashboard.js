@@ -1248,7 +1248,7 @@ function createCottageCard(
             </div>
 
 
-            <div class="stay-details">
+             <div class="stay-details">
 
                 <div>
 
@@ -1278,6 +1278,19 @@ function createCottageCard(
                     </strong>
 
                 </div>
+
+            </div>
+
+
+            <div class="cottage-bill-summary">
+
+                <span>
+                    CURRENT BILL
+                </span>
+
+                <strong>
+                    UGX 0
+                </strong>
 
             </div>
 
