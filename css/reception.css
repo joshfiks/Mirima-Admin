@@ -1292,3 +1292,38 @@
     }
 
 }
+/* =========================================
+   GUEST MODAL
+   ========================================= */
+
+.guest-modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    align-items: center;
+    justify-content: center;
+}
+
+.guest-modal.open {
+    display: flex;
+}
+
+.guest-modal-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.75);
+}
+
+.guest-modal > div:not(.guest-modal-overlay) {
+    position: relative;
+    z-index: 2;
+    width: min(520px, 92%);
+    max-height: 90vh;
+    overflow-y: auto;
+    background: #101713;
+    border: 1px solid rgba(212, 175, 55, 0.35);
+    border-radius: 16px;
+    padding: 24px;
+    box-sizing: border-box;
+}
