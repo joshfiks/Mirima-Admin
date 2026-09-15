@@ -1327,3 +1327,13 @@
     padding: 24px;
     box-sizing: border-box;
 }
+.guest-modal-card {
+    width: min(560px, 92%);
+    max-height: 90vh;
+    overflow-y: auto;
+    background: #101713;
+    border: 1px solid rgba(212, 175, 55, 0.35);
+    border-radius: 18px;
+    padding: 28px;
+    box-sizing: border-box;
+}
