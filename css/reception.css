@@ -1843,3 +1843,22 @@
     background: #18211c;
     border-radius: 10px;
 }
+.billing-add-charge-button {
+    padding: 10px 16px;
+    border: 1px solid #d4af37;
+    border-radius: 9px;
+    background: #d4af37;
+    color: #101713;
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.billing-add-charge-button:hover {
+    background: #e2c45a;
+    border-color: #e2c45a;
+}
+
+.billing-add-charge-button:active {
+    transform: scale(0.98);
+}
