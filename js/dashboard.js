@@ -816,8 +816,7 @@ function getGuestsContent() {
             </div>
 
         </section>
-    `;
-}
+ 
 
 
       
