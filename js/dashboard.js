@@ -757,9 +757,8 @@ function renderReceptionSection(section, session) {
 
     }
 
-
-    setupSectionButtons(session);
-
+   setupSectionButtons(session);
+   
 }
 
 
@@ -1732,6 +1731,37 @@ function setupReceptionNavigation(session) {
 // =========================================================
 // BUTTONS INSIDE SECTIONS
 // =========================================================
+
+function setupCheckoutButtons() {
+
+    document
+        .querySelectorAll(
+            ".checkout-action"
+        )
+        .forEach(
+            function (button) {
+
+                button.addEventListener(
+                    "click",
+                    function () {
+
+                        const guestId =
+                            button.dataset.checkoutGuest;
+
+                        const result =
+                            removeGuest(guestId);
+
+                        console.log(
+                            result
+                        );
+
+                    }
+                );
+
+            }
+        );
+
+}
 
 function setupSectionButtons(session) {
 
