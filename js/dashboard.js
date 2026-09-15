@@ -820,10 +820,7 @@ function getGuestsContent() {
 }
 
 
-        <!-- =========================================
-             ADD GUEST MODAL
-             ========================================= -->
-
+      
         <div
             id="guestModal"
             class="guest-modal"
