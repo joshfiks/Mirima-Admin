@@ -133,6 +133,3 @@ export {
     saveBillingData,
     getCottageBill
 };
-console.log(
-    "Mirima Billing module loaded"
-);
