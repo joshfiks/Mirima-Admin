@@ -2,21 +2,26 @@
    MIRIMA ADMIN — APPLICATION ENTRY POINT
    =========================================================
 
-   This file connects the different modules of Mirima Admin.
+   This file connects the main application modules.
 
-   Authentication is handled by auth.js.
+   Authentication → auth.js
+   Dashboard     → dashboard.js
 */
 
 
 // =========================================================
-// IMPORT AUTHENTICATION FUNCTIONS
+// IMPORT MODULES
 // =========================================================
 
 import {
     loginUser,
-    getCurrentSession,
-    logoutUser
+    getCurrentSession
 } from "./auth.js";
+
+
+import {
+    showDashboard
+} from "./dashboard.js";
 
 
 // =========================================================
@@ -37,34 +42,12 @@ const loginButton =
 
 
 // =========================================================
-// APPLICATION START
-// =========================================================
-
-function startApplication() {
-
-    console.log("Mirima Admin application started.");
-
-    // Check whether a staff member is already logged in
-
-    const session = getCurrentSession();
-
-
-    if (session) {
-
-        showLoggedInState(session);
-
-    }
-
-}
-
-
-// =========================================================
 // LOGIN FORM
 // =========================================================
 
 loginForm.addEventListener("submit", function (event) {
 
-    // Stop the browser from refreshing the page
+    // Prevent the browser from refreshing
 
     event.preventDefault();
 
@@ -74,7 +57,7 @@ loginForm.addEventListener("submit", function (event) {
     loginError.textContent = "";
 
 
-    // Get values from the form
+    // Get form values
 
     const role =
         document.getElementById("role").value;
@@ -86,7 +69,7 @@ loginForm.addEventListener("submit", function (event) {
         document.getElementById("password").value;
 
 
-    // Disable button while processing
+    // Disable button
 
     loginButton.disabled = true;
 
@@ -96,10 +79,16 @@ loginForm.addEventListener("submit", function (event) {
     // Attempt login
 
     const result =
-        loginUser(role, name, password);
+        loginUser(
+            role,
+            name,
+            password
+        );
 
 
-    // Login failed
+    // -----------------------------------------------------
+    // LOGIN FAILED
+    // -----------------------------------------------------
 
     if (!result.success) {
 
@@ -115,92 +104,57 @@ loginForm.addEventListener("submit", function (event) {
     }
 
 
-    // Login successful
+    // -----------------------------------------------------
+    // LOGIN SUCCESSFUL
+    // -----------------------------------------------------
 
-    showLoggedInState(result.session);
+    showDashboard(result.session);
 
 });
 
 
 // =========================================================
-// SHOW LOGGED-IN STATE
+// CHECK EXISTING SESSION
 // =========================================================
 
-function showLoggedInState(session) {
+function checkExistingSession() {
 
-    console.log(
-        "Logged in as:",
-        session.name,
-        "| Role:",
-        session.role
-    );
+    const session =
+        getCurrentSession();
 
 
-    /*
-        The real dashboard will be added next.
+    if (!session) {
 
-        For now, we simply replace the login screen
-        with a temporary message.
-    */
+        return;
 
-    loginScreen.innerHTML = `
-
-        <section style="
-            text-align: center;
-            padding: 40px;
-        ">
-
-            <h1>Welcome, ${session.name}</h1>
-
-            <p style="margin-top: 10px;">
-                Role: ${session.role}
-            </p>
-
-            <p style="
-                margin-top: 20px;
-                color: #999;
-            ">
-                Mirima Admin dashboard coming next...
-            </p>
-
-            <button
-                id="logoutButton"
-                style="
-                    margin-top: 25px;
-                    padding: 12px 25px;
-                    cursor: pointer;
-                "
-            >
-                Logout
-            </button>
-
-        </section>
-
-    `;
+    }
 
 
-    // Connect logout button
+    // Staff already has a valid browser session
 
-    const logoutButton =
-        document.getElementById("logoutButton");
-
-
-    logoutButton.addEventListener(
-        "click",
-        function () {
-
-            logoutUser();
-
-            window.location.reload();
-
-        }
-    );
+    showDashboard(session);
 
 }
 
 
 // =========================================================
-// START
+// APPLICATION START
+// =========================================================
+
+function startApplication() {
+
+    console.log(
+        "Mirima Admin application started."
+    );
+
+
+    checkExistingSession();
+
+}
+
+
+// =========================================================
+// START APPLICATION
 // =========================================================
 
 startApplication();
