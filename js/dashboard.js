@@ -919,7 +919,7 @@ function getGuestsContent() {
                                     function (cottage) {
 
                                         const occupied =
-                                            guests.some(
+                                        activeGuests.some(
                                                 function (guest) {
 
                                                     return guest.cottageId ===
