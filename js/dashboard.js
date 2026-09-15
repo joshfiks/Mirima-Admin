@@ -1059,6 +1059,26 @@ function getGuestsContent() {
 
 }
 
+function openGuestModal() {
+
+    const modal =
+        document.getElementById("guestModal");
+
+    if (!modal) {
+
+        return;
+
+    }
+
+    modal.classList.add("open");
+
+    modal.setAttribute(
+        "aria-hidden",
+        "false"
+    );
+
+}
+
 function setupGuestModal() {
 
     const modal =
