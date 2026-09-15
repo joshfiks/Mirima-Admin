@@ -22,7 +22,8 @@ export function showDashboard(session) {
 
     const loginScreen =
         document.getElementById("loginScreen");
-
+   
+   loginScreen.classList.add("reception-mode");
 
     // -----------------------------------------------------
     // Create dashboard
