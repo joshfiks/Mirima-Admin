@@ -869,11 +869,31 @@ if (addChargeButton) {
         "click",
         function () {
 
-            console.log(
-                "Add charge for:",
-                cottageId
-            );
+           const chargeDescription =
+    prompt("Enter charge description:");
 
+const chargeAmount =
+    prompt("Enter charge amount in UGX:");
+
+if (
+    chargeDescription &&
+    chargeAmount &&
+    Number(chargeAmount) > 0
+) {
+
+    const newCharge =
+        addBillItem(
+            cottageId,
+            chargeDescription,
+            Number(chargeAmount)
+        );
+
+    console.log(
+        "Charge added:",
+        newCharge
+    );
+
+}
         }
     );
 
