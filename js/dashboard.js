@@ -1212,6 +1212,26 @@ if (result.success) {
 // COTTAGE CARD
 // =========================================================
 
+function formatDate(dateString) {
+
+    if (!dateString) {
+        return "Not set";
+    }
+
+    const date =
+        new Date(dateString);
+
+    return date.toLocaleDateString(
+        "en-GB",
+        {
+            day: "2-digit",
+            month: "short",
+            year: "numeric"
+        }
+    );
+
+}
+
 function createCottageCard(
     cottage,
     guest
