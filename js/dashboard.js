@@ -1129,7 +1129,10 @@ function setupGuestModal() {
         );
 
     }
-
+    const guestForm =
+        document.getElementById(
+            "guestForm"
+        );
 }
 
 // =========================================================
