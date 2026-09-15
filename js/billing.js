@@ -128,8 +128,26 @@ function addBillItem(
 
 }
 
+function getBillTotal(cottageId) {
+
+    const bill =
+        getCottageBill(cottageId);
+
+    return bill.items.reduce(
+        function (total, item) {
+
+            return total + Number(item.amount);
+
+        },
+        0
+    );
+
+}
+
 export {
     getBillingData,
     saveBillingData,
-    getCottageBill
+    getCottageBill,
+    addBillItem,
+    getBillTotal
 };
