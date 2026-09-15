@@ -1288,7 +1288,7 @@ function createCottageCard(
                 </span>
 
                 <strong>
-                    UGX 0
+                    UGX ${getBillTotal(cottage.id).toLocaleString()}
                 </strong>
 
             </div>
