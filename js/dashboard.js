@@ -765,6 +765,7 @@ function renderReceptionSection(section, session) {
 setupSectionButtons(session);
 setupCheckoutButtons();
 setupBillingButtons();
+setupGuestModal();
 }
 
 // =========================================================
