@@ -1059,8 +1059,8 @@ function getGuestsContent() {
 
 }
 
-function openGuestModal() {
-
+window.openGuestModal = function () {
+   
     const modal =
         document.getElementById("guestModal");
 
