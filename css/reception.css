@@ -1782,3 +1782,24 @@
     color: #8f9a93;
     font-size: 14px;
 }
+.billing-total-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 20px;
+    padding-top: 18px;
+    border-top: 1px solid rgba(212, 175, 55, 0.2);
+}
+
+.billing-total-row span {
+    color: #f5f1e6;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+}
+
+.billing-total-row strong {
+    color: #d4af37;
+    font-size: 20px;
+    font-weight: 700;
+}
