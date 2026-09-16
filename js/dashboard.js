@@ -2110,7 +2110,8 @@ function setupSectionButtons(session) {
 
                 const section =
                     button.dataset.section;
-
+               
+               console.log("Reception section clicked:", section);
 
                 document
                     .querySelectorAll(
