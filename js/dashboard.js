@@ -1748,6 +1748,14 @@ function createGuestRequestCard(request) {
                     ${request.details || "No additional details"}
                 </p>
 
+            <p>
+    Requested:
+    ${
+        request.createdAt
+            ? request.createdAt.toDate().toLocaleString()
+            : "Time unavailable"
+    }
+</p>
             </div>
 
         </article>
