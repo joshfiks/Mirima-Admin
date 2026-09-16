@@ -2245,6 +2245,12 @@ function setupRequestStatusButtons() {
         if (!newStatus) {
            return;
          }
+         const allowedStatuses = [
+         "Received",
+         "In Progress",
+         "Completed",
+        "Cancelled"
+      ];
                
        await updateRequestStatus(
      requestId,
