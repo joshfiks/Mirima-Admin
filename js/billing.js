@@ -171,5 +171,6 @@ export {
     saveBillingData,
     getCottageBill,
     addBillItem,
-    getBillTotal
+    getBillTotal,
+    startNewCottageBill
 };
