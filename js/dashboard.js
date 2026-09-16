@@ -1611,9 +1611,6 @@ async function getRequestsFromFirestore() {
     });
 }
 
-getRequestsFromFirestore().then(function (requests) {
-    console.log("Mirima Admin requests:", requests);
-});
 
 function getRequestsContent() {
 
