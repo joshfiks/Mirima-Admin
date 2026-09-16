@@ -1898,3 +1898,11 @@
     font-size: 13px;
     white-space: pre-line;
 }
+.request-status {
+    padding: 4px 10px;
+    border-radius: 20px;
+    background: rgba(212, 175, 55, 0.12);
+    color: #d4af37;
+    font-size: 11px;
+    font-weight: 700;
+}
