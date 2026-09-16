@@ -1748,9 +1748,10 @@ function createGuestRequestCard(request) {
                 </strong>
 
               <button
-               class="request-status"
-               data-request-id="${request.id}"
-         >
+             class="request-status"
+             data-request-id="${request.id}"
+             title="Click to change request status"
+           >
                ${request.status || "Pending"}
             </button>
 
