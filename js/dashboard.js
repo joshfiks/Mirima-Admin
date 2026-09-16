@@ -34,7 +34,7 @@ import {
 import {
     db
 } from "./firebase.js";
-console.log("Mirima Admin Firebase connected:", db);
+
 // =========================================================
 // SHOW RECEPTION DASHBOARD
 // =========================================================
