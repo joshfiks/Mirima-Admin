@@ -1604,12 +1604,17 @@ async function getRequestsFromFirestore() {
         collection(db, "requests")
     );
 
-    return snapshot.docs.map(function (doc) {
+    return snapshot.docs
+    .map(function (doc) {
+       
         return {
             id: doc.id,
             ...doc.data()
         };
-    });
+           })
+        .sort(function (a, b) {
+            return b.createdAt?.toMillis() - a.createdAt?.toMillis();
+        });
 }
 
 
