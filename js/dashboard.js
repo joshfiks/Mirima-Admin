@@ -2248,7 +2248,8 @@ function setupRequestStatusButtons() {
      requestId,
      newStatus
 );
-               
+  button.textContent = newStatus;
+            
             }
         );
 
