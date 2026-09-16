@@ -733,7 +733,8 @@ function renderReceptionSection(section, session) {
                 "Guest Requests";
 
            getRequestsContent().then(function (html) {
-           content.innerHTML = html;
+          content.innerHTML = html;
+           setupRequestStatusButtons();
             });
 
             break;
