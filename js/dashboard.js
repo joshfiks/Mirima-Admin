@@ -2214,6 +2214,31 @@ function setupSectionButtons(session) {
     });
 
 }
+
+function setupRequestStatusButtons() {
+
+    const statusButtons =
+        document.querySelectorAll(
+            ".request-status"
+        );
+
+    statusButtons.forEach(function (button) {
+
+        button.addEventListener(
+            "click",
+            function () {
+
+                console.log(
+                    "Status button clicked:",
+                    button.dataset.requestId
+                );
+
+            }
+        );
+
+    });
+}
+
 // =========================================================
 // BILLING BUTTONS
 // =========================================================
