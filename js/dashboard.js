@@ -28,7 +28,8 @@ import {
 import {
     getCottageBill,
     getBillTotal,
-    addBillItem
+    addBillItem,
+    startNewCottageBill
 } from "./billing.js";
 // =========================================================
 // SHOW RECEPTION DASHBOARD
