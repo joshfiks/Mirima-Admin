@@ -2254,9 +2254,14 @@ function setupRequestStatusButtons() {
       alert("Please enter one of the allowed statuses.");
      return;
   }       
-       await updateRequestStatus(
-     requestId,
-     newStatus
+     await updateRequestStatus(
+    requestId,
+    newStatus
+);
+
+console.log(
+    "Request status updated:",
+    newStatus
 );
   button.textContent = newStatus;
             
