@@ -36,7 +36,9 @@ import {
 } from "./firebase.js";
 import {
     collection,
-    getDocs
+    getDocs,
+    updateDoc,
+    doc
 } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
 // =========================================================
 // SHOW RECEPTION DASHBOARD
@@ -1617,6 +1619,14 @@ async function getRequestsFromFirestore() {
         });
 }
 
+async function updateRequestStatus(requestId, newStatus) {
+    await updateDoc(
+        doc(db, "requests", requestId),
+        {
+            status: newStatus
+        }
+    );
+}
 
 async function getRequestsContent() {
 
