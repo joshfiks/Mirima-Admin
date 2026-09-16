@@ -726,9 +726,7 @@ function renderReceptionSection(section, session) {
 
 
         case "requests":
-          
-          console.log("Guest Requests section opened");
-
+                   
             title.textContent =
                 "Guest Requests";
 
