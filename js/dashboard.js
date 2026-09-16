@@ -1598,6 +1598,19 @@ function createCottageCard(
 // REQUESTS
 // =========================================================
 
+async function getRequestsFromFirestore() {
+    const snapshot = await getDocs(
+        collection(db, "requests")
+    );
+
+    return snapshot.docs.map(function (doc) {
+        return {
+            id: doc.id,
+            ...doc.data()
+        };
+    });
+}
+
 function getRequestsContent() {
 
     return `
