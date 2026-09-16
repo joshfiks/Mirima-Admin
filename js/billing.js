@@ -144,6 +144,28 @@ function getBillTotal(cottageId) {
 
 }
 
+
+function startNewCottageBill(cottageId) {
+
+    const billingData =
+        getBillingData();
+
+    billingData[cottageId] = {
+
+        cottageId: cottageId,
+
+        items: [],
+
+        payments: []
+
+    };
+
+    saveBillingData(
+        billingData
+    );
+
+}
+
 export {
     getBillingData,
     saveBillingData,
