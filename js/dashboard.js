@@ -1573,13 +1573,13 @@ function createCottageCard(
 
             </div>
 
-
             <button
-                class="cottage-action checkout-action"
-                data-checkout-guest="${guest.id}"
-            >
-                Check Out Guest
-            </button>
+    class="cottage-action checkout-action"
+    data-checkout-guest="${guest.id}"
+    data-cottage-id="${cottage.id}"
+>
+    Check Out Guest
+      </button>
 
         </article>
 
@@ -2026,6 +2026,9 @@ function setupCheckoutButtons() {
                        
 if (result.success) {
 
+   startNewCottageBill(
+    button.dataset.cottageId
+);
     renderReceptionSection(
         "guests",
         getCurrentSession()
