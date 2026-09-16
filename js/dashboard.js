@@ -2226,7 +2226,7 @@ function setupRequestStatusButtons() {
 
         button.addEventListener(
             "click",
-            function () {
+            async function () {
 
                 const requestId =
          button.dataset.requestId;
@@ -2243,7 +2243,12 @@ function setupRequestStatusButtons() {
         if (!newStatus) {
            return;
          }
-
+               
+       await updateRequestStatus(
+     requestId,
+     newStatus
+);
+               
             }
         );
 
