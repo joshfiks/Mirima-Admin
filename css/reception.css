@@ -1862,3 +1862,38 @@
 .billing-add-charge-button:active {
     transform: scale(0.98);
 }
+.guest-request-card {
+    padding: 18px;
+    margin-bottom: 12px;
+    background: #18211c;
+    border: 1px solid rgba(212, 175, 55, 0.2);
+    border-radius: 12px;
+}
+
+.guest-request-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+}
+
+.guest-request-header strong {
+    color: #f5f1e6;
+    font-size: 15px;
+}
+
+.guest-request-header span {
+    color: #d4af37;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.guest-request-details {
+    margin-top: 12px;
+}
+
+.guest-request-details p {
+    margin: 5px 0;
+    color: #9da8a0;
+    font-size: 13px;
+}
