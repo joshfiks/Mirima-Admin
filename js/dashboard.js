@@ -1748,14 +1748,14 @@ function createGuestRequestCard(request) {
                     Guest:  ${request.guestName || "Guest"}
                 </p>
 
-                <p>
-                    ${request.details || "No additional details"}
-                </p>
+              <p>
+               Request: ${request.details || "No additional details"}
+             </p>
 
             <p>
-    Requested:
+    Requested at:
     ${
-        request.createdAt
+       request.createdAt
             ? request.createdAt.toDate().toLocaleString()
             : "Time unavailable"
     }
