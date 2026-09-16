@@ -1660,6 +1660,17 @@ function getRequestsContent() {
                 "Open the live guest conversation."
             )}
 
+            ${createRequestCategory(
+    "💳",
+    "Billing Help",
+    "Assist guests with billing questions and payment issues."
+)}
+
+${createRequestCategory(
+    "💱",
+    "Exchange",
+    "Handle guest currency exchange requests."
+)}
         </div>
 
     `;
