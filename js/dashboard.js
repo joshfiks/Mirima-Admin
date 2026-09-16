@@ -1746,9 +1746,12 @@ function createGuestRequestCard(request) {
                     ${request.service}
                 </strong>
 
-               <span class="request-status">
-                ${request.status || "Pending"}
-               </span>
+              <button
+               class="request-status"
+               data-request-id="${request.id}"
+         >
+               ${request.status || "Pending"}
+            </button>
 
             </div>
 
