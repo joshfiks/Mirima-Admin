@@ -2251,7 +2251,10 @@ function setupRequestStatusButtons() {
          "Completed",
         "Cancelled"
       ];
-               
+        if (!allowedStatuses.includes(newStatus)) {
+      alert("Please enter one of the allowed statuses.");
+     return;
+  }       
        await updateRequestStatus(
      requestId,
      newStatus
