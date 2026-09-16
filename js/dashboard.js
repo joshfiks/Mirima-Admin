@@ -730,8 +730,9 @@ function renderReceptionSection(section, session) {
             title.textContent =
                 "Guest Requests";
 
-            content.innerHTML =
-                getRequestsContent();
+           getRequestsContent().then(function (html) {
+           content.innerHTML = html;
+            });
 
             break;
 
