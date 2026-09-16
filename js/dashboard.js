@@ -2228,10 +2228,13 @@ function setupRequestStatusButtons() {
             "click",
             function () {
 
-                console.log(
-                    "Status button clicked:",
-                    button.dataset.requestId
-                );
+                const requestId =
+         button.dataset.requestId;
+
+        console.log(
+        "Status button clicked:",
+         requestId
+         );
 
             }
         );
