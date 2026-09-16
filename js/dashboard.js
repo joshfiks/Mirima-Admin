@@ -1641,7 +1641,16 @@ async function getRequestsContent() {
             </div>
 
         </div>
-
+      ${requests.length
+    ? requests.map(function (request) {
+        return `
+            <div>
+                ${request.service}
+            </div>
+        `;
+    }).join("")
+    : ""
+}
 
         <div class="request-category-grid">
 
