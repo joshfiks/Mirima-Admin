@@ -2240,6 +2240,9 @@ function setupRequestStatusButtons() {
         "Enter new status:",
         button.textContent.trim()
     );
+        if (!newStatus) {
+           return;
+         }
 
             }
         );
