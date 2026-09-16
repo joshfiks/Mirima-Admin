@@ -2235,6 +2235,11 @@ function setupRequestStatusButtons() {
         "Status button clicked:",
          requestId
          );
+          const newStatus =
+          prompt(
+        "Enter new status:",
+        button.textContent.trim()
+    );
 
             }
         );
