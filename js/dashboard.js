@@ -1740,8 +1740,7 @@ function createGuestRequestCard(request) {
             <div class="guest-request-details">
 
                 <p>
-                    Guest:
-                    ${request.guestName || "Guest"}
+                    Guest:  ${request.guestName || "Guest"}
                 </p>
 
                 <p>
