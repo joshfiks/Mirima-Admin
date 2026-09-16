@@ -1612,8 +1612,12 @@ async function getRequestsFromFirestore() {
 }
 
 
-function getRequestsContent() {
+async function getRequestsContent() {
 
+   const requests = await getRequestsFromFirestore();
+
+   console.log("Reception requests:", requests);
+   
     return `
 
         <div class="page-introduction">
