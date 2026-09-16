@@ -2235,11 +2235,13 @@ function setupRequestStatusButtons() {
         "Status button clicked:",
          requestId
          );
+               
           const newStatus =
-          prompt(
-        "Enter new status:",
+        prompt(
+        "Enter new status:\nReceived, In Progress, Completed, or Cancelled",
         button.textContent.trim()
     );
+              
         if (!newStatus) {
            return;
          }
