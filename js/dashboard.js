@@ -1641,17 +1641,21 @@ async function getRequestsContent() {
             </div>
 
         </div>
-      ${requests.length
-    ? requests.map(function (request) {
-        return `
-            <div>
-                ${request.service}
-            </div>
-        `;
-    }).join("")
-    : ""
-}
 
+<div class="guest-requests-list">
+
+    ${
+        requests.length
+            ? requests.map(function (request) {
+                return createGuestRequestCard(request);
+            }).join("")
+            : `
+                <p>No guest requests yet.</p>
+            `
+    }
+
+</div>
+    
         <div class="request-category-grid">
 
             ${createRequestCategory(
@@ -1712,6 +1716,43 @@ ${createRequestCategory(
 
 }
 
+// =========================================================
+// GUEST REQUEST CARD
+// =========================================================
+
+function createGuestRequestCard(request) {
+
+    return `
+        <article class="guest-request-card">
+
+            <div class="guest-request-header">
+
+                <strong>
+                    ${request.service}
+                </strong>
+
+                <span>
+                    ${request.status || "Pending"}
+                </span>
+
+            </div>
+
+            <div class="guest-request-details">
+
+                <p>
+                    Guest:
+                    ${request.guestName || "Guest"}
+                </p>
+
+                <p>
+                    ${request.details || "No additional details"}
+                </p>
+
+            </div>
+
+        </article>
+    `;
+}
 
 // =========================================================
 // REQUEST CATEGORY
