@@ -31,6 +31,9 @@ import {
     addBillItem,
     startNewCottageBill
 } from "./billing.js";
+import {
+    db
+} from "./firebase.js";
 // =========================================================
 // SHOW RECEPTION DASHBOARD
 // =========================================================
