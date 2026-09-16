@@ -2244,13 +2244,16 @@ function setupRequestStatusButtons() {
         if (!newStatus) {
            return;
          }
-         const allowedStatuses = [
-         "Received",
-         "In Progress",
-         "Completed",
-        "Cancelled"
-      ];
-        if (!allowedStatuses.includes(newStatus)) {
+           const normalizedStatus =
+          newStatus.trim().toLowerCase();
+               
+        const allowedStatuses = [
+       "received",
+      "in progress",
+      "completed",
+      "cancelled"
+  ];
+       if (!allowedStatuses.includes(normalizedStatus)) {
       alert("Please enter one of the allowed statuses.");
      return;
   }       
