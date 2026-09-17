@@ -1868,8 +1868,8 @@
     background: #18211c;
     border: 1px solid rgba(212, 175, 55, 0.2);
     border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
-
 .guest-request-header {
    position: relative;
     display: flex;
