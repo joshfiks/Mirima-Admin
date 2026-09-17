@@ -2348,10 +2348,14 @@ function setupRequestCategoryButtons() {
                 const category =
                     card.dataset.requestCategory;
 
-                console.log(
-                    "Selected request category:",
-                    category
-                );
+                const requestsList =
+               document.querySelector(
+              ".guest-requests-list"
+            );
+
+if (requestsList) {
+    requestsList.style.display = "block";
+}
 
             }
         );
