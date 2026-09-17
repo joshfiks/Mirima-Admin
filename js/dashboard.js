@@ -2357,6 +2357,15 @@ if (requestsList) {
     requestsList.style.display = "block";
 }
 
+const allRequests =
+    document.querySelectorAll(
+        ".guest-request-card"
+    );
+
+allRequests.forEach(function (requestCard) {
+    requestCard.style.display = "none";
+});
+               
             }
         );
 
