@@ -2253,33 +2253,7 @@ function setupRequestStatusButtons() {
           button.textContent.trim()
           );
               */ 
-        if (!newStatus) {
-           return;
-         }
-           const normalizedStatus =
-          newStatus.trim().toLowerCase();
-               
-        const allowedStatuses = [
-       "received",
-      "in progress",
-      "completed",
-      "cancelled"
-  ];
-       if (!allowedStatuses.includes(normalizedStatus)) {
-      alert("Please enter one of the allowed statuses.");
-     return;
-  }       
-     await updateRequestStatus(
-    requestId,
-    newStatus
-);
-
-console.log(
-    "Request status updated:",
-    newStatus
-);
-  button.textContent = newStatus;
-            
+                   
             }
         );
 
