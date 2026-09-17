@@ -2285,6 +2285,21 @@ statusOptions.forEach(function (option) {
             const newStatus =
                 option.dataset.status;
 
+           const statusButtons =
+    statusMenu.querySelectorAll(
+        "[data-status]"
+    );
+
+statusButtons.forEach(function (statusButton) {
+
+    statusButton.textContent =
+        statusButton.dataset.status;
+
+});
+
+option.textContent =
+    "✓ " + newStatus;
+
             await updateRequestStatus(
                 requestId,
                 newStatus
