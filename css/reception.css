@@ -1913,6 +1913,9 @@
     cursor: pointer;
    transition: background 0.2s ease, transform 0.15s ease;
 }
+.request-status:hover {
+    transform: scale(1.05);
+}
 .request-status-menu {
     position: absolute;
     top: 100%;
