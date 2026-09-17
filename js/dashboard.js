@@ -2365,8 +2365,16 @@ function setupRequestCategoryButtons() {
               ".guest-requests-list"
             );
 
+               const categoryGrid =
+    document.querySelector(
+        ".request-category-grid"
+    );
+
 if (requestsList) {
     requestsList.style.display = "block";
+}
+               if (categoryGrid) {
+    categoryGrid.style.display = "none";
 }
 
 const allRequests =
