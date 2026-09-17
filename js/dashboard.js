@@ -2321,6 +2321,24 @@ option.textContent =
     });
 }
 
+document.addEventListener(
+    "click",
+    function (event) {
+
+        if (
+            !event.target.closest(".request-status") &&
+            !event.target.closest(".request-status-menu")
+        ) {
+            document
+                .querySelectorAll(".request-status-menu")
+                .forEach(function (menu) {
+                    menu.style.display = "none";
+                });
+        }
+
+    }
+);
+
 // =========================================================
 // BILLING BUTTONS
 // =========================================================
