@@ -2055,3 +2055,17 @@
 .guest-feedback-details {
     gap: 4px;
 }
+.guest-feedback-card::before {
+    content: "💬";
+    position: absolute;
+    top: 24px;
+    right: 28px;
+    width: 42px;
+    height: 42px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 12px;
+    background: rgba(212, 175, 55, 0.10);
+    font-size: 18px;
+}
