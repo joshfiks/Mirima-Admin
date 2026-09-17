@@ -747,8 +747,12 @@ function renderReceptionSection(section, session) {
             });
 
             break;
+          
+      case "feedback":
+     content.innerHTML = await getFeedbackContent();
+     break;
 
-
+          
         case "chat":
 
             title.textContent =
@@ -1761,6 +1765,63 @@ ${createRequestCategory(
     `;
 
 }
+
+
+async function getFeedbackContent() {
+    const feedback = await getFeedbackFromFirestore();
+
+    return `
+        <div class="page-introduction">
+            <h2>Guest Feedback</h2>
+            <p>Review feedback submitted by guests.</p>
+        </div>
+
+        <div class="guest-feedback-list">
+            ${
+                feedback.length
+                    ? feedback.map(function (item) {
+                        return `
+                            <article class="guest-feedback-card">
+
+                                <div class="guest-feedback-header">
+                                    <strong>
+                                        ${item.feedbackType || "Feedback"}
+                                    </strong>
+                                </div>
+
+                                <div class="guest-feedback-details">
+
+                                    <p>
+                                        Guest:
+                                        ${item.guestName || "Guest"}
+                                    </p>
+
+                                    <p>
+                                        ${item.message || "No message provided."}
+                                    </p>
+
+                                    <p>
+                                        Submitted:
+                                        ${
+                                            item.createdAt
+                                                ? item.createdAt.toDate().toLocaleString()
+                                                : "Time unavailable"
+                                        }
+                                    </p>
+
+                                </div>
+
+                            </article>
+                        `;
+                    }).join("")
+                    : `
+                        <p>No guest feedback yet.</p>
+                    `
+            }
+        </div>
+    `;
+}
+
 
 // =========================================================
 // GUEST REQUEST CARD
