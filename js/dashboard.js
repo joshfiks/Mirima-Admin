@@ -1732,47 +1732,60 @@ async function getRequestsContent() {
     
         <div class="request-category-grid">
 
-            ${createRequestCategory(
-                "✈",
-                "Airport Transfer",
-                "Arrange guest airport transportation."
-            )}
+           ${createRequestCategory(
+            "✈",
+            "Airport Transfer",
+            "Arrange guest airport transportation.",
+            requests.filter(function (request) {
+            return request.service.includes("Airport Transfer");
+            }).length
+          )}
 
 
-            ${createRequestCategory(
-                "🧳",
-                "Luggage Assistance",
-                "Assist guests with luggage."
-            )}
+         ${createRequestCategory(
+    "🧳",
+    "Luggage Assistance",
+    "Assist guests with luggage.",
+    requests.filter(function (request) {
+        return request.service.includes("Luggage Assistance");
+    }).length
+)}
 
+${createRequestCategory(
+    "📅",
+    "Extend Your Stay",
+    "Review and manage stay extensions.",
+    requests.filter(function (request) {
+        return request.service.includes("Extend Your Stay");
+    }).length
+)}
 
-            ${createRequestCategory(
-                "📅",
-                "Extend Your Stay",
-                "Review and manage stay extensions."
-            )}
+${createRequestCategory(
+    "🔧",
+    "Maintenance Request",
+    "Receive and coordinate maintenance issues.",
+    requests.filter(function (request) {
+        return request.service.includes("Maintenance Request");
+    }).length
+)}
 
+${createRequestCategory(
+    "🚨",
+    "Emergency Assistance",
+    "Handle urgent guest assistance.",
+    requests.filter(function (request) {
+        return request.service.includes("Emergency Assistance");
+    }).length
+)}
 
-            ${createRequestCategory(
-                "🔧",
-                "Maintenance Request",
-                "Receive and coordinate maintenance issues."
-            )}
-
-
-            ${createRequestCategory(
-                "🚨",
-                "Emergency Assistance",
-                "Handle urgent guest assistance."
-            )}
-
-
-            ${createRequestCategory(
-                "💬",
-                "Speak to Reception",
-                "Open the live guest conversation."
-            )}
-
+${createRequestCategory(
+    "💬",
+    "Speak to Reception",
+    "Open the live guest conversation.",
+    requests.filter(function (request) {
+        return request.service.includes("Speak to Reception");
+    }).length
+)}
           ${createRequestCategory(
     "💳",
     "Billing Help",
@@ -1785,7 +1798,10 @@ async function getRequestsContent() {
 ${createRequestCategory(
     "💱",
     "Exchange",
-    "Handle guest currency exchange requests."
+    "Handle guest currency exchange requests.",
+    requests.filter(function (request) {
+        return request.service.includes("Exchange");
+    }).length
 )}
         </div>
 
