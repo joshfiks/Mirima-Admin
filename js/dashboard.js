@@ -2357,6 +2357,8 @@ function setupRequestCategoryButtons() {
 
                 const category =
                     card.dataset.requestCategory;
+               const normalizedCategory =
+               category.trim();
 
                 const requestsList =
                document.querySelector(
@@ -2373,9 +2375,20 @@ const allRequests =
     );
 
 allRequests.forEach(function (requestCard) {
+
     requestCard.style.display = "none";
+
+    const service =
+        requestCard
+            .querySelector("[data-request-service]")
+            ?.textContent
+            .trim();
+
+   if (service.includes(normalizedCategory)) {
+    requestCard.style.display = "block";
+}
 });
-               
+        
             }
         );
 
