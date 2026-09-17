@@ -1765,10 +1765,13 @@ async function getRequestsContent() {
                 "Open the live guest conversation."
             )}
 
-            ${createRequestCategory(
+          ${createRequestCategory(
     "💳",
     "Billing Help",
-    "Assist guests with billing questions and payment issues."
+    "Assist guests with billing questions and payment issues.",
+    requests.filter(function (request) {
+        return request.service.includes("Billing Help");
+    }).length
 )}
 
 ${createRequestCategory(
@@ -1906,7 +1909,8 @@ function createGuestRequestCard(request) {
 function createRequestCategory(
     icon,
     title,
-    description
+    description,
+    count = 0
 ) {
 
     return `
@@ -1929,10 +1933,9 @@ function createRequestCategory(
 
             </div>
 
-            <span class="request-category-count">
-                0
-            </span>
-
+           <span class="request-category-count">
+             ${count}
+           </span>
         </article>
 
     `;
