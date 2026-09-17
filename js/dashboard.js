@@ -2253,7 +2253,23 @@ function setupRequestStatusButtons() {
           button.textContent.trim()
           );
               */ 
-                   
+                const statusMenu =
+    document.querySelector(
+        `.request-status-menu[data-request-id="${requestId}"]`
+    );
+
+if (!statusMenu) {
+    console.log(
+        "Status menu not found:",
+        requestId
+    );
+    return;
+}
+
+statusMenu.style.display =
+    statusMenu.style.display === "none"
+        ? "flex"
+        : "none";    
             }
         );
 
