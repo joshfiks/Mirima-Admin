@@ -358,6 +358,7 @@ export function showDashboard(session) {
 
     setupReceptionNavigation(session);
 
+     updateRequestCount();
 
     // Setup mobile menu
 
@@ -1649,6 +1650,16 @@ async function updateRequestStatus(requestId, newStatus) {
     );
 }
 
+async function updateRequestCount() {
+    const requests = await getRequestsFromFirestore();
+
+    const requestCount =
+        document.getElementById("requestCount");
+
+    if (requestCount) {
+        requestCount.textContent = requests.length;
+    }
+}
 
 async function getFeedbackFromFirestore() {
     const snapshot = await getDocs(
