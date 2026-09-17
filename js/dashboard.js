@@ -1622,17 +1622,22 @@ async function getRequestsFromFirestore() {
         collection(db, "requests")
     );
 
-    return snapshot.docs
+   return snapshot.docs
     .map(function (doc) {
-       
         return {
             id: doc.id,
             ...doc.data()
         };
-           })
-        .sort(function (a, b) {
-            return b.createdAt?.toMillis() - a.createdAt?.toMillis();
-        });
+    })
+    .filter(function (request) {
+        return (
+            request.status !== "Completed" &&
+            request.status !== "Cancelled"
+        );
+    })
+    .sort(function (a, b) {
+        return b.createdAt?.toMillis() - a.createdAt?.toMillis();
+    });
 }
 
 async function updateRequestStatus(requestId, newStatus) {
