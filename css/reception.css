@@ -1936,8 +1936,10 @@
     color: #d4af37;
     font-size: 11px;
     font-weight: 700;
+    transition: background 0.2s ease, transform 0.15s ease;
 }
 .request-status-menu button:hover {
+    transform: scale(1.03);
     background: rgba(212, 175, 55, 0.25);
 }
 .request-status-menu button.active {
