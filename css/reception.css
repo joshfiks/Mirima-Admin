@@ -1871,13 +1871,13 @@
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 .guest-request-header {
-   position: relative;
+    position: relative;
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: 16px;
+    min-height: 32px;
 }
-
 .guest-request-header strong {
     color: #f5f1e6;
     font-size: 15px;
