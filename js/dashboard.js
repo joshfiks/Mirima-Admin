@@ -1709,6 +1709,12 @@ async function getRequestsContent() {
 
         </div>
 
+<button
+    class="back-to-request-categories"
+    style="display: none;"
+>
+    ← Back to Categories
+</button>
       <div
     class="guest-requests-list"
     style="display: none;"
@@ -2369,9 +2375,16 @@ function setupRequestCategoryButtons() {
     document.querySelector(
         ".request-category-grid"
     );
+               const backButton =
+    document.querySelector(
+        ".back-to-request-categories"
+    );
 
 if (requestsList) {
     requestsList.style.display = "block";
+}
+               if (backButton) {
+    backButton.style.display = "inline-flex";
 }
                if (categoryGrid) {
     categoryGrid.style.display = "none";
@@ -2401,7 +2414,42 @@ allRequests.forEach(function (requestCard) {
         );
 
     });
+
+   const backButton =
+    document.querySelector(
+        ".back-to-request-categories"
+    );
+
+if (backButton) {
+    backButton.addEventListener(
+        "click",
+        function () {
+
+            const categoryGrid =
+                document.querySelector(
+                    ".request-category-grid"
+                );
+
+            const requestsList =
+                document.querySelector(
+                    ".guest-requests-list"
+                );
+
+            if (categoryGrid) {
+                categoryGrid.style.display = "grid";
+            }
+
+            if (requestsList) {
+                requestsList.style.display = "none";
+            }
+
+            backButton.style.display = "none";
+        }
+    );
 }
+   
+}
+
 
 function setupRequestStatusButtons() {
 
