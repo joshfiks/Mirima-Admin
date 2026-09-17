@@ -949,6 +949,8 @@ if (
     );
    
 openCottageBill(cottageId);
+
+alert("Charge added successfully.");
    
 }
         }
