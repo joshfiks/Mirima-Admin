@@ -1845,9 +1845,9 @@ function createGuestRequestCard(request) {
 
             <div class="guest-request-header">
 
-                <strong>
-                    ${request.service}
-                </strong>
+               <strong data-request-service="${request.service}">
+                 ${request.service}
+               </strong>
 
               <button
     class="request-status"
