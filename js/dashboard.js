@@ -2269,7 +2269,37 @@ if (!statusMenu) {
 statusMenu.style.display =
     statusMenu.style.display === "none"
         ? "flex"
-        : "none";    
+        : "none";  
+
+       const statusOptions =
+    statusMenu.querySelectorAll(
+        "[data-status]"
+    );
+
+statusOptions.forEach(function (option) {
+
+    option.addEventListener(
+        "click",
+        async function () {
+
+            const newStatus =
+                option.dataset.status;
+
+            await updateRequestStatus(
+                requestId,
+                newStatus
+            );
+
+            button.textContent =
+                newStatus;
+
+            statusMenu.style.display =
+                "none";
+        }
+    );
+
+});
+               
             }
         );
 
