@@ -691,8 +691,8 @@ function getOverviewContent() {
 // SECTION RENDERING
 // =========================================================
 
-function renderReceptionSection(section, session) {
-
+async function renderReceptionSection(section, session) {
+   
     const content =
         document.getElementById(
             "receptionContent"
