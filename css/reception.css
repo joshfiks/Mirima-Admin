@@ -1932,3 +1932,6 @@
 .request-status-menu button:hover {
     background: rgba(212, 175, 55, 0.25);
 }
+.request-status-menu button.active {
+    font-weight: 800;
+}
