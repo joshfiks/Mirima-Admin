@@ -742,10 +742,11 @@ async function renderReceptionSection(section, session) {
             title.textContent =
                 "Guest Requests";
 
-           getRequestsContent().then(function (html) {
-          content.innerHTML = html;
+          getRequestsContent().then(function (html) {
+           content.innerHTML = html;
            setupRequestStatusButtons();
-            });
+           setupRequestCategoryButtons();
+         });
 
             break;
           
@@ -1708,19 +1709,10 @@ async function getRequestsContent() {
 
         </div>
 
-<div class="guest-requests-list">
-
-    ${
-        requests.length
-            ? requests.map(function (request) {
-                return createGuestRequestCard(request);
-            }).join("")
-            : `
-                <p>No guest requests yet.</p>
-            `
-    }
-
-</div>
+      <div
+        class="guest-requests-list"
+        style="display: none;"
+    ></div>
     
         <div class="request-category-grid">
 
@@ -1915,7 +1907,10 @@ function createRequestCategory(
 
     return `
 
-        <article class="request-category-card">
+      <article
+    class="request-category-card"
+    data-request-category="${title}"
+>
 
             <div class="request-category-icon">
                 ${icon}
@@ -2335,6 +2330,33 @@ function setupSectionButtons(session) {
 
     });
 
+}
+
+function setupRequestCategoryButtons() {
+
+    const categoryCards =
+        document.querySelectorAll(
+            ".request-category-card"
+        );
+
+    categoryCards.forEach(function (card) {
+
+        card.addEventListener(
+            "click",
+            function () {
+
+                const category =
+                    card.dataset.requestCategory;
+
+                console.log(
+                    "Selected request category:",
+                    category
+                );
+
+            }
+        );
+
+    });
 }
 
 function setupRequestStatusButtons() {
