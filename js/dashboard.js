@@ -214,6 +214,15 @@ export function showDashboard(session) {
                     </button>
 
 
+                 <button
+                class="reception-nav-item"
+                data-section="feedback"
+           >
+                 <span>★</span>
+                 Feedback
+                </button>
+
+
                     <button
                         class="reception-nav-item emergency-nav"
                         data-section="emergency"
@@ -1630,6 +1639,25 @@ async function updateRequestStatus(requestId, newStatus) {
         }
     );
 }
+
+
+async function getFeedbackFromFirestore() {
+    const snapshot = await getDocs(
+        collection(db, "feedback")
+    );
+
+    return snapshot.docs
+        .map(function (doc) {
+            return {
+                id: doc.id,
+                ...doc.data()
+            };
+        })
+        .sort(function (a, b) {
+            return b.createdAt?.toMillis() - a.createdAt?.toMillis();
+        });
+}
+
 
 async function getRequestsContent() {
 
