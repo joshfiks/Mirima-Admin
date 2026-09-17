@@ -1944,4 +1944,5 @@
 }
 .request-status-menu button.active {
     font-weight: 800;
+    background: rgba(212, 175, 55, 0.25);
 }
