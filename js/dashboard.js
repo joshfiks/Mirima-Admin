@@ -1710,9 +1710,19 @@ async function getRequestsContent() {
         </div>
 
       <div
-        class="guest-requests-list"
-        style="display: none;"
-    ></div>
+    class="guest-requests-list"
+    style="display: none;"
+>
+    ${
+        requests.length
+            ? requests.map(function (request) {
+                return createGuestRequestCard(request);
+            }).join("")
+            : `
+                <p>No guest requests yet.</p>
+            `
+    }
+</div>
     
         <div class="request-category-grid">
 
