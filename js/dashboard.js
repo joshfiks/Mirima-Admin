@@ -2440,10 +2440,12 @@ allRequests.forEach(function (requestCard) {
             ?.textContent
             .trim();
 
-  if (
+ if (
     normalizedCategory === "Extend Your Stay"
         ? service.includes("Extend")
-        : service.includes(normalizedCategory)
+        : normalizedCategory === "Speak to Reception"
+            ? service.includes("Other Assistance")
+            : service.includes(normalizedCategory)
 ) {
     requestCard.style.display = "block";
 }
