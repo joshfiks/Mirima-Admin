@@ -352,7 +352,8 @@ export function showDashboard(session) {
         "overview",
         session
     );
-
+   
+   updateOverviewCurrentGuests();
 
     // Setup navigation
 
@@ -427,8 +428,8 @@ function getOverviewContent() {
                         Current Guests
                     </span>
 
-                    <strong>
-                        0
+                    <strong id="overviewCurrentGuestsCount">
+                      0
                     </strong>
 
                     <small>
@@ -793,6 +794,22 @@ setupSectionButtons(session);
 setupCheckoutButtons();
 setupBillingButtons();
 setupGuestModal();
+}
+
+// =========================================================
+// UPDATE OVERVIEW CURRENT GUESTS
+// =========================================================
+
+async function updateOverviewCurrentGuests() {
+    const guests = await getActiveGuests();
+
+    const countElement = document.getElementById(
+        "overviewCurrentGuestsCount"
+    );
+
+    if (countElement) {
+        countElement.textContent = guests.length;
+    }
 }
 
 // =========================================================
