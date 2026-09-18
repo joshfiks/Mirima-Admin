@@ -1932,6 +1932,22 @@
     color: #f5f1e6;
     font-weight: 600;
 }
+.request-info-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 10px;
+}
+
+.request-info-label {
+    color: #9da8a0;
+    font-size: 13px;
+}
+
+.request-info-value {
+    color: #f5f1e6;
+    font-size: 14px;
+}
 .request-status {
     padding: 7px 14px;
     border: 1px solid rgba(212, 175, 55, 0.25);
