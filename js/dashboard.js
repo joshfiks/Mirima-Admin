@@ -1930,12 +1930,12 @@ function createGuestRequestCard(request) {
              </strong>
             </div>
 
-              <p>
-              Request:
-              <span style="white-space: pre-line;">
-              ${request.details || "No additional details"}
-            </span>
-            </p>
+             <div class="request-info-block">
+    <span class="request-info-label">Request</span>
+    <div class="request-info-value request-details-value">
+        ${request.details || "No additional details"}
+    </div>
+</div>
 
             <p>
     Requested at:
