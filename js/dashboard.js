@@ -921,6 +921,7 @@ async function updateOverviewCurrentGuestsPanel() {
     `;
 }).join("");
 
+}
 
 // =========================================================
 // BILL DETAILS
