@@ -1937,14 +1937,16 @@ function createGuestRequestCard(request) {
     </div>
 </div>
 
-            <p>
-    Requested at:
-    ${
-       request.createdAt
-            ? request.createdAt.toDate().toLocaleString()
-            : "Time unavailable"
-    }
-</p>
+<div class="request-info-row request-time-row">
+    <span class="request-info-label">Requested at</span>
+    <span class="request-time-value">
+        ${
+            request.createdAt
+                ? request.createdAt.toDate().toLocaleString()
+                : "Time unavailable"
+        }
+    </span>
+</div>
             </div>
 
         </article>
