@@ -1,3 +1,13 @@
+import { db } from "./firebase.js";
+
+import {
+    collection,
+    getDocs,
+    addDoc,
+    deleteDoc,
+    doc
+} from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
+
 /* =========================================================
    MIRIMA ADMIN — GUEST MANAGEMENT MODULE
    =========================================================
@@ -105,52 +115,34 @@ export function getCottages() {
 // GET ACTIVE GUESTS
 // =========================================================
 
-export function getActiveGuests() {
-
-    const savedGuests =
-        localStorage.getItem(STORAGE_KEY);
-
-    if (!savedGuests) {
-        return [];
-    }
-
+export async function getActiveGuests() {
     try {
+        const snapshot = await getDocs(
+            collection(db, "guests")
+        );
 
-        return JSON.parse(savedGuests);
+        return snapshot.docs.map(function (doc) {
+            return {
+                id: doc.id,
+                ...doc.data()
+            };
+        });
 
     } catch (error) {
-
         console.error(
             "Unable to read guest data:",
             error
         );
 
         return [];
-
     }
-
 }
-
-
-// =========================================================
-// SAVE ACTIVE GUESTS
-// =========================================================
-
-function saveActiveGuests(guests) {
-
-    localStorage.setItem(
-        STORAGE_KEY,
-        JSON.stringify(guests)
-    );
-
-}
-
 
 // =========================================================
 // ADD GUEST
 // =========================================================
 
-export function addGuest(guestDetails) {
+export async function addGuest(guestDetails) {
 
     const guests =
         getActiveGuests();
@@ -218,9 +210,12 @@ export function addGuest(guestDetails) {
     };
 
 
-    guests.push(guest);
+   const guestRef = await addDoc(
+    collection(db, "guests"),
+    guest
+);
 
-    saveActiveGuests(guests);
+guest.id = guestRef.id;
 
 
     return {
@@ -235,7 +230,7 @@ export function addGuest(guestDetails) {
 // GET GUEST FOR COTTAGE
 // =========================================================
 
-export function getGuestForCottage(
+export async function getGuestForCottage(
     cottageId
 ) {
 
@@ -258,24 +253,13 @@ export function getGuestForCottage(
 // REMOVE ACTIVE GUEST
 // =========================================================
 
-export function removeGuest(
+export async function removeGuest(
     guestId
 ) {
 
-    const guests =
-        getActiveGuests();
-
-    const updatedGuests =
-        guests.filter(
-            function (guest) {
-
-                return guest.id !== guestId;
-
-            }
-        );
-
-
-    saveActiveGuests(updatedGuests);
+   await deleteDoc(
+    doc(db, "guests", guestId)
+);
 
 
     return {
