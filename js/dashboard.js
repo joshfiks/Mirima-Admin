@@ -1802,7 +1802,7 @@ ${createRequestCategory(
     "Speak to Reception",
     "Open the live guest conversation.",
     requests.filter(function (request) {
-        return request.service.includes("Speak to Reception");
+        return request.service.includes("Other Assistance");
     }).length
 )}
           ${createRequestCategory(
