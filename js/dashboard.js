@@ -900,19 +900,26 @@ async function updateOverviewCurrentGuestsPanel() {
     }
 
     container.innerHTML = guests.map(function (guest) {
-        return `
-            <div class="overview-guest-row">
+    return `
+        <div class="overview-guest-row">
+
+            <div>
                 <strong>
                     ${guest.name}
                 </strong>
 
                 <span>
-                    Cottage ${guest.cottageId}
+                    Cottage ${guest.cottageId.replace("cottage-", "")}
                 </span>
             </div>
-        `;
-    }).join("");
-}
+
+            <small>
+                Checkout: ${guest.checkoutDate || "Not set"}
+            </small>
+
+        </div>
+    `;
+}).join("");
 
 
 // =========================================================
