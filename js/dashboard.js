@@ -1930,12 +1930,12 @@ function createGuestRequestCard(request) {
              </strong>
             </div>
 
-           <div class="request-info-block">
-          <span class="request-info-label">Request</span>
-          <div class="request-details-value">
-           ${request.details || "No additional details"}
-         </div>
-       </div>
+          <div class="request-info-block">
+    <span class="request-info-label">Request</span>
+    <div class="request-details-value">
+        ${request.details?.trim() || "No additional details"}
+    </div>
+</div>
 
             <p>
     Requested at:
