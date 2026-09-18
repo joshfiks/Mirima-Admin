@@ -1863,13 +1863,22 @@
     transform: scale(0.98);
 }
 .guest-request-card {
-    padding: 18px;
-    margin-bottom: 12px;
-    background: #18211c;
-    border: 1px solid rgba(212, 175, 55, 0.2);
-    border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-   transition: transform 0.2s ease, box-shadow 0.2s ease;
+    padding: 24px;
+    margin-bottom: 16px;
+    background: linear-gradient(
+        145deg,
+        #18211c,
+        #111713
+    );
+    border: 1px solid rgba(212, 175, 55, 0.22);
+    border-radius: 16px;
+    box-shadow:
+        0 8px 24px rgba(0, 0, 0, 0.22),
+        inset 0 1px 0 rgba(255, 255, 255, 0.03);
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease,
+        border-color 0.2s ease;
 }
 .guest-request-card:hover {
     transform: translateY(-2px);
