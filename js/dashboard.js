@@ -806,8 +806,9 @@ setupGuestModal();
 // =========================================================
 
 async function updateOverviewCurrentGuests() {
-    const guests = await getActiveGuests();
-
+   const guests = (await getActiveGuests()).filter(function (guest) {
+    return guest.name && guest.name.trim() !== "";
+});
     const countElement = document.getElementById(
         "overviewCurrentGuestsCount"
     );
