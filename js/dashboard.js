@@ -1482,9 +1482,9 @@ function setupGuestModal() {
 
         guestForm.addEventListener(
             "submit",
-            function (event) {
+            async function (event) {
 
-                event.preventDefault();
+             event.preventDefault();
 
             const guestDetails = {
 
@@ -1531,8 +1531,8 @@ function setupGuestModal() {
 };
 
 const result =
-    addGuest(guestDetails);
-
+    await addGuest(guestDetails);
+               
 console.log(
     result
 );
