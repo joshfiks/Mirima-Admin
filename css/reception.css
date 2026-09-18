@@ -2203,3 +2203,36 @@
     border: 1px solid rgba(255, 255, 255, 0.04);
     border-radius: 12px;
 }
+.overview-guest-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    padding: 12px 16px;
+    margin: 0 24px 8px;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.025);
+}
+
+.overview-guest-row > div {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.overview-guest-row strong {
+    color: #f5f1e6;
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.overview-guest-row span {
+    color: #d4af37;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.overview-guest-row small {
+    color: #8f9992;
+    font-size: 11px;
+}
