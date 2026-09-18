@@ -49,9 +49,38 @@ const cottages = [
     {
         id: "cottage-6",
         number: 6
+    },
+
+    {
+        id: "cottage-7",
+        number: 7
+    },
+
+    {
+        id: "cottage-8",
+        number: 8
+    },
+
+    {
+        id: "cottage-9",
+        number: 9
+    },
+
+    {
+        id: "cottage-10",
+        number: 10
+    },
+
+    {
+        id: "cottage-11",
+        number: 11
+    },
+
+    {
+        id: "cottage-12",
+        number: 12
     }
 ];
-
 
 // =========================================================
 // STORAGE KEY
