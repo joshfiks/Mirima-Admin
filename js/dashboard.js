@@ -2410,6 +2410,13 @@ function setupReceptionNavigation(session) {
                     session
                 );
 
+               if (item.dataset.section === "overview") {
+                updateOverviewCurrentGuests();
+                updateOverviewGuestRequests();
+                updateOverviewLiveChats();
+                updateOverviewEmergencyAlerts();
+                updateOverviewCurrentGuestsPanel();
+             }
 
                 closeMobileMenu();
 
