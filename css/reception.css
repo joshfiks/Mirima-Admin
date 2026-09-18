@@ -1918,7 +1918,7 @@
 .guest-request-details {
     margin-top: 10px;
     padding-top: 10px;
-    border-top: 1px solid rgba(255, 255, 255, 0.06);
+   border-top: 1px solid rgba(212, 175, 55, 0.10);
 }
 
 .guest-request-details p {
@@ -1936,18 +1936,25 @@
 .request-info-row {
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 10px;
     margin-bottom: 10px;
+    padding: 8px 10px;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.025);
 }
 
 .request-info-label {
-    color: #9da8a0;
-    font-size: 13px;
+    color: #8f9992;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
 }
 
 .request-info-value {
     color: #f5f1e6;
     font-size: 14px;
+    font-weight: 700;
 }
 
 .request-info-block {
@@ -1958,20 +1965,22 @@
 }
 
 .request-details-value {
-    margin-top: 0px;
-    color: #f5f1e6;
+    margin-top: 0;
+    color: #e7ebe8;
     font-size: 14px;
+    font-weight: 600;
     line-height: 1.5;
     white-space: pre-line;
 }
 .request-status {
-    padding: 7px 14px;
-    border: 1px solid rgba(212, 175, 55, 0.25);
+    padding: 6px 13px;
+    border: 1px solid rgba(212, 175, 55, 0.30);
     border-radius: 20px;
     background: rgba(212, 175, 55, 0.10);
     color: #d4af37;
-    font-size: 12px;
+    font-size: 11px;
     font-weight: 700;
+    letter-spacing: 0.3px;
     cursor: pointer;
     transition:
         background 0.2s ease,
@@ -1979,7 +1988,9 @@
         border-color 0.2s ease;
 }
 .request-status:hover {
-    transform: scale(1.05);
+    transform: translateY(-1px);
+    background: rgba(212, 175, 55, 0.18);
+    border-color: rgba(212, 175, 55, 0.45);
 }
 .request-status-menu {
     position: absolute;
