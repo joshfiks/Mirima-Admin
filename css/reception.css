@@ -1863,12 +1863,12 @@
     transform: scale(0.98);
 }
 .guest-request-card {
-    padding: 18px;
+    padding: 17px;
     margin-bottom: 16px;
     background: linear-gradient(145deg, #1b241f, #121814);
     border: 1px solid rgba(212, 175, 55, 0.15);
     border-left: 2px solid #d4af37;
-    border-radius: 16px;
+    border-radius: 14px;
     box-shadow:
     0 8px 24px rgba(0,0,0,0.18),
     inset 0 1px 0 rgba(255, 255, 255, 0.03);
