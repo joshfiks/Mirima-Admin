@@ -1775,7 +1775,7 @@ ${createRequestCategory(
     "Extend Your Stay",
     "Review and manage stay extensions.",
     requests.filter(function (request) {
-        return request.service.includes("Extend Your Stay");
+        return request.service.includes("Extend");
     }).length
 )}
 
