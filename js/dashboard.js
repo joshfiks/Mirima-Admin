@@ -355,7 +355,9 @@ export function showDashboard(session) {
    
    updateOverviewCurrentGuests();
    updateOverviewGuestRequests();
-
+   updateOverviewLiveChats();
+   updateOverviewEmergencyAlerts()
+   updateOverviewCurrentGuestsPanel();
     // Setup navigation
 
     setupReceptionNavigation(session);
@@ -479,8 +481,8 @@ function getOverviewContent() {
                         Live Chats
                     </span>
 
-                    <strong>
-                        0
+                    <strong id="overviewLiveChatsCount">
+                     0
                     </strong>
 
                     <small>
@@ -504,9 +506,9 @@ function getOverviewContent() {
                         Emergency Alerts
                     </span>
 
-                    <strong>
-                        0
-                    </strong>
+                   <strong id="overviewEmergencyAlertsCount">
+                     0
+                   </strong>
 
                     <small>
                         Requires attention
@@ -548,8 +550,10 @@ function getOverviewContent() {
             </div>
 
 
-            <div class="empty-reception-state">
-
+           <div
+            id="overviewCurrentGuests"
+              class="empty-reception-state"
+             >
                 <div class="empty-state-icon">
                     ♙
                 </div>
@@ -839,6 +843,77 @@ async function updateOverviewGuestRequests() {
         countElement.textContent = receptionRequests.length;
     }
 }
+
+async function updateOverviewLiveChats() {
+    const countElement = document.getElementById(
+        "overviewLiveChatsCount"
+    );
+
+    if (countElement) {
+        countElement.textContent = 0;
+    }
+}
+
+async function updateOverviewEmergencyAlerts() {
+    const countElement = document.getElementById(
+        "overviewEmergencyAlertsCount"
+    );
+
+    if (countElement) {
+        countElement.textContent = 0;
+    }
+}
+
+async function updateOverviewCurrentGuestsPanel() {
+    const guests = await getActiveGuests();
+
+    const container = document.getElementById(
+        "overviewCurrentGuests"
+    );
+
+    if (!container) return;
+
+    if (guests.length === 0) {
+        container.innerHTML = `
+            <div class="empty-state-icon">
+                ♙
+            </div>
+
+            <h4>
+                No active guests
+            </h4>
+
+            <p>
+                Guest information entered by Reception
+                will appear here.
+            </p>
+
+            <button
+                class="secondary-action"
+                data-section="guests"
+            >
+                Add Guest
+            </button>
+        `;
+
+        return;
+    }
+
+    container.innerHTML = guests.map(function (guest) {
+        return `
+            <div class="overview-guest-row">
+                <strong>
+                    ${guest.name}
+                </strong>
+
+                <span>
+                    Cottage ${guest.cottageId}
+                </span>
+            </div>
+        `;
+    }).join("");
+}
+
 
 // =========================================================
 // BILL DETAILS
