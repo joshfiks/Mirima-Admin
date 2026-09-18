@@ -1928,8 +1928,11 @@ function createGuestRequestCard(request) {
                 </p>
 
               <p>
-               Request: ${request.details || "No additional details"}
-             </p>
+              Request:
+              <span style="white-space: pre-line;">
+              ${request.details || "No additional details"}
+            </span>
+            </p>
 
             <p>
     Requested at:
