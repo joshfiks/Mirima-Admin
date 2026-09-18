@@ -1899,10 +1899,10 @@
 }
 .guest-request-header strong {
     color: #f5f1e6;
-    font-size: 17px;
+    font-size: 16px;
     font-weight: 700;
     line-height: 1.4;
-    letter-spacing: 0.2px;
+    letter-spacing: 0.3px;
 }
 
 .guest-request-header span {
@@ -1942,7 +1942,12 @@
     border-radius: 8px;
     background: rgba(255, 255, 255, 0.025);
 }
-
+.request-time-row {
+    background: transparent;
+    padding: 8px 0 0;
+    margin-top: 8px;
+    border-top: 1px solid rgba(255, 255, 255, 0.04);
+}
 .request-info-label {
     color: #8f9992;
     font-size: 11px;
@@ -1956,7 +1961,11 @@
     font-size: 14px;
     font-weight: 700;
 }
-
+.request-time-value {
+    color: #9da8a0;
+    font-size: 12px;
+    font-weight: 500;
+}
 .request-info-block {
     display: flex;
     flex-direction: column;
