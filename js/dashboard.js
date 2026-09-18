@@ -2430,6 +2430,8 @@ const allRequests =
         ".guest-request-card"
     );
 
+let visibleRequests = 0;
+
 allRequests.forEach(function (requestCard) {
 
     requestCard.style.display = "none";
@@ -2440,16 +2442,40 @@ allRequests.forEach(function (requestCard) {
             ?.textContent
             .trim();
 
- if (
-    normalizedCategory === "Extend Your Stay"
-        ? service.includes("Extend")
-        : normalizedCategory === "Speak to Reception"
-            ? service.includes("Other Assistance")
-            : service.includes(normalizedCategory)
-) {
-    requestCard.style.display = "block";
-}
+    if (
+        normalizedCategory === "Extend Your Stay"
+            ? service.includes("Extend")
+            : normalizedCategory === "Speak to Reception"
+                ? service.includes("Other Assistance")
+                : service.includes(normalizedCategory)
+    ) {
+        requestCard.style.display = "block";
+        visibleRequests++;
+    }
 });
+
+let noRequestsMessage =
+    document.querySelector(".no-category-requests");
+
+if (!noRequestsMessage) {
+    noRequestsMessage =
+        document.createElement("p");
+
+    noRequestsMessage.className =
+        "no-category-requests";
+
+    requestsList.appendChild(
+        noRequestsMessage
+    );
+}
+
+noRequestsMessage.textContent =
+    "No requests yet.";
+
+noRequestsMessage.style.display =
+    visibleRequests === 0
+        ? "block"
+        : "none";
         
             }
         );
