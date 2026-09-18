@@ -2440,7 +2440,11 @@ allRequests.forEach(function (requestCard) {
             ?.textContent
             .trim();
 
-   if (service.includes(normalizedCategory)) {
+  if (
+    normalizedCategory === "Extend Your Stay"
+        ? service.includes("Extend")
+        : service.includes(normalizedCategory)
+) {
     requestCard.style.display = "block";
 }
 });
