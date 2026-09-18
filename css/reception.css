@@ -1948,6 +1948,18 @@
     color: #f5f1e6;
     font-size: 14px;
 }
+
+.request-info-block {
+    margin-bottom: 10px;
+}
+
+.request-details-value {
+    margin-top: 4px;
+    color: #f5f1e6;
+    font-size: 14px;
+    line-height: 1.5;
+    white-space: pre-line;
+}
 .request-status {
     padding: 7px 14px;
     border: 1px solid rgba(212, 175, 55, 0.25);
