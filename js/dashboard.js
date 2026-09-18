@@ -1654,11 +1654,30 @@ async function updateRequestStatus(requestId, newStatus) {
 async function updateRequestCount() {
     const requests = await getRequestsFromFirestore();
 
+    const receptionRequests =
+        requests.filter(function (request) {
+
+            const service =
+                request.service || "";
+
+            return (
+                service.includes("Airport Transfer") ||
+                service.includes("Luggage Assistance") ||
+                service.includes("Extend Your Stay") ||
+                service.includes("Maintenance Request") ||
+                service.includes("Emergency Assistance") ||
+                service.includes("Billing Help") ||
+                service.includes("Currency Exchange") ||
+                service.includes("Other Assistance")
+            );
+        });
+
     const requestCount =
         document.getElementById("requestCount");
 
     if (requestCount) {
-        requestCount.textContent = requests.length;
+        requestCount.textContent =
+            receptionRequests.length;
     }
 }
 
