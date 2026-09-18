@@ -1893,34 +1893,51 @@
 }
 .guest-request-header strong {
     color: #f5f1e6;
-    font-size: 15px;
+    font-size: 17px;
+    font-weight: 700;
+    letter-spacing: 0.2px;
 }
 
 .guest-request-header span {
     color: #d4af37;
     font-size: 12px;
     font-weight: 700;
+    padding: 6px 12px;
+    border-radius: 20px;
+    background: rgba(212, 175, 55, 0.10);
+    border: 1px solid rgba(212, 175, 55, 0.25);
 }
 
 .guest-request-details {
-    margin-top: 12px;
+    margin-top: 18px;
+    padding-top: 14px;
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
 }
 
 .guest-request-details p {
-    margin: 5px 0;
-    color: #9da8a0;
-    font-size: 13px;
+    margin: 10px 0;
+    color: #c4cbc6;
+    font-size: 14px;
+    line-height: 1.7;
     white-space: pre-line;
 }
+.guest-request-details p:first-child {
+    color: #f5f1e6;
+    font-weight: 600;
+}
 .request-status {
-    padding: 4px 10px;
+    padding: 7px 14px;
+    border: 1px solid rgba(212, 175, 55, 0.25);
     border-radius: 20px;
-    background: rgba(212, 175, 55, 0.12);
+    background: rgba(212, 175, 55, 0.10);
     color: #d4af37;
-    font-size: 11px;
+    font-size: 12px;
     font-weight: 700;
     cursor: pointer;
-   transition: background 0.2s ease, transform 0.15s ease;
+    transition:
+        background 0.2s ease,
+        transform 0.15s ease,
+        border-color 0.2s ease;
 }
 .request-status:hover {
     transform: scale(1.05);
