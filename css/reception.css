@@ -1922,10 +1922,10 @@
 
 .guest-request-details p {
     position: relative;
-    margin: 10px 0;
+    margin: 6px 0;
     color: #c4cbc6;
     font-size: 14px;
-    line-height: 1.7;
+    line-height: 1.5;
     white-space: pre-line;
 }
 .guest-request-details p:first-child {
