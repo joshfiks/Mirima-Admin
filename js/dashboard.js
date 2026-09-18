@@ -354,6 +354,7 @@ export function showDashboard(session) {
     );
    
    updateOverviewCurrentGuests();
+   updateOverviewGuestRequests();
 
     // Setup navigation
 
@@ -453,9 +454,9 @@ function getOverviewContent() {
                         Guest Requests
                     </span>
 
-                    <strong>
-                        0
-                    </strong>
+                   <strong id="overviewGuestRequestsCount">
+                      0
+                   </strong>
 
                     <small>
                         Awaiting attention
@@ -809,6 +810,33 @@ async function updateOverviewCurrentGuests() {
 
     if (countElement) {
         countElement.textContent = guests.length;
+    }
+}
+
+async function updateOverviewGuestRequests() {
+    const requests = await getRequestsFromFirestore();
+
+    const receptionRequests = requests.filter(function (request) {
+        const service = request.service || "";
+
+        return (
+            service.includes("Airport Transfer") ||
+            service.includes("Luggage Assistance") ||
+            service.includes("Extend Your Stay") ||
+            service.includes("Maintenance Request") ||
+            service.includes("Emergency Assistance") ||
+            service.includes("Billing Help") ||
+            service.includes("Currency Exchange") ||
+            service.includes("Other Assistance")
+        );
+    });
+
+    const countElement = document.getElementById(
+        "overviewGuestRequestsCount"
+    );
+
+    if (countElement) {
+        countElement.textContent = receptionRequests.length;
     }
 }
 
