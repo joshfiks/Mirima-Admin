@@ -2211,9 +2211,18 @@
     justify-content: space-between;
     gap: 20px;
     padding: 12px 16px;
-    margin: 0 0px 8px;
+    margin: 0 0 8px;
     border-radius: 10px;
     background: rgba(255, 255, 255, 0.025);
+}
+
+.overview-guest-row::before {
+    content: "";
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #4caf50;
+    flex-shrink: 0;
 }
 
 .overview-guest-row > div {
