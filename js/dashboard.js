@@ -1923,9 +1923,12 @@ function createGuestRequestCard(request) {
 
             <div class="guest-request-details">
 
-                <p>
-                    Guest:  ${request.guestName || "Guest"}
-                </p>
+                <div class="request-info-row">
+                <span class="request-info-label">Guest</span>
+               <strong class="request-info-value">
+               ${request.guestName || "Guest"}
+             </strong>
+            </div>
 
               <p>
               Request:
