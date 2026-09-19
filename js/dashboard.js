@@ -1188,7 +1188,33 @@ async function getGuestsContent() {
     const cottages = getCottages();
 
    const activeGuests = await getActiveGuests();
+   const cottagePayments = {};
 
+   for (const guest of activeGuests) {
+    cottagePayments[guest.cottageId] =
+        await getCottagePayments(guest.cottageId);
+}
+
+   const cottagePaidTotals = {};
+
+for (const cottageId in cottagePayments) {
+    cottagePaidTotals[cottageId] =
+        cottagePayments[cottageId].reduce(
+            function (total, payment) {
+                return total + Number(payment.amount || 0);
+            },
+            0
+        );
+}
+   const cottageBalances = {};
+
+for (const guest of activeGuests) {
+    const totalBill = getBillTotal(guest.cottageId);
+    const totalPaid = cottagePaidTotals[guest.cottageId] || 0;
+
+    cottageBalances[guest.cottageId] =
+        Math.max(0, totalBill - totalPaid);
+}
     return `
         <section class="page-section">
 
@@ -1219,10 +1245,11 @@ async function getGuestsContent() {
                             }
                         );
 
-                    return createCottageCard(
-                        cottage,
-                        guest
-                    );
+                   return createCottageCard(
+                   cottage,
+                   guest,
+                   cottageBalances[cottage.id] || 0
+                 );
 
                 }).join("")}
 
@@ -1647,10 +1674,8 @@ function formatDate(dateString) {
 
 }
 
-function createCottageCard(
-    cottage,
-    guest
-) {
+function createCottageCard(cottage, guest, balanceDue)
+{
 
     if (!guest) {
 
