@@ -2445,3 +2445,14 @@
     margin-top: 20px;
     border-bottom: 1px dashed #333;
 }
+.billing-details-card .billing-receipt-card p:last-child strong {
+    display: inline-block;
+    padding: 5px 10px;
+    border-radius: 6px;
+
+    background: #222;
+    color: #ddd;
+
+    font-size: 13px;
+    font-weight: 600;
+}
