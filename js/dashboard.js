@@ -786,9 +786,10 @@ async function renderReceptionSection(section, session) {
             content.innerHTML =
               await getBillingContent();
           
-        setupReceiptButtons();
-          
-            break;
+       setupReceiptButtons();
+       setupBillingViewButtons();
+
+     break;
 
 
         case "emergency":
@@ -1150,8 +1151,9 @@ async function openPaymentReceipt(paymentId) {
 
                 content.innerHTML =
                     billingContent;
-               
-               setupReceiptButtons();
+
+                 setupReceiptButtons();
+                setupBillingViewButtons();
 
             }
         );
@@ -1172,6 +1174,27 @@ function setupReceiptButtons() {
 
                     openPaymentReceipt(
                         card.dataset.paymentId
+                    );
+
+                }
+            );
+
+        });
+
+}
+
+function setupBillingViewButtons() {
+
+    document
+        .querySelectorAll(".billing-view-button")
+        .forEach(function (button) {
+
+            button.addEventListener(
+                "click",
+                function () {
+
+                    openCottageBill(
+                        button.dataset.billingCottage
                     );
 
                 }
