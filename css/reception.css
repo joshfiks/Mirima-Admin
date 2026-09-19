@@ -2465,3 +2465,11 @@
     color: #fff;
     text-align: right;
 }
+.billing-details-card .billing-receipt-card p span {
+    flex-shrink: 0;
+}
+
+.billing-details-card .billing-receipt-card p strong {
+    margin-left: auto;
+    text-align: right;
+}
