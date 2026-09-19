@@ -173,11 +173,7 @@ export async function addGuest(guestDetails) {
     // Create guest record
 
     const guest = {
-
-        id:
-            "guest-" +
-            Date.now(),
-
+       
         name:
             guestDetails.name.trim(),
 
