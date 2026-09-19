@@ -3177,173 +3177,229 @@ function setupSectionButtons(session) {
 
 function setupRequestCategoryButtons(requests) {
 
-       const categoryCards =
+    const categoryCards =
         document.querySelectorAll(
             ".request-category-card"
         );
 
     categoryCards.forEach(function (card) {
-    
+
         card.addEventListener(
             "click",
             function () {
 
                 const category =
                     card.dataset.requestCategory;
-               const normalizedCategory =
-               category.trim();
 
-               if (normalizedCategory === "Restaurant & Bar") {
-               const restaurantSubCategories = [
-                "Reserve a Table",
-                "Bar Menu",
-                "Room Dining",
-                "Restaurant Menu"
-                ];
+                const normalizedCategory =
+                    category.trim();
 
-             const categoryGrid =
-    document.querySelector(
-        ".request-category-grid"
-    );
-
-if (categoryGrid) {
-    categoryGrid.innerHTML = restaurantSubCategories
-        .map(function (subCategory) {
-
-            const count =
-                requests.filter(function (request) {
-                    return request.service.includes(
-                        subCategory
+                const categoryGrid =
+                    document.querySelector(
+                        ".request-category-grid"
                     );
-                }).length;
 
-            return createRequestCategory(
-                "🍽️",
-                subCategory,
-                "View guest requests.",
-                count
-            );
+                const requestsList =
+                    document.querySelector(
+                        ".guest-requests-list"
+                    );
 
-        })
-        .join("");
-}
-   
-  setupRequestCategoryButtons(requests);
+                const backButton =
+                    document.querySelector(
+                        ".back-to-request-categories"
+                    );
 
-return;               
-                  const requestsList =
-               document.querySelector(
-              ".guest-requests-list"
-            );
+                // RESTAURANT & BAR
+                if (
+                    normalizedCategory ===
+                    "Restaurant & Bar"
+                ) {
 
-             
-               const backButton =
-    document.querySelector(
-        ".back-to-request-categories"
-    );
+                    const restaurantSubCategories = [
+                        "Reserve a Table",
+                        "Bar Menu",
+                        "Room Dining",
+                        "Restaurant Menu"
+                    ];
 
-if (requestsList) {
-    requestsList.style.display = "block";
-}
-               if (backButton) {
-    backButton.style.display = "inline-flex";
-}
-               if (categoryGrid) {
-    categoryGrid.style.display = "none";
-}
+                    if (categoryGrid) {
 
-const allRequests =
-    document.querySelectorAll(
-        ".guest-request-card"
-    );
+                        categoryGrid.innerHTML =
+                            restaurantSubCategories
+                                .map(function (subCategory) {
 
-let visibleRequests = 0;
+                                    const count =
+                                        requests.filter(
+                                            function (request) {
 
-allRequests.forEach(function (requestCard) {
+                                                return request.service.includes(
+                                                    subCategory
+                                                );
 
-    requestCard.style.display = "none";
+                                            }
+                                        ).length;
 
-    const service =
-        requestCard
-            .querySelector("[data-request-service]")
-            ?.textContent
-            .trim();
+                                    return createRequestCategory(
+                                        "🍽️",
+                                        subCategory,
+                                        "View guest requests.",
+                                        count
+                                    );
 
-    if (
-        normalizedCategory === "Extend Your Stay"
-            ? service.includes("Extend")
-            : normalizedCategory === "Speak to Reception"
-                ? service.includes("Other Assistance")
-                : service.includes(normalizedCategory)
-    ) {
-        requestCard.style.display = "block";
-        visibleRequests++;
-    }
-});
+                                })
+                                .join("");
 
-let noRequestsMessage =
-    document.querySelector(".no-category-requests");
+                    }
 
-if (!noRequestsMessage) {
-    noRequestsMessage =
-        document.createElement("p");
+                    setupRequestCategoryButtons(
+                        requests
+                    );
 
-    noRequestsMessage.className =
-        "no-category-requests";
+                    return;
+                }
 
-    requestsList.appendChild(
-        noRequestsMessage
-    );
-}
+                // SHOW REQUESTS FOR SELECTED CATEGORY
 
-noRequestsMessage.textContent =
-    "No requests yet.";
+                if (requestsList) {
+                    requestsList.style.display =
+                        "block";
+                }
 
-noRequestsMessage.style.display =
-    visibleRequests === 0
-        ? "block"
-        : "none";
-        
+                if (backButton) {
+                    backButton.style.display =
+                        "inline-flex";
+                }
+
+                if (categoryGrid) {
+                    categoryGrid.style.display =
+                        "none";
+                }
+
+                const allRequests =
+                    document.querySelectorAll(
+                        ".guest-request-card"
+                    );
+
+                let visibleRequests = 0;
+
+                allRequests.forEach(
+                    function (requestCard) {
+
+                        requestCard.style.display =
+                            "none";
+
+                        const service =
+                            requestCard
+                                .querySelector(
+                                    "[data-request-service]"
+                                )
+                                ?.textContent
+                                .trim();
+
+                        if (
+                            normalizedCategory ===
+                            "Extend Your Stay"
+                                ? service.includes("Extend")
+                                : normalizedCategory ===
+                                  "Speak to Reception"
+                                    ? service.includes(
+                                        "Other Assistance"
+                                      )
+                                    : service.includes(
+                                        normalizedCategory
+                                      )
+                        ) {
+
+                            requestCard.style.display =
+                                "block";
+
+                            visibleRequests++;
+
+                        }
+
+                    }
+                );
+
+                let noRequestsMessage =
+                    document.querySelector(
+                        ".no-category-requests"
+                    );
+
+                if (!noRequestsMessage) {
+
+                    noRequestsMessage =
+                        document.createElement("p");
+
+                    noRequestsMessage.className =
+                        "no-category-requests";
+
+                    if (requestsList) {
+                        requestsList.appendChild(
+                            noRequestsMessage
+                        );
+                    }
+
+                }
+
+                noRequestsMessage.textContent =
+                    "No requests yet.";
+
+                noRequestsMessage.style.display =
+                    visibleRequests === 0
+                        ? "block"
+                        : "none";
+
             }
         );
 
     });
 
-   const backButton =
-    document.querySelector(
-        ".back-to-request-categories"
-    );
+    // BACK TO CATEGORIES
 
-if (backButton) {
-    backButton.addEventListener(
-        "click",
-        function () {
+    const backButton =
+        document.querySelector(
+            ".back-to-request-categories"
+        );
 
-            const categoryGrid =
-                document.querySelector(
-                    ".request-category-grid"
-                );
+    if (backButton) {
 
-            const requestsList =
-                document.querySelector(
-                    ".guest-requests-list"
-                );
+        backButton.addEventListener(
+            "click",
+            async function () {
 
-            if (categoryGrid) {
-                categoryGrid.style.display = "grid";
+                const categoryGrid =
+                    document.querySelector(
+                        ".request-category-grid"
+                    );
+
+                const requestsList =
+                    document.querySelector(
+                        ".guest-requests-list"
+                    );
+
+                if (categoryGrid) {
+
+                    categoryGrid.style.display =
+                        "grid";
+
+                }
+
+                if (requestsList) {
+
+                    requestsList.style.display =
+                        "none";
+
+                }
+
+                backButton.style.display =
+                    "none";
+
             }
+        );
 
-            if (requestsList) {
-                requestsList.style.display = "none";
-            }
+    }
 
-            backButton.style.display = "none";
-        }
-    );
 }
-   
-}
-
 
 function setupRequestStatusButtons() {
 
