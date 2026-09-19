@@ -2531,11 +2531,30 @@ async function getBillingContent() {
 
                 }).join("")}
 
+                       </div>
+
+            <div class="billing-receipts-section">
+
+                <div class="billing-intro">
+
+                    <p class="content-eyebrow">
+                        PAYMENTS
+                    </p>
+
+                    <h3>
+                        Receipts
+                    </h3>
+
+                    <p>
+                        View payments recorded for active guests.
+                    </p>
+
+                </div>
+
             </div>
 
         </div>
     `;
-}
 
 // =========================================================
 // EMERGENCY
