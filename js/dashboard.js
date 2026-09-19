@@ -794,10 +794,9 @@ async function renderReceptionSection(section, session) {
             "click",
             function () {
 
-                console.log(
-                    "Receipt selected:",
-                    card.dataset.paymentId
-                );
+         openPaymentReceipt(
+         card.dataset.paymentId
+      );
 
             }
         );
@@ -1014,6 +1013,121 @@ async function updateOverviewCurrentGuestsPanel() {
         </div>
     `;
 }).join("");
+
+}
+
+// =========================================================
+// PAYMENT RECEIPT
+// =========================================================
+
+async function openPaymentReceipt(paymentId) {
+
+    const payments = await getPayments();
+
+    const payment =
+        payments.find(function (item) {
+            return item.id === paymentId;
+        });
+
+    if (!payment) {
+        alert("Payment record not found.");
+        return;
+    }
+
+    const content =
+        document.getElementById("receptionContent");
+
+    if (!content) {
+        return;
+    }
+
+    content.innerHTML = `
+        <div class="billing-details-page">
+
+            <button
+                class="billing-back-button"
+                id="receiptBackButton"
+            >
+                ← Back to Receipts
+            </button>
+
+            <div class="billing-details-header">
+
+                <div>
+                    <p class="content-eyebrow">
+                        PAYMENT RECEIPT
+                    </p>
+
+                    <h3>
+                        Receipt
+                    </h3>
+                </div>
+
+            </div>
+
+            <div class="billing-details-card">
+
+                <div class="billing-receipt-card">
+
+                    <p>
+                        <strong>
+                            MIRIMA KIBALE LODGE
+                        </strong>
+                    </p>
+
+                    <p>
+                        Receipt ID:
+                        ${escapeHTML(payment.id)}
+                    </p>
+
+                    <p>
+                        Cottage:
+                        ${escapeHTML(String(payment.cottageId))}
+                    </p>
+
+                    <p>
+                        Amount Paid:
+                        <strong>
+                            UGX ${Number(payment.amount).toLocaleString()}
+                        </strong>
+                    </p>
+
+                    <p>
+                        Payment Method:
+                        ${escapeHTML(payment.paymentMethod)}
+                    </p>
+
+                    <p>
+                        Status:
+                        ${escapeHTML(payment.status)}
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+    `;
+
+    const backButton =
+        document.getElementById("receiptBackButton");
+
+    if (backButton) {
+
+        backButton.addEventListener(
+            "click",
+            async function () {
+
+                const billingContent =
+                    await getBillingContent();
+
+                content.innerHTML =
+                    billingContent;
+
+            }
+        );
+
+    }
 
 }
 
