@@ -254,7 +254,8 @@ export async function getGuestForCottage(
 export async function removeGuest(
     guestId
 ) {
-
+console.log("Deleting guest ID:", guestId);
+    
    await deleteDoc(
     doc(db, "guests", guestId)
 );
