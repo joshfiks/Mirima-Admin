@@ -1084,6 +1084,33 @@ async function openPaymentReceipt(paymentId) {
                       </strong>
                     </p>
 
+   ${
+    payment.paymentMethod === "Mobile Money"
+        ? `
+            <p>
+                <span>Account Name:</span>
+                <strong>
+                    ${escapeHTML(payment.mobileMoneyName || "—")}
+                </strong>
+            </p>
+
+            <p>
+                <span>Phone Number:</span>
+                <strong>
+                    ${escapeHTML(payment.mobileMoneyPhone || "—")}
+                </strong>
+            </p>
+
+            <p>
+                <span>Transaction ID:</span>
+                <strong>
+                    ${escapeHTML(payment.transactionId || "—")}
+                </strong>
+            </p>
+        `
+        : ""
+}
+
                   <p>
                    <span>Date:</span>
                  <strong>
