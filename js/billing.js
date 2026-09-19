@@ -254,3 +254,5 @@ export async function getCottagePayments(cottageId) {
    return payments.filter(function (payment) {
     return payment.cottageId === cottageId;
 });
+    
+}
