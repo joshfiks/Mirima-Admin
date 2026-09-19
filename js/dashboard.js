@@ -2512,14 +2512,14 @@ function setupCheckoutButtons() {
 
                 button.addEventListener(
                     "click",
-                    function () {
+                    async function () {
 
                         const guestId =
                             button.dataset.checkoutGuest;
 
                         const result =
-                            removeGuest(guestId);
-
+                            await removeGuest(guestId);
+                       
                         console.log(
                             result
                         );
