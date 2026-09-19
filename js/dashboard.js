@@ -1202,10 +1202,12 @@ if (recordPaymentButton) {
     return;
 }
 
-           const paymentMethod =
+       const paymentMethod =
     prompt(
         "Enter payment method:\n\nMobile Money\nCard\nPay at Reception"
     );
+
+console.log("Selected payment method:", paymentMethod);
 
            if (
     paymentMethod !== "Mobile Money" &&
