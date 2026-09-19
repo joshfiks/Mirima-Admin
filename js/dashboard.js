@@ -2549,9 +2549,28 @@ async function getBillingContent() {
                         Receipts
                     </h3>
 
-                    <p>
-                        View payments recorded for active guests.
-                    </p>
+                   <p>
+                  ${payments.length} payment${payments.length === 1 ? "" : "s"} recorded.
+                 </p>
+
+${payments.map(function (payment) {
+
+    return `
+        <div class="billing-receipt-card">
+
+            <strong>
+                UGX ${Number(payment.amount).toLocaleString()}
+            </strong>
+
+            <span>
+                ${escapeHTML(payment.paymentMethod)}
+            </span>
+
+        </div>
+    `;
+
+}).join("")}
+
 
                 </div>
 
