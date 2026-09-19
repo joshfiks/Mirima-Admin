@@ -121,12 +121,12 @@ export async function getActiveGuests() {
             collection(db, "guests")
         );
 
-        return snapshot.docs.map(function (doc) {
-            return {
-                id: doc.id,
-                ...doc.data()
-            };
-        });
+       return snapshot.docs.map(function (doc) {
+        return {
+        ...doc.data(),
+        id: doc.id
+    };
+});
 
     } catch (error) {
         console.error(
