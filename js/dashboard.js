@@ -786,6 +786,24 @@ async function renderReceptionSection(section, session) {
             content.innerHTML =
               await getBillingContent();
 
+          document
+    .querySelectorAll(".billing-receipt-card")
+    .forEach(function (card) {
+
+        card.addEventListener(
+            "click",
+            function () {
+
+                console.log(
+                    "Receipt selected:",
+                    card.dataset.paymentId
+                );
+
+            }
+        );
+
+    });
+
             break;
 
 
@@ -2556,7 +2574,10 @@ async function getBillingContent() {
 ${payments.map(function (payment) {
 
     return `
-        <div class="billing-receipt-card">
+        <div
+    class="billing-receipt-card"
+    data-payment-id="${payment.id}"
+    >
 
             <strong>
                 UGX ${Number(payment.amount).toLocaleString()}
