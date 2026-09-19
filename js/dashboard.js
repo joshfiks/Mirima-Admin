@@ -2532,6 +2532,20 @@ ${createRequestCategory(
         return request.service.includes("Photography Tour");
     }).length
 )}
+
+${createRequestCategory(
+    "🍽️",
+    "Restaurant & Bar",
+    "Manage guest restaurant and bar requests.",
+    requests.filter(function (request) {
+        return (
+            request.service.includes("Reserve a Table") ||
+            request.service.includes("Bar Menu") ||
+            request.service.includes("Room Dining") ||
+            request.service.includes("Restaurant Menu")
+        );
+    }).length
+)}
         </div>
 
     `;
