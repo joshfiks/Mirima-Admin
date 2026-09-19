@@ -2488,3 +2488,15 @@
 .billing-details-card .billing-receipt-card p:nth-child(4) strong {
     font-size: 18px;
 }
+.billing-details-card .billing-receipt-card > p:first-child {
+    display: block !important;
+    width: 100%;
+    text-align: center !important;
+}
+
+.billing-details-card .billing-receipt-card > p:first-child strong {
+    display: block;
+    width: 100%;
+    text-align: center !important;
+    margin: 0 auto;
+}
