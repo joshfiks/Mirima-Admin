@@ -1827,15 +1827,19 @@ ${guest.notes
 
             <div class="cottage-bill-summary">
 
-                <span>
-                    CURRENT BILL
-                </span>
+    <span>
+        CURRENT BILL
+    </span>
 
-                <strong>
-                    UGX ${getBillTotal(cottage.id).toLocaleString()}
-                </strong>
+    <strong>
+        UGX ${getBillTotal(cottage.id).toLocaleString()}
+    </strong>
 
-            </div>
+    <small>
+        Balance Due: UGX ${balanceDue.toLocaleString()}
+    </small>
+
+</div>
 
             <button
     class="cottage-action checkout-action"
