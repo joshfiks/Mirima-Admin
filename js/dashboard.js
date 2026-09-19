@@ -31,7 +31,8 @@ import {
     addBillItem,
     startNewCottageBill,
     addPayment,
-    getPayments
+    getPayments,
+    getCottagePayments
 } from "./billing.js";
 import {
     db
