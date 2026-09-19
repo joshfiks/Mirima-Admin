@@ -1060,15 +1060,19 @@ async function openPaymentReceipt(paymentId) {
                         </strong>
                     </p>
 
-                    <p>
-                        Receipt ID:
-                        ${escapeHTML(payment.id)}
-                    </p>
+                   <p>
+                   <span>Receipt ID:</span>
+                    <strong>
+                      ${escapeHTML(payment.id)}
+                   </strong>
+                   </p>
 
                     <p>
-                        Cottage:
-                        ${escapeHTML(String(payment.cottageId))}
-                    </p>
+                      <span>Cottage:</span>
+                      <strong>
+                         ${escapeHTML(String(payment.cottageId))}
+                      </strong>
+                     </p>
 
                     <p>
                         Amount Paid:
@@ -1117,9 +1121,12 @@ async function openPaymentReceipt(paymentId) {
                    ${new Date(payment.createdAt).toLocaleDateString()}
                  </strong>
                    </p>
-                    <p>
-                        Status:
-                        ${escapeHTML(payment.status)}
+                   
+                   <p>
+                  <span>Status:</span>
+                  <strong>
+                    ${escapeHTML(payment.status)}
+                  </strong>
                     </p>
 
                 </div>
