@@ -2473,3 +2473,18 @@
     margin-left: auto;
     text-align: right;
 }
+.billing-details-card .billing-receipt-card > p:first-child {
+    text-align: center;
+}
+
+.billing-details-card .billing-receipt-card > p:first-child strong {
+    font-size: 18px;
+}
+
+.billing-details-card .billing-receipt-card p strong {
+    font-size: 14px;
+}
+
+.billing-details-card .billing-receipt-card p:nth-child(4) strong {
+    font-size: 18px;
+}
