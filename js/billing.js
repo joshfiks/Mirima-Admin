@@ -251,7 +251,6 @@ export async function getCottagePayments(cottageId) {
 
     const payments = await getPayments();
 
-    return payments.filter(function (payment) {
-        return payment.cottageId === cottageId;
-    });
-}
+   return payments.filter(function (payment) {
+    return payment.cottageId === cottageId;
+});
