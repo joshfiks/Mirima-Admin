@@ -1008,6 +1008,7 @@ async function openCottageBill(cottageId) {
     const bill = getCottageBill(cottageId);
 
    const payments = await getCottagePayments(cottageId);
+   console.log("Cottage payments:", payments);
 
    const totalPaid =
     payments.reduce(function (total, payment) {
