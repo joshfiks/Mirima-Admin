@@ -1434,6 +1434,76 @@ if (Number(paymentAmount) > balanceDue) {
         "Enter payment method:\n\nMobile Money\nCard\nPay at Reception"
     );
 
+           if (
+    paymentMethod !== "Mobile Money" &&
+    paymentMethod !== "Card" &&
+    paymentMethod !== "Pay at Reception"
+) {
+    return;
+}
+
+           let mobileMoneyName = "";
+let mobileMoneyPhone = "";
+let transactionId = "";
+
+if (paymentMethod === "Mobile Money") {
+
+    mobileMoneyName =
+        prompt("Enter the name registered on the Mobile Money account:");
+
+    if (!mobileMoneyName || !mobileMoneyName.trim()) {
+
+        alert(
+            "Invalid account name.\n\n" +
+            "Please enter the name registered on the Mobile Money account."
+        );
+
+        return;
+    }
+
+    mobileMoneyPhone =
+        prompt(
+            "Enter the phone number used for payment:\n\n" +
+            "Format: 256XXXXXXXXX"
+        );
+
+    if (
+        !/^256\d{9}$/.test(
+            mobileMoneyPhone.trim()
+        )
+    ) {
+
+        alert(
+            "Invalid phone number.\n\n" +
+            "The number must start with 256 and contain exactly 12 digits.\n\n" +
+            "Example: 256701234567"
+        );
+
+        return;
+    }
+
+    transactionId =
+        prompt(
+            "Enter the Mobile Money Transaction ID:\n\n" +
+            "The Transaction ID must contain exactly 12 characters."
+        );
+
+   if (
+    !transactionId ||
+    !/^[A-Za-z0-9]{12}$/.test(
+        transactionId.trim()
+    )
+) {
+
+        alert(
+            "Invalid Transaction ID.\n\n" +
+            "The Transaction ID must contain exactly 12 characters."
+        );
+
+        return;
+    }
+}
+           
 console.log("Selected payment method:", paymentMethod);
 
            if (
@@ -1449,12 +1519,15 @@ console.log("Selected payment method:", paymentMethod);
     amount: Number(paymentAmount),
     paymentMethod: paymentMethod
 });
-           const paymentResult =
+          const paymentResult =
     await addPayment({
         cottageId: cottageId,
         guestName: cottage.number,
-        amount: Number(paymentAmount),
+        amount: parseInt(paymentAmount.trim(), 10),
         paymentMethod: paymentMethod,
+        mobileMoneyName: mobileMoneyName,
+        mobileMoneyPhone: mobileMoneyPhone,
+        transactionId: transactionId,
         status: "Verified"
     });
 
