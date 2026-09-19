@@ -1228,6 +1228,20 @@ if (recordPaymentButton) {
     return;
 }
 
+if (Number(paymentAmount) > balanceDue) {
+
+    alert(
+        "Payment amount is greater than the outstanding balance.\n\n" +
+        "Balance Due: UGX " +
+        balanceDue.toLocaleString() +
+        "\nPayment Entered: UGX " +
+        Number(paymentAmount).toLocaleString() +
+        "\n\nPlease check the amount and try again."
+    );
+
+    return;
+}
+           
        const paymentMethod =
     prompt(
         "Enter payment method:\n\nMobile Money\nCard\nPay at Reception"
