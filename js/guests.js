@@ -144,9 +144,7 @@ export async function getActiveGuests() {
 
 export async function addGuest(guestDetails) {
 
-    const guests =
-        getActiveGuests();
-
+    const guests = await getActiveGuests();
 
     // Check whether cottage is already occupied
 
