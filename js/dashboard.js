@@ -1180,11 +1180,11 @@ alert("Charge added successfully.");
 // CURRENT GUESTS
 // =========================================================
 
-function getGuestsContent() {
+async function getGuestsContent() {
 
     const cottages = getCottages();
 
-    const activeGuests = getActiveGuests();
+   const activeGuests = await getActiveGuests();
 
     return `
         <section class="page-section">
@@ -2258,10 +2258,11 @@ function getChatContent() {
 // BILLING
 // =========================================================
 
-function getBillingContent() {
+async function getBillingContent() {
 
     const cottages = getCottages();
-    const activeGuests = getActiveGuests();
+   
+    const activeGuests = await getActiveGuests();
 
     return `
         <div class="billing-page">
