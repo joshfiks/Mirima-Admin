@@ -735,16 +735,15 @@ async function renderReceptionSection(section, session) {
             break;
 
 
-        case "guests":
+       case "guests":
 
-            title.textContent =
-                "Current Guests";
+    title.textContent =
+        "Current Guests";
 
-            content.innerHTML =
-                getGuestsContent();
+    content.innerHTML =
+        await getGuestsContent();
 
-            break;
-
+    break;
 
         case "requests":
                    
@@ -781,7 +780,7 @@ async function renderReceptionSection(section, session) {
                 "Billing & Receipts";
 
             content.innerHTML =
-                getBillingContent();
+              await getBillingContent();
 
             break;
 
