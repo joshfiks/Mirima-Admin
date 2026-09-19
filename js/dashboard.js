@@ -1084,6 +1084,12 @@ async function openPaymentReceipt(paymentId) {
                       </strong>
                     </p>
 
+                  <p>
+                   <span>Date:</span>
+                 <strong>
+                   ${new Date(payment.createdAt).toLocaleDateString()}
+                 </strong>
+                   </p>
                     <p>
                         Status:
                         ${escapeHTML(payment.status)}
