@@ -2460,6 +2460,15 @@ ${createRequestCategory(
         return request.service.includes("Exchange");
     }).length
 )}
+
+${createRequestCategory(
+    "🌙",
+    "Late Checkout",
+    "Review guest requests for late checkout.",
+    requests.filter(function (request) {
+        return request.service.includes("Late Checkout");
+    }).length
+)}
         </div>
 
     `;
