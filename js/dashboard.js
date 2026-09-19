@@ -1215,6 +1215,11 @@ if (recordPaymentButton) {
     return;
 }
 
+           console.log("Saving payment:", {
+    cottageId: cottageId,
+    amount: Number(paymentAmount),
+    paymentMethod: paymentMethod
+});
            const paymentResult =
     await addPayment({
         cottageId: cottageId,
