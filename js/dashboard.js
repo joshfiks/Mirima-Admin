@@ -1078,8 +1078,10 @@ async function openPaymentReceipt(paymentId) {
                     </p>
 
                     <p>
-                        Payment Method:
-                        ${escapeHTML(payment.paymentMethod)}
+                     <span>Payment Method:</span>
+                      <strong>
+                         ${escapeHTML(payment.paymentMethod)}
+                      </strong>
                     </p>
 
                     <p>
