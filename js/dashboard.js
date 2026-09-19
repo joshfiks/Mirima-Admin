@@ -2469,6 +2469,69 @@ ${createRequestCategory(
         return request.service.includes("Late Checkout");
     }).length
 )}
+
+${createRequestCategory(
+    "💰",
+    "Make Payment",
+    "Review and assist with guest payment requests.",
+    requests.filter(function (request) {
+        return request.service.includes("Make Payment");
+    }).length
+)}
+
+${createRequestCategory(
+    "🐒",
+    "Chimpanzee Trekking",
+    "Review guest requests for chimpanzee trekking.",
+    requests.filter(function (request) {
+        return request.service.includes("Chimpanzee Trekking");
+    }).length
+)}
+
+${createRequestCategory(
+    "🦓",
+    "Wildlife Viewing",
+    "Review guest requests for wildlife viewing.",
+    requests.filter(function (request) {
+        return request.service.includes("Wildlife Viewing");
+    }).length
+)}
+
+${createRequestCategory(
+    "🌋",
+    "Crater Lake Tour",
+    "Review guest requests for crater lake tours.",
+    requests.filter(function (request) {
+        return request.service.includes("Crater Lake Tour");
+    }).length
+)}
+
+${createRequestCategory(
+    "🌳",
+    "Forest Nature Walk",
+    "Review guest requests for forest nature walks.",
+    requests.filter(function (request) {
+        return request.service.includes("Forest Nature Walk");
+    }).length
+)}
+
+${createRequestCategory(
+    "🔥",
+    "Evening Campfire",
+    "Review guest requests for evening campfires.",
+    requests.filter(function (request) {
+        return request.service.includes("Evening Campfire");
+    }).length
+)}
+
+${createRequestCategory(
+    "📸",
+    "Photography Tour",
+    "Review guest requests for photography tours.",
+    requests.filter(function (request) {
+        return request.service.includes("Photography Tour");
+    }).length
+)}
         </div>
 
     `;
