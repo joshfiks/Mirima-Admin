@@ -207,6 +207,12 @@ export async function addPayment(paymentDetails) {
     } catch (error) {
 
         console.error(
+    "Payment error details:",
+    error.code,
+    error.message
+    );
+
+        console.error(
             "Failed to save payment:",
             error
         );
