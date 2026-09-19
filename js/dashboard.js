@@ -29,7 +29,9 @@ import {
     getCottageBill,
     getBillTotal,
     addBillItem,
-    startNewCottageBill
+    startNewCottageBill,
+    addPayment,
+    getPayments
 } from "./billing.js";
 import {
     db
