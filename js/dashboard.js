@@ -1020,7 +1020,12 @@ async function openCottageBill(cottageId) {
 
    const balanceDue =
     Math.max(0, total - totalPaid);
-   
+
+   console.log("Billing calculation:", {
+    total: total,
+    totalPaid: totalPaid,
+    balanceDue: balanceDue
+});   
    const cottage =
     getCottages().find(function (item) {
         return item.id === cottageId;
