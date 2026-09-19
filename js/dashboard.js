@@ -785,24 +785,9 @@ async function renderReceptionSection(section, session) {
 
             content.innerHTML =
               await getBillingContent();
-
-          document
-    .querySelectorAll(".billing-receipt-card")
-    .forEach(function (card) {
-
-        card.addEventListener(
-            "click",
-            function () {
-
-         openPaymentReceipt(
-         card.dataset.paymentId
-      );
-
-            }
-        );
-
-    });
-
+          
+        setupReceiptButtons();
+          
             break;
 
 
@@ -1123,6 +1108,8 @@ async function openPaymentReceipt(paymentId) {
 
                 content.innerHTML =
                     billingContent;
+               
+               setupReceiptButtons();
 
             }
         );
