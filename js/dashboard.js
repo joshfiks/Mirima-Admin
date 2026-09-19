@@ -1402,10 +1402,16 @@ if (recordPaymentButton) {
             const paymentAmount =
     prompt("Enter payment amount in UGX:");
 
-           if (
+        if (
     !paymentAmount ||
+    !/^\d+$/.test(paymentAmount.trim()) ||
     Number(paymentAmount) <= 0
 ) {
+    alert(
+        "Invalid payment amount.\n\n" +
+        "Please enter numbers only."
+    );
+
     return;
 }
 
