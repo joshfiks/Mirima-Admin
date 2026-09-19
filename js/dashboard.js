@@ -1003,12 +1003,22 @@ async function updateOverviewCurrentGuestsPanel() {
 // BILL DETAILS
 // =========================================================
 
-function openCottageBill(cottageId) {
+async function openCottageBill(cottageId) {
 
     const bill = getCottageBill(cottageId);
+
+   const payments = await getCottagePayments(cottageId);
+
+   const totalPaid =
+    payments.reduce(function (total, payment) {
+        return total + Number(payment.amount || 0);
+    }, 0);
    
    const total =
     getBillTotal(cottageId);
+
+   const balanceDue =
+    Math.max(0, total - totalPaid);
    
    const cottage =
     getCottages().find(function (item) {
@@ -1114,6 +1124,16 @@ content.innerHTML = `
 
     <strong>
         UGX ${total.toLocaleString()}
+    </strong>
+
+</div>
+
+<div class="billing-total-row">
+
+    <span>BALANCE DUE</span>
+
+    <strong>
+        UGX ${balanceDue.toLocaleString()}
     </strong>
 
 </div>
