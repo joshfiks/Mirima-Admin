@@ -1608,11 +1608,10 @@ if (result.success) {
 
     closeModal();
 
-    renderReceptionSection(
-        "guests",
-        getCurrentSession()
-    );
-
+await renderReceptionSection(
+    "guests",
+    getCurrentSession()
+);
 }
             }
         );
