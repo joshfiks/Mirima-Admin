@@ -1754,7 +1754,15 @@ function createCottageCard(
 
             </div>
 
-
+${guest.notes
+    ? `
+        <div class="guest-notes">
+            <span>GUEST NOTES</span>
+            <p>${escapeHTML(guest.notes)}</p>
+        </div>
+    `
+    : ""
+}
              <div class="stay-details">
 
                 <div>
