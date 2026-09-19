@@ -1190,9 +1190,48 @@ if (recordPaymentButton) {
 
     recordPaymentButton.addEventListener(
         "click",
-        function () {
+        async function () {
 
-            alert("Payment recording coming next.");
+            const paymentAmount =
+    prompt("Enter payment amount in UGX:");
+
+           if (
+    !paymentAmount ||
+    Number(paymentAmount) <= 0
+) {
+    return;
+}
+
+           const paymentMethod =
+    prompt(
+        "Enter payment method:\n\nMobile Money\nCard\nPay at Reception"
+    );
+
+           if (
+    paymentMethod !== "Mobile Money" &&
+    paymentMethod !== "Card" &&
+    paymentMethod !== "Pay at Reception"
+) {
+    return;
+}
+
+           const paymentResult =
+    await addPayment({
+        cottageId: cottageId,
+        guestName: cottage.number,
+        amount: Number(paymentAmount),
+        paymentMethod: paymentMethod,
+        status: "Verified"
+    });
+
+if (!paymentResult.success) {
+    alert("Failed to record payment.");
+    return;
+}
+
+openCottageBill(cottageId);
+
+alert("Payment recorded successfully.");
 
         }
     );
