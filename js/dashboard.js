@@ -1212,6 +1212,14 @@ async function openCottageBill(cottageId) {
         return item.id === cottageId;
     });
 
+   const activeGuests =
+    await getActiveGuests();
+
+const guest =
+    activeGuests.find(function (item) {
+        return item.cottageId === cottageId;
+    });
+
    const content =
     document.getElementById("receptionContent");
 
@@ -1522,7 +1530,7 @@ console.log("Selected payment method:", paymentMethod);
           const paymentResult =
     await addPayment({
         cottageId: cottageId,
-        guestName: cottage.number,
+        guestName: guest ? guest.name : "",
         amount: parseInt(paymentAmount.trim(), 10),
         paymentMethod: paymentMethod,
         mobileMoneyName: mobileMoneyName,
