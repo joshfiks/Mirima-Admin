@@ -1118,6 +1118,26 @@ async function openPaymentReceipt(paymentId) {
 
 }
 
+function setupReceiptButtons() {
+
+    document
+        .querySelectorAll(".billing-receipt-card")
+        .forEach(function (card) {
+
+            card.addEventListener(
+                "click",
+                function () {
+
+                    openPaymentReceipt(
+                        card.dataset.paymentId
+                    );
+
+                }
+            );
+
+        });
+
+}
 // =========================================================
 // BILL DETAILS
 // =========================================================
