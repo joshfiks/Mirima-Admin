@@ -194,6 +194,8 @@ export async function addPayment(paymentDetails) {
                 amount: Number(paymentDetails.amount),
                 paymentMethod: paymentDetails.paymentMethod,
                 transactionId: paymentDetails.transactionId || "",
+                mobileMoneyName: paymentDetails.mobileMoneyName || "",
+                mobileMoneyPhone: paymentDetails.mobileMoneyPhone || "",
                 status: paymentDetails.status || "Pending",
                 createdAt: new Date().toISOString()
             }
