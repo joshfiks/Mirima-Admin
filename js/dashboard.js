@@ -2410,6 +2410,10 @@ async function getBillingContent() {
    
     const activeGuests = await getActiveGuests();
 
+   const payments = await getPayments();
+
+   console.log("Billing payments:", payments);
+
     return `
         <div class="billing-page">
 
