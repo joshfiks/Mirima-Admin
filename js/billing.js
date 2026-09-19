@@ -1,3 +1,11 @@
+import { db } from "./firebase.js";
+
+import {
+    collection,
+    addDoc,
+    getDocs
+} from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
+
 // =========================================================
 // MIRIMA BILLING
 // =========================================================
@@ -174,3 +182,68 @@ export {
     getBillTotal,
     startNewCottageBill
 };
+export async function addPayment(paymentDetails) {
+
+    try {
+
+        const paymentRef = await addDoc(
+            collection(db, "payments"),
+            {
+                cottageId: paymentDetails.cottageId,
+                guestName: paymentDetails.guestName,
+                amount: Number(paymentDetails.amount),
+                paymentMethod: paymentDetails.paymentMethod,
+                transactionId: paymentDetails.transactionId || "",
+                status: paymentDetails.status || "Pending",
+                createdAt: new Date().toISOString()
+            }
+        );
+
+        return {
+            success: true,
+            paymentId: paymentRef.id
+        };
+
+    } catch (error) {
+
+        console.error(
+            "Failed to save payment:",
+            error
+        );
+
+        return {
+            success: false,
+            error: error
+        };
+
+    }
+}
+
+export async function getPayments() {
+
+    try {
+
+        const snapshot = await getDocs(
+            collection(db, "payments")
+        );
+
+        return snapshot.docs.map(function (doc) {
+
+            return {
+                id: doc.id,
+                ...doc.data()
+            };
+
+        });
+
+    } catch (error) {
+
+        console.error(
+            "Failed to read payments:",
+            error
+        );
+
+        return [];
+
+    }
+}
