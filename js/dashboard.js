@@ -353,11 +353,12 @@ export function showDashboard(session) {
         session
     );
    
-   updateOverviewCurrentGuests();
-   updateOverviewGuestRequests();
-   updateOverviewLiveChats();
-   updateOverviewEmergencyAlerts()
-   updateOverviewCurrentGuestsPanel();
+updateOverviewCurrentGuests();
+updateOverviewGuestRequests();
+updateOverviewRecentRequests();
+updateOverviewLiveChats();
+updateOverviewEmergencyAlerts();
+updateOverviewCurrentGuestsPanel();
     // Setup navigation
 
     setupReceptionNavigation(session);
