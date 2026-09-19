@@ -754,10 +754,13 @@ async function renderReceptionSection(section, session) {
             title.textContent =
                 "Guest Requests";
 
-          getRequestsContent().then(function (html) {
+          getRequestsContent().then(async function (html) {
            content.innerHTML = html;
            setupRequestStatusButtons();
-           setupRequestCategoryButtons();
+           setupRequestCategoryButtons(
+           await getRequestsFromFirestore()
+          );
+             
          });
 
             break;
@@ -3172,12 +3175,14 @@ function setupSectionButtons(session) {
 
 }
 
-function setupRequestCategoryButtons() {
+function setupRequestCategoryButtons(requests) {
 
-    const categoryCards =
+       const categoryCards =
         document.querySelectorAll(
             ".request-category-card"
         );
+
+    categoryCards.forEach(function (card) {
 
     categoryCards.forEach(function (card) {
 
@@ -3190,15 +3195,50 @@ function setupRequestCategoryButtons() {
                const normalizedCategory =
                category.trim();
 
-                const requestsList =
+               if (normalizedCategory === "Restaurant & Bar") {
+               const restaurantSubCategories = [
+                "Reserve a Table",
+                "Bar Menu",
+                "Room Dining",
+                "Restaurant Menu"
+                ];
+
+             const categoryGrid =
+    document.querySelector(
+        ".request-category-grid"
+    );
+
+if (categoryGrid) {
+    categoryGrid.innerHTML = restaurantSubCategories
+        .map(function (subCategory) {
+
+            const count =
+                requests.filter(function (request) {
+                    return request.service.includes(
+                        subCategory
+                    );
+                }).length;
+
+            return createRequestCategory(
+                "🍽️",
+                subCategory,
+                "View guest requests.",
+                count
+            );
+
+        })
+        .join("");
+}
+   
+  setupRequestCategoryButtons(requests);
+
+return;               
+                  const requestsList =
                document.querySelector(
               ".guest-requests-list"
             );
 
-               const categoryGrid =
-    document.querySelector(
-        ".request-category-grid"
-    );
+             
                const backButton =
     document.querySelector(
         ".back-to-request-categories"
