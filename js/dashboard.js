@@ -1067,6 +1067,13 @@ content.innerHTML = `
             + Add Charge
         </button>
 
+<button
+    class="billing-add-charge-button"
+    id="billingRecordPaymentButton"
+>
+    + Record Payment
+</button>
+
     </div>
 
   <div class="billing-items">
@@ -1143,42 +1150,56 @@ if (addChargeButton) {
         "click",
         function () {
 
-           const chargeDescription =
-    prompt("Enter charge description:");
+            const chargeDescription =
+                prompt("Enter charge description:");
 
-const chargeAmount =
-    prompt("Enter charge amount in UGX:");
+            const chargeAmount =
+                prompt("Enter charge amount in UGX:");
 
-if (
-    chargeDescription &&
-    chargeAmount &&
-    Number(chargeAmount) > 0
-) {
+            if (
+                chargeDescription &&
+                chargeAmount &&
+                Number(chargeAmount) > 0
+            ) {
 
-    const newCharge =
-        addBillItem(
-            cottageId,
-            chargeDescription,
-            Number(chargeAmount)
-        );
+                const newCharge =
+                    addBillItem(
+                        cottageId,
+                        chargeDescription,
+                        Number(chargeAmount)
+                    );
 
-    console.log(
-        "Charge added:",
-        newCharge
-    );
-   
-openCottageBill(cottageId);
+                console.log(
+                    "Charge added:",
+                    newCharge
+                );
 
-alert("Charge added successfully.");
-   
-}
+                openCottageBill(cottageId);
+
+                alert("Charge added successfully.");
+            }
         }
     );
 
 }
-   
+
+const recordPaymentButton =
+    document.getElementById("billingRecordPaymentButton");
+
+if (recordPaymentButton) {
+
+    recordPaymentButton.addEventListener(
+        "click",
+        function () {
+
+            alert("Payment recording coming next.");
+
+        }
+    );
+
 }
 
+}
 // =========================================================
 // CURRENT GUESTS
 // =========================================================
