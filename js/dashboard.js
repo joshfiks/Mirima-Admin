@@ -3183,9 +3183,7 @@ function setupRequestCategoryButtons(requests) {
         );
 
     categoryCards.forEach(function (card) {
-
-    categoryCards.forEach(function (card) {
-
+    
         card.addEventListener(
             "click",
             function () {
