@@ -609,7 +609,10 @@ function getOverviewContent() {
             </div>
 
 
-            <div class="request-preview">
+           <div
+          id="overviewRecentRequests"
+          class="request-preview"
+         >
 
                 <div class="preview-row">
 
@@ -843,6 +846,72 @@ async function updateOverviewGuestRequests() {
     if (countElement) {
         countElement.textContent = receptionRequests.length;
     }
+}
+
+
+async function updateOverviewRecentRequests() {
+    const requests = await getRequestsFromFirestore();
+
+    const receptionRequests = requests.filter(function (request) {
+        const service = request.service || "";
+
+        return (
+            service.includes("Airport Transfer") ||
+            service.includes("Luggage Assistance") ||
+            service.includes("Extend Your Stay") ||
+            service.includes("Maintenance Request") ||
+            service.includes("Emergency Assistance") ||
+            service.includes("Billing Help") ||
+            service.includes("Currency Exchange") ||
+            service.includes("Other Assistance")
+        );
+    });
+
+    const container = document.getElementById(
+        "overviewRecentRequests"
+    );
+
+    if (!container) return;
+
+    if (receptionRequests.length === 0) {
+        container.innerHTML = `
+            <div class="preview-row">
+                <div class="preview-info">
+                    <strong>No recent requests</strong>
+                    <span>Reception requests will appear here.</span>
+                </div>
+
+                <span class="preview-status">0</span>
+            </div>
+        `;
+
+        return;
+    }
+
+    container.innerHTML = receptionRequests
+        .slice(0, 3)
+        .map(function (request) {
+            return `
+                <div class="preview-row">
+
+                    <div class="preview-info">
+                        <strong>
+                            ${request.service}
+                        </strong>
+
+                        <span>
+                            ${request.guestName || "Guest"}
+                        </span>
+                    </div>
+
+                    <span class="preview-status">
+                        ${request.status || "Received"}
+                    </span>
+
+                </div>
+            `;
+        })
+        .join("");
 }
 
 async function updateOverviewLiveChats() {
@@ -2409,14 +2478,14 @@ function setupReceptionNavigation(session) {
                     item.dataset.section,
                     session
                 );
-
-               if (item.dataset.section === "overview") {
-                updateOverviewCurrentGuests();
-                updateOverviewGuestRequests();
-                updateOverviewLiveChats();
-                updateOverviewEmergencyAlerts();
-                updateOverviewCurrentGuestsPanel();
-             }
+if (item.dataset.section === "overview") {
+    updateOverviewCurrentGuests();
+    updateOverviewGuestRequests();
+    updateOverviewRecentRequests();
+    updateOverviewLiveChats();
+    updateOverviewEmergencyAlerts();
+    updateOverviewCurrentGuestsPanel();
+}
 
                 closeMobileMenu();
 
