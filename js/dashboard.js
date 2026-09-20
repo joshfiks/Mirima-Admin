@@ -3289,12 +3289,12 @@ function setupRequestCategoryButtons(requests) {
                             "none";
 
                         const service =
-                            requestCard
-                                .querySelector(
-                                    "[data-request-service]"
-                                )
-                                ?.textContent
-                                .trim();
+                         requestCard
+                            .querySelector(
+                              "[data-request-service]"
+                            )
+                        ?.getAttribute("data-request-service")
+                        ?.trim();
 
                         if (
                             normalizedCategory ===
