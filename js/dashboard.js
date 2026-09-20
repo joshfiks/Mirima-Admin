@@ -3296,6 +3296,13 @@ function setupRequestCategoryButtons(requests) {
                         ?.getAttribute("data-request-service")
                         ?.trim();
 
+                       console.log(
+                        "Category:",
+                        normalizedCategory,
+                     "| Service:",
+                    service
+                    );
+
                         if (
                             normalizedCategory ===
                             "Extend Your Stay"
