@@ -3216,7 +3216,7 @@ function setupRequestCategoryButtons(requests) {
                 ) {
 
                     const restaurantSubCategories = [
-                        "Reserve a Table",
+                       "Restaurant Reservation",
                         "Bar Menu",
                         "Room Dining",
                         "Restaurant Menu"
