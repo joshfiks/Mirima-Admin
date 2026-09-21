@@ -3295,6 +3295,7 @@ function setupRequestCategoryButtons(requests) {
                             )
                         ?.getAttribute("data-request-service")
                         ?.trim();
+                       console.log("REQUEST CARD SERVICE:", service);
 
                        console.log(
                         "Category:",
