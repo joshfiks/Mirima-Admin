@@ -797,13 +797,13 @@ async function renderReceptionSection(section, session) {
 
         case "emergency":
 
-            title.textContent =
-                "Emergency Alerts";
+    title.textContent =
+        "Emergency Alerts";
 
-            content.innerHTML =
-                getEmergencyContent();
+    content.innerHTML =
+        await getEmergencyContent();
 
-            break;
+    break;
 
     }
 
@@ -3010,7 +3010,19 @@ ${payments.map(function (payment) {
 // EMERGENCY
 // =========================================================
 
-function getEmergencyContent() {
+async function getEmergencyContent() {
+
+    const requests =
+        await getRequestsFromFirestore();
+
+    const emergencyRequests =
+        requests.filter(function (request) {
+
+            return (
+                request.service || ""
+            ).includes("Emergency Assistance");
+
+        });
 
     return `
 
@@ -3035,23 +3047,36 @@ function getEmergencyContent() {
 
         </div>
 
+        ${
+            emergencyRequests.length
+                ? `
+                    <div class="guest-requests-list emergency-requests-list">
+                        ${emergencyRequests
+                            .map(function (request) {
+                                return createGuestRequestCard(request);
+                            })
+                            .join("")}
+                    </div>
+                `
+                : `
+                    <div class="emergency-empty-state">
 
-        <div class="emergency-empty-state">
+                        <div class="emergency-large-icon">
+                            !
+                        </div>
 
-            <div class="emergency-large-icon">
-                !
-            </div>
+                        <h4>
+                            No active emergencies
+                        </h4>
 
-            <h4>
-                No active emergencies
-            </h4>
+                        <p>
+                            Security emergencies will appear here
+                            and will also be sent to the Security team.
+                        </p>
 
-            <p>
-                Security emergencies will appear here
-                and will also be sent to the Security team.
-            </p>
-
-        </div>
+                    </div>
+                `
+        }
 
     `;
 
