@@ -1020,6 +1020,31 @@ async function updateOverviewCurrentGuestsPanel() {
 
 }
 
+async function updateEmergencyCount() {
+
+    const countElement =
+        document.getElementById("emergencyCount");
+
+    if (!countElement) {
+        return;
+    }
+
+    const requests =
+        await getRequestsFromFirestore();
+
+    const emergencyCount =
+        requests.filter(function (request) {
+
+            return (
+                request.service || ""
+            ).includes("Emergency Assistance");
+
+        }).length;
+
+    countElement.textContent =
+        emergencyCount;
+}
+
 // =========================================================
 // PAYMENT RECEIPT
 // =========================================================
