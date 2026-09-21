@@ -362,7 +362,8 @@ updateOverviewRecentRequests();
 updateOverviewLiveChats();
 updateOverviewEmergencyAlerts();
 updateOverviewCurrentGuestsPanel();
-    // Setup navigation
+updateEmergencyCount();
+// Setup navigation
 
     setupReceptionNavigation(session);
 
