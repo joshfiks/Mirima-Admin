@@ -3308,19 +3308,19 @@ function setupRequestCategoryButtons(requests) {
                     service
                     );
 
-                        if (
-                            normalizedCategory ===
-                            "Extend Your Stay"
-                                ? service.includes("Extend")
-                                : normalizedCategory ===
-                                  "Speak to Reception"
-                                    ? service.includes(
-                                        "Other Assistance"
-                                      )
-                                    : service.includes(
-                                        normalizedCategory
-                                      )
-                        ) {
+                       if (
+    normalizedCategory === "Extend Your Stay"
+        ? service.includes("Extend")
+        : normalizedCategory === "Speak to Reception"
+            ? service.includes("Other Assistance")
+            : normalizedCategory === "Make Payment"
+                ? (
+                    service.includes("Make Payment") ||
+                    service.includes("Payment at Reception") ||
+                    service.includes("Mobile Money Payment")
+                )
+                : service.includes(normalizedCategory)
+) {
 
                             requestCard.style.display =
                                 "block";
