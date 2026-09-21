@@ -2487,6 +2487,15 @@ ${createRequestCategory(
 )}
 
 ${createRequestCategory(
+    "🧾",
+    "Receipt",
+    "Review guest requests for receipts.",
+    requests.filter(function (request) {
+        return request.service.includes("Receipt");
+    }).length
+)}
+
+${createRequestCategory(
     "🐒",
     "Chimpanzee Trekking",
     "Review guest requests for chimpanzee trekking.",
