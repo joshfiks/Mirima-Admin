@@ -2478,7 +2478,11 @@ ${createRequestCategory(
     "Make Payment",
     "Review and assist with guest payment requests.",
     requests.filter(function (request) {
-        return request.service.includes("Make Payment");
+        return (
+    request.service.includes("Make Payment") ||
+    request.service.includes("Payment at Reception") ||
+    request.service.includes("Mobile Money Payment")
+);
     }).length
 )}
 
