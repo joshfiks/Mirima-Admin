@@ -836,16 +836,31 @@ async function updateOverviewGuestRequests() {
     const receptionRequests = requests.filter(function (request) {
         const service = request.service || "";
 
-        return (
-            service.includes("Airport Transfer") ||
-            service.includes("Luggage Assistance") ||
-            service.includes("Extend Your Stay") ||
-            service.includes("Maintenance Request") ||
-            service.includes("Emergency Assistance") ||
-            service.includes("Billing Help") ||
-            service.includes("Currency Exchange") ||
-            service.includes("Other Assistance")
-        );
+return (
+    service.includes("Airport Transfer") ||
+    service.includes("Luggage Assistance") ||
+    service.includes("Extend Your Stay") ||
+    service.includes("Maintenance Request") ||
+    service.includes("Emergency Assistance") ||
+    service.includes("Billing Help") ||
+    service.includes("Currency Exchange") ||
+    service.includes("Other Assistance") ||
+    service.includes("Late Checkout") ||
+    service.includes("Make Payment") ||
+    service.includes("Payment at Reception") ||
+    service.includes("Mobile Money Payment") ||
+    service.includes("Chimpanzee Trekking") ||
+    service.includes("Wildlife Viewing") ||
+    service.includes("Evening Campfire") ||
+    service.includes("Forest Nature Walk") ||
+    service.includes("Crater Lake Tour") ||
+    service.includes("Photography Tour") ||
+    service.includes("Restaurant Reservation") ||
+    service.includes("Bar Menu") ||
+    service.includes("Room Dining") ||
+    service.includes("Restaurant Menu") ||
+    service.includes("Receipt")
+);
     });
 
     const countElement = document.getElementById(
