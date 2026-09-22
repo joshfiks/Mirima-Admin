@@ -2712,10 +2712,12 @@ function createGuestRequestCard(request) {
     data-request-id="${request.id}"
     style="display: none;"
 >
-    <button data-status="Received">Received</button>
-    <button data-status="In Progress">In Progress</button>
-    <button data-status="Completed">Completed</button>
-    <button data-status="Cancelled">Cancelled</button>
+<button data-status="Pending">Pending</button>
+<button data-status="Received">Received</button>
+<button data-status="Approved">Approved</button>
+<button data-status="In Progress">In Progress</button>
+<button data-status="Completed">Completed</button>
+<button data-status="Cancelled">Cancelled</button>
 </div>
 
             </div>
@@ -3815,4 +3817,23 @@ function escapeHTML(value) {
         .replaceAll('"', "&quot;")
         .replaceAll("'", "&#039;");
 
+}
+// ==========================================
+// GET COTTAGE ID FROM EXTENSION REQUEST
+// ==========================================
+
+function getExtensionCottageId(request) {
+
+    if (!request.details) {
+        return null;
+    }
+
+    const match =
+        request.details.match(/Cottage:\s*(cottage-\d+)/i);
+
+    if (!match) {
+        return null;
+    }
+
+    return match[1];
 }
