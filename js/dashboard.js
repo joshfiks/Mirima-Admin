@@ -2381,6 +2381,10 @@ console.log(
         );
 
     console.log("Guest found:", guestDoc?.data());
+
+    if (guestDoc) {
+    console.log("Guest document ID:", guestDoc.id);
+}
 }
 }
 async function updateRequestCount() {
