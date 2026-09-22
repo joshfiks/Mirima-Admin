@@ -2339,6 +2339,10 @@ async function updateRequestStatus(requestId, newStatus) {
 
     const request =
         requestSnapshot.data();
+   
+
+console.log("Request being updated:", request);
+console.log("New status:", newStatus);
 
     await updateDoc(
         requestRef,
