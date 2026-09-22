@@ -2363,6 +2363,14 @@ console.log(
         getExtensionCottageId(request);
 
     console.log("Extension cottage:", cottageId);
+
+      const checkoutMatch =
+    request.details?.match(/New checkout:\s*(\d{4}-\d{2}-\d{2})/);
+
+const newCheckoutDate =
+    checkoutMatch ? checkoutMatch[1] : null;
+
+console.log("New checkout date:", newCheckoutDate);
 }
    if (
     newStatus === "Approved" &&
