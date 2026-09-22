@@ -40,6 +40,7 @@ import {
 import {
     collection,
     getDocs,
+    getDoc
     updateDoc,
     doc
 } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
@@ -2325,8 +2326,22 @@ async function getRequestsFromFirestore() {
 }
 
 async function updateRequestStatus(requestId, newStatus) {
+
+    const requestRef =
+        doc(db, "requests", requestId);
+
+    const requestSnapshot =
+        await getDoc(requestRef);
+
+    if (!requestSnapshot.exists()) {
+        return;
+    }
+
+    const request =
+        requestSnapshot.data();
+
     await updateDoc(
-        doc(db, "requests", requestId),
+        requestRef,
         {
             status: newStatus
         }
