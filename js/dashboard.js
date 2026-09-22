@@ -2350,6 +2350,12 @@ console.log("New status:", newStatus);
             status: newStatus
         }
     );
+   if (
+    newStatus === "Approved" &&
+    request.service?.includes("Extend Stay")
+) {
+    console.log("Extension request approved:", request);
+}
 }
 
 async function updateRequestCount() {
