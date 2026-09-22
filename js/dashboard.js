@@ -2342,8 +2342,12 @@ async function updateRequestStatus(requestId, newStatus) {
    
 
 console.log("Request being updated:", request);
-console.log("New status:", newStatus);
-
+console.log(
+    "Extension check:",
+    newStatus === "Approved",
+    request.service,
+    request.service?.includes("Extend Stay")
+);
     await updateDoc(
         requestRef,
         {
