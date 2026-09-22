@@ -2384,6 +2384,19 @@ console.log(
 
     if (guestDoc) {
     console.log("Guest document ID:", guestDoc.id);
+
+       await updateDoc(
+    doc(db, "guests", guestDoc.id),
+    {
+        checkoutDate: newCheckoutDate
+    }
+);
+
+console.log(
+    "Guest checkout date updated:",
+    newCheckoutDate
+);
+       
 }
 }
 }
