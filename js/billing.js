@@ -3,9 +3,11 @@ import { db } from "./firebase.js";
 import {
     collection,
     addDoc,
-    getDocs
+    getDocs,
+    getDoc,
+    setDoc,
+    doc
 } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
-
 // =========================================================
 // MIRIMA BILLING
 // =========================================================
