@@ -2382,7 +2382,7 @@ console.log(
 
     console.log("Guest found:", guestDoc?.data());
 }
-
+}
 async function updateRequestCount() {
     const requests = await getRequestsFromFirestore();
 
