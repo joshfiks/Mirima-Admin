@@ -1432,8 +1432,8 @@ if (addChargeButton) {
 
     addChargeButton.addEventListener(
         "click",
-        function () {
-
+     async function () {
+        
             const chargeDescription =
                 prompt("Enter charge description:");
 
@@ -1447,7 +1447,7 @@ if (addChargeButton) {
             ) {
 
                 const newCharge =
-                    addBillItem(
+                   await addBillItem(
                         cottageId,
                         chargeDescription,
                         Number(chargeAmount)
