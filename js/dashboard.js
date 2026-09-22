@@ -2355,7 +2355,7 @@ console.log(
         }
     );
 
-   if (
+ if (
     newStatus === "Approved" &&
     request.service?.includes("Extend Stay")
 ) {
@@ -2364,20 +2364,23 @@ console.log(
 
     console.log("Extension cottage:", cottageId);
 
-      const checkoutMatch =
-    request.details?.match(/New checkout:\s*(\d{4}-\d{2}-\d{2})/);
+    const checkoutMatch =
+        request.details?.match(/New checkout:\s*(\d{4}-\d{2}-\d{2})/);
 
-const newCheckoutDate =
-    checkoutMatch ? checkoutMatch[1] : null;
+    const newCheckoutDate =
+        checkoutMatch ? checkoutMatch[1] : null;
 
-console.log("New checkout date:", newCheckoutDate);
-}
-   if (
-    newStatus === "Approved" &&
-    request.service?.includes("Extend Stay")
-) {
-    console.log("Extension request approved:", request);
-}
+    console.log("New checkout date:", newCheckoutDate);
+
+    const guestsSnapshot =
+        await getDocs(collection(db, "guests"));
+
+    const guestDoc =
+        guestsSnapshot.docs.find(
+            doc => doc.data().cottageId === cottageId
+        );
+
+    console.log("Guest found:", guestDoc?.data());
 }
 
 async function updateRequestCount() {
