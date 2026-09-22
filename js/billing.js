@@ -84,7 +84,7 @@ function getCottageBill(cottageId) {
 
 }
 
-function addBillItem(
+async function addBillItem(
     cottageId,
     description,
     amount
@@ -131,6 +131,33 @@ function addBillItem(
     saveBillingData(
         billingData
     );
+
+    // Save the cottage bill to Firestore
+    try {
+
+        await setDoc(
+            doc(db, "bills", cottageId),
+            {
+                cottageId: cottageId,
+                items: billingData[cottageId].items,
+                payments: billingData[cottageId].payments,
+                updatedAt: new Date().toISOString()
+            }
+        );
+
+        console.log(
+            "Bill synced to Firestore:",
+            cottageId
+        );
+
+    } catch (error) {
+
+        console.error(
+            "Failed to sync bill to Firestore:",
+            error
+        );
+
+    }
 
     return billItem;
 
