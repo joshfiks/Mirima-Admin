@@ -2354,6 +2354,16 @@ console.log(
             status: newStatus
         }
     );
+
+   if (
+    newStatus === "Approved" &&
+    request.service?.includes("Extend Stay")
+) {
+    const cottageId =
+        getExtensionCottageId(request);
+
+    console.log("Extension cottage:", cottageId);
+}
    if (
     newStatus === "Approved" &&
     request.service?.includes("Extend Stay")
