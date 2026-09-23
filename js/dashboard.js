@@ -477,6 +477,79 @@ function renderHousekeepingDashboard(session) {
     `;
 
     updateHousekeepingRequestCount();
+   
+    setupHousekeepingNavigation(session);
+}
+
+function setupHousekeepingNavigation(session) {
+
+    const buttons =
+        document.querySelectorAll(
+            ".housekeeping-nav-item"
+        );
+
+    buttons.forEach(function (button) {
+
+        button.addEventListener(
+            "click",
+            function () {
+
+                const section =
+                    button.dataset.housekeepingSection;
+
+                buttons.forEach(function (item) {
+
+                    item.classList.toggle(
+                        "active",
+                        item === button
+                    );
+
+                });
+
+                const title =
+                    document.getElementById(
+                        "housekeepingPageTitle"
+                    );
+
+                if (section === "overview") {
+
+                    title.textContent =
+                        "Housekeeping Overview";
+
+                }
+
+                if (section === "requests") {
+
+                    title.textContent =
+                        "Guest Requests";
+
+                }
+
+                if (section === "chat") {
+
+                    title.textContent =
+                        "Live Chat";
+
+                }
+
+                if (section === "announcements") {
+
+                    title.textContent =
+                        "Announcements";
+
+                }
+
+                if (section === "history") {
+
+                    title.textContent =
+                        "Housekeeping History";
+
+                }
+
+            }
+        );
+
+    });
 
 }
 
