@@ -1,1 +1,19 @@
+/* =========================================================
+   MIRIMA KITCHEN DASHBOARD
+   ========================================================= */
 
+.login-screen.kitchen-mode {
+    display: block;
+    min-height: 100vh;
+    width: 100%;
+    padding: 0;
+    background: #101411;
+}
+
+.kitchen-app {
+    min-height: 100vh;
+    width: 100%;
+    display: flex;
+    background: #0d1712;
+    color: #ffffff;
+}
