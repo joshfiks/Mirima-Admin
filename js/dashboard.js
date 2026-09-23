@@ -520,10 +520,43 @@ function setupHousekeepingNavigation(session) {
 
                 if (section === "requests") {
 
-                    title.textContent =
-                        "Guest Requests";
+    title.textContent =
+        "Guest Requests";
 
-                }
+    const content =
+        document.getElementById(
+            "housekeepingContent"
+        );
+
+    content.innerHTML = `
+        <div class="housekeeping-panel">
+
+            <div class="housekeeping-panel-heading">
+
+                <div>
+
+                    <p class="housekeeping-eyebrow">
+                        GUEST SERVICES
+                    </p>
+
+                    <h4>
+                        Housekeeping Requests
+                    </h4>
+
+                </div>
+
+            </div>
+
+
+            <div
+                id="housekeepingRequestCategories"
+                class="housekeeping-request-grid"
+            ></div>
+
+        </div>
+    `;
+
+}
 
                 if (section === "chat") {
 
