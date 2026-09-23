@@ -24,7 +24,12 @@
             #0b0f0c 100%
         );
 }
-
+.login-screen.housekeeping-mode {
+    display: block;
+    min-height: 100vh;
+    width: 100%;
+    padding: 0;
+}
 
 /* =========================
    LOGIN CONTAINER
