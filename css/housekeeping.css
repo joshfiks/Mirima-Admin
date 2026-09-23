@@ -1,0 +1,454 @@
+/* =========================================================
+   MIRIMA HOUSEKEEPING DASHBOARD
+   ========================================================= */
+
+.housekeeping-app {
+    min-height: 100vh;
+    display: flex;
+    background:
+        radial-gradient(
+            circle at top left,
+            rgba(216, 184, 106, 0.06),
+            transparent 35%
+        ),
+        #0d1712;
+    color: #ffffff;
+}
+
+/* =========================================================
+   SIDEBAR
+   ========================================================= */
+
+.housekeeping-sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 260px;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+
+    background:
+        linear-gradient(
+            180deg,
+            rgba(19, 34, 26, 0.98),
+            rgba(11, 23, 17, 0.98)
+        );
+
+    border-right: 1px solid rgba(216, 184, 106, 0.18);
+    box-shadow: 12px 0 35px rgba(0, 0, 0, 0.22);
+
+    z-index: 1000;
+}
+
+.housekeeping-brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 28px 22px 20px;
+}
+
+.housekeeping-brand-mark {
+    width: 42px;
+    height: 42px;
+    display: grid;
+    place-items: center;
+
+    border: 1px solid rgba(216, 184, 106, 0.55);
+    border-radius: 12px;
+
+    color: #e4c56f;
+    font-size: 18px;
+    font-weight: 700;
+}
+
+.housekeeping-brand h1 {
+    margin: 0;
+    font-size: 21px;
+}
+
+.housekeeping-brand span {
+    display: block;
+    margin-top: 3px;
+
+    color: #d8b86a;
+    font-size: 12px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+}
+
+/* =========================================================
+   STAFF
+   ========================================================= */
+
+.housekeeping-staff {
+    display: flex;
+    align-items: center;
+    gap: 11px;
+
+    margin: 6px 16px 22px;
+    padding: 14px;
+
+    border: 1px solid rgba(216, 184, 106, 0.14);
+    border-radius: 16px;
+
+    background: rgba(255, 255, 255, 0.025);
+}
+
+.housekeeping-avatar {
+    width: 38px;
+    height: 38px;
+
+    display: grid;
+    place-items: center;
+
+    border-radius: 50%;
+
+    background: linear-gradient(
+        135deg,
+        #d8b86a,
+        #a9873d
+    );
+
+    color: #172018;
+    font-weight: 700;
+}
+
+.housekeeping-staff strong {
+    display: block;
+    font-size: 13px;
+}
+
+.housekeeping-staff span {
+    display: block;
+    margin-top: 3px;
+
+    color: rgba(255, 255, 255, 0.55);
+    font-size: 11px;
+}
+
+/* =========================================================
+   NAVIGATION
+   ========================================================= */
+
+.housekeeping-navigation {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding: 0 14px;
+}
+
+.housekeeping-nav-item {
+    width: 100%;
+
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    padding: 12px 14px;
+
+    border: 1px solid transparent;
+    border-radius: 12px;
+
+    background: transparent;
+    color: rgba(255, 255, 255, 0.68);
+
+    text-align: left;
+    font-size: 14px;
+
+    cursor: pointer;
+
+    transition:
+        background 0.2s ease,
+        color 0.2s ease,
+        border-color 0.2s ease;
+}
+
+.housekeeping-nav-item span {
+    width: 20px;
+    text-align: center;
+}
+
+.housekeeping-nav-item:hover,
+.housekeeping-nav-item.active {
+    background: rgba(216, 184, 106, 0.10);
+    border-color: rgba(216, 184, 106, 0.22);
+    color: #ffffff;
+}
+
+.housekeeping-nav-item.active {
+    box-shadow:
+        inset 3px 0 0 #d8b86a;
+}
+
+.housekeeping-nav-count {
+    margin-left: auto;
+
+    min-width: 22px;
+    height: 22px;
+
+    display: grid;
+    place-items: center;
+
+    border-radius: 50%;
+
+    background: rgba(216, 184, 106, 0.14);
+    color: #e5ca79;
+
+    font-size: 11px;
+}
+
+/* =========================================================
+   SIDEBAR BOTTOM
+   ========================================================= */
+
+.housekeeping-sidebar-bottom {
+    margin-top: auto;
+    padding: 18px 16px 22px;
+}
+
+.housekeeping-connection-status {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    margin-bottom: 12px;
+
+    color: rgba(255, 255, 255, 0.55);
+    font-size: 12px;
+}
+
+.housekeeping-connection-status span {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+
+    background: #7ecf8a;
+    box-shadow: 0 0 12px rgba(126, 207, 138, 0.45);
+}
+
+.housekeeping-logout {
+    width: 100%;
+    padding: 11px 14px;
+
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 10px;
+
+    background: rgba(255, 255, 255, 0.03);
+    color: rgba(255, 255, 255, 0.75);
+
+    cursor: pointer;
+}
+
+/* =========================================================
+   MAIN
+   ========================================================= */
+
+.housekeeping-main {
+    width: calc(100% - 260px);
+    margin-left: 260px;
+    min-height: 100vh;
+}
+
+/* =========================================================
+   HEADER
+   ========================================================= */
+
+.housekeeping-header {
+    height: 82px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 0 32px;
+
+    border-bottom: 1px solid rgba(216, 184, 106, 0.12);
+
+    background: rgba(12, 22, 16, 0.82);
+    backdrop-filter: blur(12px);
+}
+
+.housekeeping-eyebrow {
+    margin: 0 0 6px;
+
+    color: #d8b86a;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 2px;
+}
+
+.housekeeping-header h2 {
+    margin: 0;
+    font-size: 22px;
+}
+
+.housekeeping-header-actions {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.housekeeping-header-icon-button {
+    position: relative;
+
+    width: 40px;
+    height: 40px;
+
+    border: 1px solid rgba(216, 184, 106, 0.18);
+    border-radius: 10px;
+
+    background: rgba(255, 255, 255, 0.03);
+    cursor: pointer;
+}
+
+.housekeeping-header-notification-count {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+
+    min-width: 18px;
+    height: 18px;
+
+    display: grid;
+    place-items: center;
+
+    border-radius: 50%;
+
+    background: #d8b86a;
+    color: #172018;
+
+    font-size: 10px;
+    font-weight: 700;
+}
+
+.housekeeping-header-staff {
+    color: rgba(255, 255, 255, 0.72);
+    font-size: 13px;
+}
+
+/* =========================================================
+   CONTENT
+   ========================================================= */
+
+.housekeeping-content {
+    padding: 32px;
+}
+
+.housekeeping-welcome {
+    padding: 30px;
+
+    border: 1px solid rgba(216, 184, 106, 0.18);
+    border-radius: 20px;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(216, 184, 106, 0.08),
+            rgba(255, 255, 255, 0.02)
+        );
+
+    box-shadow:
+        0 20px 45px rgba(0, 0, 0, 0.18);
+}
+
+.housekeeping-welcome h3 {
+    margin: 0 0 12px;
+
+    font-size: 28px;
+}
+
+.housekeeping-welcome p:last-child {
+    max-width: 700px;
+    margin: 0;
+
+    color: rgba(255, 255, 255, 0.62);
+    line-height: 1.7;
+}
+
+/* =========================================================
+   MOBILE HEADER
+   ========================================================= */
+
+.housekeeping-mobile-header {
+    display: none;
+}
+
+.housekeeping-sidebar-overlay {
+    display: none;
+}
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+@media (max-width: 900px) {
+
+    .housekeeping-sidebar {
+        transform: translateX(-100%);
+        transition: transform 0.3s ease;
+    }
+
+    .housekeeping-sidebar.open {
+        transform: translateX(0);
+    }
+
+    .housekeeping-main {
+        width: 100%;
+        margin-left: 0;
+    }
+
+    .housekeeping-mobile-header {
+        height: 64px;
+
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        padding: 0 16px;
+
+        border-bottom: 1px solid rgba(216, 184, 106, 0.14);
+
+        background: #0d1712;
+    }
+
+    .housekeeping-mobile-menu-button,
+    .housekeeping-mobile-notification-button {
+        width: 40px;
+        height: 40px;
+
+        border: 1px solid rgba(216, 184, 106, 0.18);
+        border-radius: 10px;
+
+        background: rgba(255, 255, 255, 0.03);
+        cursor: pointer;
+    }
+
+    .housekeeping-mobile-brand {
+        text-align: center;
+    }
+
+    .housekeeping-mobile-brand strong {
+        display: block;
+    }
+
+    .housekeeping-mobile-brand span {
+        display: block;
+
+        margin-top: 2px;
+
+        color: #d8b86a;
+        font-size: 10px;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+    }
+
+    .housekeeping-header {
+        padding: 0 18px;
+    }
+
+    .housekeeping-content {
+        padding: 20px;
+    }
+
+}
