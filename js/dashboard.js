@@ -684,7 +684,9 @@ export function showDashboard(session) {
     const loginScreen =
         document.getElementById("loginScreen");
 
-
+   loginScreen.className =
+       "login-screen housekeeping-mode";
+   
     loginScreen.innerHTML = `
 
         <div class="reception-app">
