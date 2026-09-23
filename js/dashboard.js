@@ -696,6 +696,13 @@ export function showDashboard(session) {
         return;
     }
 
+       if (session.role === "kitchen") {
+
+        renderKitchenDashboard(session);
+
+        return;
+    }
+
     const loginScreen =
         document.getElementById("loginScreen");
 
@@ -4586,4 +4593,262 @@ function getExtensionCottageId(request) {
     }
 
     return match[1];
+}
+// =========================================================
+// KITCHEN DASHBOARD
+// =========================================================
+
+function renderKitchenDashboard(session) {
+
+    const loginScreen =
+        document.getElementById("loginScreen");
+
+    loginScreen.className =
+        "login-screen kitchen-mode";
+
+    loginScreen.innerHTML = `
+
+        <div class="kitchen-app">
+
+            <!-- MOBILE HEADER -->
+
+            <header class="kitchen-mobile-header">
+
+                <button
+                    id="kitchenMobileMenuButton"
+                    class="kitchen-mobile-menu-button"
+                    aria-label="Open menu"
+                >
+                    ☰
+                </button>
+
+                <div class="kitchen-mobile-brand">
+
+                    <strong>
+                        Mirima
+                    </strong>
+
+                    <span>
+                        Kitchen
+                    </span>
+
+                </div>
+
+                <button
+                    id="kitchenMobileNotificationButton"
+                    class="kitchen-mobile-notification-button"
+                    aria-label="Notifications"
+                >
+                    🔔
+                </button>
+
+            </header>
+
+
+            <!-- SIDEBAR -->
+
+            <aside
+                id="kitchenSidebar"
+                class="kitchen-sidebar"
+            >
+
+                <div class="kitchen-brand">
+
+                    <div class="kitchen-brand-mark">
+                        M
+                    </div>
+
+                    <div>
+
+                        <h1>
+                            Mirima
+                        </h1>
+
+                        <span>
+                            Kitchen
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <!-- STAFF -->
+
+                <div class="kitchen-staff">
+
+                    <div class="kitchen-avatar">
+                        ${getInitials(session.name)}
+                    </div>
+
+                    <div>
+
+                        <strong>
+                            ${escapeHTML(session.name)}
+                        </strong>
+
+                        <span>
+                            Kitchen
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <!-- NAVIGATION -->
+
+                <nav class="kitchen-navigation">
+
+                    <button
+                        class="kitchen-nav-item active"
+                        data-section="overview"
+                    >
+                        <span>⌂</span>
+                        Overview
+                    </button>
+
+
+                    <button
+                        class="kitchen-nav-item"
+                        data-section="requests"
+                    >
+                        <span>☷</span>
+                        Guest Requests
+
+                        <b
+                            id="kitchenRequestCount"
+                            class="kitchen-nav-count"
+                        >
+                            0
+                        </b>
+
+                    </button>
+
+
+                    <button
+                        class="kitchen-nav-item"
+                        data-section="chat"
+                    >
+                        <span>✉</span>
+                        Live Chat
+
+                        <b
+                            id="kitchenChatCount"
+                            class="kitchen-nav-count"
+                        >
+                            0
+                        </b>
+
+                    </button>
+
+
+                    <button
+                        class="kitchen-nav-item"
+                        data-section="announcements"
+                    >
+                        <span>📢</span>
+                        Announcements
+                    </button>
+
+
+                    <button
+                        class="kitchen-nav-item"
+                        data-section="history"
+                    >
+                        <span>◷</span>
+                        History
+                    </button>
+
+                </nav>
+
+
+                <!-- SIDEBAR BOTTOM -->
+
+                <div class="kitchen-sidebar-bottom">
+
+                    <div class="kitchen-connection-status">
+
+                        <span></span>
+
+                        System Online
+
+                    </div>
+
+
+                    <button
+                        id="kitchenLogout"
+                        class="kitchen-logout"
+                    >
+                        Logout
+                    </button>
+
+                </div>
+
+            </aside>
+
+
+            <!-- MAIN -->
+
+            <main class="kitchen-main">
+
+                <header class="kitchen-header">
+
+                    <div>
+
+                        <p class="kitchen-eyebrow">
+                            MIRIMA ADMIN / KITCHEN
+                        </p>
+
+                        <h2 id="kitchenPageTitle">
+                            Kitchen Overview
+                        </h2>
+
+                    </div>
+
+
+                    <div class="kitchen-header-actions">
+
+                        <button
+                            id="kitchenNotificationButton"
+                            class="kitchen-header-icon-button"
+                            aria-label="Notifications"
+                        >
+                            🔔
+
+                            <span
+                                id="kitchenHeaderNotificationCount"
+                                class="kitchen-header-notification-count"
+                            >
+                                0
+                            </span>
+
+                        </button>
+
+
+                        <div class="kitchen-header-staff">
+
+                            <span>
+                                ${escapeHTML(session.name)}
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                </header>
+
+
+                <!-- DYNAMIC CONTENT -->
+
+                <section
+                    id="kitchenContent"
+                    class="kitchen-content"
+                ></section>
+
+            </main>
+
+        </div>
+
+    `;
 }
