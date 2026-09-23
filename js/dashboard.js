@@ -55,6 +55,9 @@ function renderHousekeepingDashboard(session) {
     const loginScreen =
         document.getElementById("loginScreen");
 
+   loginScreen.className =
+        "login-screen housekeeping-mode";
+
     loginScreen.innerHTML = `
 
         <div class="housekeeping-app">
