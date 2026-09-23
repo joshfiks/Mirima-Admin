@@ -45,11 +45,299 @@ import {
     setDoc,
     doc
 } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
+
+// =========================================================
+// HOUSEKEEPING DASHBOARD
+// =========================================================
+
+function renderHousekeepingDashboard(session) {
+
+    const loginScreen =
+        document.getElementById("loginScreen");
+
+    loginScreen.innerHTML = `
+
+        <div class="housekeeping-app">
+
+            <!-- MOBILE HEADER -->
+
+            <header class="housekeeping-mobile-header">
+
+                <button
+                    id="housekeepingMobileMenuButton"
+                    class="housekeeping-mobile-menu-button"
+                >
+                    ☰
+                </button>
+
+                <div class="housekeeping-mobile-brand">
+
+                    <strong>
+                        Mirima
+                    </strong>
+
+                    <span>
+                        Housekeeping
+                    </span>
+
+                </div>
+
+                <button
+                    id="housekeepingMobileNotificationButton"
+                    class="housekeeping-mobile-notification-button"
+                >
+                    🔔
+                </button>
+
+            </header>
+
+
+            <!-- SIDEBAR -->
+
+            <aside
+                id="housekeepingSidebar"
+                class="housekeeping-sidebar"
+            >
+
+                <div class="housekeeping-brand">
+
+                    <div class="housekeeping-brand-mark">
+                        M
+                    </div>
+
+                    <div>
+
+                        <h1>
+                            Mirima
+                        </h1>
+
+                        <span>
+                            Housekeeping
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <!-- STAFF -->
+
+                <div class="housekeeping-staff">
+
+                    <div class="housekeeping-avatar">
+
+                        ${getInitials(session.name)}
+
+                    </div>
+
+                    <div>
+
+                        <strong>
+                            ${escapeHTML(session.name)}
+                        </strong>
+
+                        <span>
+                            Housekeeping
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <!-- NAVIGATION -->
+
+                <nav class="housekeeping-navigation">
+
+                    <button
+                        class="housekeeping-nav-item active"
+                        data-housekeeping-section="overview"
+                    >
+                        <span>⌂</span>
+                        Overview
+                    </button>
+
+
+                    <button
+                        class="housekeeping-nav-item"
+                        data-housekeeping-section="requests"
+                    >
+                        <span>☷</span>
+                        Guest Requests
+
+                        <b
+                            id="housekeepingRequestCount"
+                            class="housekeeping-nav-count"
+                        >
+                            0
+                        </b>
+
+                    </button>
+
+
+                    <button
+                        class="housekeeping-nav-item"
+                        data-housekeeping-section="chat"
+                    >
+                        <span>✉</span>
+                        Live Chat
+
+                        <b
+                            id="housekeepingChatCount"
+                            class="housekeeping-nav-count"
+                        >
+                            0
+                        </b>
+
+                    </button>
+
+
+                    <button
+                        class="housekeeping-nav-item"
+                        data-housekeeping-section="announcements"
+                    >
+                        <span>♢</span>
+                        Announcements
+                    </button>
+
+
+                    <button
+                        class="housekeeping-nav-item"
+                        data-housekeeping-section="history"
+                    >
+                        <span>↺</span>
+                        History
+                    </button>
+
+                </nav>
+
+
+                <!-- SIDEBAR BOTTOM -->
+
+                <div class="housekeeping-sidebar-bottom">
+
+                    <div class="housekeeping-connection-status">
+
+                        <span></span>
+
+                        System Online
+
+                    </div>
+
+                    <button
+                        id="housekeepingLogout"
+                        class="housekeeping-logout"
+                    >
+                        Logout
+                    </button>
+
+                </div>
+
+            </aside>
+
+
+            <!-- SIDEBAR OVERLAY -->
+
+            <div
+                id="housekeepingSidebarOverlay"
+                class="housekeeping-sidebar-overlay"
+            ></div>
+
+
+            <!-- MAIN CONTENT -->
+
+            <main class="housekeeping-main">
+
+                <header class="housekeeping-header">
+
+                    <div>
+
+                        <p class="housekeeping-eyebrow">
+                            MIRIMA ADMIN / HOUSEKEEPING
+                        </p>
+
+                        <h2 id="housekeepingPageTitle">
+                            Housekeeping Overview
+                        </h2>
+
+                    </div>
+
+
+                    <div class="housekeeping-header-actions">
+
+                        <button
+                            id="housekeepingNotificationButton"
+                            class="housekeeping-header-icon-button"
+                        >
+                            🔔
+
+                            <span
+                                id="housekeepingHeaderNotificationCount"
+                                class="housekeeping-header-notification-count"
+                            >
+                                0
+                            </span>
+
+                        </button>
+
+
+                        <div class="housekeeping-header-staff">
+
+                            ${escapeHTML(session.name)}
+
+                        </div>
+
+                    </div>
+
+                </header>
+
+
+                <!-- DYNAMIC CONTENT -->
+
+                <section
+                    id="housekeepingContent"
+                    class="housekeeping-content"
+                >
+
+                    <div class="housekeeping-welcome">
+
+                        <p class="housekeeping-eyebrow">
+                            OPERATIONS OVERVIEW
+                        </p>
+
+                        <h3>
+                            Good to see you.
+                        </h3>
+
+                        <p>
+                            Manage housekeeping guest requests,
+                            communicate with guests and publish
+                            housekeeping announcements from one workspace.
+                        </p>
+
+                    </div>
+
+                </section>
+
+            </main>
+
+        </div>
+
+    `;
+}
+
 // =========================================================
 // SHOW RECEPTION DASHBOARD
 // =========================================================
 
 export function showDashboard(session) {
+
+       if (session.role === "housekeeping") {
+
+        renderHousekeepingDashboard(session);
+
+        return;
+    }
 
     const loginScreen =
         document.getElementById("loginScreen");
