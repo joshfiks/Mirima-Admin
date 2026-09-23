@@ -643,3 +643,95 @@
     }
 
 }
+/* =========================================================
+   HOUSEKEEPING REQUEST CARDS
+   ========================================================= */
+
+.housekeeping-request-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 14px;
+    margin-top: 20px;
+}
+
+.housekeeping-request-card {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+
+    min-height: 82px;
+    padding: 18px;
+
+    border: 1px solid rgba(216, 184, 106, 0.18);
+    border-radius: 16px;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(216, 184, 106, 0.06),
+            rgba(255, 255, 255, 0.02)
+        );
+
+    transition:
+        transform 0.2s ease,
+        border-color 0.2s ease,
+        background 0.2s ease;
+
+    cursor: pointer;
+}
+
+.housekeeping-request-card:hover {
+    transform: translateY(-2px);
+
+    border-color:
+        rgba(216, 184, 106, 0.35);
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(216, 184, 106, 0.10),
+            rgba(255, 255, 255, 0.03)
+        );
+}
+
+.housekeeping-request-icon {
+    width: 46px;
+    height: 46px;
+
+    flex-shrink: 0;
+
+    display: grid;
+    place-items: center;
+
+    border: 1px solid rgba(216, 184, 106, 0.22);
+    border-radius: 13px;
+
+    background: rgba(216, 184, 106, 0.08);
+
+    font-size: 21px;
+}
+
+.housekeeping-request-card strong {
+    display: block;
+
+    color: #ffffff;
+    font-size: 14px;
+}
+
+.housekeeping-request-card span {
+    display: block;
+
+    margin-top: 5px;
+
+    color: rgba(255, 255, 255, 0.48);
+    font-size: 11px;
+    line-height: 1.4;
+}
+
+@media (max-width: 700px) {
+
+    .housekeeping-request-grid {
+        grid-template-columns: 1fr;
+    }
+
+}
