@@ -299,23 +299,174 @@ function renderHousekeepingDashboard(session) {
                     class="housekeeping-content"
                 >
 
-                    <div class="housekeeping-welcome">
+                 <div class="housekeeping-welcome">
 
-                        <p class="housekeeping-eyebrow">
-                            OPERATIONS OVERVIEW
-                        </p>
+    <div>
 
-                        <h3>
-                            Good to see you.
-                        </h3>
+        <p class="housekeeping-eyebrow">
+            OPERATIONS OVERVIEW
+        </p>
 
-                        <p>
-                            Manage housekeeping guest requests,
-                            communicate with guests and publish
-                            housekeeping announcements from one workspace.
-                        </p>
+        <h3>
+            Good to see you.
+        </h3>
 
-                    </div>
+        <p>
+            Monitor housekeeping requests, guest communication
+            and announcements from one workspace.
+        </p>
+
+    </div>
+
+</div>
+
+
+<!-- OVERVIEW STATISTICS -->
+
+<div class="housekeeping-stat-grid">
+
+    <article class="housekeeping-stat-card">
+
+        <div class="housekeeping-stat-icon">
+            🧹
+        </div>
+
+        <div>
+            <span>
+                Guest Requests
+            </span>
+
+            <strong>
+                0
+            </strong>
+
+            <small>
+                Awaiting attention
+            </small>
+        </div>
+
+    </article>
+
+
+    <article class="housekeeping-stat-card">
+
+        <div class="housekeeping-stat-icon">
+            🔄
+        </div>
+
+        <div>
+            <span>
+                In Progress
+            </span>
+
+            <strong>
+                0
+            </strong>
+
+            <small>
+                Currently being handled
+            </small>
+        </div>
+
+    </article>
+
+
+    <article class="housekeeping-stat-card">
+
+        <div class="housekeeping-stat-icon">
+            💬
+        </div>
+
+        <div>
+            <span>
+                Live Chats
+            </span>
+
+            <strong>
+                0
+            </strong>
+
+            <small>
+                Active conversations
+            </small>
+        </div>
+
+    </article>
+
+
+    <article class="housekeeping-stat-card">
+
+        <div class="housekeeping-stat-icon">
+            📢
+        </div>
+
+        <div>
+            <span>
+                Announcements
+            </span>
+
+            <strong>
+                0
+            </strong>
+
+            <small>
+                Published notices
+            </small>
+        </div>
+
+    </article>
+
+</div>
+
+
+<!-- RECENT HOUSEKEEPING REQUESTS -->
+
+<div class="housekeeping-panel">
+
+    <div class="housekeeping-panel-heading">
+
+        <div>
+
+            <p class="housekeeping-eyebrow">
+                GUEST SERVICES
+            </p>
+
+            <h4>
+                Recent Housekeeping Requests
+            </h4>
+
+        </div>
+
+        <button
+            class="housekeeping-text-action"
+            data-housekeeping-section="requests"
+        >
+            View requests
+        </button>
+
+    </div>
+
+
+    <div
+        id="housekeepingRecentRequests"
+        class="housekeeping-empty-state"
+    >
+
+        <div class="housekeeping-empty-icon">
+            🧹
+        </div>
+
+        <h4>
+            No housekeeping requests
+        </h4>
+
+        <p>
+            New guest housekeeping requests will appear here.
+        </p>
+
+    </div>
+
+</div>
 
                 </section>
 
