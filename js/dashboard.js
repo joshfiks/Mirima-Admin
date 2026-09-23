@@ -482,6 +482,16 @@ function renderHousekeepingDashboard(session) {
     updateHousekeepingRequestCount();
    
     setupHousekeepingNavigation(session);
+
+   document
+    .getElementById("housekeepingLogout")
+    .addEventListener("click", function () {
+
+        localStorage.removeItem("mirimaSession");
+
+        location.reload();
+
+    });
 }
 
 function setupHousekeepingNavigation(session) {
