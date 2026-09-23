@@ -325,7 +325,9 @@ function renderHousekeepingDashboard(session) {
 
 <div class="housekeeping-stat-grid">
 
-    <article class="housekeeping-stat-card">
+   <strong id="housekeepingOverviewRequestCount">
+    0
+   </strong>
 
         <div class="housekeeping-stat-icon">
             🧹
