@@ -325,30 +325,29 @@ function renderHousekeepingDashboard(session) {
 
 <div class="housekeeping-stat-grid">
 
-   <strong id="housekeepingOverviewRequestCount">
-    0
-   </strong>
+    <article class="housekeeping-stat-card">
 
         <div class="housekeeping-stat-icon">
             🧹
         </div>
 
         <div>
+
             <span>
                 Guest Requests
             </span>
 
-            <strong>
+            <strong id="housekeepingOverviewRequestCount">
                 0
             </strong>
 
             <small>
                 Awaiting attention
             </small>
+
         </div>
 
     </article>
-
 
     <article class="housekeeping-stat-card">
 
