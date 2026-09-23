@@ -487,7 +487,9 @@ function renderHousekeepingDashboard(session) {
     .getElementById("housekeepingLogout")
     .addEventListener("click", function () {
 
-        localStorage.removeItem("mirimaSession");
+    sessionStorage.removeItem(
+    "mirimaSession"
+);
 
         location.reload();
 
