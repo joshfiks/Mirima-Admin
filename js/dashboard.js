@@ -475,8 +475,10 @@ function renderHousekeepingDashboard(session) {
             </main>
 
         </div>
-
     `;
+
+    updateHousekeepingRequestCount();
+
 }
 
 // =========================================================
@@ -823,7 +825,42 @@ updateEmergencyCount();
 
 }
 
+async function updateHousekeepingRequestCount() {
 
+    const requests =
+        await getRequestsFromFirestore();
+
+    const housekeepingRequests =
+        requests.filter(function (request) {
+
+            return (
+                request.service || ""
+            ).includes("Housekeeping");
+
+        });
+
+    const count =
+        housekeepingRequests.length;
+
+    const sidebarCount =
+        document.getElementById(
+            "housekeepingRequestCount"
+        );
+
+    if (sidebarCount) {
+        sidebarCount.textContent = count;
+    }
+
+    const overviewCount =
+        document.getElementById(
+            "housekeepingOverviewRequestCount"
+        );
+
+    if (overviewCount) {
+        overviewCount.textContent = count;
+    }
+     
+}
 // =========================================================
 // RECEPTION OVERVIEW
 // =========================================================
