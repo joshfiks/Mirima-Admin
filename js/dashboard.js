@@ -549,9 +549,91 @@ function setupHousekeepingNavigation(session) {
 
 
             <div
-                id="housekeepingRequestCategories"
-                class="housekeeping-request-grid"
-            ></div>
+    id="housekeepingRequestCategories"
+    class="housekeeping-request-grid"
+>
+
+    <article class="housekeeping-request-card">
+        <div class="housekeeping-request-icon">🛏️</div>
+        <div>
+            <strong>Make Up Room</strong>
+            <span>Room refresh and bed making</span>
+        </div>
+    </article>
+
+    <article class="housekeeping-request-card">
+        <div class="housekeeping-request-icon">🧺</div>
+        <div>
+            <strong>Fresh Towels</strong>
+            <span>Request fresh towels</span>
+        </div>
+    </article>
+
+    <article class="housekeeping-request-card">
+        <div class="housekeeping-request-icon">🧼</div>
+        <div>
+            <strong>Toiletries</strong>
+            <span>Guest toiletries and supplies</span>
+        </div>
+    </article>
+
+    <article class="housekeeping-request-card">
+        <div class="housekeeping-request-icon">🧻</div>
+        <div>
+            <strong>Toilet Paper</strong>
+            <span>Request additional toilet paper</span>
+        </div>
+    </article>
+
+    <article class="housekeeping-request-card">
+        <div class="housekeeping-request-icon">🛁</div>
+        <div>
+            <strong>Bathroom Cleaning</strong>
+            <span>Request bathroom cleaning</span>
+        </div>
+    </article>
+
+    <article class="housekeeping-request-card">
+        <div class="housekeeping-request-icon">🧹</div>
+        <div>
+            <strong>Full Room Cleaning</strong>
+            <span>Request a full room cleaning</span>
+        </div>
+    </article>
+
+    <article class="housekeeping-request-card">
+        <div class="housekeeping-request-icon">🌹</div>
+        <div>
+            <strong>Romantic Room Setup</strong>
+            <span>Prepare the room for a special occasion</span>
+        </div>
+    </article>
+
+    <article class="housekeeping-request-card">
+        <div class="housekeeping-request-icon">🍼</div>
+        <div>
+            <strong>Baby Cot Request</strong>
+            <span>Request a baby cot</span>
+        </div>
+    </article>
+
+    <article class="housekeeping-request-card">
+        <div class="housekeeping-request-icon">🧺</div>
+        <div>
+            <strong>Laundry Collection</strong>
+            <span>Request laundry collection</span>
+        </div>
+    </article>
+
+    <article class="housekeeping-request-card">
+        <div class="housekeeping-request-icon">🧳</div>
+        <div>
+            <strong>Extra Blanket</strong>
+            <span>Request an additional blanket</span>
+        </div>
+    </article>
+
+</div>
 
         </div>
     `;
