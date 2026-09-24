@@ -119,13 +119,12 @@
 
 .kitchen-nav-item {
     width: 100%;
-    min-height: 46px;
     display: flex;
     align-items: center;
     gap: 12px;
-    padding: 0 13px;
+    padding: 12px 13px;
     border: 0;
-    border-radius: 11px;
+    border-radius: 10px;
     background: transparent;
     color: #b8c1ba;
     font: inherit;
@@ -133,7 +132,6 @@
     text-align: left;
     cursor: pointer;
 }
-
 .kitchen-nav-item span {
     width: 20px;
     text-align: center;
