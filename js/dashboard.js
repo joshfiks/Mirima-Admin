@@ -1397,25 +1397,31 @@ function getOverviewContent() {
 
     `;
 
-       const spaLogout =
-        document.getElementById("spaLogout");
+      const spaLogout =
+    document.getElementById("spaLogout");
 
-    if (spaLogout) {
+if (spaLogout) {
+    spaLogout.addEventListener(
+        "click",
+        function () {
 
-        spaLogout.addEventListener(
-            "click",
-            function () {
-
-                sessionStorage.removeItem(
-                    "mirimaSession"
+            const confirmed =
+                confirm(
+                    "Are you sure you want to logout?"
                 );
 
-                window.location.reload();
-
+            if (!confirmed) {
+                return;
             }
-        );
 
-    }
+            sessionStorage.removeItem(
+                "mirimaSession"
+            );
+
+            window.location.reload();
+        }
+    );
+}
 
 
     const spaNavItems =
