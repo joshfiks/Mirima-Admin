@@ -35,11 +35,12 @@
     position: fixed;
     top: 0;
     left: 0;
-    width: 260px;
+    width: 270px;
     height: 100vh;
     display: flex;
     flex-direction: column;
-
+    padding: 28px 18px;
+   
     background:
         linear-gradient(
             180deg,
