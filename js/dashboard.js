@@ -448,7 +448,30 @@ function renderSecurityDashboard(session) {
 
 </div>
 
-    `;
+ `;
+
+    const securityLogout =
+        document.getElementById("securityLogout");
+
+    if (securityLogout) {
+        securityLogout.onclick = function () {
+
+            const confirmed =
+                confirm(
+                    "Are you sure you want to logout?"
+                );
+
+            if (!confirmed) {
+                return;
+            }
+
+            sessionStorage.removeItem(
+                "mirimaSession"
+            );
+
+            window.location.reload();
+        };
+    }
 }
 
 // =========================================================
