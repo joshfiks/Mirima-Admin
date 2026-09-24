@@ -97,7 +97,7 @@
 .spa-navigation {
     display: flex;
     flex-direction: column;
-    gap: 6px;
+    gap: 5px;
 }
 
 .spa-nav-item {
