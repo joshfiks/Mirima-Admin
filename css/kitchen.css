@@ -224,16 +224,15 @@
 }
 
 .kitchen-header {
-    min-height: 82px;
+    height: 88px;
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: 20px;
-    padding: 20px 32px;
+    padding: 0 38px;
     box-sizing: border-box;
     border-bottom: 1px solid rgba(255, 255, 255, 0.07);
 }
-
 .kitchen-eyebrow {
     margin: 0 0 6px;
     color: #9aa69e;
