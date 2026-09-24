@@ -47,6 +47,269 @@ import {
 } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
 
 // =========================================================
+// SECURITY DASHBOARD
+// =========================================================
+
+function renderSecurityDashboard(session) {
+
+    const loginScreen =
+        document.getElementById("loginScreen");
+
+    loginScreen.className =
+        "login-screen security-mode";
+
+    loginScreen.innerHTML = `
+
+        <div class="security-app">
+
+    <!-- MOBILE HEADER -->
+
+    <header class="security-mobile-header">
+
+        <button
+            id="securityMobileMenuButton"
+            class="security-mobile-menu-button"
+        >
+            ☰
+        </button>
+
+        <div class="security-mobile-brand">
+
+            <strong>
+                Mirima
+            </strong>
+
+            <span>
+                Security
+            </span>
+
+        </div>
+
+        <button
+            id="securityMobileNotificationButton"
+            class="security-mobile-notification-button"
+        >
+            🔔
+        </button>
+
+    </header>
+
+
+    <!-- SIDEBAR -->
+
+    <aside
+        id="securitySidebar"
+        class="security-sidebar"
+    >
+
+        <div class="security-brand">
+
+            <div class="security-brand-mark">
+                M
+            </div>
+
+            <div>
+
+                <h1>
+                    Mirima
+                </h1>
+
+                <span>
+                    Security
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <!-- STAFF -->
+
+        <div class="security-staff">
+
+            <div class="security-avatar">
+
+                ${getInitials(session.name)}
+
+            </div>
+
+            <div>
+
+                <strong>
+                    ${escapeHTML(session.name)}
+                </strong>
+
+                <span>
+                    Security
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <!-- NAVIGATION -->
+
+        <nav class="security-navigation">
+
+            <button
+                class="security-nav-item active"
+                data-security-section="overview"
+            >
+                <span>⌂</span>
+                Overview
+            </button>
+
+
+            <button
+                class="security-nav-item"
+                data-security-section="requests"
+            >
+                <span>☷</span>
+                Guest Requests
+
+                <b
+                    id="securityRequestCount"
+                    class="security-nav-count"
+                >
+                    0
+                </b>
+
+            </button>
+
+
+            <button
+                class="security-nav-item"
+                data-security-section="chat"
+            >
+                <span>✉</span>
+                Live Chat
+
+                <b
+                    id="securityChatCount"
+                    class="security-nav-count"
+                >
+                    0
+                </b>
+
+            </button>
+
+
+            <button
+                class="security-nav-item"
+                data-security-section="announcements"
+            >
+                <span>♢</span>
+                Announcements
+            </button>
+
+
+            <button
+                class="security-nav-item"
+                data-security-section="history"
+            >
+                <span>↺</span>
+                History
+            </button>
+
+        </nav>
+
+
+        <!-- SIDEBAR BOTTOM -->
+
+        <div class="security-sidebar-bottom">
+
+            <div class="security-connection-status">
+
+                <span></span>
+
+                System Online
+
+            </div>
+
+            <button
+                id="securityLogout"
+                class="security-logout"
+            >
+                Logout
+            </button>
+
+        </div>
+
+    </aside>
+
+
+    <!-- SIDEBAR OVERLAY -->
+
+    <div
+        id="securitySidebarOverlay"
+        class="security-sidebar-overlay"
+    ></div>
+
+
+    <!-- MAIN CONTENT -->
+
+    <main class="security-main">
+
+        <header class="security-header">
+
+            <div>
+
+                <p class="security-eyebrow">
+                    MIRIMA ADMIN / SECURITY
+                </p>
+
+                <h2 id="securityPageTitle">
+                    Security Overview
+                </h2>
+
+            </div>
+
+
+            <div class="security-header-actions">
+
+                <button
+                    id="securityNotificationButton"
+                    class="security-header-icon-button"
+                >
+                    🔔
+
+                    <span
+                        id="securityHeaderNotificationCount"
+                        class="security-header-notification-count"
+                    >
+                        0
+                    </span>
+
+                </button>
+
+
+                <div class="security-header-staff">
+
+                    ${escapeHTML(session.name)}
+
+                </div>
+
+            </div>
+
+        </header>
+
+
+        <!-- DYNAMIC CONTENT -->
+
+        <section
+            id="securityContent"
+            class="security-content"
+        ></section>
+
+    </main>
+
+</div>
+
+    `;
+}
+
+// =========================================================
 // HOUSEKEEPING DASHBOARD
 // =========================================================
 
