@@ -212,8 +212,8 @@
 }
 
 .security-header {
-    min-height: 82px;
-    padding: 20px 30px;
+    height: 88px;
+    padding: 0 38px;
     display: flex;
     align-items: center;
     justify-content: space-between;
