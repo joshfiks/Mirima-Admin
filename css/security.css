@@ -355,3 +355,142 @@
         padding: 18px;
     }
 }
+/* =========================================================
+   SECURITY OVERVIEW
+========================================================= */
+
+.security-welcome {
+    background: linear-gradient(
+        135deg,
+        #18231c,
+        #223126
+    );
+    border-radius: 18px;
+    padding: 28px 30px;
+    color: #ffffff;
+    margin-bottom: 22px;
+}
+
+.security-welcome h3 {
+    margin: 6px 0 8px;
+    font-size: 24px;
+}
+
+.security-welcome p:last-child {
+    margin: 0;
+    max-width: 650px;
+    color: #c7d1ca;
+    line-height: 1.6;
+}
+
+
+.security-stat-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 16px;
+    margin-bottom: 22px;
+}
+
+.security-stat-card {
+    background: #ffffff;
+    border-radius: 16px;
+    padding: 20px;
+    border: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+.security-stat-label {
+    display: block;
+    font-size: 12px;
+    color: #718077;
+    margin-bottom: 10px;
+}
+
+.security-stat-card strong {
+    display: block;
+    font-size: 28px;
+    color: #172019;
+}
+
+.security-stat-card small {
+    display: block;
+    margin-top: 5px;
+    color: #8a958e;
+    font-size: 11px;
+}
+
+
+.security-panel {
+    background: #ffffff;
+    border-radius: 18px;
+    padding: 24px;
+    border: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+.security-panel-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.security-panel-header h3 {
+    margin: 4px 0 0;
+    font-size: 18px;
+}
+
+.security-panel-action {
+    border: 0;
+    background: #26382c;
+    color: #ffffff;
+    padding: 9px 14px;
+    border-radius: 9px;
+    cursor: pointer;
+    font-size: 12px;
+}
+
+
+.security-empty-state {
+    padding: 40px 20px;
+    text-align: center;
+    border: 1px dashed #cbd3cd;
+    border-radius: 14px;
+}
+
+.security-empty-icon {
+    font-size: 32px;
+    margin-bottom: 10px;
+}
+
+.security-empty-state h4 {
+    margin: 0 0 6px;
+    font-size: 15px;
+}
+
+.security-empty-state p {
+    margin: 0;
+    color: #7c8780;
+    font-size: 13px;
+}
+
+
+@media (max-width: 1000px) {
+
+    .security-stat-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+}
+
+
+@media (max-width: 600px) {
+
+    .security-stat-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .security-panel-header {
+        align-items: flex-start;
+        gap: 12px;
+    }
+
+}
