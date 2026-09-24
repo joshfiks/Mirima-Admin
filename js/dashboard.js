@@ -703,6 +703,13 @@ export function showDashboard(session) {
         return;
     }
 
+   if (session.role === "spa") {
+
+    renderSpaDashboard(session);
+
+    return;
+}
+
     const loginScreen =
         document.getElementById("loginScreen");
 
@@ -5045,4 +5052,262 @@ function renderKitchenDashboard(session) {
 
     }
 
+}
+// =========================================================
+// SPA DASHBOARD
+// =========================================================
+
+function renderSpaDashboard(session) {
+
+    const loginScreen =
+        document.getElementById("loginScreen");
+
+    loginScreen.className =
+        "login-screen spa-mode";
+
+    loginScreen.innerHTML = `
+
+        <div class="spa-app">
+
+            <!-- MOBILE HEADER -->
+
+            <header class="spa-mobile-header">
+
+                <button
+                    id="spaMobileMenuButton"
+                    class="spa-mobile-menu-button"
+                    aria-label="Open menu"
+                >
+                    ☰
+                </button>
+
+                <div class="spa-mobile-brand">
+
+                    <strong>
+                        Mirima
+                    </strong>
+
+                    <span>
+                        Spa
+                    </span>
+
+                </div>
+
+                <button
+                    id="spaMobileNotificationButton"
+                    class="spa-mobile-notification-button"
+                    aria-label="Notifications"
+                >
+                    🔔
+                </button>
+
+            </header>
+
+
+            <!-- SIDEBAR -->
+
+            <aside
+                id="spaSidebar"
+                class="spa-sidebar"
+            >
+
+                <div class="spa-brand">
+
+                    <div class="spa-brand-mark">
+                        M
+                    </div>
+
+                    <div>
+
+                        <h1>
+                            Mirima
+                        </h1>
+
+                        <span>
+                            Spa
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <!-- STAFF -->
+
+                <div class="spa-staff">
+
+                    <div class="spa-avatar">
+                        ${getInitials(session.name)}
+                    </div>
+
+                    <div>
+
+                        <strong>
+                            ${escapeHTML(session.name)}
+                        </strong>
+
+                        <span>
+                            Spa
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <!-- NAVIGATION -->
+
+                <nav class="spa-navigation">
+
+                    <button
+                        class="spa-nav-item active"
+                        data-section="overview"
+                    >
+                        <span>⌂</span>
+                        Overview
+                    </button>
+
+
+                    <button
+                        class="spa-nav-item"
+                        data-section="requests"
+                    >
+                        <span>☷</span>
+                        Guest Requests
+
+                        <b
+                            id="spaRequestCount"
+                            class="spa-nav-count"
+                        >
+                            0
+                        </b>
+
+                    </button>
+
+
+                    <button
+                        class="spa-nav-item"
+                        data-section="chat"
+                    >
+                        <span>✉</span>
+                        Live Chat
+
+                        <b
+                            id="spaChatCount"
+                            class="spa-nav-count"
+                        >
+                            0
+                        </b>
+
+                    </button>
+
+
+                    <button
+                        class="spa-nav-item"
+                        data-section="announcements"
+                    >
+                        <span>📢</span>
+                        Announcements
+                    </button>
+
+
+                    <button
+                        class="spa-nav-item"
+                        data-section="history"
+                    >
+                        <span>◷</span>
+                        History
+                    </button>
+
+                </nav>
+
+
+                <!-- SIDEBAR BOTTOM -->
+
+                <div class="spa-sidebar-bottom">
+
+                    <div class="spa-connection-status">
+
+                        <span></span>
+
+                        System Online
+
+                    </div>
+
+
+                    <button
+                        id="spaLogout"
+                        class="spa-logout"
+                    >
+                        Logout
+                    </button>
+
+                </div>
+
+            </aside>
+
+
+            <!-- MAIN -->
+
+            <main class="spa-main">
+
+                <header class="spa-header">
+
+                    <div>
+
+                        <p class="spa-eyebrow">
+                            MIRIMA ADMIN / SPA
+                        </p>
+
+                        <h2 id="spaPageTitle">
+                            Spa Overview
+                        </h2>
+
+                    </div>
+
+
+                    <div class="spa-header-actions">
+
+                        <button
+                            id="spaNotificationButton"
+                            class="spa-header-icon-button"
+                            aria-label="Notifications"
+                        >
+                            🔔
+
+                            <span
+                                id="spaHeaderNotificationCount"
+                                class="spa-header-notification-count"
+                            >
+                                0
+                            </span>
+
+                        </button>
+
+
+                        <div class="spa-header-staff">
+
+                            <span>
+                                ${escapeHTML(session.name)}
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                </header>
+
+
+                <!-- DYNAMIC CONTENT -->
+
+                <section
+                    id="spaContent"
+                    class="spa-content"
+                ></section>
+
+            </main>
+
+        </div>
+
+    `;
 }
