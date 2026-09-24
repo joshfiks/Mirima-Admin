@@ -114,7 +114,7 @@
 .kitchen-navigation {
     display: flex;
     flex-direction: column;
-    gap: 7px;
+    gap: 5px;
 }
 
 .kitchen-nav-item {
