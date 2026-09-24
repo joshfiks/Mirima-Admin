@@ -475,3 +475,7 @@
     background: #dce3de !important;
     min-height: calc(100vh - 82px);
 }
+#spaContent {
+    background: #dce3de !important;
+    min-height: calc(100vh - 82px);
+}
