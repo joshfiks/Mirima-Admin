@@ -1587,6 +1587,70 @@ function renderManagementDashboard(session) {
             window.location.reload();
         };
     }
+
+    const managementNavItems =
+        document.querySelectorAll(
+            ".management-nav-item"
+        );
+
+    managementNavItems.forEach(function (button) {
+
+        button.addEventListener(
+            "click",
+            function () {
+
+                const section =
+                    button.dataset.managementSection;
+
+                managementNavItems.forEach(
+                    function (item) {
+                        item.classList.toggle(
+                            "active",
+                            item === button
+                        );
+                    }
+                );
+
+                const title =
+                    document.getElementById(
+                        "managementPageTitle"
+                    );
+
+                if (section === "overview") {
+                    title.textContent =
+                        "Management Overview";
+                }
+
+                if (section === "operations") {
+                    title.textContent =
+                        "Operations";
+                }
+
+                if (section === "guests") {
+                    title.textContent =
+                        "Guests";
+                }
+
+                if (section === "billing") {
+                    title.textContent =
+                        "Billing";
+                }
+
+                if (section === "reports") {
+                    title.textContent =
+                        "Reports";
+                }
+
+                if (section === "announcements") {
+                    title.textContent =
+                        "Announcements";
+                }
+
+            }
+        );
+
+    });
+   
 }
 // =========================================================
 // SHOW RECEPTION DASHBOARD
