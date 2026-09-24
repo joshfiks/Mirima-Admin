@@ -4849,6 +4849,29 @@ function renderKitchenDashboard(session) {
             </main>
 
         </div>
-
     `;
+
+
+    const kitchenLogout =
+        document.getElementById(
+            "kitchenLogout"
+        );
+
+    if (kitchenLogout) {
+
+        kitchenLogout.addEventListener(
+            "click",
+            function () {
+
+                sessionStorage.removeItem(
+                    "mirimaSession"
+                );
+
+                window.location.reload();
+
+            }
+        );
+
+    }
+
 }
