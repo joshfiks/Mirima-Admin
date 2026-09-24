@@ -1,0 +1,19 @@
+/* =========================================================
+   SPA DASHBOARD
+   ========================================================= */
+
+.login-screen.spa-mode {
+    display: block;
+    min-height: 100vh;
+    width: 100%;
+    padding: 0;
+    background: #101411;
+}
+
+.spa-app {
+    min-height: 100vh;
+    width: 100%;
+    display: flex;
+    background: #0d1712;
+    color: #ffffff;
+}
