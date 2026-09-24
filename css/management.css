@@ -1,1 +1,300 @@
+/* =========================================================
+   MANAGEMENT DASHBOARD
+   ========================================================= */
 
+.management-app {
+    min-height: 100vh;
+    width: 100%;
+    display: flex;
+    background: #0d1712;
+    color: #ffffff;
+}
+.management-sidebar {
+    width: 250px;
+    min-height: 100vh;
+    background: #111a15;
+    border-right: 1px solid rgba(255, 255, 255, 0.08);
+    display: flex;
+    flex-direction: column;
+    flex-shrink: 0;
+}
+.management-main {
+    flex: 1;
+    min-width: 0;
+    min-height: 100vh;
+    background: #dce3de;
+    color: #111;
+}
+.management-brand {
+    padding: 24px 20px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+.management-brand-mark {
+    width: 42px;
+    height: 42px;
+    border-radius: 10px;
+    background: #c9a45c;
+    color: #111;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 18px;
+    flex-shrink: 0;
+}
+.management-brand h1 {
+    margin: 0;
+    font-size: 20px;
+}
+
+.management-brand span {
+    display: block;
+    margin-top: 2px;
+    font-size: 12px;
+    color: #9aa79f;
+}
+.management-staff {
+    padding: 18px 20px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+.management-avatar {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background: #c9a45c;
+    color: #111;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    flex-shrink: 0;
+}
+
+.management-staff strong {
+    display: block;
+    font-size: 14px;
+    color: #fff;
+}
+
+.management-staff span {
+    display: block;
+    margin-top: 3px;
+    font-size: 12px;
+    color: #9aa79f;
+}
+.management-navigation {
+    flex: 1;
+    padding: 18px 12px;
+}
+
+.management-nav-item {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 13px 14px;
+    margin-bottom: 5px;
+    border: 0;
+    border-radius: 8px;
+    background: transparent;
+    color: #aeb8b1;
+    font-size: 14px;
+    text-align: left;
+    cursor: pointer;
+}
+
+.management-nav-item span {
+    width: 20px;
+    text-align: center;
+    font-size: 16px;
+}
+
+.management-nav-item:hover,
+.management-nav-item.active {
+    background: rgba(201, 164, 92, 0.14);
+    color: #c9a45c;
+}
+.management-sidebar-bottom {
+    padding: 16px 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.management-connection-status {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 12px;
+    font-size: 12px;
+    color: #9aa79f;
+}
+
+.management-connection-status span {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #4caf50;
+}
+
+.management-logout {
+    width: 100%;
+    padding: 11px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 7px;
+    background: transparent;
+    color: #c9a45c;
+    cursor: pointer;
+}
+
+.management-logout:hover {
+    background: rgba(201, 164, 92, 0.1);
+}
+.management-header {
+    min-height: 76px;
+    padding: 18px 28px;
+    background: #ffffff;
+    border-bottom: 1px solid #d5ddd8;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.management-eyebrow {
+    margin: 0 0 5px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    color: #7b877f;
+}
+
+.management-header h2 {
+    margin: 0;
+    font-size: 22px;
+    color: #18201b;
+}
+.management-header-actions {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+}
+
+.management-header-icon-button {
+    position: relative;
+    width: 40px;
+    height: 40px;
+    border: 1px solid #d5ddd8;
+    border-radius: 8px;
+    background: #fff;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.management-header-notification-count {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    min-width: 17px;
+    height: 17px;
+    padding: 0 4px;
+    border-radius: 10px;
+    background: #c9a45c;
+    color: #111;
+    font-size: 10px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.management-header-staff {
+    font-size: 13px;
+    font-weight: 600;
+    color: #38443c;
+}
+.management-content {
+    padding: 28px;
+    min-height: calc(100vh - 76px);
+}
+.management-mobile-header {
+    display: none;
+}
+.management-sidebar-overlay {
+    display: none;
+.management-mobile-menu-button,
+.management-mobile-notification-button {
+    border: 0;
+    background: transparent;
+    color: #fff;
+    cursor: pointer;
+    font-size: 20px;
+}
+@media (max-width: 900px) {
+    .management-sidebar {
+        position: fixed;
+        left: -260px;
+        top: 0;
+        z-index: 1000;
+        transition: left 0.25s ease;
+    }
+
+    .management-sidebar.open {
+        left: 0;
+    }
+
+    .management-sidebar-overlay {
+        position: fixed;
+        inset: 0;
+        z-index: 999;
+        background: rgba(0, 0, 0, 0.45);
+    }
+
+    .management-sidebar-overlay.open {
+        display: block;
+    }
+
+    .management-mobile-header {
+        height: 60px;
+        padding: 0 16px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        background: #111a15;
+    }
+
+    .management-mobile-brand {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        color: #fff;
+    }
+
+    .management-mobile-brand strong {
+        font-size: 16px;
+    }
+
+    .management-mobile-brand span {
+        font-size: 10px;
+        color: #9aa79f;
+    }
+
+    .management-main {
+        width: 100%;
+    }
+
+    .management-header {
+        padding: 16px 18px;
+    }
+
+    .management-content {
+        padding: 18px;
+    }
+
+    .management-header-staff {
+        display: none;
+    }
+}
