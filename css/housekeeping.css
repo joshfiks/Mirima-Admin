@@ -147,7 +147,7 @@
 .housekeeping-navigation {
     display: flex;
     flex-direction: column;
-    gap: 6px;
+    gap: 5px;
     padding: 0 14px;
 }
 
