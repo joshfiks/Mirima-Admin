@@ -181,15 +181,14 @@
 }
 
 .spa-header {
-    min-height: 82px;
-    padding: 20px 30px;
+    height: 88px;
+    padding: 0 38px;
     display: flex;
     align-items: center;
     justify-content: space-between;
     background: #ffffff;
     border-bottom: 1px solid #e3e8e4;
 }
-
 .spa-eyebrow {
     margin: 0 0 5px;
     color: #9b7650;
