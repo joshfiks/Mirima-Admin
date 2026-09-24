@@ -1357,9 +1357,208 @@ function renderManagementDashboard(session) {
         <!-- DYNAMIC CONTENT -->
 
         <section
-            id="managementContent"
-            class="management-content"
-        ></section>
+    id="managementContent"
+    class="management-content"
+>
+
+    <div class="management-welcome">
+
+        <div>
+            <p class="management-eyebrow">
+                PROPERTY PERFORMANCE
+            </p>
+
+            <h3>
+                Good evening, ${escapeHTML(session.name)}
+            </h3>
+
+            <p>
+                Monitor the lodge's operations, guests,
+                revenue and departmental activity from one place.
+            </p>
+        </div>
+
+        <div class="management-date-card">
+            <span>Today</span>
+            <strong>Management Center</strong>
+        </div>
+
+    </div>
+
+
+    <div class="management-stat-grid">
+
+        <div class="management-stat-card">
+            <span>Occupancy</span>
+            <strong>0%</strong>
+            <small>Currently occupied</small>
+        </div>
+
+        <div class="management-stat-card">
+            <span>Active Guests</span>
+            <strong>0</strong>
+            <small>Currently staying</small>
+        </div>
+
+        <div class="management-stat-card">
+            <span>Today's Revenue</span>
+            <strong>UGX 0</strong>
+            <small>Payments received today</small>
+        </div>
+
+        <div class="management-stat-card">
+            <span>Pending Requests</span>
+            <strong>0</strong>
+            <small>Requiring attention</small>
+        </div>
+
+    </div>
+
+
+    <div class="management-dashboard-grid">
+
+        <div class="management-panel">
+
+            <div class="management-panel-header">
+
+                <div>
+                    <p class="management-eyebrow">
+                        OPERATIONS
+                    </p>
+
+                    <h3>
+                        Department Status
+                    </h3>
+                </div>
+
+            </div>
+
+            <div class="management-department-list">
+
+                <div class="management-department-item">
+                    <span class="management-status-dot"></span>
+                    <div>
+                        <strong>Reception</strong>
+                        <small>Front desk operations</small>
+                    </div>
+                    <b>Online</b>
+                </div>
+
+                <div class="management-department-item">
+                    <span class="management-status-dot"></span>
+                    <div>
+                        <strong>Housekeeping</strong>
+                        <small>Rooms and cottage services</small>
+                    </div>
+                    <b>Online</b>
+                </div>
+
+                <div class="management-department-item">
+                    <span class="management-status-dot"></span>
+                    <div>
+                        <strong>Kitchen</strong>
+                        <small>Food and guest orders</small>
+                    </div>
+                    <b>Online</b>
+                </div>
+
+                <div class="management-department-item">
+                    <span class="management-status-dot"></span>
+                    <div>
+                        <strong>Spa</strong>
+                        <small>Wellness and treatments</small>
+                    </div>
+                    <b>Online</b>
+                </div>
+
+                <div class="management-department-item">
+                    <span class="management-status-dot"></span>
+                    <div>
+                        <strong>Security</strong>
+                        <small>Safety and incidents</small>
+                    </div>
+                    <b>Online</b>
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="management-panel">
+
+            <div class="management-panel-header">
+
+                <div>
+                    <p class="management-eyebrow">
+                        ACTIVITY
+                    </p>
+
+                    <h3>
+                        Recent Activity
+                    </h3>
+                </div>
+
+            </div>
+
+            <div class="management-empty-state">
+
+                <div class="management-empty-icon">
+                    ◷
+                </div>
+
+                <h4>
+                    No recent activity
+                </h4>
+
+                <p>
+                    Guest activity, payments and departmental
+                    updates will appear here.
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="management-panel">
+
+        <div class="management-panel-header">
+
+            <div>
+                <p class="management-eyebrow">
+                    GUEST MOVEMENT
+                </p>
+
+                <h3>
+                    Today's Check-ins & Check-outs
+                </h3>
+            </div>
+
+        </div>
+
+        <div class="management-empty-state">
+
+            <div class="management-empty-icon">
+                ◫
+            </div>
+
+            <h4>
+                No scheduled activity
+            </h4>
+
+            <p>
+                Today's guest arrivals and departures
+                will appear here.
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
 
     </main>
 
