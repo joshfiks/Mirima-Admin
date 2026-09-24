@@ -298,9 +298,151 @@ function renderSecurityDashboard(session) {
         <!-- DYNAMIC CONTENT -->
 
         <section
-            id="securityContent"
-            class="security-content"
-        ></section>
+    id="securityContent"
+    class="security-content"
+>
+
+    <div class="security-welcome">
+
+        <div>
+
+            <p class="security-eyebrow">
+                SECURITY OPERATIONS
+            </p>
+
+            <h3>
+                Security Overview
+            </h3>
+
+            <p>
+                Monitor guest security requests, incidents,
+                communication and important security activity
+                from one workspace.
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <div class="security-stat-grid">
+
+        <div class="security-stat-card">
+
+            <span class="security-stat-label">
+                Active Requests
+            </span>
+
+            <strong id="securityActiveRequests">
+                0
+            </strong>
+
+            <small>
+                Requiring attention
+            </small>
+
+        </div>
+
+
+        <div class="security-stat-card">
+
+            <span class="security-stat-label">
+                Open Incidents
+            </span>
+
+            <strong id="securityOpenIncidents">
+                0
+            </strong>
+
+            <small>
+                Currently reported
+            </small>
+
+        </div>
+
+
+        <div class="security-stat-card">
+
+            <span class="security-stat-label">
+                Unread Messages
+            </span>
+
+            <strong id="securityUnreadMessages">
+                0
+            </strong>
+
+            <small>
+                From staff
+            </small>
+
+        </div>
+
+
+        <div class="security-stat-card">
+
+            <span class="security-stat-label">
+                Alerts
+            </span>
+
+            <strong id="securityAlerts">
+                0
+            </strong>
+
+            <small>
+                Security notifications
+            </small>
+
+        </div>
+
+    </div>
+
+
+    <div class="security-panel">
+
+        <div class="security-panel-header">
+
+            <div>
+
+                <p class="security-eyebrow">
+                    SECURITY OPERATIONS
+                </p>
+
+                <h3>
+                    Recent Security Requests
+                </h3>
+
+            </div>
+
+            <button
+                class="security-panel-action"
+                data-security-section="requests"
+            >
+                View All
+            </button>
+
+        </div>
+
+
+        <div class="security-empty-state">
+
+            <div class="security-empty-icon">
+                🛡️
+            </div>
+
+            <h4>
+                No security requests
+            </h4>
+
+            <p>
+                New security-related guest requests
+                will appear here.
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
 
     </main>
 
