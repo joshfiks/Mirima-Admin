@@ -1391,7 +1391,7 @@ function setupHousekeepingNavigation(session) {
 // SHOW RECEPTION DASHBOARD
 // =========================================================
 
-export function showDashboard(session) {
+
 
     if (session.role === "security") {
 
