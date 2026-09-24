@@ -1397,6 +1397,71 @@ function getOverviewContent() {
 
     `;
 
+       const spaLogout =
+        document.getElementById("spaLogout");
+
+    if (spaLogout) {
+
+        spaLogout.addEventListener(
+            "click",
+            function () {
+
+                sessionStorage.removeItem(
+                    "mirimaSession"
+                );
+
+                window.location.reload();
+
+            }
+        );
+
+    }
+
+
+    const spaNavItems =
+        document.querySelectorAll(
+            ".spa-nav-item"
+        );
+
+    spaNavItems.forEach(function (item) {
+
+        item.addEventListener(
+            "click",
+            function () {
+
+                spaNavItems.forEach(function (nav) {
+                    nav.classList.remove("active");
+                });
+
+                item.classList.add("active");
+
+                const section =
+                    item.dataset.section;
+
+                const pageTitle =
+                    document.getElementById(
+                        "spaPageTitle"
+                    );
+
+                if (pageTitle) {
+
+                    const titles = {
+                        overview: "Spa Overview",
+                        requests: "Guest Requests",
+                        chat: "Live Chat",
+                        announcements: "Announcements",
+                        history: "History"
+                    };
+
+                    pageTitle.textContent =
+                        titles[section] || "Spa Overview";
+                }
+
+            }
+        );
+
+    });
+
 }
 
 
