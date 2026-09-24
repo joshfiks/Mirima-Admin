@@ -186,9 +186,9 @@
 
 .security-logout {
     width: 100%;
-    border: 1px solid rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.07);
     background: transparent;
-    color: #ffffff;
+    color: #92968f;
     padding: 11px;
     border-radius: 10px;
     cursor: pointer;
