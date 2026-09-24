@@ -5552,4 +5552,27 @@ function renderSpaDashboard(session) {
         </div>
 
     `;
+
+    const spaLogout =
+        document.getElementById("spaLogout");
+
+    if (spaLogout) {
+        spaLogout.onclick = function () {
+
+            const confirmed =
+                confirm(
+                    "Are you sure you want to logout?"
+                );
+
+            if (!confirmed) {
+                return;
+            }
+
+            sessionStorage.removeItem(
+                "mirimaSession"
+            );
+
+            window.location.reload();
+        };
+    }
 }
