@@ -112,7 +112,7 @@
 .security-navigation {
     display: flex;
     flex-direction: column;
-    gap: 6px;
+    gap: 5px;
 }
 
 .security-nav-item {
