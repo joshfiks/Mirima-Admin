@@ -298,3 +298,19 @@
         display: none;
     }
 }
+@media (max-width: 600px) {
+    .management-header h2 {
+        font-size: 18px;
+    }
+
+    .management-eyebrow {
+        font-size: 9px;
+    }
+
+    .management-content {
+        padding: 14px;
+    }
+}
+   .management-content {
+    overflow-x: hidden;
+}
