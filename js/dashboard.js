@@ -689,27 +689,34 @@ function setupHousekeepingNavigation(session) {
 
 export function showDashboard(session) {
 
-       if (session.role === "housekeeping") {
+    if (session.role === "security") {
+
+        renderSecurityDashboard(session);
+
+        return;
+    }
+
+    if (session.role === "housekeeping") {
 
         renderHousekeepingDashboard(session);
 
         return;
     }
 
-       if (session.role === "kitchen") {
+    if (session.role === "kitchen") {
 
         renderKitchenDashboard(session);
 
         return;
     }
 
-   if (session.role === "spa") {
+    if (session.role === "spa") {
 
-    renderSpaDashboard(session);
+        renderSpaDashboard(session);
 
-    return;
-}
-
+        return;
+    }
+   
     const loginScreen =
         document.getElementById("loginScreen");
 
