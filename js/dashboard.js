@@ -300,8 +300,28 @@ function renderManagementDashboard(session) {
 </div>
 
     `;
-}
+    const managementLogout =
+        document.getElementById("managementLogout");
 
+    if (managementLogout) {
+        managementLogout.onclick = function () {
+
+            const confirmed =
+                confirm(
+                    "Are you sure you want to logout?"
+                );
+
+            if (!confirmed) {
+                return;
+            }
+
+            sessionStorage.removeItem(
+                "mirimaSession"
+            );
+
+            window.location.reload();
+        };
+    }
 // =========================================================
 // SECURITY DASHBOARD
 // =========================================================
