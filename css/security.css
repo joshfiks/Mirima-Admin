@@ -74,10 +74,10 @@
     display: flex;
     align-items: center;
     gap: 11px;
-    padding: 12px;
-    margin-bottom: 24px;
+    padding: 13px;
+    margin-bottom: 25px;
     background: rgba(255, 255, 255, 0.04);
-    border-radius: 12px;
+    border-radius: 13px;
 }
 
 .security-avatar {
