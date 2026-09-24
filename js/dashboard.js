@@ -1112,7 +1112,283 @@ function renderSecurityDashboard(session) {
 }
 
 
+// =========================================================
+// MANAGEMENT DASHBOARD
+// =========================================================
 
+function renderManagementDashboard(session) {
+
+    const loginScreen =
+        document.getElementById("loginScreen");
+
+    loginScreen.className =
+        "login-screen management-mode";
+
+    loginScreen.innerHTML = `
+
+        <div class="management-app">
+
+    <!-- MOBILE HEADER -->
+
+    <header class="management-mobile-header">
+
+        <button
+            id="managementMobileMenuButton"
+            class="management-mobile-menu-button"
+        >
+            ☰
+        </button>
+
+        <div class="management-mobile-brand">
+
+            <strong>
+                Mirima
+            </strong>
+
+            <span>
+                Management
+            </span>
+
+        </div>
+
+        <button
+            id="managementMobileNotificationButton"
+            class="management-mobile-notification-button"
+        >
+            🔔
+        </button>
+
+    </header>
+
+
+    <!-- SIDEBAR -->
+
+    <aside
+        id="managementSidebar"
+        class="management-sidebar"
+    >
+
+        <div class="management-brand">
+
+            <div class="management-brand-mark">
+                M
+            </div>
+
+            <div>
+
+                <h1>
+                    Mirima
+                </h1>
+
+                <span>
+                    Management
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <!-- STAFF -->
+
+        <div class="management-staff">
+
+            <div class="management-avatar">
+
+                ${getInitials(session.name)}
+
+            </div>
+
+            <div>
+
+                <strong>
+                    ${escapeHTML(session.name)}
+                </strong>
+
+                <span>
+                    Management
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <!-- NAVIGATION -->
+
+        <nav class="management-navigation">
+
+            <button
+                class="management-nav-item active"
+                data-management-section="overview"
+            >
+                <span>⌂</span>
+                Overview
+            </button>
+
+
+            <button
+                class="management-nav-item"
+                data-management-section="operations"
+            >
+                <span>▦</span>
+                Operations
+            </button>
+
+
+            <button
+                class="management-nav-item"
+                data-management-section="guests"
+            >
+                <span>♙</span>
+                Guests
+            </button>
+
+
+            <button
+                class="management-nav-item"
+                data-management-section="billing"
+            >
+                <span>▤</span>
+                Billing
+            </button>
+
+
+            <button
+                class="management-nav-item"
+                data-management-section="reports"
+            >
+                <span>▥</span>
+                Reports
+            </button>
+
+
+            <button
+                class="management-nav-item"
+                data-management-section="announcements"
+            >
+                <span>♢</span>
+                Announcements
+            </button>
+
+        </nav>
+
+
+        <!-- SIDEBAR BOTTOM -->
+
+        <div class="management-sidebar-bottom">
+
+            <div class="management-connection-status">
+
+                <span></span>
+
+                System Online
+
+            </div>
+
+            <button
+                id="managementLogout"
+                class="management-logout"
+            >
+                Logout
+            </button>
+
+        </div>
+
+    </aside>
+
+
+    <!-- SIDEBAR OVERLAY -->
+
+    <div
+        id="managementSidebarOverlay"
+        class="management-sidebar-overlay"
+    ></div>
+
+
+    <!-- MAIN CONTENT -->
+
+    <main class="management-main">
+
+        <header class="management-header">
+
+            <div>
+
+                <p class="management-eyebrow">
+                    MIRIMA ADMIN / MANAGEMENT
+                </p>
+
+                <h2 id="managementPageTitle">
+                    Management Overview
+                </h2>
+
+            </div>
+
+
+            <div class="management-header-actions">
+
+                <button
+                    id="managementNotificationButton"
+                    class="management-header-icon-button"
+                >
+                    🔔
+
+                    <span
+                        id="managementHeaderNotificationCount"
+                        class="management-header-notification-count"
+                    >
+                        0
+                    </span>
+
+                </button>
+
+
+                <div class="management-header-staff">
+
+                    ${escapeHTML(session.name)}
+
+                </div>
+
+            </div>
+
+        </header>
+
+
+        <!-- DYNAMIC CONTENT -->
+
+        <section
+            id="managementContent"
+            class="management-content"
+        ></section>
+
+    </main>
+
+</div>
+
+    `;
+    const managementLogout =
+        document.getElementById("managementLogout");
+
+    if (managementLogout) {
+        managementLogout.onclick = function () {
+
+            const confirmed =
+                confirm(
+                    "Are you sure you want to logout?"
+                );
+
+            if (!confirmed) {
+                return;
+            }
+
+            sessionStorage.removeItem(
+                "mirimaSession"
+            );
+
+            window.location.reload();
+        };
+    }
+}
 // =========================================================
 // SHOW RECEPTION DASHBOARD
 // =========================================================
@@ -1143,6 +1419,13 @@ export function showDashboard(session) {
     if (session.role === "spa") {
 
         renderSpaDashboard(session);
+
+        return;
+    }
+
+       if (session.role === "management") {
+
+        renderManagementDashboard(session);
 
         return;
     }
