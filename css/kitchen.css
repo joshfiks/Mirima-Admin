@@ -197,10 +197,10 @@
 .kitchen-logout {
     width: 100%;
     padding: 11px;
-    border: 1px solid rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.07);
     border-radius: 10px;
     background: transparent;
-    color: #b8c1ba;
+    color: #92968f;
     cursor: pointer;
 }
 
