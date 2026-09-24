@@ -5365,10 +5365,181 @@ function renderSpaDashboard(session) {
 
                 <!-- DYNAMIC CONTENT -->
 
-                <section
-                    id="spaContent"
-                    class="spa-content"
-                ></section>
+               <section
+    id="spaContent"
+    class="spa-content"
+>
+
+    <div class="spa-welcome">
+
+        <div>
+
+            <p class="spa-eyebrow">
+                SPA OPERATIONS
+            </p>
+
+            <h3>
+                Good to see you.
+            </h3>
+
+            <p>
+                Manage guest spa requests, communicate with guests
+                and stay updated with spa operations from one workspace.
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <div class="spa-stat-grid">
+
+        <article class="spa-stat-card">
+
+            <div class="spa-stat-icon">
+                💆
+            </div>
+
+            <div>
+
+                <span>
+                    Guest Requests
+                </span>
+
+                <strong>
+                    0
+                </strong>
+
+                <small>
+                    Awaiting attention
+                </small>
+
+            </div>
+
+        </article>
+
+
+        <article class="spa-stat-card">
+
+            <div class="spa-stat-icon">
+                🔄
+            </div>
+
+            <div>
+
+                <span>
+                    In Progress
+                </span>
+
+                <strong>
+                    0
+                </strong>
+
+                <small>
+                    Currently being handled
+                </small>
+
+            </div>
+
+        </article>
+
+
+        <article class="spa-stat-card">
+
+            <div class="spa-stat-icon">
+                💬
+            </div>
+
+            <div>
+
+                <span>
+                    Live Chats
+                </span>
+
+                <strong>
+                    0
+                </strong>
+
+                <small>
+                    Active conversations
+                </small>
+
+            </div>
+
+        </article>
+
+
+        <article class="spa-stat-card">
+
+            <div class="spa-stat-icon">
+                📢
+            </div>
+
+            <div>
+
+                <span>
+                    Announcements
+                </span>
+
+                <strong>
+                    0
+                </strong>
+
+                <small>
+                    Published notices
+                </small>
+
+            </div>
+
+        </article>
+
+    </div>
+
+
+    <div class="spa-panel">
+
+        <div class="spa-panel-heading">
+
+            <div>
+
+                <p class="spa-eyebrow">
+                    GUEST SERVICES
+                </p>
+
+                <h4>
+                    Recent Spa Requests
+                </h4>
+
+            </div>
+
+            <button
+                class="spa-text-action"
+            >
+                View requests
+            </button>
+
+        </div>
+
+
+        <div class="spa-empty-state">
+
+            <div class="spa-empty-icon">
+                💆
+            </div>
+
+            <h4>
+                No spa requests
+            </h4>
+
+            <p>
+                New guest spa requests will appear here.
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
 
             </main>
 
