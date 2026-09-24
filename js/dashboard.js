@@ -4842,9 +4842,180 @@ function renderKitchenDashboard(session) {
                 <!-- DYNAMIC CONTENT -->
 
                 <section
-                    id="kitchenContent"
-                    class="kitchen-content"
-                ></section>
+    id="kitchenContent"
+    class="kitchen-content"
+>
+
+    <div class="kitchen-welcome">
+
+        <div>
+
+            <p class="kitchen-eyebrow">
+                KITCHEN OPERATIONS
+            </p>
+
+            <h3>
+                Good to see you.
+            </h3>
+
+            <p>
+                Manage guest dining requests, communicate with guests
+                and stay updated with kitchen operations from one workspace.
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <div class="kitchen-stat-grid">
+
+        <article class="kitchen-stat-card">
+
+            <div class="kitchen-stat-icon">
+                🍽️
+            </div>
+
+            <div>
+
+                <span>
+                    Guest Requests
+                </span>
+
+                <strong>
+                    0
+                </strong>
+
+                <small>
+                    Awaiting attention
+                </small>
+
+            </div>
+
+        </article>
+
+
+        <article class="kitchen-stat-card">
+
+            <div class="kitchen-stat-icon">
+                🔄
+            </div>
+
+            <div>
+
+                <span>
+                    In Progress
+                </span>
+
+                <strong>
+                    0
+                </strong>
+
+                <small>
+                    Currently being handled
+                </small>
+
+            </div>
+
+        </article>
+
+
+        <article class="kitchen-stat-card">
+
+            <div class="kitchen-stat-icon">
+                💬
+            </div>
+
+            <div>
+
+                <span>
+                    Live Chats
+                </span>
+
+                <strong>
+                    0
+                </strong>
+
+                <small>
+                    Active conversations
+                </small>
+
+            </div>
+
+        </article>
+
+
+        <article class="kitchen-stat-card">
+
+            <div class="kitchen-stat-icon">
+                📢
+            </div>
+
+            <div>
+
+                <span>
+                    Announcements
+                </span>
+
+                <strong>
+                    0
+                </strong>
+
+                <small>
+                    Published notices
+                </small>
+
+            </div>
+
+        </article>
+
+    </div>
+
+
+    <div class="kitchen-panel">
+
+        <div class="kitchen-panel-heading">
+
+            <div>
+
+                <p class="kitchen-eyebrow">
+                    GUEST SERVICES
+                </p>
+
+                <h4>
+                    Recent Kitchen Requests
+                </h4>
+
+            </div>
+
+            <button
+                class="kitchen-text-action"
+            >
+                View requests
+            </button>
+
+        </div>
+
+
+        <div class="kitchen-empty-state">
+
+            <div class="kitchen-empty-icon">
+                🍽️
+            </div>
+
+            <h4>
+                No kitchen requests
+            </h4>
+
+            <p>
+                New guest dining requests will appear here.
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
 
             </main>
 
