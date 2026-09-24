@@ -91,7 +91,7 @@
 }
 .management-navigation {
     flex: 1;
-    padding: 18px 12px;
+    padding: 0;
 }
 
 .management-nav-item {
