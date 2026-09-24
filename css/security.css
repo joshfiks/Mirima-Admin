@@ -26,7 +26,7 @@
 .security-sidebar {
     width: 270px;
     min-height: 100vh;
-    background: #111b15;
+    background: #151b17;
     border-right: 1px solid rgba(255, 255, 255, 0.08);
     display: flex;
     flex-direction: column;
