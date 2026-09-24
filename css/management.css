@@ -225,6 +225,8 @@
 }
 .management-sidebar-overlay {
     display: none;
+}
+
 .management-mobile-menu-button,
 .management-mobile-notification-button {
     border: 0;
