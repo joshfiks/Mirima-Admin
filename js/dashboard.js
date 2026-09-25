@@ -483,6 +483,8 @@ function renderHousekeepingDashboard(session) {
    
     setupHousekeepingNavigation(session);
 
+    setupHousekeepingMobileMenu();
+
    document
     .getElementById("housekeepingLogout")
     .addEventListener("click", function () {
@@ -5550,6 +5552,58 @@ function closeMobileMenu() {
 
 }
 
+function setupHousekeepingMobileMenu() {
+
+    const menuButton =
+        document.getElementById(
+            "housekeepingMobileMenuButton"
+        );
+
+    const sidebar =
+        document.getElementById(
+            "housekeepingSidebar"
+        );
+
+    const overlay =
+        document.getElementById(
+            "housekeepingSidebarOverlay"
+        );
+
+    if (!menuButton || !sidebar || !overlay) {
+        return;
+    }
+
+    menuButton.addEventListener(
+        "click",
+        function () {
+
+            sidebar.classList.toggle(
+                "mobile-open"
+            );
+
+            overlay.classList.toggle(
+                "visible"
+            );
+
+        }
+    );
+
+    overlay.addEventListener(
+        "click",
+        function () {
+
+            sidebar.classList.remove(
+                "mobile-open"
+            );
+
+            overlay.classList.remove(
+                "visible"
+            );
+
+        }
+    );
+   
+}
 
 // =========================================================
 // LOGOUT
