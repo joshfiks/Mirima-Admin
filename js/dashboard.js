@@ -2452,8 +2452,7 @@ if (spaLogout) {
         );
 
     });
-
-   setupSpaMobileMenu();
+   
 }
 
 function setupSpaMobileMenu() {
@@ -6673,4 +6672,5 @@ function renderSpaDashboard(session) {
             window.location.reload();
         };
     }
+   setupSpaMobileMenu();
 }
