@@ -2472,16 +2472,18 @@ function setupSpaMobileMenu() {
         return;
     }
 
-    menuButton.addEventListener(
-        "click",
-        function () {
+   menuButton.addEventListener(
+    "click",
+    function () {
 
-            sidebar.classList.toggle(
-                "mobile-open"
-            );
+        console.log("SPA MENU CLICKED");
 
-        }
-    );
+        sidebar.classList.toggle(
+            "mobile-open"
+        );
+
+    }
+);
 
 }
 
