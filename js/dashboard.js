@@ -1760,6 +1760,22 @@ function setupManagementMobileMenu() {
         }
     );
 
+    document.addEventListener(
+        "click",
+        function (event) {
+
+            if (
+                sidebar.classList.contains("mobile-open") &&
+                !sidebar.contains(event.target) &&
+                event.target !== menuButton
+            ) {
+                sidebar.classList.remove("mobile-open");
+                overlay.classList.remove("visible");
+            }
+
+        }
+    );
+   
 }
 
 // =========================================================
