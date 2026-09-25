@@ -1076,6 +1076,7 @@
 @media (max-width: 800px) {
 
     .reception-sidebar {
+       position: fixed;
         width: 270px;
 
         transform: translateX(-100%);
