@@ -2475,11 +2475,24 @@ function setupSpaMobileMenu() {
     "click",
     function () {
 
-        console.log("SPA MENU CLICKED");
-
         sidebar.classList.toggle(
             "mobile-open"
         );
+
+    }
+);
+
+   document.addEventListener(
+    "click",
+    function (event) {
+
+        if (
+            sidebar.classList.contains("mobile-open") &&
+            !sidebar.contains(event.target) &&
+            event.target !== menuButton
+        ) {
+            sidebar.classList.remove("mobile-open");
+        }
 
     }
 );
