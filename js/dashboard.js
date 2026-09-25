@@ -2453,8 +2453,37 @@ if (spaLogout) {
 
     });
 
+   setupSpaMobileMenu();
 }
 
+function setupSpaMobileMenu() {
+
+    const menuButton =
+        document.getElementById(
+            "spaMobileMenuButton"
+        );
+
+    const sidebar =
+        document.getElementById(
+            "spaSidebar"
+        );
+
+       if (!menuButton || !sidebar) {
+        return;
+    }
+
+    menuButton.addEventListener(
+        "click",
+        function () {
+
+            sidebar.classList.toggle(
+                "mobile-open"
+            );
+
+        }
+    );
+
+}
 
 // =========================================================
 // SECTION RENDERING
