@@ -6175,6 +6175,21 @@ function setupKitchenMobileMenu() {
             "kitchenSidebar"
         );
 
+       if (!menuButton || !sidebar) {
+        return;
+    }
+
+    menuButton.addEventListener(
+        "click",
+        function () {
+
+            sidebar.classList.toggle(
+                "mobile-open"
+            );
+
+        }
+    );
+
 }
 // =========================================================
 // SPA DASHBOARD
