@@ -6159,6 +6159,21 @@ function renderKitchenDashboard(session) {
         );
 
     }
+setupKitchenMobileMenu();
+   
+}
+
+function setupKitchenMobileMenu() {
+
+    const menuButton =
+        document.getElementById(
+            "kitchenMobileMenuButton"
+        );
+
+    const sidebar =
+        document.getElementById(
+            "kitchenSidebar"
+        );
 
 }
 // =========================================================
