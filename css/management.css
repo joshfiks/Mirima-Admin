@@ -245,8 +245,8 @@
         transition: left 0.25s ease;
     }
 
-    .management-sidebar.open {
-        left: 0;
+    .management-sidebar.mobile-open {
+    left: 0;
     }
 
     .management-sidebar-overlay {
