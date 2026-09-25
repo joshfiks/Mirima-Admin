@@ -402,7 +402,7 @@
         transition: transform 0.3s ease;
     }
 
-    .housekeeping-sidebar.open {
+    .housekeeping-sidebar.mobile-open {
         transform: translateX(0);
     }
 
