@@ -237,6 +237,10 @@
     font-size: 20px;
 }
 @media (max-width: 900px) {
+
+   .management-app {
+    display: block;
+}
     .management-sidebar {
         position: fixed;
         left: -260px;
