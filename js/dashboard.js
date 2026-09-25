@@ -1704,8 +1704,64 @@ function renderManagementDashboard(session) {
         );
 
     });
+
+   setupManagementMobileMenu();
    
 }
+
+function setupManagementMobileMenu() {
+
+    const menuButton =
+        document.getElementById(
+            "managementMobileMenuButton"
+        );
+
+    const sidebar =
+        document.getElementById(
+            "managementSidebar"
+        );
+
+    const overlay =
+        document.getElementById(
+            "managementSidebarOverlay"
+        );
+
+    if (!menuButton || !sidebar || !overlay) {
+        return;
+    }
+
+    menuButton.addEventListener(
+        "click",
+        function () {
+
+            sidebar.classList.toggle(
+                "mobile-open"
+            );
+
+            overlay.classList.toggle(
+                "visible"
+            );
+
+        }
+    );
+
+    overlay.addEventListener(
+        "click",
+        function () {
+
+            sidebar.classList.remove(
+                "mobile-open"
+            );
+
+            overlay.classList.remove(
+                "visible"
+            );
+
+        }
+    );
+
+}
+
 // =========================================================
 // SHOW RECEPTION DASHBOARD
 // =========================================================
