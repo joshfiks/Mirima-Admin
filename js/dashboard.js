@@ -5475,7 +5475,7 @@ function setupMobileMenu() {
 
     const sidebar =
         document.getElementById(
-            "receptionSidebar"
+            "housekeepingSidebar"
         );
 
 
