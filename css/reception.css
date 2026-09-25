@@ -1075,6 +1075,10 @@
 
 @media (max-width: 800px) {
 
+   .reception-app {
+    display: block;
+}
+
     .reception-sidebar {
        position: fixed;
         width: 270px;
