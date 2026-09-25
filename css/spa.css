@@ -260,7 +260,7 @@
         transition: left 0.25s ease;
     }
 
-    .spa-sidebar.open {
+   .spa-sidebar.mobile-open {
         left: 0;
     }
 
