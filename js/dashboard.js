@@ -1111,8 +1111,60 @@ function renderSecurityDashboard(session) {
             window.location.reload();
         };
     }
+   setupSecurityMobileMenu();
 }
+function setupSecurityMobileMenu() {
 
+    const menuButton =
+        document.getElementById(
+            "securityMobileMenuButton"
+        );
+
+    const sidebar =
+        document.getElementById(
+            "securitySidebar"
+        );
+
+    const overlay =
+        document.getElementById(
+            "securitySidebarOverlay"
+        );
+
+    if (!menuButton || !sidebar || !overlay) {
+        return;
+    }
+
+    menuButton.addEventListener(
+        "click",
+        function () {
+
+            sidebar.classList.toggle(
+                "mobile-open"
+            );
+
+            overlay.classList.toggle(
+                "visible"
+            );
+
+        }
+    );
+
+    overlay.addEventListener(
+        "click",
+        function () {
+
+            sidebar.classList.remove(
+                "mobile-open"
+            );
+
+            overlay.classList.remove(
+                "visible"
+            );
+
+        }
+    );
+
+}
 
 // =========================================================
 // MANAGEMENT DASHBOARD
