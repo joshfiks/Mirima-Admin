@@ -379,6 +379,10 @@
         transition: left 0.25s ease;
     }
 
+   .kitchen-sidebar.mobile-open {
+    left: 0;
+}
+
     .kitchen-main {
         min-height: calc(100vh - 60px);
     }
