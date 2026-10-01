@@ -1741,7 +1741,7 @@
     position: absolute;
     left: 15px;
     top: calc(50% - 1px);
-    transform: translateY(-50%);
+    transform: translateY(-50%) scale(1.15);
     color: #92968f;
     font-size: 22px;
     pointer-events: none;
