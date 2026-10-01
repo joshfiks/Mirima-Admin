@@ -2545,8 +2545,8 @@
     margin: 0 auto;
 }
 .request-category-count {
-    min-width: 26px;
-    height: 26px;
+    min-width: 20px;
+    height: 20px;
 
     display: inline-flex;
     align-items: center;
