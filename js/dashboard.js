@@ -3210,6 +3210,12 @@ async function openHistoricalReceipt(guestId) {
                     <h3>
                         ${escapeHTML(receipt.guestName)}
                     </h3>
+                    <button
+                    class="billing-view-button"
+                    id="downloadHistoricalReceiptButton"
+                    >
+                    Download Receipt
+                  </button>
 
                 </div>
 
@@ -3285,7 +3291,7 @@ async function openHistoricalReceipt(guestId) {
         backButton.addEventListener(
             "click",
             async function () {
-
+           
                 const billingContent =
                     await getBillingContent();
 
@@ -3299,6 +3305,62 @@ async function openHistoricalReceipt(guestId) {
         );
 
     }
+
+   const downloadButton =
+    document.getElementById(
+        "downloadHistoricalReceiptButton"
+    );
+
+if (downloadButton) {
+
+    downloadButton.addEventListener(
+        "click",
+        function () {
+
+            const receiptText = `
+MIRIMA KIBALE LODGE
+HISTORICAL RECEIPT
+
+Guest: ${receipt.guestName}
+Cottage: ${receipt.cottageId}
+
+Total Bill: UGX ${Number(
+    receipt.totalBill || 0
+).toLocaleString()}
+
+Check-in: ${receipt.checkInDate || "—"}
+Checkout: ${receipt.checkoutDate || "—"}
+
+Archived: ${new Date(
+    receipt.archivedAt
+).toLocaleDateString()}
+            `.trim();
+
+            const blob =
+                new Blob(
+                    [receiptText],
+                    { type: "text/plain" }
+                );
+
+            const url =
+                URL.createObjectURL(blob);
+
+            const link =
+                document.createElement("a");
+
+            link.href = url;
+
+            link.download =
+                `Mirima-Receipt-${receipt.guestName}.txt`;
+
+            link.click();
+
+            URL.revokeObjectURL(url);
+
+        }
+    );
+
+}
 
 }
 
@@ -5449,13 +5511,17 @@ function setupCheckoutButtons() {
                    const activeGuests =
              await getActiveGuests();
 
-            const guest =
-          activeGuests.find(function (item) {
-             return item.id === guestId;
-         });
+           const guest =
+    activeGuests.find(function (item) {
+        return item.id === guestId;
+    });
 
+if (!guest) {
+    alert("Guest record not found.");
+    return;
+}
 
-    const guestPayments =
+const guestPayments =
     await getCottagePayments(
         guest.cottageId,
         guest.id
