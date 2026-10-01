@@ -4849,11 +4849,43 @@ function getChatContent() {
 
 async function getBillingContent() {
 
+   const storageKey =
+    "mirimaHistoricalReceipts";
+
+const existing =
+    JSON.parse(
+        localStorage.getItem(storageKey) || "[]"
+    );
+
+const twoMonthsAgo =
+    Date.now() -
+    (60 * 24 * 60 * 60 * 1000);
+
+const recentReceipts =
+    existing.filter(function (item) {
+
+        return new Date(item.archivedAt).getTime()
+            >= twoMonthsAgo;
+
+    });
+
+localStorage.setItem(
+    storageKey,
+    JSON.stringify(recentReceipts)
+);
+
     const cottages = getCottages();
    
     const activeGuests = await getActiveGuests();
 
    const payments = await getPayments();
+
+   const historicalReceipts =
+    JSON.parse(
+        localStorage.getItem(
+            "mirimaHistoricalReceipts"
+        ) || "[]"
+    );
 
    console.log("Billing payments:", payments);
 
@@ -5017,13 +5049,66 @@ ${payments.map(function (payment) {
 
 }).join("")}
 
+                </div>
+
+            </div>
+
+            <div class="billing-receipts-section">
+
+                <div class="billing-intro">
+
+                    <p class="content-eyebrow">
+                        HISTORY
+                    </p>
+
+                    <h3>
+                        Historical Receipts
+                    </h3>
+
+                    <p>
+                        Receipts are stored for 2 months.
+                        Older records are automatically deleted.
+                        Download receipts you need to keep.
+                    </p>
+
+                    ${
+                        historicalReceipts.length
+                            ? historicalReceipts.map(function (receipt) {
+
+                                return `
+                                    <div
+                                        class="billing-receipt-card"
+                                        data-historical-receipt-id="${receipt.guestId}"
+                                    >
+
+                                        <strong>
+                                            ${escapeHTML(receipt.guestName)}
+                                        </strong>
+
+                                        <span>
+                                            Cottage ${escapeHTML(
+                                                String(receipt.cottageId)
+                                            )}
+                                        </span>
+
+                                    </div>
+                                `;
+
+                            }).join("")
+
+                            : `
+                                <p>
+                                    No historical receipts.
+                                </p>
+                            `
+                    }
 
                 </div>
 
             </div>
 
         </div>
-    `;
+    `;             
    
    }
 // =========================================================
@@ -5230,6 +5315,8 @@ const historicalReceipt = {
 
     cottageId: guest.cottageId,
 
+   totalBill: getBillTotal(guest.cottageId),
+
     checkInDate: guest.checkInDate,
 
     checkoutDate: guest.checkoutDate,
@@ -5239,28 +5326,29 @@ const historicalReceipt = {
     archivedAt: new Date().toISOString()
 
 };
-                    const result =
-                        await removeGuest(guestId);
+    saveHistoricalReceipt(historicalReceipt);
+  const result =
+        await removeGuest(guestId);
 
-                    console.log(result);
+      console.log(result);
 
-                    if (result.success) {
+  if (result.success) {
 
-                        await startNewCottageBill(
-                            button.dataset.cottageId
-                        );
+ await startNewCottageBill(
+     button.dataset.cottageId
+   );
 
-                        renderReceptionSection(
-                            "guests",
-                            getCurrentSession()
-                        );
+  renderReceptionSection(
+  "guests",
+    getCurrentSession()
+ );
 
-                    }
+ }
 
-                }
-            );
+   }
+);
 
-        });
+ });
 
 }
 function setupSectionButtons(session) {
