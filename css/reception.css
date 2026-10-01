@@ -1740,7 +1740,7 @@
 .billing-search-wrapper .billing-search-icon {
     position: absolute;
     left: 15px;
-    top: 50%;
+    top: calc(50% - 1px);
     transform: translateY(-50%);
     color: #92968f;
     font-size: 22px;
