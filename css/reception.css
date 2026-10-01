@@ -1708,6 +1708,27 @@
     cursor: pointer;
 }
 
+.billing-search-input {
+    width: 100%;
+    max-width: 520px;
+    padding: 13px 16px;
+    margin: 14px 0 20px;
+    border: 1px solid rgba(255,255,255,.08);
+    border-radius: 10px;
+    background: #151b17;
+    color: #f4efe3;
+    font-size: 13px;
+    outline: none;
+    box-sizing: border-box;
+}
+
+.billing-search-input::placeholder {
+    color: #777d76;
+}
+
+.billing-search-input:focus {
+    border-color: rgba(255,255,255,.18);
+}
 .billing-view-button:hover {
     background: rgba(212, 175, 55, 0.1);
 }
