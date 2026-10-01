@@ -1730,6 +1730,23 @@
 .billing-search-input:focus {
     border-color: rgba(255,255,255,.18);
 }
+
+.billing-search-wrapper {
+    position: relative;
+    width: 100%;
+    max-width: 520px;
+}
+
+.billing-search-wrapper .billing-search-icon {
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #92968f;
+    font-size: 14px;
+    pointer-events: none;
+    z-index: 2;
+}
 .billing-view-button:hover {
     background: rgba(212, 175, 55, 0.1);
 }
