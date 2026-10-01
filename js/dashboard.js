@@ -3749,6 +3749,84 @@ if (confirmAddCharge) {
     );
 
 }
+
+const existingRecordPaymentModal =
+    document.getElementById("recordPaymentModal");
+
+if (existingRecordPaymentModal) {
+    existingRecordPaymentModal.remove();
+}
+
+const recordPaymentModal =
+    document.createElement("div");
+
+recordPaymentModal.id = "recordPaymentModal";
+recordPaymentModal.className = "record-payment-modal";
+
+recordPaymentModal.innerHTML = `
+    <div class="record-payment-modal-box">
+
+        <h3>Record Payment</h3>
+
+        <p>
+            Enter the payment details for this guest.
+        </p>
+
+        <input
+            type="number"
+            id="recordPaymentAmount"
+            placeholder="Payment amount in UGX"
+            min="1"
+        >
+
+        <select id="recordPaymentMethod">
+            <option value="">Select payment method</option>
+            <option value="Mobile Money">Mobile Money</option>
+            <option value="Card">Card</option>
+            <option value="Pay at Reception">Pay at Reception</option>
+        </select>
+
+        <div id="mobileMoneyFields">
+
+            <input
+                type="text"
+                id="recordMobileMoneyName"
+                placeholder="Name registered on Mobile Money"
+            >
+
+            <input
+                type="text"
+                id="recordMobileMoneyPhone"
+                placeholder="Phone number: 256XXXXXXXXX"
+            >
+
+            <input
+                type="text"
+                id="recordTransactionId"
+                placeholder="Transaction ID"
+            >
+
+        </div>
+
+        <div class="record-payment-modal-actions">
+
+            <button id="cancelRecordPayment">
+                Cancel
+            </button>
+
+            <button id="confirmRecordPayment">
+                Record Payment
+            </button>
+
+        </div>
+
+    </div>
+`;
+
+document.body.appendChild(recordPaymentModal);
+
+recordPaymentModal.style.display = "none";
+
    
 const recordPaymentButton =
     document.getElementById("billingRecordPaymentButton");
@@ -3757,14 +3835,28 @@ if (recordPaymentButton) {
 
     recordPaymentButton.addEventListener(
         "click",
-        async function () {
+        function () {
 
-            const paymentAmount =
-    prompt("Enter payment amount in UGX:");
+            recordPaymentModal.style.display = "flex";
 
-        if (
+            document
+                .getElementById("recordPaymentAmount")
+                .focus();
+
+        }
+    );
+
+}
+
+   const paymentAmount =
+    document
+        .getElementById("recordPaymentAmount")
+        .value
+        .trim();
+
+if (
     !paymentAmount ||
-    !/^\d+$/.test(paymentAmount.trim()) ||
+    !/^\d+$/.test(paymentAmount) ||
     Number(paymentAmount) <= 0
 ) {
     alert(
@@ -3776,7 +3868,6 @@ if (recordPaymentButton) {
 }
 
 if (Number(paymentAmount) > balanceDue) {
-
     alert(
         "Payment amount is greater than the outstanding balance.\n\n" +
         "Balance Due: UGX " +
@@ -3789,90 +3880,72 @@ if (Number(paymentAmount) > balanceDue) {
     return;
 }
            
-       const paymentMethod =
-    prompt(
-        "Enter payment method:\n\nMobile Money\nCard\nPay at Reception"
-    );
+   const paymentMethod =
+    document
+        .getElementById("recordPaymentMethod")
+        .value;
 
-           if (
-    paymentMethod !== "Mobile Money" &&
-    paymentMethod !== "Card" &&
-    paymentMethod !== "Pay at Reception"
-) {
+if (!paymentMethod) {
+    alert("Please select a payment method.");
     return;
 }
 
-           let mobileMoneyName = "";
+let mobileMoneyName = "";
 let mobileMoneyPhone = "";
 let transactionId = "";
 
 if (paymentMethod === "Mobile Money") {
 
     mobileMoneyName =
-        prompt("Enter the name registered on the Mobile Money account:");
-
-    if (!mobileMoneyName || !mobileMoneyName.trim()) {
-
-        alert(
-            "Invalid account name.\n\n" +
-            "Please enter the name registered on the Mobile Money account."
-        );
-
-        return;
-    }
+        document
+            .getElementById("recordMobileMoneyName")
+            .value
+            .trim();
 
     mobileMoneyPhone =
-        prompt(
-            "Enter the phone number used for payment:\n\n" +
-            "Format: 256XXXXXXXXX"
-        );
+        document
+            .getElementById("recordMobileMoneyPhone")
+            .value
+            .trim();
 
-    if (
-        !/^256\d{9}$/.test(
-            mobileMoneyPhone.trim()
-        )
-    ) {
+    transactionId =
+        document
+            .getElementById("recordTransactionId")
+            .value
+            .trim();
 
+    if (!mobileMoneyName) {
         alert(
-            "Invalid phone number.\n\n" +
-            "The number must start with 256 and contain exactly 12 digits.\n\n" +
-            "Example: 256701234567"
+            "Please enter the name registered on the Mobile Money account."
         );
-
         return;
     }
 
-    transactionId =
-        prompt(
-            "Enter the Mobile Money Transaction ID:\n\n" +
-            "The Transaction ID must contain exactly 12 characters."
+    if (!/^256\d{9}$/.test(mobileMoneyPhone)) {
+        alert(
+            "Invalid phone number.\n\n" +
+            "Use the format: 256XXXXXXXXX"
         );
+        return;
+    }
 
-   if (
-    !transactionId ||
-    !/^[A-Za-z0-9]{12}$/.test(
-        transactionId.trim()
-    )
-) {
-
+    if (!/^[A-Za-z0-9]{12}$/.test(transactionId)) {
         alert(
             "Invalid Transaction ID.\n\n" +
             "The Transaction ID must contain exactly 12 characters."
         );
-
         return;
     }
 }
-           
-console.log("Selected payment method:", paymentMethod);
 
-           if (
-    paymentMethod !== "Mobile Money" &&
-    paymentMethod !== "Card" &&
-    paymentMethod !== "Pay at Reception"
-) {
-    return;
-}
+  const confirmRecordPayment =
+    document.getElementById("confirmRecordPayment");
+
+if (confirmRecordPayment) {
+
+    confirmRecordPayment.addEventListener(
+        "click",
+        async function () {
 
            console.log("Saving payment:", {
     cottageId: cottageId,
@@ -3900,6 +3973,8 @@ if (!paymentResult.success) {
 openCottageBill(cottageId);
 
 alert("Payment recorded successfully.");
+
+recordPaymentModal.style.display = "none";
 
         }
     );
