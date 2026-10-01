@@ -3159,6 +3159,49 @@ function setupReceiptButtons() {
 
 }
 
+function setupHistoricalReceiptSearch() {
+
+    const searchInput =
+        document.getElementById(
+            "historicalReceiptSearch"
+        );
+
+    if (!searchInput) {
+        return;
+    }
+
+    searchInput.addEventListener(
+        "input",
+        function () {
+
+            const search =
+                searchInput.value
+                    .trim()
+                    .toLowerCase();
+
+            document
+                .querySelectorAll(
+                    '[data-historical-receipt-id]'
+                )
+                .forEach(function (card) {
+
+                    const text =
+                        card.textContent
+                            .toLowerCase();
+
+                    card.style.display =
+                        text.includes(search)
+                            ? ""
+                            : "none";
+
+                });
+
+        }
+    );
+
+}
+
+
 async function openHistoricalReceipt(guestId) {
 
     const historicalReceipts =
@@ -3299,6 +3342,7 @@ async function openHistoricalReceipt(guestId) {
                     billingContent;
 
                 setupReceiptButtons();
+                setupHistoricalReceiptSearch();
                 setupBillingViewButtons();
 
             }
@@ -5280,6 +5324,13 @@ ${payments.map(function (payment) {
                     <h3>
                         Historical Receipts
                     </h3>
+                    
+                     <input
+                       type="text"
+                       id="historicalReceiptSearch"
+                       class="billing-search-input"
+                       placeholder="Search guest name or cottage..."
+                     >
 
                     <p>
                         Receipts are stored for 2 months.
@@ -5289,7 +5340,12 @@ ${payments.map(function (payment) {
 
                     ${
                         historicalReceipts.length
-                            ? historicalReceipts.map(function (receipt) {
+                            ? historicalReceipts
+                .sort(function (a, b) {
+                 return new Date(b.checkoutDate || b.archivedAt)
+                 - new Date(a.checkoutDate || a.archivedAt);
+                })
+                .map(function (receipt) {
 
                                 return `
                                     <div
@@ -5297,15 +5353,22 @@ ${payments.map(function (payment) {
                                         data-historical-receipt-id="${receipt.guestId}"
                                     >
 
-                                        <strong>
-                                            ${escapeHTML(receipt.guestName)}
-                                        </strong>
+                                       <strong>
+                                    ${escapeHTML(receipt.guestName)}
+                                     </strong>
 
-                                        <span>
-                                            Cottage ${escapeHTML(
-                                                String(receipt.cottageId)
-                                            )}
-                                        </span>
+                                <span>
+                               Cottage ${escapeHTML(
+                                  String(receipt.cottageId)
+                               )}
+                               </span>
+
+                                 <span>
+                              Checkout:
+                           ${escapeHTML(
+                             receipt.checkoutDate || "—"
+                              )}
+                          </span>
 
                                     </div>
                                 `;
