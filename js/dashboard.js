@@ -5027,6 +5027,39 @@ ${payments.map(function (payment) {
    
    }
 // =========================================================
+// HISTORICAL RECEIPTS
+// =========================================================
+
+function saveHistoricalReceipt(receipt) {
+
+    const storageKey =
+        "mirimaHistoricalReceipts";
+
+    const existing =
+        JSON.parse(
+            localStorage.getItem(storageKey) || "[]"
+        );
+
+    const twoMonthsAgo =
+        Date.now() -
+        (60 * 24 * 60 * 60 * 1000);
+
+    const recentReceipts =
+        existing.filter(function (item) {
+
+            return new Date(item.archivedAt).getTime()
+                >= twoMonthsAgo;
+
+        });
+
+    recentReceipts.push(receipt);
+
+    localStorage.setItem(
+        storageKey,
+        JSON.stringify(recentReceipts)
+    );
+}
+// =========================================================
 // EMERGENCY
 // =========================================================
 
@@ -5165,55 +5198,71 @@ if (item.dataset.section === "overview") {
 function setupCheckoutButtons() {
 
     document
-        .querySelectorAll(
-            ".checkout-action"
-        )
-        .forEach(
-            function (button) {
+        .querySelectorAll(".checkout-action")
+        .forEach(function (button) {
 
-                button.addEventListener(
-                    "click",
-                    async function () {
+            button.addEventListener(
+                "click",
+                async function () {
 
-                        const guestId =
-                            button.dataset.checkoutGuest;
+                    const guestId =
+                        button.dataset.checkoutGuest;
+                   const activeGuests =
+             await getActiveGuests();
 
-                        const result =
-                            await removeGuest(guestId);
-                       
-                        console.log(
-                            result
+            const guest =
+          activeGuests.find(function (item) {
+             return item.id === guestId;
+         });
+
+
+    const guestPayments =
+    await getCottagePayments(
+        guest.cottageId,
+        guest.id
+    );
+
+const historicalReceipt = {
+
+    guestId: guest.id,
+
+    guestName: guest.name,
+
+    cottageId: guest.cottageId,
+
+    checkInDate: guest.checkInDate,
+
+    checkoutDate: guest.checkoutDate,
+
+    payments: guestPayments,
+
+    archivedAt: new Date().toISOString()
+
+};
+                    const result =
+                        await removeGuest(guestId);
+
+                    console.log(result);
+
+                    if (result.success) {
+
+                        await startNewCottageBill(
+                            button.dataset.cottageId
                         );
-                       
-if (result.success) {
 
-  if (result.success) {
+                        renderReceptionSection(
+                            "guests",
+                            getCurrentSession()
+                        );
 
-    await startNewCottageBill(
-        button.dataset.cottageId
-    );
-
-    renderReceptionSection(
-        "guests",
-        getCurrentSession()
-    );
-
-}
-    renderReceptionSection(
-        "guests",
-        getCurrentSession()
-    );
-
-}
-                       
                     }
-                );
 
-            }
-        );
+                }
+            );
+
+        });
 
 }
-
 function setupSectionButtons(session) {
 
     const sectionButtons =
