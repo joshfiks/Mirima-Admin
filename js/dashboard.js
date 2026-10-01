@@ -3137,6 +3137,17 @@ function setupReceiptButtons() {
                 "click",
                 function () {
 
+                    if (
+                        card.dataset.historicalReceiptId
+                    ) {
+
+                        openHistoricalReceipt(
+                            card.dataset.historicalReceiptId
+                        );
+
+                        return;
+                    }
+
                     openPaymentReceipt(
                         card.dataset.paymentId
                     );
@@ -3145,6 +3156,149 @@ function setupReceiptButtons() {
             );
 
         });
+
+}
+
+async function openHistoricalReceipt(guestId) {
+
+    const historicalReceipts =
+        JSON.parse(
+            localStorage.getItem(
+                "mirimaHistoricalReceipts"
+            ) || "[]"
+        );
+
+    const receipt =
+        historicalReceipts.find(
+            function (item) {
+                return item.guestId === guestId;
+            }
+        );
+
+    if (!receipt) {
+        alert("Historical receipt not found.");
+        return;
+    }
+
+    const content =
+        document.getElementById(
+            "receptionContent"
+        );
+
+    if (!content) {
+        return;
+    }
+
+    content.innerHTML = `
+        <div class="billing-details-page">
+
+            <button
+                class="billing-back-button"
+                id="historicalReceiptBackButton"
+            >
+                ← Back to Receipts
+            </button>
+
+            <div class="billing-details-header">
+
+                <div>
+
+                    <p class="content-eyebrow">
+                        HISTORICAL RECEIPT
+                    </p>
+
+                    <h3>
+                        ${escapeHTML(receipt.guestName)}
+                    </h3>
+
+                </div>
+
+            </div>
+
+            <div class="billing-details-card">
+
+                <div class="billing-receipt-card">
+
+                    <p>
+                        <strong>
+                            MIRIMA KIBALE LODGE
+                        </strong>
+                    </p>
+
+                    <p>
+                        <span>Guest:</span>
+                        <strong>
+                            ${escapeHTML(receipt.guestName)}
+                        </strong>
+                    </p>
+
+                    <p>
+                        <span>Cottage:</span>
+                        <strong>
+                            ${escapeHTML(
+                                String(receipt.cottageId)
+                            )}
+                        </strong>
+                    </p>
+
+                    <p>
+                        <span>Total Bill:</span>
+                        <strong>
+                            UGX ${Number(
+                                receipt.totalBill || 0
+                            ).toLocaleString()}
+                        </strong>
+                    </p>
+
+                    <p>
+                        <span>Check-in:</span>
+                        <strong>
+                            ${escapeHTML(
+                                receipt.checkInDate || "—"
+                            )}
+                        </strong>
+                    </p>
+
+                    <p>
+                        <span>Checkout:</span>
+                        <strong>
+                            ${escapeHTML(
+                                receipt.checkoutDate || "—"
+                            )}
+                        </strong>
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+    `;
+
+    const backButton =
+        document.getElementById(
+            "historicalReceiptBackButton"
+        );
+
+    if (backButton) {
+
+        backButton.addEventListener(
+            "click",
+            async function () {
+
+                const billingContent =
+                    await getBillingContent();
+
+                content.innerHTML =
+                    billingContent;
+
+                setupReceiptButtons();
+                setupBillingViewButtons();
+
+            }
+        );
+
+    }
 
 }
 
