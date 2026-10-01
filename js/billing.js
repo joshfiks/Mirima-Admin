@@ -182,7 +182,7 @@ function getBillTotal(cottageId) {
 }
 
 
-function startNewCottageBill(cottageId) {
+async function startNewCottageBill(cottageId) {
 
     const billingData =
         getBillingData();
@@ -201,8 +201,32 @@ function startNewCottageBill(cottageId) {
         billingData
     );
 
-}
+    try {
 
+        await setDoc(
+            doc(db, "bills", cottageId),
+            {
+                cottageId: cottageId,
+                items: [],
+                payments: [],
+                updatedAt: new Date().toISOString()
+            }
+        );
+
+        console.log(
+            "New Firestore bill started:",
+            cottageId
+        );
+
+    } catch (error) {
+
+        console.error(
+            "Failed to reset Firestore bill:",
+            error
+        );
+
+    }
+}
 export {
     getBillingData,
     saveBillingData,
