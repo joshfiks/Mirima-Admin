@@ -3608,6 +3608,57 @@ if (backButton) {
     );
 
 }
+
+   const existingAddChargeModal =
+    document.getElementById("addChargeModal");
+
+if (existingAddChargeModal) {
+    existingAddChargeModal.remove();
+}
+
+const addChargeModal =
+    document.createElement("div");
+
+addChargeModal.id = "addChargeModal";
+addChargeModal.className = "add-charge-modal";
+
+addChargeModal.innerHTML = `
+    <div class="add-charge-modal-box">
+        <h3>Add Charge</h3>
+
+        <p>
+            Enter the charge details for this guest.
+        </p>
+
+        <input
+            type="text"
+            id="addChargeDescription"
+            placeholder="Charge description"
+        >
+
+        <input
+            type="number"
+            id="addChargeAmount"
+            placeholder="Amount in UGX"
+            min="1"
+        >
+
+        <div>
+            <button id="cancelAddCharge">
+                Cancel
+            </button>
+
+            <button id="confirmAddCharge">
+                Add Charge
+            </button>
+        </div>
+    </div>
+`;
+
+document.body.appendChild(addChargeModal);
+
+addChargeModal.style.display = "none";
+   
 const addChargeButton =
     document.getElementById("billingAddChargeButton");
 
@@ -3615,36 +3666,85 @@ if (addChargeButton) {
 
     addChargeButton.addEventListener(
         "click",
+        function () {
+
+            addChargeModal.style.display = "flex";
+
+            document
+                .getElementById("addChargeDescription")
+                .focus();
+
+        }
+    );
+
+}
+
+const cancelAddCharge =
+    document.getElementById("cancelAddCharge");
+
+if (cancelAddCharge) {
+
+    cancelAddCharge.addEventListener(
+        "click",
+        function () {
+
+            addChargeModal.style.display = "none";
+
+        }
+    );
+
+}
+
+const confirmAddCharge =
+    document.getElementById("confirmAddCharge");
+
+if (confirmAddCharge) {
+
+    confirmAddCharge.addEventListener(
+        "click",
         async function () {
 
             const chargeDescription =
-                prompt("Enter charge description:");
+                document
+                    .getElementById("addChargeDescription")
+                    .value
+                    .trim();
 
             const chargeAmount =
-                prompt("Enter charge amount in UGX:");
+                document
+                    .getElementById("addChargeAmount")
+                    .value
+                    .trim();
 
             if (
-                chargeDescription &&
-                chargeAmount &&
-                Number(chargeAmount) > 0
+                !chargeDescription ||
+                !chargeAmount ||
+                Number(chargeAmount) <= 0
             ) {
 
-                const newCharge =
-                    await addBillItem(
-                        cottageId,
-                        chargeDescription,
-                        Number(chargeAmount)
-                    );
-
-                console.log(
-                    "Charge added:",
-                    newCharge
+                alert(
+                    "Please enter a valid charge description and amount."
                 );
 
-                openCottageBill(cottageId);
-
-                alert("Charge added successfully.");
+                return;
             }
+
+            const newCharge =
+                await addBillItem(
+                    cottageId,
+                    chargeDescription,
+                    Number(chargeAmount)
+                );
+
+            console.log(
+                "Charge added:",
+                newCharge
+            );
+
+            addChargeModal.style.display = "none";
+
+            openCottageBill(cottageId);
+
         }
     );
 
