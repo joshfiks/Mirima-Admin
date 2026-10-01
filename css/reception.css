@@ -1743,7 +1743,7 @@
     top: 50%;
     transform: translateY(-50%);
     color: #92968f;
-    font-size: 18px;
+    font-size: 22px;
     pointer-events: none;
     z-index: 2;
 }
