@@ -2650,3 +2650,92 @@
 .add-charge-modal-box #confirmAddCharge:hover {
     background: #20bd5b;
 }
+/* =========================================================
+   RECORD PAYMENT MODAL
+   ========================================================= */
+
+.record-payment-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 2000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0, 0, 0, 0.65);
+}
+
+.record-payment-modal-box {
+    width: min(460px, calc(100% - 32px));
+    padding: 24px;
+    background: #151b17;
+    border: 1px solid rgba(212, 175, 55, 0.2);
+    border-radius: 16px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.45);
+}
+
+.record-payment-modal-box h3 {
+    margin: 0 0 8px;
+    color: #f5f1e6;
+    font-size: 20px;
+}
+
+.record-payment-modal-box p {
+    margin: 0 0 20px;
+    color: #8f9a93;
+    font-size: 13px;
+}
+
+.record-payment-modal-box input,
+.record-payment-modal-box select {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 13px 14px;
+    margin-bottom: 12px;
+    border: 1px solid rgba(255,255,255,.08);
+    border-radius: 10px;
+    background: #101713;
+    color: #f5f1e6;
+    font-size: 13px;
+    outline: none;
+}
+
+.record-payment-modal-box input:focus,
+.record-payment-modal-box select:focus {
+    border-color: rgba(212, 175, 55, 0.45);
+}
+
+.record-payment-modal-box input::placeholder {
+    color: #777d76;
+}
+
+.record-payment-modal-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 8px;
+}
+
+.record-payment-modal-actions button {
+    padding: 11px 16px;
+    border-radius: 9px;
+    border: 1px solid rgba(255,255,255,.08);
+    background: transparent;
+    color: #92968f;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.record-payment-modal-actions button:hover {
+    background: rgba(255,255,255,.05);
+}
+
+.record-payment-modal-actions #confirmRecordPayment {
+    background: #25d366;
+    border-color: #25d366;
+    color: #ffffff;
+}
+
+.record-payment-modal-actions #confirmRecordPayment:hover {
+    background: #20bd5b;
+}
