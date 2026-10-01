@@ -5565,16 +5565,28 @@ statusButtons.forEach(function (statusButton) {
 option.textContent =
     "✓ " + newStatus;
 
-            await updateRequestStatus(
-                requestId,
-                newStatus
-            );
+           await updateRequestStatus(
+    requestId,
+    newStatus
+);
 
-            button.textContent =
-                newStatus;
+button.textContent =
+    newStatus;
 
-            statusMenu.style.display =
-                "none";
+statusMenu.style.display =
+    "none";
+
+if (
+    newStatus === "Completed" ||
+    newStatus === "Cancelled"
+) {
+    const requestCard =
+        button.closest(".guest-request-card");
+
+    if (requestCard) {
+        requestCard.remove();
+    }
+}
         }
     );
 
