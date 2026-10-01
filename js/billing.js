@@ -242,7 +242,9 @@ export async function addPayment(paymentDetails) {
         const paymentRef = await addDoc(
             collection(db, "payments"),
             {
+               
                 cottageId: paymentDetails.cottageId,
+                guestId: paymentDetails.guestId || "",
                 guestName: paymentDetails.guestName,
                 amount: Number(paymentDetails.amount),
                 paymentMethod: paymentDetails.paymentMethod,
