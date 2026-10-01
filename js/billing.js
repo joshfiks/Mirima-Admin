@@ -310,12 +310,20 @@ export async function getPayments() {
 
     }
 }
-export async function getCottagePayments(cottageId) {
+export async function getCottagePayments(
+    cottageId,
+    guestId
+) {
 
     const payments = await getPayments();
 
-   return payments.filter(function (payment) {
-    return payment.cottageId === cottageId;
-});
-    
+    return payments.filter(function (payment) {
+
+        return (
+            payment.cottageId === cottageId &&
+            payment.guestId === guestId
+        );
+
+    });
+
 }
