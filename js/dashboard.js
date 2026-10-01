@@ -5182,9 +5182,18 @@ function setupCheckoutButtons() {
                        
 if (result.success) {
 
-   startNewCottageBill(
-    button.dataset.cottageId
-);
+  if (result.success) {
+
+    await startNewCottageBill(
+        button.dataset.cottageId
+    );
+
+    renderReceptionSection(
+        "guests",
+        getCurrentSession()
+    );
+
+}
     renderReceptionSection(
         "guests",
         getCurrentSession()
