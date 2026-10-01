@@ -3556,14 +3556,18 @@ async function getGuestsContent() {
 
    for (const guest of activeGuests) {
     cottagePayments[guest.cottageId] =
-        await getCottagePayments(guest.cottageId);
+        await getCottagePayments(
+    guest.cottageId,
+    guest.id
+);
 }
 
-   const cottagePaidTotals = {};
+   const guestPaidTotals = {};
 
-for (const cottageId in cottagePayments) {
-    cottagePaidTotals[cottageId] =
-        cottagePayments[cottageId].reduce(
+for (const guest of activeGuests) {
+
+    guestPaidTotals[guest.id] =
+        cottagePayments[guest.cottageId].reduce(
             function (total, payment) {
                 return total + Number(payment.amount || 0);
             },
@@ -3574,7 +3578,7 @@ for (const cottageId in cottagePayments) {
 
 for (const guest of activeGuests) {
     const totalBill = getBillTotal(guest.cottageId);
-    const totalPaid = cottagePaidTotals[guest.cottageId] || 0;
+   const totalPaid = guestPaidTotals[guest.id] || 0;
 
     cottageBalances[guest.cottageId] =
         Math.max(0, totalBill - totalPaid);
