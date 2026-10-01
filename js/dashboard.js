@@ -3436,7 +3436,19 @@ async function openCottageBill(cottageId) {
 
     const bill = getCottageBill(cottageId);
 
-   const payments = await getCottagePayments(cottageId);
+    const activeGuests =
+    await getActiveGuests();
+
+const guest =
+    activeGuests.find(function (item) {
+        return item.cottageId === cottageId;
+    });
+
+   const payments =
+    await getCottagePayments(
+        cottageId,
+        guest.id
+    );
    console.log("Cottage payments:", payments);
 
    const totalPaid =
@@ -3460,15 +3472,7 @@ async function openCottageBill(cottageId) {
         return item.id === cottageId;
     });
 
-   const activeGuests =
-    await getActiveGuests();
-
-const guest =
-    activeGuests.find(function (item) {
-        return item.cottageId === cottageId;
-    });
-
-   const content =
+     const content =
     document.getElementById("receptionContent");
 
 if (!content) {
