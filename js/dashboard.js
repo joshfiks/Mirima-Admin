@@ -3518,6 +3518,7 @@ console.log("Selected payment method:", paymentMethod);
           const paymentResult =
     await addPayment({
         cottageId: cottageId,
+        guestId: guest ? guest.id : "",
         guestName: guest ? guest.name : "",
         amount: parseInt(paymentAmount.trim(), 10),
         paymentMethod: paymentMethod,
