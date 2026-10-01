@@ -1712,6 +1712,7 @@
     width: 100%;
     max-width: 520px;
     padding: 13px 16px;
+    padding-left: 42px;
     margin: 14px 0 20px;
     border: 1px solid rgba(255,255,255,.08);
     border-radius: 10px;
