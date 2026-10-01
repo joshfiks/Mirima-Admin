@@ -3848,96 +3848,6 @@ if (recordPaymentButton) {
 
 }
 
-   const paymentAmount =
-    document
-        .getElementById("recordPaymentAmount")
-        .value
-        .trim();
-
-if (
-    !paymentAmount ||
-    !/^\d+$/.test(paymentAmount) ||
-    Number(paymentAmount) <= 0
-) {
-    alert(
-        "Invalid payment amount.\n\n" +
-        "Please enter numbers only."
-    );
-
-    return;
-}
-
-if (Number(paymentAmount) > balanceDue) {
-    alert(
-        "Payment amount is greater than the outstanding balance.\n\n" +
-        "Balance Due: UGX " +
-        balanceDue.toLocaleString() +
-        "\nPayment Entered: UGX " +
-        Number(paymentAmount).toLocaleString() +
-        "\n\nPlease check the amount and try again."
-    );
-
-    return;
-}
-           
-   const paymentMethod =
-    document
-        .getElementById("recordPaymentMethod")
-        .value;
-
-if (!paymentMethod) {
-    alert("Please select a payment method.");
-    return;
-}
-
-let mobileMoneyName = "";
-let mobileMoneyPhone = "";
-let transactionId = "";
-
-if (paymentMethod === "Mobile Money") {
-
-    mobileMoneyName =
-        document
-            .getElementById("recordMobileMoneyName")
-            .value
-            .trim();
-
-    mobileMoneyPhone =
-        document
-            .getElementById("recordMobileMoneyPhone")
-            .value
-            .trim();
-
-    transactionId =
-        document
-            .getElementById("recordTransactionId")
-            .value
-            .trim();
-
-    if (!mobileMoneyName) {
-        alert(
-            "Please enter the name registered on the Mobile Money account."
-        );
-        return;
-    }
-
-    if (!/^256\d{9}$/.test(mobileMoneyPhone)) {
-        alert(
-            "Invalid phone number.\n\n" +
-            "Use the format: 256XXXXXXXXX"
-        );
-        return;
-    }
-
-    if (!/^[A-Za-z0-9]{12}$/.test(transactionId)) {
-        alert(
-            "Invalid Transaction ID.\n\n" +
-            "The Transaction ID must contain exactly 12 characters."
-        );
-        return;
-    }
-}
-
   const confirmRecordPayment =
     document.getElementById("confirmRecordPayment");
 
@@ -3947,34 +3857,151 @@ if (confirmRecordPayment) {
         "click",
         async function () {
 
-           console.log("Saving payment:", {
-    cottageId: cottageId,
-    amount: Number(paymentAmount),
-    paymentMethod: paymentMethod
-});
-          const paymentResult =
-    await addPayment({
-        cottageId: cottageId,
-        guestId: guest ? guest.id : "",
-        guestName: guest ? guest.name : "",
-        amount: parseInt(paymentAmount.trim(), 10),
-        paymentMethod: paymentMethod,
-        mobileMoneyName: mobileMoneyName,
-        mobileMoneyPhone: mobileMoneyPhone,
-        transactionId: transactionId,
-        status: "Verified"
-    });
+            const paymentAmount =
+                document
+                    .getElementById("recordPaymentAmount")
+                    .value
+                    .trim();
 
-if (!paymentResult.success) {
-    alert("Failed to record payment.");
-    return;
+            if (
+                !paymentAmount ||
+                !/^\d+$/.test(paymentAmount) ||
+                Number(paymentAmount) <= 0
+            ) {
+
+                alert(
+                    "Invalid payment amount.\n\n" +
+                    "Please enter numbers only."
+                );
+
+                return;
+            }
+
+            if (Number(paymentAmount) > balanceDue) {
+
+                alert(
+                    "Payment amount is greater than the outstanding balance.\n\n" +
+                    "Balance Due: UGX " +
+                    balanceDue.toLocaleString() +
+                    "\nPayment Entered: UGX " +
+                    Number(paymentAmount).toLocaleString() +
+                    "\n\nPlease check the amount and try again."
+                );
+
+                return;
+            }
+
+            const paymentMethod =
+                document
+                    .getElementById("recordPaymentMethod")
+                    .value;
+
+            if (!paymentMethod) {
+
+                alert("Please select a payment method.");
+
+                return;
+            }
+
+            let mobileMoneyName = "";
+            let mobileMoneyPhone = "";
+            let transactionId = "";
+
+            if (paymentMethod === "Mobile Money") {
+
+                mobileMoneyName =
+                    document
+                        .getElementById("recordMobileMoneyName")
+                        .value
+                        .trim();
+
+                mobileMoneyPhone =
+                    document
+                        .getElementById("recordMobileMoneyPhone")
+                        .value
+                        .trim();
+
+                transactionId =
+                    document
+                        .getElementById("recordTransactionId")
+                        .value
+                        .trim();
+
+                if (!mobileMoneyName) {
+
+                    alert(
+                        "Please enter the name registered on the Mobile Money account."
+                    );
+
+                    return;
+                }
+
+                if (!/^256\d{9}$/.test(mobileMoneyPhone)) {
+
+                    alert(
+                        "Invalid phone number.\n\n" +
+                        "Use the format: 256XXXXXXXXX"
+                    );
+
+                    return;
+                }
+
+                if (!/^[A-Za-z0-9]{12}$/.test(transactionId)) {
+
+                    alert(
+                        "Invalid Transaction ID.\n\n" +
+                        "The Transaction ID must contain exactly 12 characters."
+                    );
+
+                    return;
+                }
+            }
+
+            console.log("Saving payment:", {
+                cottageId: cottageId,
+                amount: Number(paymentAmount),
+                paymentMethod: paymentMethod
+            });
+
+            const paymentResult =
+                await addPayment({
+                    cottageId: cottageId,
+                    guestId: guest ? guest.id : "",
+                    guestName: guest ? guest.name : "",
+                    amount: parseInt(paymentAmount.trim(), 10),
+                    paymentMethod: paymentMethod,
+                    mobileMoneyName: mobileMoneyName,
+                    mobileMoneyPhone: mobileMoneyPhone,
+                    transactionId: transactionId,
+                    status: "Verified"
+                });
+
+            if (!paymentResult.success) {
+
+                alert("Failed to record payment.");
+
+                return;
+            }
+
+            alert("Payment recorded successfully.");
+
+            openCottageBill(cottageId);
+
+        }
+    );
+
 }
 
-openCottageBill(cottageId);
+const cancelRecordPayment =
+    document.getElementById("cancelRecordPayment");
 
-alert("Payment recorded successfully.");
+if (cancelRecordPayment) {
 
-recordPaymentModal.style.display = "none";
+    cancelRecordPayment.addEventListener(
+        "click",
+        function () {
+
+            recordPaymentModal.style.display = "none";
 
         }
     );
