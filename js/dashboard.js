@@ -5325,12 +5325,18 @@ ${payments.map(function (payment) {
                         Historical Receipts
                     </h3>
                     
-                     <input
-                       type="text"
-                       id="historicalReceiptSearch"
-                       class="billing-search-input"
-                       placeholder="Search guest name or cottage..."
-                     >
+                     <div class="billing-search-wrapper">
+
+                <span class="billing-search-icon">⌕</span>
+
+               <input
+                type="text"
+                id="historicalReceiptSearch"
+                class="billing-search-input"
+                placeholder="Search guest name or cottage..."
+                   >
+
+                </div>
 
                     <p>
                         Receipts are stored for 2 months.
