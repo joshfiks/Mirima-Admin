@@ -3615,8 +3615,8 @@ if (addChargeButton) {
 
     addChargeButton.addEventListener(
         "click",
-     async function () {
-        
+        async function () {
+
             const chargeDescription =
                 prompt("Enter charge description:");
 
@@ -3630,7 +3630,7 @@ if (addChargeButton) {
             ) {
 
                 const newCharge =
-                   await addBillItem(
+                    await addBillItem(
                         cottageId,
                         chargeDescription,
                         Number(chargeAmount)
@@ -3649,7 +3649,7 @@ if (addChargeButton) {
     );
 
 }
-
+   
 const recordPaymentButton =
     document.getElementById("billingRecordPaymentButton");
 
