@@ -3907,19 +3907,93 @@ if (confirmRecordPayment) {
                 return;
             }
 
-            if (Number(paymentAmount) > balanceDue) {
+           if (Number(paymentAmount) > balanceDue) {
 
-                alert(
-                    "Payment amount is greater than the outstanding balance.\n\n" +
-                    "Balance Due: UGX " +
-                    balanceDue.toLocaleString() +
-                    "\nPayment Entered: UGX " +
-                    Number(paymentAmount).toLocaleString() +
-                    "\n\nPlease check the amount and try again."
-                );
+    const existingPaymentWarning =
+        document.getElementById(
+            "paymentBalanceWarning"
+        );
 
-                return;
+    if (existingPaymentWarning) {
+        existingPaymentWarning.remove();
+    }
+
+    const paymentBalanceWarning =
+        document.createElement("div");
+
+    paymentBalanceWarning.id =
+        "paymentBalanceWarning";
+
+    paymentBalanceWarning.className =
+        "payment-balance-warning";
+
+    paymentBalanceWarning.innerHTML = `
+        <div class="payment-balance-warning-box">
+
+            <div class="payment-balance-warning-icon">
+                !
+            </div>
+
+            <h3>
+                Payment Exceeds Balance
+            </h3>
+
+            <p>
+                The payment entered is greater
+                than the outstanding balance.
+            </p>
+
+            <div class="payment-balance-warning-details">
+
+                <div>
+                    <span>Balance Due</span>
+                    <strong>
+                        UGX ${balanceDue.toLocaleString()}
+                    </strong>
+                </div>
+
+                <div>
+                    <span>Payment Entered</span>
+                    <strong>
+                        UGX ${Number(paymentAmount).toLocaleString()}
+                    </strong>
+                </div>
+
+            </div>
+
+            <button
+                type="button"
+                id="closePaymentBalanceWarning"
+            >
+                Check Amount
+            </button>
+
+        </div>
+    `;
+
+    document.body.appendChild(
+        paymentBalanceWarning
+    );
+
+    document
+        .getElementById(
+            "closePaymentBalanceWarning"
+        )
+        .addEventListener(
+            "click",
+            function () {
+                paymentBalanceWarning.remove();
+
+                document
+                    .getElementById(
+                        "recordPaymentAmount"
+                    )
+                    .focus();
             }
+        );
+
+    return;
+}
 
             const paymentMethod =
                 document
