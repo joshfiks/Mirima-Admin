@@ -6113,6 +6113,16 @@ const historicalReceipt = {
 
 };
     saveHistoricalReceipt(historicalReceipt);
+
+      for (const payment of guestPayments) {
+    await updateDoc(
+        doc(db, "payments", payment.id),
+        {
+            archived: true,
+            archivedAt: new Date().toISOString()
+        }
+    );
+}             
   const result =
         await removeGuest(guestId);
 
