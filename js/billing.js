@@ -292,10 +292,11 @@ export async function getPayments() {
 
         return snapshot.docs.map(function (doc) {
 
-            return {
-                id: doc.id,
-                ...doc.data()
-            };
+           return {
+    id: doc.id,
+    ...doc.data(),
+    archived: doc.data().archived || false
+};
 
         });
 
