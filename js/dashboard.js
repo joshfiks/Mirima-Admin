@@ -5978,31 +5978,6 @@ async function archiveOldHistoricalPayments() {
 
 }
 
-async function cleanupOldPaymentRecords() {
-
-    const paymentIds = [
-        "7DojEMa8N5iSFEvljgwL",
-        "D6g1Tnem7VxFXouq6Swi",
-        "SVWpuwJ8mofxsudoQYr1",
-        "ZlXZdNv3m9OymLV4ve0Y",
-        "g34x714gWzEVy2CH6rIq",
-        "itTn0tymx8cY1Nj9Yvli"
-    ];
-
-    for (const paymentId of paymentIds) {
-
-        await updateDoc(
-            doc(db, "payments", paymentId),
-            {
-                archived: true,
-                archivedAt: new Date().toISOString()
-            }
-        );
-
-    }
-
-    console.log("Old payment records archived.");
-}
 // =========================================================
 // EMERGENCY
 // =========================================================
