@@ -2705,18 +2705,19 @@ async function renderReceptionSection(section, session) {
             break;
 
 
-        case "billing":
+                case "billing":
 
             title.textContent =
                 "Billing & Receipts";
 
             content.innerHTML =
-              await getBillingContent();
-          
-       setupReceiptButtons();
-       setupBillingViewButtons();
+                await getBillingContent();
 
-     break;
+            setupReceiptButtons();
+            setupBillingViewButtons();
+            setupBillingCategoryButtons();
+
+            break;
 
 
         case "emergency":
@@ -3161,6 +3162,82 @@ function setupReceiptButtons() {
 
 }
 
+function openBillingReceipts() {
+
+    const content =
+        document.getElementById(
+            "receptionContent"
+        );
+
+    if (!content) {
+        return;
+    }
+
+    getPayments().then(function (payments) {
+
+        content.innerHTML = `
+            <div class="billing-page">
+
+                <div class="billing-intro">
+
+                    <p class="content-eyebrow">
+                        PAYMENTS
+                    </p>
+
+                    <h3>
+                        Receipts
+                    </h3>
+
+                    <p>
+                        ${payments.length}
+                        payment${payments.length === 1 ? "" : "s"}
+                        recorded.
+                    </p>
+
+                    ${
+                        payments.length
+                            ? payments.map(function (payment) {
+
+                                return `
+                                    <div
+                                        class="billing-receipt-card"
+                                        data-payment-id="${payment.id}"
+                                    >
+
+                                        <strong>
+                                            UGX ${Number(
+                                                payment.amount
+                                            ).toLocaleString()}
+                                        </strong>
+
+                                        <span>
+                                            ${escapeHTML(
+                                                payment.paymentMethod
+                                            )}
+                                        </span>
+
+                                    </div>
+                                `;
+
+                            }).join("")
+                            : `
+                                <p>
+                                    No receipts available.
+                                </p>
+                            `
+                    }
+
+                </div>
+
+            </div>
+        `;
+
+        setupReceiptButtons();
+
+    });
+
+}
+
 function setupHistoricalReceiptSearch() {
 
     const searchInput =
@@ -3203,6 +3280,118 @@ function setupHistoricalReceiptSearch() {
 
 }
 
+
+function openBillingHistory() {
+
+    const content =
+        document.getElementById(
+            "receptionContent"
+        );
+
+    if (!content) {
+        return;
+    }
+
+    const historicalReceipts =
+        JSON.parse(
+            localStorage.getItem(
+                "mirimaHistoricalReceipts"
+            ) || "[]"
+        );
+
+    content.innerHTML = `
+        <div class="billing-page">
+
+            <div class="billing-intro">
+
+                <p class="content-eyebrow">
+                    HISTORY
+                </p>
+
+                <h3>
+                    Historical Receipts
+                </h3>
+
+                <div class="billing-search-wrapper">
+
+                    <span class="billing-search-icon">
+                        ⌕
+                    </span>
+
+                    <input
+                        type="text"
+                        id="historicalReceiptSearch"
+                        class="billing-search-input"
+                        placeholder="Search guest name or cottage..."
+                    >
+
+                </div>
+
+                <p>
+                    Receipts are stored for 2 months.
+                    Older records are automatically deleted.
+                    Download receipts you need to keep.
+                </p>
+
+                ${
+                    historicalReceipts.length
+                        ? historicalReceipts
+                            .sort(function (a, b) {
+                                return new Date(
+                                    b.checkoutDate || b.archivedAt
+                                ) - new Date(
+                                    a.checkoutDate || a.archivedAt
+                                );
+                            })
+                            .map(function (receipt) {
+
+                                return `
+                                    <div
+                                        class="billing-receipt-card"
+                                        data-historical-receipt-id="${receipt.guestId}"
+                                    >
+
+                                        <strong>
+                                            ${escapeHTML(
+                                                receipt.guestName
+                                            )}
+                                        </strong>
+
+                                        <span>
+                                            Cottage ${escapeHTML(
+                                                String(
+                                                    receipt.cottageId
+                                                )
+                                            )}
+                                        </span>
+
+                                        <span>
+                                            Checkout:
+                                            ${escapeHTML(
+                                                receipt.checkoutDate || "—"
+                                            )}
+                                        </span>
+
+                                    </div>
+                                `;
+
+                            }).join("")
+                        : `
+                            <p>
+                                No historical receipts.
+                            </p>
+                        `
+                }
+
+            </div>
+
+        </div>
+    `;
+
+    setupReceiptButtons();
+    setupHistoricalReceiptSearch();
+
+}
 
 async function openHistoricalReceipt(guestId) {
 
@@ -3428,6 +3617,48 @@ function setupBillingViewButtons() {
             );
 
         });
+
+}
+
+function setupBillingCategoryButtons() {
+
+    const receiptsButton =
+        document.getElementById(
+            "billingReceiptsButton"
+        );
+
+    const historyButton =
+        document.getElementById(
+            "billingHistoryButton"
+        );
+
+
+    if (receiptsButton) {
+
+        receiptsButton.addEventListener(
+            "click",
+            function () {
+
+                openBillingReceipts();
+
+            }
+        );
+
+    }
+
+
+    if (historyButton) {
+
+        historyButton.addEventListener(
+            "click",
+            function () {
+
+                openBillingHistory();
+
+            }
+        );
+
+    }
 
 }
 // =========================================================
@@ -5771,126 +6002,55 @@ localStorage.setItem(
 
                        </div>
 
-            <div class="billing-receipts-section">
+                       <div class="billing-category-buttons">
 
-                <div class="billing-intro">
+                <button
+                    class="billing-category-button"
+                    id="billingReceiptsButton"
+                    type="button"
+                >
+                    <div class="billing-category-icon">
+                        🧾
+                    </div>
 
-                    <p class="content-eyebrow">
-                        PAYMENTS
-                    </p>
+                    <div class="billing-category-text">
+                        <strong>Receipts</strong>
 
-                    <h3>
-                        Receipts
-                    </h3>
+                        <span>
+                            View recorded payments and receipts
+                        </span>
+                    </div>
 
-                   <p>
-                  ${payments.length} payment${payments.length === 1 ? "" : "s"} recorded.
-                 </p>
+                    <span class="billing-category-arrow">
+                        →
+                    </span>
+                </button>
 
-${payments.map(function (payment) {
 
-    return `
-        <div
-    class="billing-receipt-card"
-    data-payment-id="${payment.id}"
-    >
+                <button
+                    class="billing-category-button"
+                    id="billingHistoryButton"
+                    type="button"
+                >
+                    <div class="billing-category-icon">
+                        🕘
+                    </div>
 
-            <strong>
-                UGX ${Number(payment.amount).toLocaleString()}
-            </strong>
+                    <div class="billing-category-text">
+                        <strong>History</strong>
 
-            <span>
-                ${escapeHTML(payment.paymentMethod)}
-            </span>
+                        <span>
+                            View historical guest receipts
+                        </span>
+                    </div>
 
-        </div>
-    `;
-
-}).join("")}
-
-                </div>
-
-            </div>
-
-            <div class="billing-receipts-section">
-
-                <div class="billing-intro">
-
-                    <p class="content-eyebrow">
-                        HISTORY
-                    </p>
-
-                    <h3>
-                        Historical Receipts
-                    </h3>
-                    
-                     <div class="billing-search-wrapper">
-
-                <span class="billing-search-icon">⌕</span>
-
-               <input
-                type="text"
-                id="historicalReceiptSearch"
-                class="billing-search-input"
-                placeholder="Search guest name or cottage..."
-                   >
-
-                </div>
-
-                    <p>
-                        Receipts are stored for 2 months.
-                        Older records are automatically deleted.
-                        Download receipts you need to keep.
-                    </p>
-
-                    ${
-                        historicalReceipts.length
-                            ? historicalReceipts
-                .sort(function (a, b) {
-                 return new Date(b.checkoutDate || b.archivedAt)
-                 - new Date(a.checkoutDate || a.archivedAt);
-                })
-                .map(function (receipt) {
-
-                                return `
-                                    <div
-                                        class="billing-receipt-card"
-                                        data-historical-receipt-id="${receipt.guestId}"
-                                    >
-
-                                       <strong>
-                                    ${escapeHTML(receipt.guestName)}
-                                     </strong>
-
-                                <span>
-                               Cottage ${escapeHTML(
-                                  String(receipt.cottageId)
-                               )}
-                               </span>
-
-                                 <span>
-                              Checkout:
-                           ${escapeHTML(
-                             receipt.checkoutDate || "—"
-                              )}
-                          </span>
-
-                                    </div>
-                                `;
-
-                            }).join("")
-
-                            : `
-                                <p>
-                                    No historical receipts.
-                                </p>
-                            `
-                    }
-
-                </div>
+                    <span class="billing-category-arrow">
+                        →
+                    </span>
+                </button>
 
             </div>
-
+           
         </div>
     `;             
    
