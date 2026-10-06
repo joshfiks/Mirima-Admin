@@ -332,3 +332,7 @@ export async function getCottagePayments(
     });
 
 }
+
+export async function getAllPaymentRecords() {
+    return await getPayments();
+}
