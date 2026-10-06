@@ -290,15 +290,19 @@ export async function getPayments() {
             collection(db, "payments")
         );
 
-        return snapshot.docs.map(function (doc) {
+return snapshot.docs
+    .map(function (doc) {
 
-           return {
-    id: doc.id,
-    ...doc.data(),
-    archived: doc.data().archived || false
-};
+        return {
+            id: doc.id,
+            ...doc.data(),
+            archived: doc.data().archived || false
+        };
 
-        });
+    })
+    .filter(function (payment) {
+        return !payment.archived;
+    });
 
     } catch (error) {
 
