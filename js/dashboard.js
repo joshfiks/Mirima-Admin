@@ -3716,18 +3716,80 @@ if (confirmAddCharge) {
                     .value
                     .trim();
 
-            if (
-                !chargeDescription ||
-                !chargeAmount ||
-                Number(chargeAmount) <= 0
-            ) {
+           if (
+    !chargeDescription ||
+    !chargeAmount ||
+    Number(chargeAmount) <= 0
+) {
 
-                alert(
-                    "Please enter a valid charge description and amount."
-                );
+    const existingChargeWarning =
+        document.getElementById(
+            "addChargeWarning"
+        );
 
-                return;
+    if (existingChargeWarning) {
+        existingChargeWarning.remove();
+    }
+
+    const addChargeWarning =
+        document.createElement("div");
+
+    addChargeWarning.id =
+        "addChargeWarning";
+
+    addChargeWarning.className =
+        "add-charge-warning";
+
+    addChargeWarning.innerHTML = `
+        <div class="add-charge-warning-box">
+
+            <div class="add-charge-warning-icon">
+                !
+            </div>
+
+            <h3>
+                Invalid Charge
+            </h3>
+
+            <p>
+                Please enter a valid charge
+                description and amount.
+            </p>
+
+            <button
+                type="button"
+                id="closeAddChargeWarning"
+            >
+                Enter Details
+            </button>
+
+        </div>
+    `;
+
+    document.body.appendChild(
+        addChargeWarning
+    );
+
+    document
+        .getElementById(
+            "closeAddChargeWarning"
+        )
+        .addEventListener(
+            "click",
+            function () {
+
+                addChargeWarning.remove();
+
+                document
+                    .getElementById(
+                        "addChargeDescription"
+                    )
+                    .focus();
             }
+        );
+
+    return;
+}
 
             const newCharge =
                 await addBillItem(
