@@ -2135,7 +2135,7 @@ updateOverviewLiveChats();
 updateOverviewEmergencyAlerts();
 updateOverviewCurrentGuestsPanel();
 updateEmergencyCount();
-archiveOldHistoricalPayments();
+// archiveOldHistoricalPayments();
 // Setup navigation
 // Setup navigation
 
