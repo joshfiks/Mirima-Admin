@@ -5860,8 +5860,8 @@ const historicalReceipt = {
   if (result.success) {
 
  await startNewCottageBill(
-     button.dataset.cottageId
-   );
+    guest.cottageId
+);
 
   renderReceptionSection(
   "guests",
