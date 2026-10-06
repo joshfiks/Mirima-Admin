@@ -3893,19 +3893,80 @@ if (confirmRecordPayment) {
                     .value
                     .trim();
 
-            if (
-                !paymentAmount ||
-                !/^\d+$/.test(paymentAmount) ||
-                Number(paymentAmount) <= 0
-            ) {
+           if (
+    !paymentAmount ||
+    !/^\d+$/.test(paymentAmount) ||
+    Number(paymentAmount) <= 0
+) {
 
-                alert(
-                    "Invalid payment amount.\n\n" +
-                    "Please enter numbers only."
-                );
+    const existingPaymentAmountWarning =
+        document.getElementById(
+            "paymentAmountWarning"
+        );
 
-                return;
+    if (existingPaymentAmountWarning) {
+        existingPaymentAmountWarning.remove();
+    }
+
+    const paymentAmountWarning =
+        document.createElement("div");
+
+    paymentAmountWarning.id =
+        "paymentAmountWarning";
+
+    paymentAmountWarning.className =
+        "payment-amount-warning";
+
+    paymentAmountWarning.innerHTML = `
+        <div class="payment-amount-warning-box">
+
+            <div class="payment-amount-warning-icon">
+                !
+            </div>
+
+            <h3>
+                Invalid Payment Amount
+            </h3>
+
+            <p>
+                Please enter a valid payment amount
+                using numbers only.
+            </p>
+
+            <button
+                type="button"
+                id="closePaymentAmountWarning"
+            >
+                Enter Amount
+            </button>
+
+        </div>
+    `;
+
+    document.body.appendChild(
+        paymentAmountWarning
+    );
+
+    document
+        .getElementById(
+            "closePaymentAmountWarning"
+        )
+        .addEventListener(
+            "click",
+            function () {
+
+                paymentAmountWarning.remove();
+
+                document
+                    .getElementById(
+                        "recordPaymentAmount"
+                    )
+                    .focus();
             }
+        );
+
+    return;
+}
 
            if (Number(paymentAmount) > balanceDue) {
 
