@@ -2135,6 +2135,8 @@ updateOverviewLiveChats();
 updateOverviewEmergencyAlerts();
 updateOverviewCurrentGuestsPanel();
 updateEmergencyCount();
+archiveOldHistoricalPayments();
+// Setup navigation
 // Setup navigation
 
     setupReceptionNavigation(session);
@@ -5925,6 +5927,55 @@ function saveHistoricalReceipt(receipt) {
         storageKey,
         JSON.stringify(recentReceipts)
     );
+}
+
+async function archiveOldHistoricalPayments() {
+
+    const historicalReceipts =
+        JSON.parse(
+            localStorage.getItem(
+                "mirimaHistoricalReceipts"
+            ) || "[]"
+        );
+
+    for (const receipt of historicalReceipts) {
+
+        const payments =
+            receipt.payments || [];
+
+        for (const payment of payments) {
+
+            if (!payment.id) {
+                continue;
+            }
+
+            try {
+
+                await updateDoc(
+                    doc(db, "payments", payment.id),
+                    {
+                        archived: true,
+                        archivedAt:
+                            payment.archivedAt ||
+                            receipt.archivedAt ||
+                            new Date().toISOString()
+                    }
+                );
+
+            } catch (error) {
+
+                console.error(
+                    "Failed to archive old payment:",
+                    payment.id,
+                    error
+                );
+
+            }
+
+        }
+
+    }
+
 }
 // =========================================================
 // EMERGENCY
