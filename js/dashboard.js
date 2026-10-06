@@ -3827,6 +3827,36 @@ document.body.appendChild(recordPaymentModal);
 
 recordPaymentModal.style.display = "none";
 
+   const recordPaymentMethod =
+    document.getElementById("recordPaymentMethod");
+
+const mobileMoneyFields =
+    document.getElementById("mobileMoneyFields");
+
+if (recordPaymentMethod && mobileMoneyFields) {
+
+    mobileMoneyFields.style.display = "none";
+
+    recordPaymentMethod.addEventListener(
+        "change",
+        function () {
+
+            if (
+                recordPaymentMethod.value === "Mobile Money"
+            ) {
+
+                mobileMoneyFields.style.display = "block";
+
+            } else {
+
+                mobileMoneyFields.style.display = "none";
+
+            }
+
+        }
+    );
+
+}
    
 const recordPaymentButton =
     document.getElementById("billingRecordPaymentButton");
