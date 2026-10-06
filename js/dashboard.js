@@ -4123,12 +4123,76 @@ if (confirmRecordPayment) {
                     .getElementById("recordPaymentMethod")
                     .value;
 
-            if (!paymentMethod) {
+           if (!paymentMethod) {
 
-                alert("Please select a payment method.");
+    const existingPaymentMethodWarning =
+        document.getElementById(
+            "paymentMethodWarning"
+        );
 
-                return;
+    if (existingPaymentMethodWarning) {
+        existingPaymentMethodWarning.remove();
+    }
+
+    const paymentMethodWarning =
+        document.createElement("div");
+
+    paymentMethodWarning.id =
+        "paymentMethodWarning";
+
+    paymentMethodWarning.className =
+        "payment-method-warning";
+
+    paymentMethodWarning.innerHTML = `
+        <div class="payment-method-warning-box">
+
+            <div class="payment-method-warning-icon">
+                !
+            </div>
+
+            <h3>
+                Payment Method Required
+            </h3>
+
+            <p>
+                Please select a payment method
+                before recording the payment.
+            </p>
+
+            <button
+                type="button"
+                id="closePaymentMethodWarning"
+            >
+                Select Method
+            </button>
+
+        </div>
+    `;
+
+    document.body.appendChild(
+        paymentMethodWarning
+    );
+
+    document
+        .getElementById(
+            "closePaymentMethodWarning"
+        )
+        .addEventListener(
+            "click",
+            function () {
+
+                paymentMethodWarning.remove();
+
+                document
+                    .getElementById(
+                        "recordPaymentMethod"
+                    )
+                    .focus();
             }
+        );
+
+    return;
+}
 
             let mobileMoneyName = "";
             let mobileMoneyPhone = "";
