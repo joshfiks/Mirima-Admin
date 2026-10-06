@@ -2837,3 +2837,73 @@
 .payment-balance-warning-box button:hover {
     background: #20bd5b;
 }
+/* =========================================================
+   INVALID PAYMENT AMOUNT WARNING
+   ========================================================= */
+
+.payment-amount-warning {
+    position: fixed;
+    inset: 0;
+    z-index: 2100;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    box-sizing: border-box;
+    background: rgba(0, 0, 0, 0.65);
+}
+
+.payment-amount-warning-box {
+    width: min(420px, 100%);
+    padding: 28px;
+    box-sizing: border-box;
+    background: #151b17;
+    border: 1px solid rgba(212, 175, 55, 0.22);
+    border-radius: 16px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+    text-align: center;
+}
+
+.payment-amount-warning-icon {
+    width: 42px;
+    height: 42px;
+    margin: 0 auto 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: rgba(212, 175, 55, 0.12);
+    border: 1px solid rgba(212, 175, 55, 0.25);
+    color: #d4af37;
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.payment-amount-warning-box h3 {
+    margin: 0 0 8px;
+    color: #f5f1e6;
+    font-size: 20px;
+}
+
+.payment-amount-warning-box p {
+    margin: 0 0 22px;
+    color: #8f9a93;
+    font-size: 13px;
+    line-height: 1.5;
+}
+
+.payment-amount-warning-box button {
+    width: 100%;
+    padding: 12px 16px;
+    border: 1px solid rgba(255,255,255,.08);
+    border-radius: 9px;
+    background: #25d366;
+    color: #ffffff;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.payment-amount-warning-box button:hover {
+    background: #20bd5b;
+}
