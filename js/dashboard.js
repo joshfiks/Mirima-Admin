@@ -3176,9 +3176,17 @@ function openBillingReceipts() {
     getPayments().then(function (payments) {
 
         content.innerHTML = `
-            <div class="billing-page">
+    <div class="billing-page">
 
-                <div class="billing-intro">
+        <button
+            class="billing-back-button"
+            id="billingBackButton"
+            type="button"
+        >
+            ← Back to Billing
+        </button>
+
+        <div class="billing-intro">
 
                     <p class="content-eyebrow">
                         PAYMENTS
@@ -3233,6 +3241,27 @@ function openBillingReceipts() {
         `;
 
         setupReceiptButtons();
+
+       const billingBackButton =
+    document.getElementById(
+        "billingBackButton"
+    );
+
+if (billingBackButton) {
+
+    billingBackButton.addEventListener(
+        "click",
+        function () {
+
+            renderReceptionSection(
+                "billing",
+                getCurrentSession()
+            );
+
+        }
+    );
+
+}
 
     });
 
@@ -3299,10 +3328,18 @@ function openBillingHistory() {
             ) || "[]"
         );
 
-    content.innerHTML = `
-        <div class="billing-page">
+   content.innerHTML = `
+    <div class="billing-page">
 
-            <div class="billing-intro">
+        <button
+            class="billing-back-button"
+            id="billingHistoryBackButton"
+            type="button"
+        >
+            ← Back to Billing
+        </button>
+
+        <div class="billing-intro">
 
                 <p class="content-eyebrow">
                     HISTORY
@@ -3390,6 +3427,27 @@ function openBillingHistory() {
 
     setupReceiptButtons();
     setupHistoricalReceiptSearch();
+
+   const billingHistoryBackButton =
+    document.getElementById(
+        "billingHistoryBackButton"
+    );
+
+if (billingHistoryBackButton) {
+
+    billingHistoryBackButton.addEventListener(
+        "click",
+        function () {
+
+            renderReceptionSection(
+                "billing",
+                getCurrentSession()
+            );
+
+        }
+    );
+
+}
 
 }
 
