@@ -6003,8 +6003,6 @@ async function cleanupOldPaymentRecords() {
 
     console.log("Old payment records archived.");
 }
-
-cleanupOldPaymentRecords();
 // =========================================================
 // EMERGENCY
 // =========================================================
