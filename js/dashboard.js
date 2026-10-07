@@ -7064,6 +7064,8 @@ if (
     if (requestCard) {
         requestCard.remove();
     }
+
+   updateRequestCategoryBadges();
 }
         }
     );
@@ -7074,6 +7076,113 @@ if (
         );
 
     });
+}
+
+function updateRequestCategoryBadges() {
+
+    const readRequests =
+        JSON.parse(
+            localStorage.getItem(
+                "mirimaReadRequests"
+            ) || "[]"
+        );
+
+    document
+        .querySelectorAll(".request-category-card")
+        .forEach(function (categoryCard) {
+
+            const category =
+                categoryCard.dataset.requestCategory;
+
+            const requests =
+                document.querySelectorAll(
+                    ".guest-request-card"
+                );
+
+            let unreadCount = 0;
+
+            requests.forEach(function (requestCard) {
+
+                const service =
+                    requestCard
+                        .querySelector(
+                            "[data-request-service]"
+                        )
+                        ?.textContent
+                        .trim();
+
+                const requestId =
+                    requestCard
+                        .querySelector(
+                            ".request-status"
+                        )
+                        ?.dataset.requestId;
+
+                let matchesCategory = false;
+
+if (category === "Restaurant & Bar") {
+    matchesCategory =
+        service.includes("Reserve a Table") ||
+        service.includes("Bar Menu") ||
+        service.includes("Room Dining") ||
+        service.includes("Restaurant Menu");
+
+} else if (category === "Make Payment") {
+    matchesCategory =
+        service.includes("Make Payment") ||
+        service.includes("Payment at Reception") ||
+        service.includes("Mobile Money Payment");
+
+} else if (category === "Extend Your Stay") {
+    matchesCategory = service.includes("Extend");
+
+} else if (category === "Speak to Reception") {
+    matchesCategory = service.includes("Other Assistance");
+
+} else {
+    matchesCategory = service.includes(category);
+}
+
+if (
+    requestId &&
+    service &&
+    !readRequests.includes(requestId) &&
+    matchesCategory
+) {
+    unreadCount++;
+}
+
+            });
+
+            const existingBadge =
+                categoryCard.querySelector(
+                    ".request-category-count"
+                );
+
+           if (unreadCount > 0) {
+
+    if (existingBadge) {
+        existingBadge.textContent =
+            unreadCount;
+    } else {
+        categoryCard.insertAdjacentHTML(
+            "beforeend",
+            `
+                <span class="request-category-count">
+                    ${unreadCount}
+                </span>
+            `
+        );
+    }
+
+} else if (existingBadge) {
+
+    existingBadge.remove();
+
+}
+
+        });
+
 }
 
 document.addEventListener(
