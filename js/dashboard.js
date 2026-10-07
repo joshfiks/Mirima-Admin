@@ -7040,6 +7040,24 @@ if (
     newStatus === "Completed" ||
     newStatus === "Cancelled"
 ) {
+
+    const readRequests =
+        JSON.parse(
+            localStorage.getItem(
+                "mirimaReadRequests"
+            ) || "[]"
+        );
+
+    const updatedReadRequests =
+        readRequests.filter(function (id) {
+            return id !== requestId;
+        });
+
+    localStorage.setItem(
+        "mirimaReadRequests",
+        JSON.stringify(updatedReadRequests)
+    );
+
     const requestCard =
         button.closest(".guest-request-card");
 
