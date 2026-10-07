@@ -5308,7 +5308,7 @@ function setupAdminRequestNotifications() {
 
    const notificationCount =
     document.getElementById(
-        "housekeepingHeaderNotificationCount"
+        "headerNotificationCount"
     );
 
 const mobileNotificationButton =
