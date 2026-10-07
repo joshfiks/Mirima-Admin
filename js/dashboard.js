@@ -5346,10 +5346,33 @@ const mobileNotificationButton =
 
                if (
                      (
-    department === "reception"
-        ? true
-        : (request.service || "").includes("Housekeeping")
-) &&
+          department === "reception"
+       ? (
+        (request.service || "").includes("Airport Transfer") ||
+        (request.service || "").includes("Luggage Assistance") ||
+        (request.service || "").includes("Extend") ||
+        (request.service || "").includes("Maintenance Request") ||
+        (request.service || "").includes("Emergency Assistance") ||
+        (request.service || "").includes("Other Assistance") ||
+        (request.service || "").includes("Billing Help") ||
+        (request.service || "").includes("Exchange") ||
+        (request.service || "").includes("Late Checkout") ||
+        (request.service || "").includes("Make Payment") ||
+        (request.service || "").includes("Payment at Reception") ||
+        (request.service || "").includes("Mobile Money Payment") ||
+        (request.service || "").includes("Receipt") ||
+        (request.service || "").includes("Chimpanzee Trekking") ||
+        (request.service || "").includes("Wildlife Viewing") ||
+        (request.service || "").includes("Crater Lake Tour") ||
+        (request.service || "").includes("Forest Nature Walk") ||
+        (request.service || "").includes("Evening Campfire") ||
+        (request.service || "").includes("Photography Tour") ||
+        (request.service || "").includes("Reserve a Table") ||
+        (request.service || "").includes("Bar Menu") ||
+        (request.service || "").includes("Room Dining") ||
+        (request.service || "").includes("Restaurant Menu")
+    )
+    : (request.service || "").includes("Housekeeping") ) &&
                       request.status !== "Completed" &&
                        request.status !== "Cancelled" &&
                       !readRequests.includes(doc.id)
