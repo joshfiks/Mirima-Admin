@@ -376,11 +376,12 @@
 
     border-radius: 50%;
 
-    background: #b89b5e;
-    color: #11150f;
+    background: #25d366;
+    color: #ffffff;
 
     font-size: 8px;
     font-weight: 800;
+    line-height: 1;
 }
 
 .header-staff {
