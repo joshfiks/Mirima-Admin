@@ -2152,6 +2152,8 @@ updateEmergencyCount();
 
     setupAdminRequestNotifications();
 
+    console.log("ADMIN NOTIFICATION SETUP RUNNING");
+
     // Setup logout
 
     setupReceptionLogout();
