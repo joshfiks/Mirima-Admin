@@ -45,6 +45,7 @@ import {
     setDoc,
     doc,
     updateDoc
+    onSnapshot
 } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
 // =========================================================
 // HOUSEKEEPING DASHBOARD
@@ -484,6 +485,8 @@ function renderHousekeepingDashboard(session) {
     setupHousekeepingNavigation(session);
 
     setupHousekeepingMobileMenu();
+
+    setupAdminRequestNotifications();
 
    document
     .getElementById("housekeepingLogout")
@@ -5296,6 +5299,56 @@ async function getRequestsFromFirestore() {
     .sort(function (a, b) {
         return b.createdAt?.toMillis() - a.createdAt?.toMillis();
     });
+}
+
+function setupAdminRequestNotifications() {
+
+    const notificationCount =
+        document.getElementById(
+            "housekeepingHeaderNotificationCount"
+        );
+
+    if (!notificationCount) {
+        return;
+    }
+
+    onSnapshot(
+        collection(db, "requests"),
+        function (snapshot) {
+
+            let unreadCount = 0;
+
+            const readRequests =
+                JSON.parse(
+                    localStorage.getItem(
+                        "mirimaReadRequests"
+                    ) || "[]"
+                );
+
+            snapshot.forEach(function (doc) {
+
+                const request =
+                    doc.data();
+
+                if (
+                    request.status !== "Completed" &&
+                    request.status !== "Cancelled" &&
+                    !readRequests.includes(doc.id)
+                ) {
+                    unreadCount++;
+                }
+
+            });
+
+            notificationCount.textContent =
+                unreadCount;
+
+            notificationCount.style.display =
+                unreadCount > 0
+                    ? "inline-flex"
+                    : "none";
+        }
+    );
 }
 
 async function updateRequestStatus(requestId, newStatus) {
