@@ -5303,11 +5303,16 @@ async function getRequestsFromFirestore() {
 
 function setupAdminRequestNotifications() {
 
-    const notificationCount =
-        document.getElementById(
-            "housekeepingHeaderNotificationCount"
-        );
+   const notificationCount =
+    document.getElementById(
+        "housekeepingHeaderNotificationCount"
+    );
 
+const mobileNotificationButton =
+    document.getElementById(
+        "housekeepingMobileNotificationButton"
+    );
+   
     if (!notificationCount) {
         return;
     }
