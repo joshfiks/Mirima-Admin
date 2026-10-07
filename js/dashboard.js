@@ -5304,11 +5304,13 @@ async function getRequestsFromFirestore() {
     });
 }
 
-function setupAdminRequestNotifications() {
+function setupAdminRequestNotifications(department) {
 
    const notificationCount =
     document.getElementById(
-       "housekeepingHeaderNotificationCount"
+       department === "reception"
+    ? "headerNotificationCount"
+    : "housekeepingHeaderNotificationCount"
     );
 
 const mobileNotificationButton =
@@ -5343,7 +5345,11 @@ const mobileNotificationButton =
                     doc.data();
 
                if (
-                     (request.service || "").includes("Housekeeping") &&
+                     (
+    department === "reception"
+        ? true
+        : (request.service || "").includes("Housekeeping")
+) &&
                       request.status !== "Completed" &&
                        request.status !== "Cancelled" &&
                       !readRequests.includes(doc.id)
