@@ -2150,6 +2150,7 @@ updateEmergencyCount();
 
     setupMobileMenu();
 
+    setupAdminRequestNotifications();
 
     // Setup logout
 
