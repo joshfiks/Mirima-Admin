@@ -3047,3 +3047,66 @@
 .payment-method-warning-box button:hover {
     background: #20bd5b;
 }
+.billing-category-buttons {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+    margin-top: 28px;
+}
+
+.billing-category-button {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 18px;
+    border: 1px solid rgba(255,255,255,.07);
+    border-radius: 13px;
+    background: #151b17;
+    color: #f4efe3;
+    text-align: left;
+    cursor: pointer;
+    transition: .2s ease;
+}
+
+.billing-category-button:hover {
+    background: #1b241f;
+    border-color: rgba(255,255,255,.13);
+    transform: translateY(-1px);
+}
+
+.billing-category-icon {
+    width: 42px;
+    height: 42px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    border-radius: 11px;
+    background: rgba(37,211,102,.12);
+    font-size: 20px;
+}
+
+.billing-category-text {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    min-width: 0;
+    flex: 1;
+}
+
+.billing-category-text strong {
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.billing-category-text span {
+    color: #92968f;
+    font-size: 12px;
+}
+
+.billing-category-arrow {
+    color: #92968f;
+    font-size: 18px;
+    flex-shrink: 0;
+}
