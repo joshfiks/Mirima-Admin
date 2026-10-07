@@ -5320,6 +5320,8 @@ const mobileNotificationButton =
         return;
     }
 
+   console.log("STARTING ADMIN NOTIFICATION LISTENER");
+   
     onSnapshot(
         collection(db, "requests"),
         function (snapshot) {
