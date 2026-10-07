@@ -2150,7 +2150,7 @@ updateEmergencyCount();
 
     setupMobileMenu();
 
-    setupAdminRequestNotifications();
+    setupAdminRequestNotifications("reception");
 
     console.log("ADMIN NOTIFICATION SETUP RUNNING");
 
