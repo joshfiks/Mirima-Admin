@@ -5342,13 +5342,14 @@ const mobileNotificationButton =
                 const request =
                     doc.data();
 
-                if (
-                    request.status !== "Completed" &&
-                    request.status !== "Cancelled" &&
-                    !readRequests.includes(doc.id)
-                ) {
-                    unreadCount++;
-                }
+               if (
+                     (request.service || "").includes("Housekeeping") &&
+                      request.status !== "Completed" &&
+                       request.status !== "Cancelled" &&
+                      !readRequests.includes(doc.id)
+                 ) {
+                      unreadCount++;
+                  }
 
             });
 
