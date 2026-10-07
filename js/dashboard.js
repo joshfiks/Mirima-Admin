@@ -5321,6 +5321,8 @@ const mobileNotificationButton =
         collection(db, "requests"),
         function (snapshot) {
 
+           console.log("ADMIN NOTIFICATIONS:", snapshot.size);
+
             let unreadCount = 0;
 
             const readRequests =
