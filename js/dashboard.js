@@ -4821,8 +4821,7 @@ document
         paymentSuccess.remove();
         openCottageBill(cottageId);
     });
-
-            openCottageBill(cottageId);
+       
 
         }
     );
