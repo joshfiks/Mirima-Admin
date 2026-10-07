@@ -5492,9 +5492,22 @@ async function getRequestsContent() {
             "✈",
             "Airport Transfer",
             "Arrange guest airport transportation.",
-            requests.filter(function (request) {
-            return request.service.includes("Airport Transfer");
-            }).length
+
+              requests.filter(function (request) {
+
+    const readRequests =
+        JSON.parse(
+            localStorage.getItem(
+                "mirimaReadRequests"
+            ) || "[]"
+        );
+
+    return (
+        request.service.includes("Airport Transfer") &&
+        !readRequests.includes(request.id)
+    );
+
+}).length
           )}
 
 
@@ -5502,9 +5515,21 @@ async function getRequestsContent() {
     "🧳",
     "Luggage Assistance",
     "Assist guests with luggage.",
-    requests.filter(function (request) {
-        return request.service.includes("Luggage Assistance");
-    }).length
+   requests.filter(function (request) {
+
+    const readRequests =
+        JSON.parse(
+            localStorage.getItem(
+                "mirimaReadRequests"
+            ) || "[]"
+        );
+
+    return (
+        request.service.includes("Luggage Assistance") &&
+        !readRequests.includes(request.id)
+    );
+
+}).length
 )}
 
 ${createRequestCategory(
@@ -5512,26 +5537,62 @@ ${createRequestCategory(
     "Extend Your Stay",
     "Review and manage stay extensions.",
     requests.filter(function (request) {
-        return request.service.includes("Extend");
-    }).length
+
+    const readRequests =
+        JSON.parse(
+            localStorage.getItem(
+                "mirimaReadRequests"
+            ) || "[]"
+        );
+
+    return (
+        request.service.includes("Extend") &&
+        !readRequests.includes(request.id)
+    );
+
+}).length
 )}
 
 ${createRequestCategory(
     "🔧",
     "Maintenance Request",
     "Receive and coordinate maintenance issues.",
-    requests.filter(function (request) {
-        return request.service.includes("Maintenance Request");
-    }).length
+   requests.filter(function (request) {
+
+    const readRequests =
+        JSON.parse(
+            localStorage.getItem(
+                "mirimaReadRequests"
+            ) || "[]"
+        );
+
+    return (
+        request.service.includes("Maintenance Request") &&
+        !readRequests.includes(request.id)
+    );
+
+}).length
 )}
 
 ${createRequestCategory(
     "🚨",
     "Emergency Assistance",
     "Handle urgent guest assistance.",
-    requests.filter(function (request) {
-        return request.service.includes("Emergency Assistance");
-    }).length
+   requests.filter(function (request) {
+
+    const readRequests =
+        JSON.parse(
+            localStorage.getItem(
+                "mirimaReadRequests"
+            ) || "[]"
+        );
+
+    return (
+        request.service.includes("Emergency Assistance") &&
+        !readRequests.includes(request.id)
+    );
+
+}).length
 )}
 
 ${createRequestCategory(
@@ -5539,16 +5600,40 @@ ${createRequestCategory(
     "Speak to Reception",
     "Open the live guest conversation.",
     requests.filter(function (request) {
-        return request.service.includes("Other Assistance");
-    }).length
+
+    const readRequests =
+        JSON.parse(
+            localStorage.getItem(
+                "mirimaReadRequests"
+            ) || "[]"
+        );
+
+    return (
+        request.service.includes("Other Assistance") &&
+        !readRequests.includes(request.id)
+    );
+
+}).length
 )}
           ${createRequestCategory(
     "💳",
     "Billing Help",
     "Assist guests with billing questions and payment issues.",
-    requests.filter(function (request) {
-        return request.service.includes("Billing Help");
-    }).length
+   requests.filter(function (request) {
+
+    const readRequests =
+        JSON.parse(
+            localStorage.getItem(
+                "mirimaReadRequests"
+            ) || "[]"
+        );
+
+    return (
+        request.service.includes("Billing Help") &&
+        !readRequests.includes(request.id)
+    );
+
+}).length
 )}
 
 ${createRequestCategory(
@@ -5556,8 +5641,20 @@ ${createRequestCategory(
     "Exchange",
     "Handle guest currency exchange requests.",
     requests.filter(function (request) {
-        return request.service.includes("Exchange");
-    }).length
+
+    const readRequests =
+        JSON.parse(
+            localStorage.getItem(
+                "mirimaReadRequests"
+            ) || "[]"
+        );
+
+    return (
+        request.service.includes("Exchange") &&
+        !readRequests.includes(request.id)
+    );
+
+}).length
 )}
 
 ${createRequestCategory(
@@ -5565,30 +5662,66 @@ ${createRequestCategory(
     "Late Checkout",
     "Review guest requests for late checkout.",
     requests.filter(function (request) {
-        return request.service.includes("Late Checkout");
-    }).length
+
+    const readRequests =
+        JSON.parse(
+            localStorage.getItem(
+                "mirimaReadRequests"
+            ) || "[]"
+        );
+
+    return (
+        request.service.includes("Late Checkout") &&
+        !readRequests.includes(request.id)
+    );
+
+}).length
 )}
 
 ${createRequestCategory(
     "💰",
     "Make Payment",
     "Review and assist with guest payment requests.",
-    requests.filter(function (request) {
-        return (
-    request.service.includes("Make Payment") ||
-    request.service.includes("Payment at Reception") ||
-    request.service.includes("Mobile Money Payment")
-);
-    }).length
+   requests.filter(function (request) {
+
+    const readRequests =
+        JSON.parse(
+            localStorage.getItem(
+                "mirimaReadRequests"
+            ) || "[]"
+        );
+
+    return (
+        (
+            request.service.includes("Make Payment") ||
+            request.service.includes("Payment at Reception") ||
+            request.service.includes("Mobile Money Payment")
+        ) &&
+        !readRequests.includes(request.id)
+    );
+
+}).length
 )}
 
 ${createRequestCategory(
     "🧾",
     "Receipt",
     "Review guest requests for receipts.",
-    requests.filter(function (request) {
-        return request.service.includes("Receipt");
-    }).length
+   requests.filter(function (request) {
+
+    const readRequests =
+        JSON.parse(
+            localStorage.getItem(
+                "mirimaReadRequests"
+            ) || "[]"
+        );
+
+    return (
+        request.service.includes("Receipt") &&
+        !readRequests.includes(request.id)
+    );
+
+}).length
 )}
 
 ${createRequestCategory(
@@ -5596,17 +5729,41 @@ ${createRequestCategory(
     "Chimpanzee Trekking",
     "Review guest requests for chimpanzee trekking.",
     requests.filter(function (request) {
-        return request.service.includes("Chimpanzee Trekking");
-    }).length
+
+    const readRequests =
+        JSON.parse(
+            localStorage.getItem(
+                "mirimaReadRequests"
+            ) || "[]"
+        );
+
+    return (
+        request.service.includes("Chimpanzee Trekking") &&
+        !readRequests.includes(request.id)
+    );
+
+}).length
 )}
 
 ${createRequestCategory(
     "🦓",
     "Wildlife Viewing",
     "Review guest requests for wildlife viewing.",
-    requests.filter(function (request) {
-        return request.service.includes("Wildlife Viewing");
-    }).length
+   requests.filter(function (request) {
+
+    const readRequests =
+        JSON.parse(
+            localStorage.getItem(
+                "mirimaReadRequests"
+            ) || "[]"
+        );
+
+    return (
+        request.service.includes("Wildlife Viewing") &&
+        !readRequests.includes(request.id)
+    );
+
+}).length
 )}
 
 ${createRequestCategory(
@@ -5614,8 +5771,20 @@ ${createRequestCategory(
     "Crater Lake Tour",
     "Review guest requests for crater lake tours.",
     requests.filter(function (request) {
-        return request.service.includes("Crater Lake Tour");
-    }).length
+
+    const readRequests =
+        JSON.parse(
+            localStorage.getItem(
+                "mirimaReadRequests"
+            ) || "[]"
+        );
+
+    return (
+        request.service.includes("Crater Lake Tour") &&
+        !readRequests.includes(request.id)
+    );
+
+}).length
 )}
 
 ${createRequestCategory(
@@ -5623,8 +5792,20 @@ ${createRequestCategory(
     "Forest Nature Walk",
     "Review guest requests for forest nature walks.",
     requests.filter(function (request) {
-        return request.service.includes("Forest Nature Walk");
-    }).length
+
+    const readRequests =
+        JSON.parse(
+            localStorage.getItem(
+                "mirimaReadRequests"
+            ) || "[]"
+        );
+
+    return (
+        request.service.includes("Forest Nature Walk") &&
+        !readRequests.includes(request.id)
+    );
+
+}).length
 )}
 
 ${createRequestCategory(
@@ -5632,31 +5813,67 @@ ${createRequestCategory(
     "Evening Campfire",
     "Review guest requests for evening campfires.",
     requests.filter(function (request) {
-        return request.service.includes("Evening Campfire");
-    }).length
+
+    const readRequests =
+        JSON.parse(
+            localStorage.getItem(
+                "mirimaReadRequests"
+            ) || "[]"
+        );
+
+    return (
+        request.service.includes("Evening Campfire") &&
+        !readRequests.includes(request.id)
+    );
+
+}).length
 )}
 
 ${createRequestCategory(
     "📸",
     "Photography Tour",
     "Review guest requests for photography tours.",
-    requests.filter(function (request) {
-        return request.service.includes("Photography Tour");
-    }).length
+   requests.filter(function (request) {
+
+    const readRequests =
+        JSON.parse(
+            localStorage.getItem(
+                "mirimaReadRequests"
+            ) || "[]"
+        );
+
+    return (
+        request.service.includes("Photography Tour") &&
+        !readRequests.includes(request.id)
+    );
+
+}).length
 )}
 
 ${createRequestCategory(
     "🍽️",
     "Restaurant & Bar",
     "Manage guest restaurant and bar requests.",
-    requests.filter(function (request) {
-        return (
+   requests.filter(function (request) {
+
+    const readRequests =
+        JSON.parse(
+            localStorage.getItem(
+                "mirimaReadRequests"
+            ) || "[]"
+        );
+
+    return (
+        (
             request.service.includes("Reserve a Table") ||
             request.service.includes("Bar Menu") ||
             request.service.includes("Room Dining") ||
             request.service.includes("Restaurant Menu")
-        );
-    }).length
+        ) &&
+        !readRequests.includes(request.id)
+    );
+
+}).length
 )}
         </div>
 
@@ -5828,9 +6045,16 @@ function createRequestCategory(
 
             </div>
 
-           <span class="request-category-count">
-             ${count}
-           </span>
+           ${
+    count > 0
+        ? `
+            <span class="request-category-count">
+                ${count}
+            </span>
+          `
+        : ""
+}
+
         </article>
 
     `;
@@ -6720,15 +6944,34 @@ function setupRequestStatusButtons() {
 
         button.addEventListener(
             "click",
-            async function () {
 
-                const requestId =
-         button.dataset.requestId;
+           async function () {
 
-        console.log(
+    const requestId =
+        button.dataset.requestId;
+
+    const readRequests =
+        JSON.parse(
+            localStorage.getItem(
+                "mirimaReadRequests"
+            ) || "[]"
+        );
+
+    if (!readRequests.includes(requestId)) {
+
+        readRequests.push(requestId);
+
+        localStorage.setItem(
+            "mirimaReadRequests",
+            JSON.stringify(readRequests)
+        );
+
+    }
+
+    console.log(
         "Status button clicked:",
-         requestId
-         );
+        requestId
+    );
            /*     
          const newStatus = prompt(
          "Choose status:\n1. Received\n2. In Progress\n3. Completed\n4. Cancelled",
