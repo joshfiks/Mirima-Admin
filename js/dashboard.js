@@ -4574,20 +4574,118 @@ mobileMoneyNameWarning.innerHTML = `
 
        if (!/^256\d{9}$/.test(mobileMoneyPhone)) {
 
-                    alert(
-                        "Invalid phone number.\n\n" +
-                        "Use the format: 256XXXXXXXXX"
-                    );
+                    const existingMobileMoneyPhoneWarning =
+    document.getElementById(
+        "mobileMoneyPhoneWarning"
+    );
+
+if (existingMobileMoneyPhoneWarning) {
+    existingMobileMoneyPhoneWarning.remove();
+}
+
+const mobileMoneyPhoneWarning =
+    document.createElement("div");
+
+mobileMoneyPhoneWarning.id =
+    "mobileMoneyPhoneWarning";
+
+mobileMoneyPhoneWarning.className =
+    "add-charge-warning";
+
+mobileMoneyPhoneWarning.innerHTML = `
+    <div class="add-charge-warning-box">
+
+        <div class="add-charge-warning-icon">
+            !
+        </div>
+
+        <h3>
+            Invalid Phone Number
+        </h3>
+
+        <p>
+            Please use the format:
+            <strong>256XXXXXXXXX</strong>
+        </p>
+
+        <button
+            type="button"
+            id="closeMobileMoneyPhoneWarning"
+        >
+            Enter Number
+        </button>
+
+    </div>
+`;
+
+document.body.appendChild(
+    mobileMoneyPhoneWarning
+);
+
+document
+    .getElementById("closeMobileMoneyPhoneWarning")
+    .addEventListener("click", function () {
+        mobileMoneyPhoneWarning.remove();
+    });
 
                     return;
                 }
 
-                if (!/^[A-Za-z0-9]{12}$/.test(transactionId)) {
+    if (!/^[A-Za-z0-9]{12}$/.test(transactionId)) {
 
-                    alert(
-                        "Invalid Transaction ID.\n\n" +
-                        "The Transaction ID must contain exactly 12 characters."
-                    );
+const existingTransactionIdWarning =
+    document.getElementById(
+        "transactionIdWarning"
+    );
+
+if (existingTransactionIdWarning) {
+    existingTransactionIdWarning.remove();
+}
+
+const transactionIdWarning =
+    document.createElement("div");
+
+transactionIdWarning.id =
+    "transactionIdWarning";
+
+transactionIdWarning.className =
+    "add-charge-warning";
+
+transactionIdWarning.innerHTML = `
+    <div class="add-charge-warning-box">
+
+        <div class="add-charge-warning-icon">
+            !
+        </div>
+
+        <h3>
+            Invalid Transaction ID
+        </h3>
+
+        <p>
+            The Transaction ID must contain
+            exactly 12 characters.
+        </p>
+
+        <button
+            type="button"
+            id="closeTransactionIdWarning"
+        >
+            Enter ID
+        </button>
+
+    </div>
+`;
+
+document.body.appendChild(
+    transactionIdWarning
+);
+
+document
+    .getElementById("closeTransactionIdWarning")
+    .addEventListener("click", function () {
+        transactionIdWarning.remove();
+    });
 
                     return;
                 }
@@ -4614,12 +4712,115 @@ mobileMoneyNameWarning.innerHTML = `
 
             if (!paymentResult.success) {
 
-                alert("Failed to record payment.");
+                const existingPaymentFailedWarning =
+    document.getElementById(
+        "paymentFailedWarning"
+    );
 
+if (existingPaymentFailedWarning) {
+    existingPaymentFailedWarning.remove();
+}
+
+const paymentFailedWarning =
+    document.createElement("div");
+
+paymentFailedWarning.id =
+    "paymentFailedWarning";
+
+paymentFailedWarning.className =
+    "add-charge-warning";
+
+paymentFailedWarning.innerHTML = `
+    <div class="add-charge-warning-box">
+
+        <div class="add-charge-warning-icon">
+            !
+        </div>
+
+        <h3>
+            Payment Failed
+        </h3>
+
+        <p>
+            The payment could not be recorded.
+            Please try again.
+        </p>
+
+        <button
+            type="button"
+            id="closePaymentFailedWarning"
+        >
+            Try Again
+        </button>
+
+    </div>
+`;
+
+document.body.appendChild(
+    paymentFailedWarning
+);
+
+document
+    .getElementById("closePaymentFailedWarning")
+    .addEventListener("click", function () {
+        paymentFailedWarning.remove();
+    });
                 return;
             }
 
-            alert("Payment recorded successfully.");
+            const existingPaymentSuccess =
+    document.getElementById(
+        "paymentSuccess"
+    );
+
+if (existingPaymentSuccess) {
+    existingPaymentSuccess.remove();
+}
+
+const paymentSuccess =
+    document.createElement("div");
+
+paymentSuccess.id =
+    "paymentSuccess";
+
+paymentSuccess.className =
+    "add-charge-warning";
+
+paymentSuccess.innerHTML = `
+    <div class="add-charge-warning-box">
+
+        <div class="add-charge-warning-icon">
+            ✓
+        </div>
+
+        <h3>
+            Payment Recorded
+        </h3>
+
+        <p>
+            Payment recorded successfully.
+        </p>
+
+        <button
+            type="button"
+            id="closePaymentSuccess"
+        >
+            Continue
+        </button>
+
+    </div>
+`;
+
+document.body.appendChild(
+    paymentSuccess
+);
+
+document
+    .getElementById("closePaymentSuccess")
+    .addEventListener("click", function () {
+        paymentSuccess.remove();
+        openCottageBill(cottageId);
+    });
 
             openCottageBill(cottageId);
 
