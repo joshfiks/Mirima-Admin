@@ -4517,14 +4517,62 @@ if (confirmRecordPayment) {
 
                 if (!mobileMoneyName) {
 
-                    alert(
-                        "Please enter the name registered on the Mobile Money account."
-                    );
+                    const existingMobileMoneyNameWarning =
+    document.getElementById(
+        "mobileMoneyNameWarning"
+    );
 
-                    return;
-                }
+if (existingMobileMoneyNameWarning) {
+    existingMobileMoneyNameWarning.remove();
+}
 
-                if (!/^256\d{9}$/.test(mobileMoneyPhone)) {
+const mobileMoneyNameWarning =
+    document.createElement("div");
+
+mobileMoneyNameWarning.id =
+    "mobileMoneyNameWarning";
+
+mobileMoneyNameWarning.className =
+    "add-charge-warning";
+
+mobileMoneyNameWarning.innerHTML = `
+    <div class="add-charge-warning-box">
+
+        <div class="add-charge-warning-icon">
+            !
+        </div>
+
+        <h3>
+            Mobile Money Name Required
+        </h3>
+
+        <p>
+            Please enter the name registered
+            on the Mobile Money account.
+        </p>
+
+        <button
+            type="button"
+            id="closeMobileMoneyNameWarning"
+        >
+            Enter Name
+        </button>
+
+    </div>
+`;
+
+  document.body.appendChild(mobileMoneyNameWarning); 
+                   
+ document
+    .getElementById("closeMobileMoneyNameWarning")
+    .addEventListener("click", function () {
+        mobileMoneyNameWarning.remove();
+    });
+                   
+    return;
+      }
+
+       if (!/^256\d{9}$/.test(mobileMoneyPhone)) {
 
                     alert(
                         "Invalid phone number.\n\n" +
