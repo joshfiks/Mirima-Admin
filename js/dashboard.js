@@ -6408,7 +6408,6 @@ function createRequestCategory(
 // =========================================================
 // LIVE CHAT
 // =========================================================
-
 function getChatContent() {
 
     return `
@@ -6435,28 +6434,79 @@ function getChatContent() {
         </div>
 
 
-        <div class="chat-empty-state">
+        <div class="live-chat-layout">
 
-            <div class="chat-empty-icon">
-                ✉
+            <div class="live-chat-conversations">
+
+                <div class="live-chat-panel-title">
+                    <h4>
+                        Conversations
+                    </h4>
+
+                    <span
+                        id="liveChatConversationCount"
+                        class="live-chat-count"
+                    >
+                        0
+                    </span>
+                </div>
+
+                <div
+                    id="liveChatConversationList"
+                    class="live-chat-conversation-list"
+                >
+
+                    <div class="chat-empty-state">
+
+                        <div class="chat-empty-icon">
+                            ✉
+                        </div>
+
+                        <h4>
+                            No active conversations
+                        </h4>
+
+                        <p>
+                            When a guest starts a conversation,
+                            it will appear here.
+                        </p>
+
+                    </div>
+
+                </div>
+
             </div>
 
-            <h4>
-                No active conversations
-            </h4>
 
-            <p>
-                When a guest selects "Speak to Reception"
-                in Mirima Connect, their conversation will
-                appear here.
-            </p>
+            <div
+                id="liveChatWindow"
+                class="live-chat-window"
+            >
+
+                <div class="live-chat-window-empty">
+
+                    <div class="chat-empty-icon">
+                        💬
+                    </div>
+
+                    <h4>
+                        Select a conversation
+                    </h4>
+
+                    <p>
+                        Choose a guest conversation from
+                        the list to start chatting.
+                    </p>
+
+                </div>
+
+            </div>
 
         </div>
 
     `;
 
 }
-
 
 // =========================================================
 // BILLING
