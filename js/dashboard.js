@@ -8987,41 +8987,38 @@ function openReceptionChatConversation(conversation) {
                     return;
                 }
 
-                messagesContainer.innerHTML =
-                    messages.map(function (item) {
+                
+messagesContainer.innerHTML = "";
 
-                        const messageText =
-                            document.createElement("span");
+messages.forEach(function (item) {
 
-                        messageText.textContent =
-                            item.message || "";
+    const messageElement =
+        document.createElement("div");
 
-                        const messageElement =
-                            document.createElement("div");
+    messageElement.style.marginBottom = "12px";
+    messageElement.style.padding = "10px";
+    messageElement.style.borderRadius = "8px";
 
-                        messageElement.style.marginBottom = "12px";
+    const senderElement =
+        document.createElement("strong");
 
-                        const senderElement =
-                            document.createElement("strong");
+    senderElement.textContent =
+        item.senderName ||
+        (item.sender === "guest" ? "Guest" : "Reception");
 
-                        senderElement.textContent =
-                            item.senderName ||
-                            (item.sender === "guest" ? "Guest" : "Reception");
+    const textElement =
+        document.createElement("p");
 
-                        const textElement =
-                            document.createElement("p");
+    textElement.style.margin = "4px 0";
+    textElement.textContent =
+        item.message || "[Message text unavailable]";
 
-                        textElement.style.margin = "4px 0";
-                        textElement.appendChild(messageText);
+    messageElement.appendChild(senderElement);
+    messageElement.appendChild(textElement);
 
-                        messageElement.appendChild(senderElement);
-                        messageElement.appendChild(textElement);
+    messagesContainer.appendChild(messageElement);
 
-                        return messageElement;
-
-                    }).forEach(function (element) {
-                        messagesContainer.appendChild(element);
-                    });
+});
 
                 messagesContainer.scrollTop =
                     messagesContainer.scrollHeight;
