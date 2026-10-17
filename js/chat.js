@@ -6,14 +6,15 @@ import {
     addDoc,
     doc,
     getDoc,
+    getDocs,
     updateDoc,
     query,
     where,
     orderBy,
+    limit,
     onSnapshot,
     serverTimestamp
 } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
-
 // ==========================================
 // MIRIMA ADMIN — SHARED CHAT MODULE
 // Uses Mirima Connect's existing Firestore structure
@@ -134,4 +135,39 @@ export async function sendChatMessage(
             updatedAt: serverTimestamp()
         }
     );
+}
+// ==========================================
+// GET LATEST MESSAGE FOR A CONVERSATION
+// ==========================================
+
+export async function getLatestConversationMessage(
+    conversationId
+) {
+    const messagesRef = collection(
+        db,
+        "chatConversations",
+        conversationId,
+        "messages"
+    );
+
+    const latestMessageQuery = query(
+        messagesRef,
+        orderBy("createdAt", "desc"),
+        limit(1)
+    );
+
+    const snapshot = await getDocs(
+        latestMessageQuery
+    );
+
+    if (snapshot.empty) {
+        return null;
+    }
+
+    const latestMessage = snapshot.docs[0];
+
+    return {
+        id: latestMessage.id,
+        ...latestMessage.data()
+    };
 }
