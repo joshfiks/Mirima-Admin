@@ -9055,25 +9055,24 @@ function openReceptionChatConversation(conversation) {
         activeReceptionMessageListener = null;
     }
 
-// Record when Reception opens this conversation.
-console.log(
-    "RECEPTION READ STATUS TEST:",
-    conversation.id
-);
+// Mark this conversation as read by Reception.
+const unreadIndicator =
+    document.querySelector(
+        '.unread-message-indicator[data-conversation-id="' +
+        conversation.id +
+        '"]'
+    );
+
+if (unreadIndicator) {
+    unreadIndicator.style.display = "none";
+}
 
 updateDoc(
     doc(db, "chatConversations", conversation.id),
     {
         receptionLastReadAt: new Date()
     }
-)
-.then(function () {
-    console.log(
-        "READ STATUS UPDATE SUCCESS:",
-        conversation.id
-    );
-})
-.catch(function (error) {
+).catch(function (error) {
     console.error(
         "Could not update Reception read status:",
         error
