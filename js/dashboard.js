@@ -8962,6 +8962,14 @@ conversationList
                 latestMessage.sender === "guest" &&
                 messageTime !== null &&
                 (readTime === null || messageTime > readTime);
+           
+           console.log("UNREAD CHECK:", {
+              conversationId,
+             sender: latestMessage.sender,
+             messageTime,
+             readTime,
+             isUnread
+            });
 
             if (unreadIndicator) {
                 unreadIndicator.style.display =
