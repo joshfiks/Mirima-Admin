@@ -8852,27 +8852,54 @@ function setupReceptionLiveChat() {
                 return;
             }
 
-            conversationList.innerHTML =
-                conversations.map(function (conversation) {
+            
+conversationList.innerHTML =
+    conversations.map(function (conversation) {
 
-                    return `
-                        <button
-                            type="button"
-                            class="live-chat-conversation-item"
-                            data-conversation-id="${conversation.id}"
-                        >
-                            <strong>
-                                ${conversation.guestName || "Guest"}
-                            </strong>
+        return `
+            <button
+                type="button"
+                class="live-chat-conversation-item"
+                data-conversation-id="${conversation.id}"
+                style="display:block;width:100%;text-align:left;padding:12px;margin-bottom:8px;cursor:pointer;"
+            >
+                <strong>
+                    ${conversation.guestName || "Guest"}
+                </strong>
 
-                            <span>
-                                Cottage ${conversation.cottageId || "—"}
-                            </span>
-                        </button>
-                    `;
+                <span style="display:block;">
+                    Cottage ${conversation.cottageId || "—"}
+                </span>
+            </button>
+        `;
 
-                }).join("");
+    }).join("");
 
+conversationList
+    .querySelectorAll(".live-chat-conversation-item")
+    .forEach(function (button) {
+
+        button.addEventListener("click", function () {
+
+            const conversationId =
+                button.dataset.conversationId;
+
+            const selectedConversation =
+                conversations.find(function (conversation) {
+                    return conversation.id === conversationId;
+                });
+
+            if (!selectedConversation) {
+                return;
+            }
+
+            openReceptionChatConversation(
+                selectedConversation
+            );
+
+        });
+
+    });
         },
         function (error) {
             console.error(
@@ -8890,4 +8917,156 @@ function setupReceptionLiveChat() {
             `;
         }
     );
+}
+ 
+// =========================================================
+// RECEPTION LIVE CHAT — OPEN CONVERSATION
+// =========================================================
+
+let activeReceptionMessageListener = null;
+
+function openReceptionChatConversation(conversation) {
+
+    const chatWindow =
+        document.getElementById("liveChatWindow");
+
+    if (!chatWindow) {
+        return;
+    }
+
+    if (activeReceptionMessageListener) {
+        activeReceptionMessageListener();
+        activeReceptionMessageListener = null;
+    }
+
+    chatWindow.innerHTML = `
+        <div class="live-chat-panel-title">
+            <div>
+                <h4>${conversation.guestName || "Guest"}</h4>
+                <p>Cottage ${conversation.cottageId || "—"}</p>
+            </div>
+        </div>
+
+        <div
+            id="liveChatMessages"
+            style="padding:16px;overflow-y:auto;flex:1;"
+        >
+            <p>Loading messages...</p>
+        </div>
+
+        <form id="liveChatReplyForm" style="display:flex;gap:8px;padding:12px;">
+            <input
+                id="liveChatReplyInput"
+                type="text"
+                placeholder="Type your reply..."
+                required
+                style="flex:1;min-width:0;"
+            >
+            <button type="submit">Send</button>
+        </form>
+    `;
+
+    const messagesContainer =
+        document.getElementById("liveChatMessages");
+
+    activeReceptionMessageListener =
+        listenToConversationMessages(
+            conversation.id,
+            function (messages) {
+
+                if (!messagesContainer) {
+                    return;
+                }
+
+                if (messages.length === 0) {
+                    messagesContainer.innerHTML =
+                        "<p>No messages in this conversation yet.</p>";
+                    return;
+                }
+
+                messagesContainer.innerHTML =
+                    messages.map(function (item) {
+
+                        const messageText =
+                            document.createElement("span");
+
+                        messageText.textContent =
+                            item.message || "";
+
+                        const messageElement =
+                            document.createElement("div");
+
+                        messageElement.style.marginBottom = "12px";
+
+                        const senderElement =
+                            document.createElement("strong");
+
+                        senderElement.textContent =
+                            item.senderName ||
+                            (item.sender === "guest" ? "Guest" : "Reception");
+
+                        const textElement =
+                            document.createElement("p");
+
+                        textElement.style.margin = "4px 0";
+                        textElement.appendChild(messageText);
+
+                        messageElement.appendChild(senderElement);
+                        messageElement.appendChild(textElement);
+
+                        return messageElement;
+
+                    }).forEach(function (element) {
+                        messagesContainer.appendChild(element);
+                    });
+
+                messagesContainer.scrollTop =
+                    messagesContainer.scrollHeight;
+            },
+            function (error) {
+                console.error(
+                    "Reception message loading error:",
+                    error
+                );
+
+                messagesContainer.innerHTML =
+                    "<p>Unable to load messages. Check the console.</p>";
+            }
+        );
+
+    const replyForm =
+        document.getElementById("liveChatReplyForm");
+
+    replyForm.addEventListener("submit", async function (event) {
+        event.preventDefault();
+
+        const replyInput =
+            document.getElementById("liveChatReplyInput");
+
+        const reply = replyInput.value.trim();
+
+        if (!reply) {
+            return;
+        }
+
+        const sendButton =
+            replyForm.querySelector("button");
+
+        sendButton.disabled = true;
+
+        try {
+            await sendChatMessage(
+                conversation.id,
+                "reception",
+                reply
+            );
+
+            replyInput.value = "";
+        } catch (error) {
+            console.error("Reception reply failed:", error);
+            alert("Message could not be sent. Please try again.");
+        } finally {
+            sendButton.disabled = false;
+        }
+    });
 }
