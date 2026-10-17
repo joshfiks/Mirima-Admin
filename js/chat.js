@@ -6,7 +6,7 @@ import {
     addDoc,
     doc,
     getDoc,
-    getDocs,
+    updateDoc,
     query,
     where,
     orderBy,
@@ -14,17 +14,21 @@ import {
     serverTimestamp
 } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
 
-// =========================================================
+// ==========================================
 // MIRIMA ADMIN — SHARED CHAT MODULE
-// =========================================================
+// Uses Mirima Connect's existing Firestore structure
+// ==========================================
 
-// Get conversations belonging to a department.
+// Listen to conversations for one department.
 export function listenToDepartmentConversations(
     department,
     callback,
     onError = console.error
 ) {
-    const conversationsRef = collection(db, "conversations");
+    const conversationsRef = collection(
+        db,
+        "chatConversations"
+    );
 
     const conversationsQuery = query(
         conversationsRef,
@@ -34,10 +38,12 @@ export function listenToDepartmentConversations(
     return onSnapshot(
         conversationsQuery,
         (snapshot) => {
-            const conversations = snapshot.docs.map((item) => ({
-                id: item.id,
-                ...item.data()
-            }));
+            const conversations = snapshot.docs.map(
+                (item) => ({
+                    id: item.id,
+                    ...item.data()
+                })
+            );
 
             callback(conversations);
         },
@@ -45,7 +51,7 @@ export function listenToDepartmentConversations(
     );
 }
 
-// Listen to messages in one conversation.
+// Listen to messages inside one conversation.
 export function listenToConversationMessages(
     conversationId,
     callback,
@@ -53,7 +59,7 @@ export function listenToConversationMessages(
 ) {
     const messagesRef = collection(
         db,
-        "conversations",
+        "chatConversations",
         conversationId,
         "messages"
     );
@@ -66,10 +72,12 @@ export function listenToConversationMessages(
     return onSnapshot(
         messagesQuery,
         (snapshot) => {
-            const messages = snapshot.docs.map((item) => ({
-                id: item.id,
-                ...item.data()
-            }));
+            const messages = snapshot.docs.map(
+                (item) => ({
+                    id: item.id,
+                    ...item.data()
+                })
+            );
 
             callback(messages);
         },
@@ -77,23 +85,23 @@ export function listenToConversationMessages(
     );
 }
 
-// Send a text message in an existing conversation.
+// Send a reply from Mirima Admin.
 export async function sendChatMessage(
     conversationId,
     sender,
-    text
+    message
 ) {
-    const messageText = text.trim();
+    const cleanMessage = message.trim();
 
-    if (!conversationId || !messageText) {
+    if (!conversationId || !cleanMessage) {
         throw new Error(
-            "A conversation and message text are required."
+            "A conversation and message are required."
         );
     }
 
     const conversationRef = doc(
         db,
-        "conversations",
+        "chatConversations",
         conversationId
     );
 
@@ -108,15 +116,22 @@ export async function sendChatMessage(
     await addDoc(
         collection(
             db,
-            "conversations",
+            "chatConversations",
             conversationId,
             "messages"
         ),
         {
-            text: messageText,
             sender,
+            senderName: "Mirima Admin",
+            message: cleanMessage,
             createdAt: serverTimestamp()
         }
     );
-}
 
+    await updateDoc(
+        conversationRef,
+        {
+            updatedAt: serverTimestamp()
+        }
+    );
+}
