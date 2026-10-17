@@ -8864,13 +8864,23 @@ conversationList.innerHTML =
                 data-conversation-id="${conversation.id}"
                 style="display:block;width:100%;text-align:left;padding:12px;margin-bottom:8px;cursor:pointer;"
             >
-                <strong>
-                    ${conversation.guestName || "Guest"}
-                </strong>
+                <div style="display:flex;justify-content:space-between;align-items:center;gap:8px;">
+                    <strong>
+                        ${conversation.guestName || "Guest"}
+                    </strong>
+
+                    <span
+                        class="unread-message-indicator"
+                        data-conversation-id="${conversation.id}"
+                        style="display:none;background:#b91c1c;color:white;padding:3px 8px;border-radius:12px;font-size:12px;font-weight:bold;"
+                    >
+                        New
+                    </span>
+                </div>
 
                 <span style="display:block;">
-                   ${(conversation.cottageId || "Cottage —")
-                 .replace(/^cottage-/i, "Cottage ")}
+                    ${(conversation.cottageId || "Cottage —")
+                        .replace(/^cottage-/i, "Cottage ")}
                 </span>
 
                 <span
@@ -8884,13 +8894,25 @@ conversationList.innerHTML =
         `;
 
     }).join("");
-
-           conversationList
+           
+conversationList
     .querySelectorAll(".latest-message-preview")
     .forEach(async function (preview) {
 
         const conversationId =
             preview.dataset.conversationId;
+
+        const conversation =
+            conversations.find(function (item) {
+                return item.id === conversationId;
+            });
+
+        const unreadIndicator =
+            conversationList.querySelector(
+                '.unread-message-indicator[data-conversation-id="' +
+                conversationId +
+                '"]'
+            );
 
         try {
             const latestMessage =
@@ -8900,6 +8922,11 @@ conversationList.innerHTML =
 
             if (!latestMessage) {
                 preview.textContent = "No messages yet";
+
+                if (unreadIndicator) {
+                    unreadIndicator.style.display = "none";
+                }
+
                 return;
             }
 
@@ -8913,6 +8940,34 @@ conversationList.innerHTML =
                 sender + ": " +
                 (latestMessage.message || "Attachment");
 
+            const lastReadAt =
+                conversation &&
+                conversation.receptionLastReadAt;
+
+            const messageTime =
+                latestMessage.createdAt &&
+                typeof latestMessage.createdAt.toMillis === "function"
+                    ? latestMessage.createdAt.toMillis()
+                    : null;
+
+            const readTime =
+                lastReadAt &&
+                typeof lastReadAt.toMillis === "function"
+                    ? lastReadAt.toMillis()
+                    : lastReadAt instanceof Date
+                        ? lastReadAt.getTime()
+                        : null;
+
+            const isUnread =
+                latestMessage.sender === "guest" &&
+                messageTime !== null &&
+                (readTime === null || messageTime > readTime);
+
+            if (unreadIndicator) {
+                unreadIndicator.style.display =
+                    isUnread ? "inline-block" : "none";
+            }
+
         } catch (error) {
             console.error(
                 "Latest message preview error:",
@@ -8921,6 +8976,10 @@ conversationList.innerHTML =
 
             preview.textContent =
                 "Latest message unavailable";
+
+            if (unreadIndicator) {
+                unreadIndicator.style.display = "none";
+            }
         }
     });
            
