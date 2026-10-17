@@ -8963,14 +8963,7 @@ conversationList
                 messageTime !== null &&
                 (readTime === null || messageTime > readTime);
            
-           console.log("UNREAD CHECK:", {
-              conversationId,
-             sender: latestMessage.sender,
-             messageTime,
-             readTime,
-             isUnread
-            });
-
+           
             if (unreadIndicator) {
                 unreadIndicator.style.display =
                     isUnread ? "inline-block" : "none";
