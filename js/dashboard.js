@@ -8988,6 +8988,19 @@ function openReceptionChatConversation(conversation) {
         activeReceptionMessageListener = null;
     }
 
+   // Record when Reception opens this conversation.
+updateDoc(
+    doc(db, "chatConversations", conversation.id),
+    {
+        receptionLastReadAt: new Date()
+    }
+).catch(function (error) {
+    console.error(
+        "Could not update Reception read status:",
+        error
+    );
+});
+   
     chatWindow.innerHTML = `
         <div class="live-chat-panel-title">
             <div>
