@@ -8988,6 +8988,10 @@ function openReceptionChatConversation(conversation) {
         activeReceptionMessageListener = null;
     }
 
+   console.log(
+    "RECEPTION READ STATUS TEST:",
+    conversation.id
+);
    // Record when Reception opens this conversation.
 updateDoc(
     doc(db, "chatConversations", conversation.id),
