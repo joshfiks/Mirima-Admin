@@ -8869,7 +8869,8 @@ conversationList.innerHTML =
                 </strong>
 
                 <span style="display:block;">
-                    Cottage ${conversation.cottageId || "—"}
+                   ${(conversation.cottageId || "Cottage —")
+                 .replace(/^cottage-/i, "Cottage ")}
                 </span>
 
                 <span
