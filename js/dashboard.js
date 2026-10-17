@@ -8807,3 +8807,87 @@ function renderSpaDashboard(session) {
     }
    setupSpaMobileMenu();
 }
+ 
+// =========================================================
+// RECEPTION LIVE CHAT — LOAD CONVERSATIONS
+// =========================================================
+
+function setupReceptionLiveChat() {
+
+    const conversationList =
+        document.getElementById(
+            "liveChatConversationList"
+        );
+
+    const conversationCount =
+        document.getElementById(
+            "liveChatConversationCount"
+        );
+
+    if (!conversationList) {
+        return;
+    }
+
+    listenToDepartmentConversations(
+        "Reception",
+        function (conversations) {
+
+            if (conversationCount) {
+                conversationCount.textContent =
+                    conversations.length;
+            }
+
+            if (conversations.length === 0) {
+                conversationList.innerHTML = `
+                    <div class="chat-empty-state">
+                        <div class="chat-empty-icon">✉</div>
+                        <h4>No active conversations</h4>
+                        <p>
+                            When a guest starts a conversation,
+                            it will appear here.
+                        </p>
+                    </div>
+                `;
+
+                return;
+            }
+
+            conversationList.innerHTML =
+                conversations.map(function (conversation) {
+
+                    return `
+                        <button
+                            type="button"
+                            class="live-chat-conversation-item"
+                            data-conversation-id="${conversation.id}"
+                        >
+                            <strong>
+                                ${conversation.guestName || "Guest"}
+                            </strong>
+
+                            <span>
+                                Cottage ${conversation.cottageId || "—"}
+                            </span>
+                        </button>
+                    `;
+
+                }).join("");
+
+        },
+        function (error) {
+            console.error(
+                "Reception chat loading error:",
+                error
+            );
+
+            conversationList.innerHTML = `
+                <div class="chat-empty-state">
+                    <h4>Unable to load conversations</h4>
+                    <p>
+                        Please check the connection and permissions.
+                    </p>
+                </div>
+            `;
+        }
+    );
+}
