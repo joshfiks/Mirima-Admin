@@ -2707,16 +2707,13 @@ async function renderReceptionSection(section, session) {
      break;
 
           
-        case "chat":
+       case "chat":
+    title.textContent = "Live Chat";
+    content.innerHTML = getChatContent();
 
-            title.textContent =
-                "Live Chat";
+    setupReceptionLiveChat();
 
-            content.innerHTML =
-                getChatContent();
-
-            break;
-
+    break;
 
                 case "billing":
 
