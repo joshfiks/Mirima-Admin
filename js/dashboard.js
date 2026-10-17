@@ -51,7 +51,8 @@ import {
 import {
     listenToDepartmentConversations,
     listenToConversationMessages,
-    sendChatMessage
+    sendChatMessage,
+    getLatestConversationMessage
 } from "./chat.js";
 
 // =========================================================
@@ -8870,11 +8871,58 @@ conversationList.innerHTML =
                 <span style="display:block;">
                     Cottage ${conversation.cottageId || "—"}
                 </span>
+
+                <span
+                    class="latest-message-preview"
+                    data-conversation-id="${conversation.id}"
+                    style="display:block;margin-top:6px;font-size:13px;color:#777;"
+                >
+                    Loading latest message...
+                </span>
             </button>
         `;
 
     }).join("");
 
+           conversationList
+    .querySelectorAll(".latest-message-preview")
+    .forEach(async function (preview) {
+
+        const conversationId =
+            preview.dataset.conversationId;
+
+        try {
+            const latestMessage =
+                await getLatestConversationMessage(
+                    conversationId
+                );
+
+            if (!latestMessage) {
+                preview.textContent = "No messages yet";
+                return;
+            }
+
+            const sender =
+                latestMessage.senderName ||
+                (latestMessage.sender === "guest"
+                    ? "Guest"
+                    : "Reception");
+
+            preview.textContent =
+                sender + ": " +
+                (latestMessage.message || "Attachment");
+
+        } catch (error) {
+            console.error(
+                "Latest message preview error:",
+                error
+            );
+
+            preview.textContent =
+                "Latest message unavailable";
+        }
+    });
+           
 conversationList
     .querySelectorAll(".live-chat-conversation-item")
     .forEach(function (button) {
