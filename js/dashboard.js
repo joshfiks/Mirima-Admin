@@ -8988,17 +8988,25 @@ function openReceptionChatConversation(conversation) {
         activeReceptionMessageListener = null;
     }
 
-   console.log(
+// Record when Reception opens this conversation.
+console.log(
     "RECEPTION READ STATUS TEST:",
     conversation.id
 );
-   // Record when Reception opens this conversation.
+
 updateDoc(
     doc(db, "chatConversations", conversation.id),
     {
         receptionLastReadAt: new Date()
     }
-).catch(function (error) {
+)
+.then(function () {
+    console.log(
+        "READ STATUS UPDATE SUCCESS:",
+        conversation.id
+    );
+})
+.catch(function (error) {
     console.error(
         "Could not update Reception read status:",
         error
