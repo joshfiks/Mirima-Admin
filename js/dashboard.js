@@ -8974,6 +8974,9 @@ function openReceptionChatConversation(conversation) {
             conversation.id,
             function (messages) {
 
+         console.log("RECEPTION CHAT MESSAGES:", messages);
+         console.log("RECEPTION CHAT MESSAGE COUNT:", messages.length);
+
                 if (!messagesContainer) {
                     return;
                 }
