@@ -9072,31 +9072,171 @@ updateDoc(
     );
 });
    
+   
     chatWindow.innerHTML = `
-        <div class="live-chat-panel-title">
-            <div>
-                <h4>${conversation.guestName || "Guest"}</h4>
-                <p>Cottage ${conversation.cottageId || "—"}</p>
+        <div class="wa-chat">
+
+            <div class="wa-chat-header">
+                <button
+                    type="button"
+                    class="wa-back-button"
+                    aria-label="Back to conversations"
+                >
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="M15 18l-6-6 6-6"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"/>
+                    </svg>
+                </button>
+
+                <div class="wa-avatar" aria-hidden="true">
+                    <svg viewBox="0 0 24 24">
+                        <circle cx="12" cy="8" r="4"
+                            fill="none" stroke="currentColor"
+                            stroke-width="1.8"/>
+                        <path d="M4 21c0-4.2 3.2-7 8-7s8 2.8 8 7"
+                            fill="none" stroke="currentColor"
+                            stroke-width="1.8" stroke-linecap="round"/>
+                    </svg>
+                </div>
+
+                <div class="wa-chat-contact">
+                    <h4>${conversation.guestName || "Guest"}</h4>
+                    <p>Cottage ${
+                        (conversation.cottageId || "—")
+                            .replace(/^cottage-/i, "")
+                    }</p>
+                </div>
+
+                <div class="wa-header-actions">
+
+                    <button
+                        type="button"
+                        class="wa-icon-button"
+                        id="waCameraButton"
+                        aria-label="Camera"
+                        title="Camera"
+                    >
+                        <svg viewBox="0 0 24 24" aria-hidden="true">
+                            <path d="M4 7h3l2-2h6l2 2h3a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2Z"
+                                fill="none" stroke="currentColor"
+                                stroke-width="1.8" stroke-linejoin="round"/>
+                            <circle cx="12" cy="13" r="4"
+                                fill="none" stroke="currentColor"
+                                stroke-width="1.8"/>
+                        </svg>
+                    </button>
+
+                    <div class="wa-menu-wrap">
+                        <button
+                            type="button"
+                            class="wa-icon-button"
+                            id="waMenuButton"
+                            aria-label="More options"
+                            aria-expanded="false"
+                            title="More options"
+                        >
+                            <svg viewBox="0 0 24 24" aria-hidden="true">
+                                <circle cx="12" cy="5" r="1.7" fill="currentColor"/>
+                                <circle cx="12" cy="12" r="1.7" fill="currentColor"/>
+                                <circle cx="12" cy="19" r="1.7" fill="currentColor"/>
+                            </svg>
+                        </button>
+
+                        <div class="wa-menu" id="waChatMenu" hidden>
+                            <button type="button" data-wa-action="contact">
+                                Contact details
+                            </button>
+                            <button type="button" data-wa-action="search">
+                                Search messages
+                            </button>
+                            <button type="button" data-wa-action="clear">
+                                Clear chat view
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
             </div>
-        </div>
 
-        <div
-            id="liveChatMessages"
-            style="padding:16px;overflow-y:auto;flex:1;"
-        >
-            <p>Loading messages...</p>
-        </div>
-
-        <form id="liveChatReplyForm" style="display:flex;gap:8px;padding:12px;">
-            <input
-                id="liveChatReplyInput"
-                type="text"
-                placeholder="Type your reply..."
-                required
-                style="flex:1;min-width:0;"
+            <div
+                id="liveChatMessages"
+                class="wa-chat-messages"
+                aria-live="polite"
             >
-            <button type="submit">Send</button>
-        </form>
+                <p>Loading messages...</p>
+            </div>
+
+            <form id="liveChatReplyForm" class="wa-chat-composer">
+
+                <button
+                    type="button"
+                    class="wa-composer-icon"
+                    id="waAttachButton"
+                    aria-label="Attach file"
+                    title="Attach file"
+                >
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="m8 12.5 7.2-7.2a4 4 0 0 1 5.7 5.7l-9.1 9.1a6 6 0 0 1-8.5-8.5l9-9"
+                            fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round"
+                            stroke-linejoin="round"/>
+                    </svg>
+                </button>
+
+                <input
+                    type="file"
+                    id="waAttachmentInput"
+                    hidden
+                >
+
+                <input
+                    id="liveChatReplyInput"
+                    class="wa-chat-input"
+                    type="text"
+                    placeholder="Type a message"
+                    autocomplete="off"
+                    required
+                >
+
+                <button
+                    type="button"
+                    class="wa-composer-icon"
+                    id="waVoiceButton"
+                    aria-label="Record voice note"
+                    title="Record voice note"
+                >
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                        <rect x="9" y="2" width="6" height="13" rx="3"
+                            fill="none" stroke="currentColor"
+                            stroke-width="1.8"/>
+                        <path d="M5 11a7 7 0 0 0 14 0M12 18v4m-4 0h8"
+                            fill="none" stroke="currentColor"
+                            stroke-width="1.8" stroke-linecap="round"/>
+                    </svg>
+                </button>
+
+                <button
+                    type="submit"
+                    class="wa-send-button"
+                    aria-label="Send message"
+                    title="Send message"
+                >
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="M22 2 11 13"
+                            fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round"/>
+                        <path d="m22 2-7 20-4-9-9-4Z"
+                            fill="currentColor" stroke="currentColor"
+                            stroke-width="1.5" stroke-linejoin="round"/>
+                    </svg>
+                </button>
+
+            </form>
+        </div>
     `;
 
     const messagesContainer =
