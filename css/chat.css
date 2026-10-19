@@ -400,10 +400,15 @@
     margin-top: 0;
     font-size: 10px;
     line-height: 1;
-    text-align: right;
     white-space: nowrap;
     opacity: 0.75;
     vertical-align: baseline;
+}
+
+/* Keep message text and timestamp on the same line when possible */
+.wa-chat .wa-message-text {
+    display: inline;
+    overflow-wrap: anywhere;
 }
 /* Tighter sender names and message text */
 .wa-chat .wa-chat-messages > div strong {
