@@ -393,14 +393,17 @@
         height: 40px;
     }
 }
-/* Compact WhatsApp-style message timestamps */
+/* WhatsApp-style inline message timestamp */
 .wa-chat .wa-message-time {
-    display: block;
-    margin-top: 2px;
+    display: inline-block;
+    margin-left: 10px;
+    margin-top: 0;
     font-size: 10px;
-    line-height: 1.2;
+    line-height: 1;
     text-align: right;
+    white-space: nowrap;
     opacity: 0.75;
+    vertical-align: baseline;
 }
 /* Tighter sender names and message text */
 .wa-chat .wa-chat-messages > div strong {
