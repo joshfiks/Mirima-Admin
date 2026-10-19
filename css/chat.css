@@ -458,15 +458,16 @@
     white-space: pre-wrap;
     overflow-wrap: anywhere;
 }
-
-/* Small timestamp in the bottom-right */
+/* WhatsApp-style inline message timestamp */
 .wa-chat .wa-message-time {
-    display: block;
-    margin-top: 3px;
+    display: inline-block;
+    margin-left: 8px;
+    margin-top: 0;
     font-size: 10px;
-    line-height: 1.1;
-    text-align: right;
+    line-height: 1;
+    white-space: nowrap;
     opacity: 0.75;
+    vertical-align: baseline;
 }
 /* WhatsApp-style date separators */
 .wa-chat .wa-date-separator {
