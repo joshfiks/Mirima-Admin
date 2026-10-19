@@ -384,3 +384,24 @@
         height: 40px;
     }
 }
+/* Compact WhatsApp-style message timestamps */
+.wa-chat .wa-message-time {
+    display: block;
+    margin-top: 2px;
+    font-size: 10px;
+    line-height: 1.2;
+    text-align: right;
+    opacity: 0.75;
+}
+/* Tighter sender names and message text */
+.wa-chat .wa-chat-messages > div strong {
+    margin-bottom: 2px;
+    font-size: 11px;
+    line-height: 1.2;
+}
+
+.wa-chat .wa-chat-messages > div p {
+    margin: 2px 0 0;
+    font-size: 13px;
+    line-height: 1.35;
+}
