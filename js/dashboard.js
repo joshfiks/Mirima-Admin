@@ -9363,23 +9363,7 @@ messageElement.appendChild(textElement);
 
     timeElement.className = "wa-message-time";
 
-    // Add grey double ticks to Reception messages only.
-    if (item.sender === "reception") {
-        const ticksElement =
-            document.createElement("span");
-
-        ticksElement.className = "wa-message-ticks";
-        ticksElement.textContent = "✓✓";
-        ticksElement.setAttribute(
-            "aria-label",
-            "Message sent"
-        );
-
-        messageElement.appendChild(timeElement);
-        messageElement.appendChild(ticksElement);
-    } else {
-        messageElement.appendChild(timeElement);
-    }
+   messageElement.appendChild(timeElement);
 
 });
 
