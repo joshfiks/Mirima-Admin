@@ -123,7 +123,7 @@ export async function sendChatMessage(
         ),
         {
             sender,
-            senderName: "Mirima Admin",
+            senderName: "Reception",
             message: cleanMessage,
             createdAt: serverTimestamp()
         }
