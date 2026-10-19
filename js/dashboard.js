@@ -9260,61 +9260,117 @@ updateDoc(
                     return;
                 }
 
-                
+            
 messagesContainer.innerHTML = "";
+
+let previousMessageDate = "";
 
 messages.forEach(function (item) {
 
     const messageElement =
         document.createElement("div");
-   
-   messageElement.classList.add(
-    item.sender === "guest"
-        ? "wa-message-guest"
-        : "wa-message-reception"
-);
+
+    messageElement.classList.add(
+        item.sender === "guest"
+            ? "wa-message-guest"
+            : "wa-message-reception"
+    );
 
     messageElement.style.marginBottom = "12px";
     messageElement.style.padding = "10px";
     messageElement.style.borderRadius = "8px";
-   
-    
-const textElement =
-    document.createElement("p");
 
-textElement.style.margin = "4px 0";
-textElement.textContent =
-    item.message || "[Message text unavailable]";
+    let sentDate = null;
 
-messageElement.appendChild(textElement);
+    if (item.createdAt) {
+        sentDate = item.createdAt.toDate
+            ? item.createdAt.toDate()
+            : new Date(item.createdAt);
+    }
 
-// Display the message's sent time.
-const timeElement =
-    document.createElement("span");
+    // Add a date separator when the message day changes.
+    if (sentDate && !isNaN(sentDate.getTime())) {
 
-if (item.createdAt) {
-    const sentDate = item.createdAt.toDate
-        ? item.createdAt.toDate()
-        : new Date(item.createdAt);
+        const messageDateKey = [
+            sentDate.getFullYear(),
+            String(sentDate.getMonth() + 1).padStart(2, "0"),
+            String(sentDate.getDate()).padStart(2, "0")
+        ].join("-");
 
-    timeElement.textContent =
-        sentDate.toLocaleTimeString([], {
-            hour: "numeric",
-            minute: "2-digit"
-        });
-} else {
-    timeElement.textContent = "";
-}
+        if (messageDateKey !== previousMessageDate) {
 
-timeElement.className = "wa-message-time";
-messageElement.appendChild(timeElement);
+            const dateSeparator =
+                document.createElement("div");
 
-messagesContainer.appendChild(messageElement);
+            dateSeparator.className = "wa-date-separator";
+
+            const today = new Date();
+            const yesterday = new Date();
+            yesterday.setDate(today.getDate() - 1);
+
+            function getDateKey(date) {
+                return [
+                    date.getFullYear(),
+                    String(date.getMonth() + 1).padStart(2, "0"),
+                    String(date.getDate()).padStart(2, "0")
+                ].join("-");
+            }
+
+            if (messageDateKey === getDateKey(today)) {
+                dateSeparator.textContent = "Today";
+            } else if (
+                messageDateKey === getDateKey(yesterday)
+            ) {
+                dateSeparator.textContent = "Yesterday";
+            } else {
+                dateSeparator.textContent =
+                    sentDate.toLocaleDateString("en-GB", {
+                        weekday: "long",
+                        day: "numeric",
+                        month: "long",
+                        year: "numeric"
+                    });
+            }
+
+            messagesContainer.appendChild(dateSeparator);
+            previousMessageDate = messageDateKey;
+        }
+    }
+
+    const textElement =
+        document.createElement("p");
+
+    textElement.style.margin = "4px 0";
+    textElement.textContent =
+        item.message || "[Message text unavailable]";
+
+    messageElement.appendChild(textElement);
+
+    // Display the message's sent time.
+    const timeElement =
+        document.createElement("span");
+
+    if (sentDate && !isNaN(sentDate.getTime())) {
+        timeElement.textContent =
+            sentDate.toLocaleTimeString([], {
+                hour: "numeric",
+                minute: "2-digit"
+            });
+    } else {
+        timeElement.textContent = "";
+    }
+
+    timeElement.className = "wa-message-time";
+    messageElement.appendChild(timeElement);
+
+    messagesContainer.appendChild(messageElement);
 
 });
 
-                messagesContainer.scrollTop =
-                    messagesContainer.scrollHeight;
+messagesContainer.scrollTop =
+messagesContainer.scrollHeight;
+    
+
             },
             function (error) {
                 console.error(
