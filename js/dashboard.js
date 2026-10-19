@@ -9364,20 +9364,30 @@ messageElement.appendChild(textElement);
     timeElement.className = "wa-message-time";
     messageElement.appendChild(timeElement);
 
-    // Add grey double ticks to Reception messages only.
-    if (item.sender === "reception") {
-        const ticksElement =
-            document.createElement("span");
+    
+ // Add message-status ticks to Reception messages only.
+if (item.sender === "reception") {
+    const ticksElement = document.createElement("span");
+    ticksElement.className = "wa-message-ticks";
+    ticksElement.textContent = "✓✓";
 
-        ticksElement.className = "wa-message-ticks";
-        ticksElement.textContent = "✓✓";
-        ticksElement.setAttribute(
-            "aria-label",
-            "Message sent"
-        );
-
-        messageElement.appendChild(ticksElement);
+    if (item.guestReadAt) {
+        // Blue ticks: the guest has read the message.
+        ticksElement.style.color = "#53bdeb";
+        ticksElement.setAttribute("aria-label", "Read by guest");
+    } else if (item.guestDeliveredAt) {
+        // Grey ticks: the message reached the guest website.
+        ticksElement.style.color = "#aeb8b3";
+        ticksElement.setAttribute("aria-label", "Delivered to guest");
+    } else {
+        // No confirmed delivery yet.
+        ticksElement.style.color = "#aeb8b3";
+        ticksElement.setAttribute("aria-label", "Sent");
     }
+
+    messageElement.appendChild(ticksElement);
+}
+
 
     messagesContainer.appendChild(messageElement);
 
