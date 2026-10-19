@@ -9345,6 +9345,7 @@ messages.forEach(function (item) {
         item.message || "[Message text unavailable]";
 
     messageElement.appendChild(textElement);
+    textElement.style.display = "inline";
 
     // Display the message's sent time.
     const timeElement =
