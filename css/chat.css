@@ -166,6 +166,7 @@
 
 /* Message area */
 
+
 .wa-chat .wa-chat-messages {
     display: flex;
     flex-direction: column;
@@ -175,15 +176,21 @@
     gap: 8px;
     overflow-y: auto;
 
-    /* Mirima WhatsApp-style wallpaper */
+    /* Dark Mirima wallpaper */
     background-color: #06110f;
-    background-image: url("../images/chat-wallpaper.png");
+    background-image:
+        linear-gradient(
+            rgba(3, 10, 8, 0.78),
+            rgba(3, 10, 8, 0.78)
+        ),
+        url("../images/chat-wallpaper.png");
     background-repeat: repeat;
-    background-size: 400px auto;
+    background-size: auto, 400px auto;
     background-position: center top;
 
     overscroll-behavior: contain;
 }
+
 
 .wa-chat .wa-chat-messages > p {
     align-self: center;
