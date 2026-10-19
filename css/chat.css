@@ -199,8 +199,8 @@
 
 .wa-chat .wa-chat-messages > div.wa-message-guest {
     align-self: flex-start;
-    max-width: 78%;
-    padding: 10px 12px;
+    max-width: 65%;
+    padding: 6px 9px;
     border-radius: 4px 12px 12px 12px;
     background: #ffffff;
     color: #202c33;
@@ -210,8 +210,8 @@
 
 .wa-chat .wa-chat-messages > div.wa-message-reception {
     align-self: flex-end;
-    max-width: 78%;
-    padding: 10px 12px;
+    max-width: 65%;
+    padding: 6px 9px;
     border-radius: 18px 18px 4px 18px;
     background: #26362c;
     color: #f4efe3;
@@ -404,4 +404,22 @@
     margin: 2px 0 0;
     font-size: 13px;
     line-height: 1.35;
+}
+/* Compact message text */
+.wa-chat .wa-chat-messages > div p {
+    margin: 0;
+    font-size: 13px;
+    line-height: 1.3;
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+}
+
+/* Small timestamp in the bottom-right */
+.wa-chat .wa-message-time {
+    display: block;
+    margin-top: 3px;
+    font-size: 10px;
+    line-height: 1.1;
+    text-align: right;
+    opacity: 0.75;
 }
