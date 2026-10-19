@@ -9241,6 +9241,14 @@ updateDoc(
 
     const messagesContainer =
         document.getElementById("liveChatMessages");
+   
+messagesContainer?.addEventListener("wheel", function (event) {
+    if (messagesContainer.scrollHeight > messagesContainer.clientHeight) {
+        messagesContainer.scrollTop += event.deltaY;
+        event.preventDefault();
+    }
+}, { passive: false });
+
 
     activeReceptionMessageListener =
         listenToConversationMessages(
