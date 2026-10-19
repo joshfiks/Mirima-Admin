@@ -204,13 +204,15 @@
 }
 
 
-/* WhatsApp-style message alignment */
+
+/* WhatsApp-style message alignment and rounded bubbles */
 
 .wa-chat .wa-chat-messages > div.wa-message-guest {
     align-self: flex-start;
-    max-width: 65%;
-    padding: 6px 9px;
-    border-radius: 4px 12px 12px 12px;
+    width: fit-content;
+    max-width: 75%;
+    padding: 9px 12px;
+    border-radius: 4px 16px 16px 16px;
     background: #dce8d9;
     color: #17271e;
     overflow-wrap: anywhere;
@@ -219,9 +221,10 @@
 
 .wa-chat .wa-chat-messages > div.wa-message-reception {
     align-self: flex-end;
-    max-width: 65%;
-    padding: 6px 9px;
-    border-radius: 18px 18px 4px 18px;
+    width: fit-content;
+    max-width: 75%;
+    padding: 9px 12px;
+    border-radius: 16px 4px 16px 16px;
     background: #26362c;
     color: #f4efe3;
     overflow-wrap: anywhere;
@@ -252,7 +255,7 @@
 @media (max-width: 600px) {
     .wa-chat .wa-chat-messages > div.wa-message-guest,
     .wa-chat .wa-chat-messages > div.wa-message-reception {
-        max-width: 90%;
+        max-width: 88%;
     }
 }
 
