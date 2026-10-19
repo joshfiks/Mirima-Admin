@@ -9346,9 +9346,10 @@ textElement.textContent =
 
 messageElement.appendChild(textElement);
 
-// Display the message's sent time.
-const timeElement =
-    document.createElement("span");
+
+    // Display the message's sent time.
+    const timeElement =
+        document.createElement("span");
 
     if (sentDate && !isNaN(sentDate.getTime())) {
         timeElement.textContent =
@@ -9361,9 +9362,24 @@ const timeElement =
     }
 
     timeElement.className = "wa-message-time";
-    messageElement.appendChild(timeElement);
 
-    messagesContainer.appendChild(messageElement);
+    // Add grey double ticks to Reception messages only.
+    if (item.sender === "reception") {
+        const ticksElement =
+            document.createElement("span");
+
+        ticksElement.className = "wa-message-ticks";
+        ticksElement.textContent = "✓✓";
+        ticksElement.setAttribute(
+            "aria-label",
+            "Message sent"
+        );
+
+        messageElement.appendChild(timeElement);
+        messageElement.appendChild(ticksElement);
+    } else {
+        messageElement.appendChild(timeElement);
+    }
 
 });
 
