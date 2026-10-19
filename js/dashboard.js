@@ -9277,14 +9277,7 @@ messages.forEach(function (item) {
     messageElement.style.marginBottom = "12px";
     messageElement.style.padding = "10px";
     messageElement.style.borderRadius = "8px";
-
-    const senderElement =
-        document.createElement("strong");
-
-    senderElement.textContent =
-        item.senderName ||
-        (item.sender === "guest" ? "Guest" : "Reception");
-
+   
     
 const textElement =
     document.createElement("p");
@@ -9293,7 +9286,6 @@ textElement.style.margin = "4px 0";
 textElement.textContent =
     item.message || "[Message text unavailable]";
 
-messageElement.appendChild(senderElement);
 messageElement.appendChild(textElement);
 
 // Display the message's sent time.
