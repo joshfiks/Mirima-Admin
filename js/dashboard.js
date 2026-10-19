@@ -9346,10 +9346,9 @@ textElement.textContent =
 
 messageElement.appendChild(textElement);
 
-
-    // Display the message's sent time.
-    const timeElement =
-        document.createElement("span");
+// Display the message's sent time.
+const timeElement =
+    document.createElement("span");
 
     if (sentDate && !isNaN(sentDate.getTime())) {
         timeElement.textContent =
@@ -9362,8 +9361,9 @@ messageElement.appendChild(textElement);
     }
 
     timeElement.className = "wa-message-time";
+    messageElement.appendChild(timeElement);
 
-   messageElement.appendChild(timeElement);
+    messagesContainer.appendChild(messageElement);
 
 });
 
