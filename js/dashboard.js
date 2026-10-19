@@ -9285,17 +9285,39 @@ messages.forEach(function (item) {
         item.senderName ||
         (item.sender === "guest" ? "Guest" : "Reception");
 
-    const textElement =
-        document.createElement("p");
+    
+const textElement =
+    document.createElement("p");
 
-    textElement.style.margin = "4px 0";
-    textElement.textContent =
-        item.message || "[Message text unavailable]";
+textElement.style.margin = "4px 0";
+textElement.textContent =
+    item.message || "[Message text unavailable]";
 
-    messageElement.appendChild(senderElement);
-    messageElement.appendChild(textElement);
+messageElement.appendChild(senderElement);
+messageElement.appendChild(textElement);
 
-    messagesContainer.appendChild(messageElement);
+// Display the message's sent time.
+const timeElement =
+    document.createElement("span");
+
+if (item.createdAt) {
+    const sentDate = item.createdAt.toDate
+        ? item.createdAt.toDate()
+        : new Date(item.createdAt);
+
+    timeElement.textContent =
+        sentDate.toLocaleTimeString([], {
+            hour: "numeric",
+            minute: "2-digit"
+        });
+} else {
+    timeElement.textContent = "";
+}
+
+timeElement.className = "wa-message-time";
+messageElement.appendChild(timeElement);
+
+messagesContainer.appendChild(messageElement);
 
 });
 
