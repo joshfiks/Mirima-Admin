@@ -9267,6 +9267,12 @@ messages.forEach(function (item) {
 
     const messageElement =
         document.createElement("div");
+   
+   messageElement.classList.add(
+    item.sender === "guest"
+        ? "wa-message-guest"
+        : "wa-message-reception"
+);
 
     messageElement.style.marginBottom = "12px";
     messageElement.style.padding = "10px";
