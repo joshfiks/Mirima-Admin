@@ -203,33 +203,31 @@
     text-align: center;
 }
 
-/* WhatsApp-style fuller, wider message bubbles */
+/* WhatsApp-style message bubbles */
 
 .wa-chat .wa-chat-messages > div.wa-message-guest {
     align-self: flex-start;
-    width: auto;
-    min-width: 76px;
-    max-width: 82%;
-    padding: 10px 14px;
-    border-radius: 5px 20px 20px 20px;
+    width: fit-content;
+    max-width: 65%;
+    padding: 7px 11px;
+    border-radius: 6px 16px 16px 16px;
     background: #dce8d9;
     color: #17271e;
     overflow-wrap: anywhere;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.12);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.12);
     box-sizing: border-box;
 }
 
 .wa-chat .wa-chat-messages > div.wa-message-reception {
     align-self: flex-end;
-    width: auto;
-    min-width: 100px;
-    max-width: 82%;
-    padding: 10px 14px;
-    border-radius: 20px 5px 20px 20px;
+    width: fit-content;
+    max-width: 65%;
+    padding: 7px 11px;
+    border-radius: 16px 6px 16px 16px;
     background: #26362c;
     color: #f4efe3;
     overflow-wrap: anywhere;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.18);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.18);
     box-sizing: border-box;
 }
 
