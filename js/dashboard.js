@@ -9337,19 +9337,18 @@ messages.forEach(function (item) {
         }
     }
 
-    const textElement =
-        document.createElement("p");
+   const textElement =
+    document.createElement("span");
 
-    textElement.style.margin = "4px 0";
-    textElement.textContent =
-        item.message || "[Message text unavailable]";
+textElement.className = "wa-message-text";
+textElement.textContent =
+    item.message || "[Message text unavailable]";
 
-    messageElement.appendChild(textElement);
-    textElement.style.display = "inline";
+messageElement.appendChild(textElement);
 
-    // Display the message's sent time.
-    const timeElement =
-        document.createElement("span");
+// Display the message's sent time.
+const timeElement =
+    document.createElement("span");
 
     if (sentDate && !isNaN(sentDate.getTime())) {
         timeElement.textContent =
