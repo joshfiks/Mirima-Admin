@@ -9936,20 +9936,171 @@ if (
 
     messageElement.appendChild(videoContainer);
 
+
 } else if (
     item.attachmentUrl &&
     item.attachmentType &&
     item.attachmentType.startsWith("image/")
 ) {
-
-    // IMAGE ATTACHMENT
+    // IMAGE ATTACHMENT WITH LARGE PREVIEW
     const image = document.createElement("img");
     image.className = "wa-image-attachment";
     image.src = item.attachmentUrl;
     image.alt = item.attachmentName || "Guest image";
     image.loading = "lazy";
+    image.style.cursor = "zoom-in";
+
+    image.addEventListener("click", function () {
+        // Create the preview overlay.
+        const overlay = document.createElement("div");
+        overlay.className = "wa-image-preview-overlay";
+
+        const panel = document.createElement("div");
+        panel.className = "wa-image-preview-panel";
+
+        const toolbar = document.createElement("div");
+        toolbar.className = "wa-image-preview-toolbar";
+
+        const zoomOutButton = document.createElement("button");
+        zoomOutButton.type = "button";
+        zoomOutButton.textContent = "−";
+        zoomOutButton.title = "Zoom out";
+        zoomOutButton.setAttribute("aria-label", "Zoom out");
+
+        const zoomLabel = document.createElement("span");
+        zoomLabel.className = "wa-image-zoom-label";
+        zoomLabel.textContent = "100%";
+
+        const zoomInButton = document.createElement("button");
+        zoomInButton.type = "button";
+        zoomInButton.textContent = "+";
+        zoomInButton.title = "Zoom in";
+        zoomInButton.setAttribute("aria-label", "Zoom in");
+
+        const rotateLeftButton = document.createElement("button");
+        rotateLeftButton.type = "button";
+        rotateLeftButton.textContent = "↶";
+        rotateLeftButton.title = "Rotate left";
+        rotateLeftButton.setAttribute("aria-label", "Rotate left");
+
+        const rotateRightButton = document.createElement("button");
+        rotateRightButton.type = "button";
+        rotateRightButton.textContent = "↷";
+        rotateRightButton.title = "Rotate right";
+        rotateRightButton.setAttribute("aria-label", "Rotate right");
+
+        const resetButton = document.createElement("button");
+        resetButton.type = "button";
+        resetButton.textContent = "⟲";
+        resetButton.title = "Reset view";
+        resetButton.setAttribute("aria-label", "Reset zoom and rotation");
+
+        const closeButton = document.createElement("button");
+        closeButton.type = "button";
+        closeButton.textContent = "✕";
+        closeButton.title = "Close preview";
+        closeButton.setAttribute("aria-label", "Close image preview");
+        closeButton.className = "wa-image-preview-close";
+
+        toolbar.append(
+            zoomOutButton,
+            zoomLabel,
+            zoomInButton,
+            rotateLeftButton,
+            rotateRightButton,
+            resetButton,
+            closeButton
+        );
+
+        const viewport = document.createElement("div");
+        viewport.className = "wa-image-preview-viewport";
+
+        const previewImage = document.createElement("img");
+        previewImage.className = "wa-image-preview-full";
+        previewImage.src = item.attachmentUrl;
+        previewImage.alt = item.attachmentName || "Image preview";
+
+        viewport.appendChild(previewImage);
+        panel.append(toolbar, viewport);
+        overlay.appendChild(panel);
+        document.body.appendChild(overlay);
+
+        let zoom = 1;
+        let rotation = 0;
+
+        function updateImageView() {
+            previewImage.style.transform =
+                "scale(" + zoom + ") rotate(" + rotation + "deg)";
+            zoomLabel.textContent = Math.round(zoom * 100) + "%";
+            zoomOutButton.disabled = zoom <= 0.25;
+            zoomInButton.disabled = zoom >= 4;
+        }
+
+        zoomInButton.addEventListener("click", function () {
+            zoom = Math.min(4, zoom + 0.25);
+            updateImageView();
+        });
+
+        zoomOutButton.addEventListener("click", function () {
+            zoom = Math.max(0.25, zoom - 0.25);
+            updateImageView();
+        });
+
+        rotateLeftButton.addEventListener("click", function () {
+            rotation -= 90;
+            updateImageView();
+        });
+
+        rotateRightButton.addEventListener("click", function () {
+            rotation += 90;
+            updateImageView();
+        });
+
+        resetButton.addEventListener("click", function () {
+            zoom = 1;
+            rotation = 0;
+            viewport.scrollTop = 0;
+            viewport.scrollLeft = 0;
+            updateImageView();
+        });
+
+        // Zoom using the mouse wheel on desktop.
+        viewport.addEventListener("wheel", function (event) {
+            event.preventDefault();
+
+            zoom = event.deltaY < 0
+                ? Math.min(4, zoom + 0.15)
+                : Math.max(0.25, zoom - 0.15);
+
+            updateImageView();
+        }, { passive: false });
+
+        function closePreview() {
+            document.removeEventListener("keydown", handleEscape);
+            overlay.remove();
+        }
+
+        function handleEscape(event) {
+            if (event.key === "Escape") {
+                closePreview();
+            }
+        }
+
+        closeButton.addEventListener("click", closePreview);
+
+        overlay.addEventListener("click", function (event) {
+            if (event.target === overlay) {
+                closePreview();
+            }
+        });
+
+        document.addEventListener("keydown", handleEscape);
+
+        updateImageView();
+    });
 
     messageElement.appendChild(image);
+
 
 } else if (item.attachmentUrl) {
     // OTHER FILE ATTACHMENT
