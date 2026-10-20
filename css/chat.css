@@ -494,23 +494,48 @@
     vertical-align: baseline;
 }
 
+
 /* =========================================================
    RECEPTION CHAT — WHATSAPP-STYLE CONVERSATION VIEW
    ========================================================= */
 
-/* Keep the conversation list and chat inside one layout */
+/* Desktop: conversations on the left, selected chat on the right */
 .live-chat-layout {
+    display: grid;
+    grid-template-columns: minmax(260px, 320px) minmax(0, 1fr);
+    gap: 16px;
     min-width: 0;
+    align-items: stretch;
 }
 
-/* Allow the selected chat to shrink inside its layout */
+/* Keep both columns from expanding beyond the layout */
+.live-chat-conversations,
 .live-chat-window {
     min-width: 0;
     min-height: 0;
 }
 
-/* Mobile: show only the selected conversation */
+/* Selected chat fills its right-hand column */
+.live-chat-window {
+    display: flex;
+    flex-direction: column;
+}
+
+.live-chat-window .wa-chat {
+    flex: 1;
+    width: 100%;
+    min-width: 0;
+    min-height: 0;
+}
+
+/* Mobile: switch between the conversation list and chat */
 @media (max-width: 600px) {
+
+    .live-chat-layout {
+        display: flex;
+        flex-direction: column;
+        min-width: 0;
+    }
 
     .live-chat-layout.chat-conversation-open
     .live-chat-conversations {
@@ -524,6 +549,7 @@
         width: 100%;
         min-width: 0;
         min-height: 0;
+        flex: 1;
     }
 
     .live-chat-window .wa-chat {
