@@ -865,3 +865,48 @@
         height: 23px;
     }
 }
+
+/* =========================================================
+   MIRIMA RECEPTION CHAT — FIXED PANEL, INTERNAL SCROLL
+   ========================================================= */
+
+/* Keep the chat layout within its available width */
+.live-chat-layout {
+    min-width: 0;
+    align-items: stretch;
+}
+
+/* Let the chat column shrink instead of growing with messages */
+.live-chat-window {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    min-height: 0;
+    overflow: hidden;
+}
+
+/* Keep the WhatsApp chat inside the available panel */
+.live-chat-window .wa-chat {
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 0;
+    height: 100%;
+    min-height: 0;
+    overflow: hidden;
+}
+
+/* Header and composer must never shrink */
+.live-chat-window .wa-chat-header,
+.live-chat-window .wa-chat-composer {
+    flex-shrink: 0;
+}
+
+/* Only the message history scrolls */
+.live-chat-window .wa-chat .wa-chat-messages {
+    flex: 1 1 0;
+    min-height: 0;
+    overflow-y: auto;
+    overflow-x: hidden;
+    overscroll-behavior-y: contain;
+    -webkit-overflow-scrolling: touch;
+}
