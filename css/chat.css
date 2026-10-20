@@ -1025,3 +1025,127 @@
         max-width: 260px;
     }
 }
+
+/* =========================================================
+   MIRIMA ADMIN — WHATSAPP-STYLE VOICE NOTES
+   ========================================================= */
+
+.wa-chat .wa-voice-note {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 300px;
+    max-width: 100%;
+    min-width: 0;
+    padding: 5px 0;
+}
+
+.wa-chat .wa-voice-note audio {
+    display: none;
+}
+
+.wa-chat .wa-voice-play {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex: 0 0 38px;
+    width: 38px;
+    height: 38px;
+    padding: 9px;
+    border: none;
+    border-radius: 50%;
+    background: #b89b5e;
+    color: #101411;
+    cursor: pointer;
+}
+
+.wa-chat .wa-voice-play svg {
+    display: block;
+    width: 21px;
+    height: 21px;
+}
+
+.wa-chat .wa-message-guest .wa-voice-play {
+    background: #26362c;
+    color: #d1b675;
+}
+
+.wa-chat .wa-voice-waveform {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 3px;
+    flex: 1 1 auto;
+    min-width: 0;
+    height: 38px;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.wa-chat .wa-voice-bar {
+    display: block;
+    flex: 1 1 2px;
+    min-width: 2px;
+    max-width: 4px;
+    border-radius: 4px;
+    background: #829087;
+    transition: background 0.12s ease;
+}
+
+.wa-chat .wa-message-guest .wa-voice-bar {
+    background: #8b9c8b;
+}
+
+.wa-chat .wa-message-reception .wa-voice-bar {
+    background: #819287;
+}
+
+.wa-chat .wa-voice-bar.played {
+    background: #b89b5e;
+}
+
+.wa-chat .wa-message-guest .wa-voice-bar.played {
+    background: #26362c;
+}
+
+.wa-chat .wa-voice-time {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: center;
+    flex: 0 0 auto;
+    gap: 3px;
+    min-width: 36px;
+    color: #526b60;
+    font-size: 10px;
+    line-height: 1.1;
+    white-space: nowrap;
+}
+
+.wa-chat .wa-message-reception .wa-voice-time {
+    color: #d1b675;
+}
+
+.wa-chat .wa-voice-play:focus-visible,
+.wa-chat .wa-voice-waveform:focus-visible {
+    outline: 2px solid #d1b675;
+    outline-offset: 3px;
+}
+
+@media (max-width: 600px) {
+    .wa-chat .wa-voice-note {
+        width: 260px;
+        gap: 8px;
+    }
+
+    .wa-chat .wa-voice-play {
+        flex-basis: 34px;
+        width: 34px;
+        height: 34px;
+        padding: 7px;
+    }
+
+    .wa-chat .wa-voice-waveform {
+        gap: 2px;
+    }
+}
