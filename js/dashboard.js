@@ -9035,6 +9035,12 @@ conversationList
 let activeReceptionMessageListener = null;
 
 function openReceptionChatConversation(conversation) {
+       const chatLayout =
+        document.querySelector(".live-chat-layout");
+
+    if (chatLayout) {
+        chatLayout.classList.add("chat-conversation-open");
+    }
 
     const chatWindow =
         document.getElementById("liveChatWindow");
