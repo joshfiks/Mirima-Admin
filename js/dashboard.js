@@ -9395,15 +9395,41 @@ messages.forEach(function (item) {
         }
     }
 
-   const textElement =
-    document.createElement("span");
+   
+if (
+    item.attachmentUrl &&
+    item.attachmentType &&
+    item.attachmentType.startsWith("audio/")
+) {
+    // Render an audio player for voice-note attachments.
+    const voiceNote = document.createElement("div");
+    voiceNote.className = "wa-voice-note";
 
-textElement.className = "wa-message-text";
-textElement.textContent =
-    item.message || "[Message text unavailable]";
+    const audio = document.createElement("audio");
+    audio.className = "wa-voice-note-audio";
+    audio.controls = true;
+    audio.preload = "metadata";
+    audio.src = item.attachmentUrl;
 
-messageElement.appendChild(textElement);
+    audio.setAttribute(
+        "aria-label",
+        "Guest voice note"
+    );
 
+    voiceNote.appendChild(audio);
+    messageElement.appendChild(voiceNote);
+
+} else {
+    // Keep ordinary text messages working as before.
+    const textElement =
+        document.createElement("span");
+
+    textElement.className = "wa-message-text";
+    textElement.textContent =
+        item.message || "[Message text unavailable]";
+
+    messageElement.appendChild(textElement);
+}
 
     // Display the message's sent time.
     const timeElement =
