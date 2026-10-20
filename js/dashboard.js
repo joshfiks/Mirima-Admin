@@ -9247,6 +9247,23 @@ updateDoc(
 
     const messagesContainer =
         document.getElementById("liveChatMessages");
+
+       // Return to the conversation list
+    const backButton =
+        chatWindow.querySelector(".wa-back-button");
+
+    if (backButton) {
+        backButton.addEventListener("click", function () {
+            const chatLayout =
+                document.querySelector(".live-chat-layout");
+
+            if (chatLayout) {
+                chatLayout.classList.remove(
+                    "chat-conversation-open"
+                );
+            }
+        });
+    }
    
     activeReceptionMessageListener =
         listenToConversationMessages(
