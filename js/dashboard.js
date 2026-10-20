@@ -8854,6 +8854,7 @@ function setupReceptionLiveChat() {
             }
 
             
+
 conversationList.innerHTML =
     conversations.map(function (conversation) {
 
@@ -8862,23 +8863,22 @@ conversationList.innerHTML =
                 type="button"
                 class="live-chat-conversation-item"
                 data-conversation-id="${conversation.id}"
-                style="display:block;width:100%;text-align:left;padding:12px;margin-bottom:8px;cursor:pointer;"
             >
-                <div style="display:flex;justify-content:space-between;align-items:center;gap:8px;">
-                    <strong>
+                <div class="live-chat-conversation-heading">
+                    <strong class="live-chat-guest-name">
                         ${conversation.guestName || "Guest"}
                     </strong>
 
                     <span
                         class="unread-message-indicator"
                         data-conversation-id="${conversation.id}"
-                        style="display:none;background:#b91c1c;color:white;padding:3px 8px;border-radius:12px;font-size:12px;font-weight:bold;"
+                        style="display:none;"
                     >
                         New
                     </span>
                 </div>
 
-                <span style="display:block;">
+                <span class="live-chat-cottage">
                     ${(conversation.cottageId || "Cottage —")
                         .replace(/^cottage-/i, "Cottage ")}
                 </span>
@@ -8886,7 +8886,6 @@ conversationList.innerHTML =
                 <span
                     class="latest-message-preview"
                     data-conversation-id="${conversation.id}"
-                    style="display:block;margin-top:6px;font-size:13px;color:#777;"
                 >
                     Loading latest message...
                 </span>
@@ -8894,6 +8893,7 @@ conversationList.innerHTML =
         `;
 
     }).join("");
+
            
 conversationList
     .querySelectorAll(".latest-message-preview")
