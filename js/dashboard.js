@@ -9394,173 +9394,307 @@ messages.forEach(function (item) {
             previousMessageDate = messageDateKey;
         }
     }
+  
 
-   
 if (
     item.attachmentUrl &&
     item.attachmentType &&
     item.attachmentType.startsWith("audio/")
 ) {
-    const voiceNote = document.createElement("div");
-    voiceNote.className = "wa-voice-note";
+    const isVoiceNote =
+        item.attachmentName === "voice-note.webm";
 
     const audio = document.createElement("audio");
     audio.preload = "metadata";
     audio.src = item.attachmentUrl;
 
-    const playButton = document.createElement("button");
-    playButton.type = "button";
-    playButton.className = "wa-voice-play";
-    playButton.setAttribute("aria-label", "Play voice note");
+    if (isVoiceNote) {
+        // COMPACT VOICE NOTE PLAYER
+        const voiceNote = document.createElement("div");
+        voiceNote.className = "wa-voice-note";
 
-    const playIcon = `
-        <svg viewBox="0 0 24 24" aria-hidden="true">
-            <path d="M8 5v14l11-7z" fill="currentColor"/>
-        </svg>
-    `;
+        const playButton = document.createElement("button");
+        playButton.type = "button";
+        playButton.className = "wa-voice-play";
+        playButton.setAttribute("aria-label", "Play voice note");
 
-    const pauseIcon = `
-        <svg viewBox="0 0 24 24" aria-hidden="true">
-            <path d="M7 5h4v14H7zM14 5h4v14h-4z"
-                fill="currentColor"/>
-        </svg>
-    `;
+        const playIcon = `
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M8 5v14l11-7z" fill="currentColor"/>
+            </svg>
+        `;
 
-    playButton.innerHTML = playIcon;
+        const pauseIcon = `
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M7 5h4v14H7zM14 5h4v14h-4z"
+                    fill="currentColor"/>
+            </svg>
+        `;
 
-    const waveform = document.createElement("div");
-    waveform.className = "wa-voice-waveform";
-    waveform.setAttribute("role", "progressbar");
-    waveform.setAttribute("aria-label", "Voice note playback");
-    waveform.setAttribute("aria-valuemin", "0");
-    waveform.setAttribute("aria-valuemax", "100");
-    waveform.setAttribute("aria-valuenow", "0");
+        playButton.innerHTML = playIcon;
 
-    const barHeights = [
-        9, 15, 22, 13, 27, 18, 11, 24,
-        31, 17, 12, 26, 20, 34, 15, 23,
-        11, 29, 18, 25, 13, 32, 21, 14,
-        27, 17, 10, 24, 19, 30, 13, 22,
-        16, 28, 11, 20
-    ];
+        const waveform = document.createElement("div");
+        waveform.className = "wa-voice-waveform";
 
-    barHeights.forEach(function (height) {
-        const bar = document.createElement("span");
-        bar.className = "wa-voice-bar";
-        bar.style.height = height + "px";
-        waveform.appendChild(bar);
-    });
+        const barHeights = [
+            9, 15, 22, 13, 27, 18, 11, 24, 31,
+            17, 12, 26, 20, 34, 15, 23, 11, 29,
+            18, 25, 13, 32, 21, 14, 27, 17, 10,
+            24, 19, 30, 13, 22, 16, 28, 11, 20
+        ];
 
-    const time = document.createElement("div");
-    time.className = "wa-voice-time";
-
-    const elapsed = document.createElement("span");
-    elapsed.textContent = "0:00";
-
-    const duration = document.createElement("span");
-    duration.textContent = "--:--";
-
-    time.append(elapsed, duration);
-
-    voiceNote.append(
-        audio,
-        playButton,
-        waveform,
-        time
-    );
-
-    const bars = Array.from(
-        waveform.querySelectorAll(".wa-voice-bar")
-    );
-
-    function formatVoiceTime(seconds) {
-        if (!Number.isFinite(seconds) || seconds < 0) {
-            return "0:00";
-        }
-
-        const mins = Math.floor(seconds / 60);
-        const secs = Math.floor(seconds % 60);
-
-        return mins + ":" + String(secs).padStart(2, "0");
-    }
-
-    function updateVoiceProgress() {
-        const current = audio.currentTime || 0;
-        const total = audio.duration;
-
-        elapsed.textContent = formatVoiceTime(current);
-
-        const progress = Number.isFinite(total) && total > 0
-            ? Math.min(1, current / total)
-            : 0;
-
-        bars.forEach(function (bar, index) {
-            bar.classList.toggle(
-                "played",
-                index < progress * bars.length
-            );
+        barHeights.forEach(function (height) {
+            const bar = document.createElement("span");
+            bar.className = "wa-voice-bar";
+            bar.style.height = height + "px";
+            waveform.appendChild(bar);
         });
 
-        waveform.setAttribute(
-            "aria-valuenow",
-            String(Math.round(progress * 100))
+        const time = document.createElement("div");
+        time.className = "wa-voice-time";
+
+        const elapsed = document.createElement("span");
+        elapsed.textContent = "0:00";
+
+        const duration = document.createElement("span");
+        duration.textContent = "--:--";
+
+        time.append(elapsed, duration);
+        voiceNote.append(audio, playButton, waveform, time);
+
+        const bars = Array.from(
+            waveform.querySelectorAll(".wa-voice-bar")
         );
+
+        function formatTime(seconds) {
+            if (!Number.isFinite(seconds) || seconds < 0) {
+                return "0:00";
+            }
+
+            return Math.floor(seconds / 60) + ":" +
+                String(Math.floor(seconds % 60)).padStart(2, "0");
+        }
+
+        function updateProgress() {
+            const total = audio.duration;
+            const progress = Number.isFinite(total) && total > 0
+                ? Math.min(1, audio.currentTime / total)
+                : 0;
+
+            elapsed.textContent = formatTime(audio.currentTime);
+
+            bars.forEach(function (bar, index) {
+                bar.classList.toggle(
+                    "played",
+                    index < progress * bars.length
+                );
+            });
+        }
+
+        audio.addEventListener("loadedmetadata", function () {
+            duration.textContent = formatTime(audio.duration);
+            updateProgress();
+        });
+
+        audio.addEventListener("timeupdate", updateProgress);
+
+        audio.addEventListener("play", function () {
+            playButton.innerHTML = pauseIcon;
+            playButton.setAttribute("aria-label", "Pause voice note");
+        });
+
+        audio.addEventListener("pause", function () {
+            playButton.innerHTML = playIcon;
+            playButton.setAttribute("aria-label", "Play voice note");
+        });
+
+        audio.addEventListener("ended", function () {
+            audio.currentTime = 0;
+            updateProgress();
+        });
+
+        playButton.addEventListener("click", function () {
+            if (audio.paused) {
+                audio.play().catch(function (error) {
+                    console.error("Voice note playback failed:", error);
+                });
+            } else {
+                audio.pause();
+            }
+        });
+
+        waveform.addEventListener("click", function (event) {
+            if (!Number.isFinite(audio.duration) || audio.duration <= 0) {
+                return;
+            }
+
+            const rect = waveform.getBoundingClientRect();
+            const fraction = Math.max(
+                0,
+                Math.min(1, (event.clientX - rect.left) / rect.width)
+            );
+
+            audio.currentTime = fraction * audio.duration;
+            updateProgress();
+        });
+
+        messageElement.appendChild(voiceNote);
+
+    } else {
+        // MUSIC PLAYER FOR SONGS AND OTHER AUDIO FILES
+        const musicPlayer = document.createElement("div");
+        musicPlayer.className = "wa-music-player";
+
+        const musicTop = document.createElement("div");
+        musicTop.className = "wa-music-top";
+
+        const musicIcon = document.createElement("div");
+        musicIcon.className = "wa-music-icon";
+        musicIcon.innerHTML = `
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M9 18V5l12-2v13"
+                    fill="none" stroke="currentColor"
+                    stroke-width="2" stroke-linecap="round"
+                    stroke-linejoin="round"/>
+                <circle cx="6" cy="18" r="3"
+                    fill="currentColor"/>
+                <circle cx="18" cy="16" r="3"
+                    fill="currentColor"/>
+            </svg>
+        `;
+
+        const musicInfo = document.createElement("div");
+        musicInfo.className = "wa-music-info";
+
+        const fileName = document.createElement("div");
+        fileName.className = "wa-music-filename";
+        fileName.textContent = item.attachmentName || "Audio file";
+        fileName.title = fileName.textContent;
+
+        const musicLabel = document.createElement("div");
+        musicLabel.className = "wa-music-label";
+        musicLabel.textContent = "Audio";
+
+        musicInfo.append(fileName, musicLabel);
+
+        const playButton = document.createElement("button");
+        playButton.type = "button";
+        playButton.className = "wa-music-play";
+        playButton.setAttribute("aria-label", "Play audio");
+        playButton.innerHTML = `
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M8 5v14l11-7z" fill="currentColor"/>
+            </svg>
+        `;
+
+        musicTop.append(musicIcon, musicInfo, playButton);
+
+        const progressTrack = document.createElement("input");
+        progressTrack.type = "range";
+        progressTrack.className = "wa-music-progress";
+        progressTrack.min = "0";
+        progressTrack.max = "1000";
+        progressTrack.value = "0";
+        progressTrack.setAttribute("aria-label", "Seek through audio");
+
+        const musicTime = document.createElement("div");
+        musicTime.className = "wa-music-time";
+
+        const currentTime = document.createElement("span");
+        currentTime.textContent = "0:00";
+
+        const totalTime = document.createElement("span");
+        totalTime.textContent = "--:--";
+
+        musicTime.append(currentTime, totalTime);
+
+        musicPlayer.append(
+            audio,
+            musicTop,
+            progressTrack,
+            musicTime
+        );
+
+        function formatMusicTime(seconds) {
+            if (!Number.isFinite(seconds) || seconds < 0) {
+                return "0:00";
+            }
+
+            return Math.floor(seconds / 60) + ":" +
+                String(Math.floor(seconds % 60)).padStart(2, "0");
+        }
+
+        function updateMusicProgress() {
+            const total = audio.duration;
+            const progress = Number.isFinite(total) && total > 0
+                ? audio.currentTime / total
+                : 0;
+
+            currentTime.textContent = formatMusicTime(audio.currentTime);
+            progressTrack.value = String(Math.round(progress * 1000));
+            progressTrack.style.setProperty(
+                "--music-progress",
+                (progress * 100) + "%"
+            );
+        }
+
+        audio.addEventListener("loadedmetadata", function () {
+            totalTime.textContent = formatMusicTime(audio.duration);
+            updateMusicProgress();
+        });
+
+        audio.addEventListener("timeupdate", updateMusicProgress);
+
+        audio.addEventListener("play", function () {
+            playButton.innerHTML = `
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M7 5h4v14H7zM14 5h4v14h-4z"
+                        fill="currentColor"/>
+                </svg>
+            `;
+            playButton.setAttribute("aria-label", "Pause audio");
+        });
+
+        audio.addEventListener("pause", function () {
+            playButton.innerHTML = `
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M8 5v14l11-7z" fill="currentColor"/>
+                </svg>
+            `;
+            playButton.setAttribute("aria-label", "Play audio");
+        });
+
+        audio.addEventListener("ended", function () {
+            audio.currentTime = 0;
+            updateMusicProgress();
+        });
+
+        playButton.addEventListener("click", function () {
+            if (audio.paused) {
+                audio.play().catch(function (error) {
+                    console.error("Music playback failed:", error);
+                });
+            } else {
+                audio.pause();
+            }
+        });
+
+        progressTrack.addEventListener("input", function () {
+            if (!Number.isFinite(audio.duration) || audio.duration <= 0) {
+                return;
+            }
+
+            audio.currentTime =
+                (Number(progressTrack.value) / 1000) * audio.duration;
+
+            updateMusicProgress();
+        });
+
+        messageElement.appendChild(musicPlayer);
     }
 
-    audio.addEventListener("loadedmetadata", function () {
-        duration.textContent =
-            formatVoiceTime(audio.duration);
-
-        updateVoiceProgress();
-    });
-
-    audio.addEventListener("timeupdate", updateVoiceProgress);
-
-    audio.addEventListener("play", function () {
-        playButton.innerHTML = pauseIcon;
-        playButton.setAttribute("aria-label", "Pause voice note");
-        voiceNote.classList.add("is-playing");
-    });
-
-    audio.addEventListener("pause", function () {
-        playButton.innerHTML = playIcon;
-        playButton.setAttribute("aria-label", "Play voice note");
-        voiceNote.classList.remove("is-playing");
-    });
-
-    audio.addEventListener("ended", function () {
-        audio.currentTime = 0;
-        updateVoiceProgress();
-    });
-
-    playButton.addEventListener("click", function () {
-        if (audio.paused) {
-            audio.play().catch(function (error) {
-                console.error("Voice note playback failed:", error);
-            });
-        } else {
-            audio.pause();
-        }
-    });
-
-    waveform.addEventListener("click", function (event) {
-        if (!Number.isFinite(audio.duration) || audio.duration <= 0) {
-            return;
-        }
-
-        const rect = waveform.getBoundingClientRect();
-        const fraction = Math.max(
-            0,
-            Math.min(1, (event.clientX - rect.left) / rect.width)
-        );
-
-        audio.currentTime = fraction * audio.duration;
-        updateVoiceProgress();
-    });
-
-    messageElement.appendChild(voiceNote);
-
 } else {
+    // ORDINARY TEXT MESSAGE
     const textElement = document.createElement("span");
     textElement.className = "wa-message-text";
     textElement.textContent =
@@ -9568,7 +9702,6 @@ if (
 
     messageElement.appendChild(textElement);
 }
-
 
     // Display the message's sent time.
     const timeElement =
