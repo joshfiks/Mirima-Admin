@@ -947,3 +947,56 @@
         min-height: 0;
     }
 }
+
+/* =========================================================
+   MIRIMA ADMIN — INDEPENDENT CONVERSATION LIST SCROLL
+   ========================================================= */
+
+/* Keep the conversations panel within the chat layout */
+.live-chat-conversations {
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+    overflow: hidden;
+}
+
+/* Keep the heading and conversation count visible */
+.live-chat-panel-title {
+    flex: 0 0 auto;
+}
+
+/* Scroll only the guest conversation list */
+.live-chat-conversation-list {
+    flex: 1 1 auto;
+    min-height: 0;
+    overflow-y: auto;
+    overflow-x: hidden;
+    overscroll-behavior-y: contain;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: thin;
+    scrollbar-color: #657568 #131b15;
+}
+
+/* Optional scrollbar styling for Chrome, Edge and Safari */
+.live-chat-conversation-list::-webkit-scrollbar {
+    width: 6px;
+}
+
+.live-chat-conversation-list::-webkit-scrollbar-track {
+    background: #131b15;
+    border-radius: 6px;
+}
+
+.live-chat-conversation-list::-webkit-scrollbar-thumb {
+    background: #657568;
+    border-radius: 6px;
+}
+
+.live-chat-conversation-list::-webkit-scrollbar-thumb:hover {
+    background: #b89b5e;
+}
+
+/* Prevent cards from shrinking to fit the panel */
+.live-chat-conversation-item {
+    flex-shrink: 0;
+}
