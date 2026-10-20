@@ -9257,11 +9257,27 @@ updateDoc(
             const chatLayout =
                 document.querySelector(".live-chat-layout");
 
-            if (chatLayout) {
-                chatLayout.classList.remove(
-                    "chat-conversation-open"
-                );
-            }
+           if (chatLayout) {
+    chatLayout.classList.remove(
+        "chat-conversation-open"
+    );
+}
+
+if (activeReceptionMessageListener) {
+    activeReceptionMessageListener();
+    activeReceptionMessageListener = null;
+}
+
+chatWindow.innerHTML = `
+    <div class="live-chat-window-empty">
+        <div class="chat-empty-icon">💬</div>
+        <h4>Select a conversation</h4>
+        <p>
+            Choose a guest conversation from
+            the list to start chatting.
+        </p>
+    </div>
+`;
         });
     }
    
