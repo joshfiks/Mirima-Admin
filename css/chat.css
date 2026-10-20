@@ -1285,3 +1285,61 @@
         width: 230px;
     }
 }
+
+/* =========================================================
+   MIRIMA ADMIN — VIDEO ATTACHMENTS
+   ========================================================= */
+
+.wa-chat .wa-video-attachment {
+    width: 300px;
+    max-width: 100%;
+    min-width: 0;
+    overflow: hidden;
+    border-radius: 10px;
+}
+
+.wa-chat .wa-video-player {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    max-height: 280px;
+    aspect-ratio: 16 / 9;
+    object-fit: contain;
+    background: #000;
+    border-radius: 10px;
+}
+
+.wa-chat .wa-video-filename {
+    margin-top: 6px;
+    overflow-wrap: anywhere;
+    font-size: 11px;
+    line-height: 1.4;
+    opacity: 0.85;
+}
+
+.wa-chat .wa-image-attachment {
+    display: block;
+    width: auto;
+    max-width: 100%;
+    max-height: 280px;
+    border-radius: 8px;
+    object-fit: contain;
+}
+
+.wa-chat .wa-file-attachment {
+    display: inline-block;
+    max-width: 100%;
+    overflow-wrap: anywhere;
+    color: inherit;
+    text-decoration: underline;
+}
+
+@media (max-width: 600px) {
+    .wa-chat .wa-video-attachment {
+        width: 240px;
+    }
+
+    .wa-chat .wa-video-player {
+        max-height: 220px;
+    }
+}
