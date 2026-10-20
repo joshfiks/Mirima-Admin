@@ -9697,14 +9697,19 @@ if (
     const videoContainer = document.createElement("div");
     videoContainer.className = "wa-video-attachment";
 
-    const video = document.createElement("video");
-    video.className = "wa-video-player";
-    video.src = item.attachmentUrl;
-    video.controls = false;
-    video.preload = "metadata";
-    video.playsInline = true;
-    video.setAttribute("aria-label", item.attachmentName || "Guest video");
+   const video = document.createElement("video");
+   video.className = "wa-video-player";
+   video.src = item.attachmentUrl;
+   video.controls = false;
+   video.preload = "metadata";
+   video.tabIndex = -1;
+   video.style.pointerEvents = "none";
+   video.playsInline = true;
 
+   video.setAttribute(
+    "aria-label",
+    item.attachmentName || "Guest video"
+);
     const controls = document.createElement("div");
     controls.className = "wa-video-controls";
 
@@ -9763,18 +9768,14 @@ if (
         );
     }
 
-    playButton.addEventListener("click", function (event) {
-        event.stopPropagation();
+   playButton.addEventListener("click", function (event) {
+    event.preventDefault();
+    event.stopPropagation();
 
-        if (video.paused) {
-            video.play().catch(function (error) {
-                console.error("Video playback failed:", error);
-            });
-        } else {
-            video.pause();
-        }
-    });
-
+    // Open the larger video preview instead of playing
+    // the video inside the message bubble.
+    video.dispatchEvent(new Event("click"));
+});
     video.addEventListener("loadedmetadata", updateVideoControls);
     video.addEventListener("timeupdate", updateVideoControls);
     video.addEventListener("play", updateVideoControls);
