@@ -8852,8 +8852,7 @@ function setupReceptionLiveChat() {
 
                 return;
             }
-
-            
+        
 
 conversationList.innerHTML =
     conversations.map(function (conversation) {
@@ -8864,31 +8863,51 @@ conversationList.innerHTML =
                 class="live-chat-conversation-item"
                 data-conversation-id="${conversation.id}"
             >
-                <div class="live-chat-conversation-heading">
-                    <strong class="live-chat-guest-name">
-                        ${conversation.guestName || "Guest"}
-                    </strong>
-
-                    <span
-                        class="unread-message-indicator"
-                        data-conversation-id="${conversation.id}"
-                        style="display:none;"
-                    >
-                        New
-                    </span>
+                <div class="live-chat-guest-avatar" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none">
+                        <circle
+                            cx="12"
+                            cy="8"
+                            r="4"
+                            stroke="currentColor"
+                            stroke-width="1.7"
+                        />
+                        <path
+                            d="M4 21c0-4.2 3.2-7 8-7s8 2.8 8 7"
+                            stroke="currentColor"
+                            stroke-width="1.7"
+                            stroke-linecap="round"
+                        />
+                    </svg>
                 </div>
 
-                <span class="live-chat-cottage">
-                    ${(conversation.cottageId || "Cottage —")
-                        .replace(/^cottage-/i, "Cottage ")}
-                </span>
+                <div class="live-chat-guest-details">
+                    <div class="live-chat-conversation-heading">
+                        <strong class="live-chat-guest-name">
+                            ${conversation.guestName || "Guest"}
+                        </strong>
 
-                <span
-                    class="latest-message-preview"
-                    data-conversation-id="${conversation.id}"
-                >
-                    Loading latest message...
-                </span>
+                        <span
+                            class="unread-message-indicator"
+                            data-conversation-id="${conversation.id}"
+                            style="display:none;"
+                        >
+                            New
+                        </span>
+                    </div>
+
+                    <span class="live-chat-cottage">
+                        ${(conversation.cottageId || "Cottage —")
+                            .replace(/^cottage-/i, "Cottage ")}
+                    </span>
+
+                    <span
+                        class="latest-message-preview"
+                        data-conversation-id="${conversation.id}"
+                    >
+                        Loading latest message...
+                    </span>
+                </div>
             </button>
         `;
 
