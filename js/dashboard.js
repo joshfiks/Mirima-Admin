@@ -9687,25 +9687,244 @@ if (
         messageElement.appendChild(musicPlayer);
     }
 
+
 } else if (
     item.attachmentUrl &&
     item.attachmentType &&
     item.attachmentType.startsWith("video/")
 ) {
-    // VIDEO ATTACHMENT
+    // VIDEO ATTACHMENT WITH CUSTOM CONTROLS
     const videoContainer = document.createElement("div");
     videoContainer.className = "wa-video-attachment";
 
     const video = document.createElement("video");
     video.className = "wa-video-player";
     video.src = item.attachmentUrl;
-    video.controls = true;
+    video.controls = false;
     video.preload = "metadata";
     video.playsInline = true;
-
     video.setAttribute("aria-label", item.attachmentName || "Guest video");
 
-    videoContainer.appendChild(video);
+    const controls = document.createElement("div");
+    controls.className = "wa-video-controls";
+
+    const playButton = document.createElement("button");
+    playButton.type = "button";
+    playButton.className = "wa-video-play";
+    playButton.textContent = "▶";
+    playButton.setAttribute("aria-label", "Play video");
+
+    const timeDisplay = document.createElement("span");
+    timeDisplay.className = "wa-video-time";
+    timeDisplay.textContent = "0:00 / 0:00";
+
+    const progress = document.createElement("input");
+    progress.type = "range";
+    progress.className = "wa-video-progress";
+    progress.min = "0";
+    progress.max = "1000";
+    progress.value = "0";
+    progress.setAttribute("aria-label", "Video progress");
+
+    const volume = document.createElement("input");
+    volume.type = "range";
+    volume.className = "wa-video-volume";
+    volume.min = "0";
+    volume.max = "1";
+    volume.step = "0.1";
+    volume.value = "1";
+    volume.setAttribute("aria-label", "Video volume");
+
+    function formatVideoTime(seconds) {
+        if (!Number.isFinite(seconds)) return "0:00";
+
+        const minutes = Math.floor(seconds / 60);
+        const remainingSeconds = Math.floor(seconds % 60);
+
+        return minutes + ":" + String(remainingSeconds).padStart(2, "0");
+    }
+
+    function updateVideoControls() {
+        const duration = video.duration || 0;
+        const currentTime = video.currentTime || 0;
+
+        timeDisplay.textContent =
+            formatVideoTime(currentTime) + " / " +
+            formatVideoTime(duration);
+
+        progress.value = duration
+            ? String(Math.round((currentTime / duration) * 1000))
+            : "0";
+
+        playButton.textContent = video.paused ? "▶" : "❚❚";
+        playButton.setAttribute(
+            "aria-label",
+            video.paused ? "Play video" : "Pause video"
+        );
+    }
+
+    playButton.addEventListener("click", function (event) {
+        event.stopPropagation();
+
+        if (video.paused) {
+            video.play().catch(function (error) {
+                console.error("Video playback failed:", error);
+            });
+        } else {
+            video.pause();
+        }
+    });
+
+    video.addEventListener("loadedmetadata", updateVideoControls);
+    video.addEventListener("timeupdate", updateVideoControls);
+    video.addEventListener("play", updateVideoControls);
+    video.addEventListener("pause", updateVideoControls);
+    video.addEventListener("ended", updateVideoControls);
+
+    progress.addEventListener("input", function () {
+        if (Number.isFinite(video.duration) && video.duration > 0) {
+            video.currentTime =
+                (Number(progress.value) / 1000) * video.duration;
+        }
+    });
+
+    volume.addEventListener("input", function () {
+        video.volume = Number(volume.value);
+        video.muted = video.volume === 0;
+    });
+
+    controls.append(playButton, timeDisplay, progress, volume);
+    videoContainer.append(video, controls);
+
+    // Open a larger preview when the video itself is clicked.
+    video.addEventListener("click", function () {
+        let overlay = document.getElementById("waVideoPreviewOverlay");
+
+        if (!overlay) {
+            overlay = document.createElement("div");
+            overlay.id = "waVideoPreviewOverlay";
+            overlay.className = "wa-video-preview-overlay";
+
+            const previewPanel = document.createElement("div");
+            previewPanel.className = "wa-video-preview-panel";
+
+            const closeButton = document.createElement("button");
+            closeButton.type = "button";
+            closeButton.className = "wa-video-preview-close";
+            closeButton.textContent = "✕";
+            closeButton.setAttribute("aria-label", "Close video preview");
+
+            const previewContainer = document.createElement("div");
+            previewContainer.className = "wa-video-preview-content";
+
+            closeButton.addEventListener("click", function () {
+                const previewVideo = previewContainer.querySelector("video");
+
+                if (previewVideo) previewVideo.pause();
+
+                overlay.style.display = "none";
+                previewContainer.replaceChildren();
+            });
+
+            overlay.addEventListener("click", function (event) {
+                if (event.target === overlay) {
+                    closeButton.click();
+                }
+            });
+
+            previewPanel.append(closeButton, previewContainer);
+            overlay.appendChild(previewPanel);
+            document.body.appendChild(overlay);
+
+            document.addEventListener("keydown", function (event) {
+                if (event.key === "Escape" && overlay.style.display === "flex") {
+                    closeButton.click();
+                }
+            });
+        }
+
+        const previewContainer =
+            overlay.querySelector(".wa-video-preview-content");
+
+        previewContainer.replaceChildren();
+
+        const previewVideo = document.createElement("video");
+        previewVideo.className = "wa-video-preview-player";
+        previewVideo.src = item.attachmentUrl;
+        previewVideo.controls = false;
+        previewVideo.preload = "metadata";
+        previewVideo.playsInline = true;
+        previewVideo.volume = video.volume;
+        previewVideo.muted = video.muted;
+        previewVideo.currentTime = video.currentTime || 0;
+
+        // Build custom controls for the larger preview too.
+        const previewControls = controls.cloneNode(true);
+        const previewPlay = previewControls.querySelector(".wa-video-play");
+        const previewTime = previewControls.querySelector(".wa-video-time");
+        const previewProgress =
+            previewControls.querySelector(".wa-video-progress");
+        const previewVolume =
+            previewControls.querySelector(".wa-video-volume");
+
+        previewVolume.value = String(previewVideo.volume);
+
+        function updatePreviewControls() {
+            const duration = previewVideo.duration || 0;
+
+            previewTime.textContent =
+                formatVideoTime(previewVideo.currentTime) + " / " +
+                formatVideoTime(duration);
+
+            previewProgress.value = duration
+                ? String(Math.round(
+                    (previewVideo.currentTime / duration) * 1000
+                ))
+                : "0";
+
+            previewPlay.textContent = previewVideo.paused ? "▶" : "❚❚";
+            previewPlay.setAttribute(
+                "aria-label",
+                previewVideo.paused ? "Play video" : "Pause video"
+            );
+        }
+
+        previewPlay.addEventListener("click", function () {
+            if (previewVideo.paused) {
+                previewVideo.play().catch(function (error) {
+                    console.error("Preview playback failed:", error);
+                });
+            } else {
+                previewVideo.pause();
+            }
+        });
+
+        previewProgress.addEventListener("input", function () {
+            if (previewVideo.duration > 0) {
+                previewVideo.currentTime =
+                    (Number(previewProgress.value) / 1000) *
+                    previewVideo.duration;
+            }
+        });
+
+        previewVolume.addEventListener("input", function () {
+            previewVideo.volume = Number(previewVolume.value);
+            previewVideo.muted = previewVideo.volume === 0;
+        });
+
+        previewVideo.addEventListener("loadedmetadata", updatePreviewControls);
+        previewVideo.addEventListener("timeupdate", updatePreviewControls);
+        previewVideo.addEventListener("play", updatePreviewControls);
+        previewVideo.addEventListener("pause", updatePreviewControls);
+        previewVideo.addEventListener("ended", updatePreviewControls);
+
+        previewContainer.append(previewVideo, previewControls);
+        overlay.style.display = "flex";
+
+        previewVideo.play().catch(function () {
+            // If autoplay is blocked, the user can press Play.
+        });
+    });
 
     if (item.attachmentName) {
         const videoName = document.createElement("div");
@@ -9721,6 +9940,7 @@ if (
     item.attachmentType &&
     item.attachmentType.startsWith("image/")
 ) {
+
     // IMAGE ATTACHMENT
     const image = document.createElement("img");
     image.className = "wa-image-attachment";
