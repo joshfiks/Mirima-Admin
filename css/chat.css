@@ -1358,3 +1358,157 @@
         max-height: 220px;
     }
 }
+
+/* CUSTOM VIDEO CONTROLS */
+.wa-chat .wa-video-attachment {
+    width: 100%;
+    max-width: 300px;
+    min-width: 0;
+    overflow: hidden;
+    box-sizing: border-box;
+    border-radius: 10px;
+    background: #000;
+}
+
+.wa-chat .wa-video-player {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    max-height: 200px;
+    aspect-ratio: 16 / 9;
+    object-fit: contain;
+    background: #000;
+    cursor: pointer;
+}
+
+.wa-chat .wa-video-controls {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    padding: 7px;
+    background: #18231f;
+    color: #fff;
+    box-sizing: border-box;
+}
+
+.wa-chat .wa-video-play {
+    flex-shrink: 0;
+    border: 0;
+    background: transparent;
+    color: #fff;
+    cursor: pointer;
+    font-size: 15px;
+}
+
+.wa-chat .wa-video-time {
+    flex-shrink: 0;
+    font-size: 10px;
+    white-space: nowrap;
+    color: #fff;
+}
+
+.wa-chat .wa-video-progress {
+    flex: 1;
+    min-width: 25px;
+    width: 100%;
+    accent-color: #b89b5e;
+    cursor: pointer;
+}
+
+.wa-chat .wa-video-volume {
+    width: 45px;
+    min-width: 30px;
+    accent-color: #b89b5e;
+    cursor: pointer;
+}
+
+.wa-chat .wa-video-filename {
+    padding: 6px 8px;
+    overflow-wrap: anywhere;
+    font-size: 11px;
+    color: #fff;
+    background: #18231f;
+}
+
+/* LARGE VIDEO PREVIEW */
+.wa-video-preview-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 99999;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    box-sizing: border-box;
+    background: rgba(0, 0, 0, 0.88);
+}
+
+.wa-video-preview-panel {
+    position: relative;
+    width: min(900px, 95vw);
+    max-height: 90vh;
+    padding: 42px 12px 12px;
+    box-sizing: border-box;
+    border-radius: 12px;
+    background: #101411;
+}
+
+.wa-video-preview-close {
+    position: absolute;
+    top: 8px;
+    right: 10px;
+    width: 34px;
+    height: 34px;
+    border: 0;
+    border-radius: 50%;
+    background: #26362c;
+    color: #fff;
+    font-size: 19px;
+    cursor: pointer;
+}
+
+.wa-video-preview-content {
+    width: 100%;
+    max-height: calc(90vh - 65px);
+    overflow-y: auto;
+}
+
+.wa-video-preview-player {
+    display: block;
+    width: 100%;
+    max-height: calc(90vh - 130px);
+    object-fit: contain;
+    background: #000;
+}
+
+.wa-video-preview-content .wa-video-controls {
+    width: 100%;
+}
+
+@media (max-width: 600px) {
+    .wa-chat .wa-video-attachment {
+        max-width: 240px;
+    }
+
+    .wa-chat .wa-video-player {
+        max-height: 160px;
+    }
+
+    .wa-chat .wa-video-controls {
+        gap: 5px;
+        padding: 6px;
+    }
+
+    .wa-chat .wa-video-volume {
+        width: 35px;
+    }
+
+    .wa-video-preview-overlay {
+        padding: 8px;
+    }
+
+    .wa-video-preview-panel {
+        width: 100%;
+        padding: 42px 8px 8px;
+    }
+}
