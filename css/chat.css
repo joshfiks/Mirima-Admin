@@ -910,3 +910,40 @@
     overscroll-behavior-y: contain;
     -webkit-overflow-scrolling: touch;
 }
+
+/* =========================================================
+   RECEPTION CHAT — COMFORTABLE PANEL HEIGHT
+   ========================================================= */
+
+/* Give the two-column chat area a useful minimum height */
+.live-chat-layout {
+    min-height: 560px;
+    height: min(72vh, 760px);
+}
+
+/* Keep both columns stretched to the same height */
+.live-chat-conversations,
+.live-chat-window {
+    height: 100%;
+    min-height: 0;
+}
+
+/* Let the message area use all remaining vertical space */
+.live-chat-window .wa-chat .wa-chat-messages {
+    flex: 1 1 0;
+    min-height: 0;
+}
+
+/* Mobile: use more of the available screen height */
+@media (max-width: 600px) {
+    .live-chat-layout {
+        height: 70vh;
+        min-height: 420px;
+    }
+
+    .live-chat-layout.chat-conversation-open
+    .live-chat-window {
+        height: 100%;
+        min-height: 0;
+    }
+}
