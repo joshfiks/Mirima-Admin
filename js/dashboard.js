@@ -9396,6 +9396,7 @@ messages.forEach(function (item) {
     }
   
 
+
 if (
     item.attachmentUrl &&
     item.attachmentType &&
@@ -9541,7 +9542,7 @@ if (
         messageElement.appendChild(voiceNote);
 
     } else {
-        // MUSIC PLAYER FOR SONGS AND OTHER AUDIO FILES
+        // MUSIC PLAYER
         const musicPlayer = document.createElement("div");
         musicPlayer.className = "wa-music-player";
 
@@ -9556,10 +9557,8 @@ if (
                     fill="none" stroke="currentColor"
                     stroke-width="2" stroke-linecap="round"
                     stroke-linejoin="round"/>
-                <circle cx="6" cy="18" r="3"
-                    fill="currentColor"/>
-                <circle cx="18" cy="16" r="3"
-                    fill="currentColor"/>
+                <circle cx="6" cy="18" r="3" fill="currentColor"/>
+                <circle cx="18" cy="16" r="3" fill="currentColor"/>
             </svg>
         `;
 
@@ -9608,12 +9607,7 @@ if (
 
         musicTime.append(currentTime, totalTime);
 
-        musicPlayer.append(
-            audio,
-            musicTop,
-            progressTrack,
-            musicTime
-        );
+        musicPlayer.append(audio, musicTop, progressTrack, musicTime);
 
         function formatMusicTime(seconds) {
             if (!Number.isFinite(seconds) || seconds < 0) {
@@ -9693,6 +9687,60 @@ if (
         messageElement.appendChild(musicPlayer);
     }
 
+} else if (
+    item.attachmentUrl &&
+    item.attachmentType &&
+    item.attachmentType.startsWith("video/")
+) {
+    // VIDEO ATTACHMENT
+    const videoContainer = document.createElement("div");
+    videoContainer.className = "wa-video-attachment";
+
+    const video = document.createElement("video");
+    video.className = "wa-video-player";
+    video.src = item.attachmentUrl;
+    video.controls = true;
+    video.preload = "metadata";
+    video.playsInline = true;
+
+    video.setAttribute("aria-label", item.attachmentName || "Guest video");
+
+    videoContainer.appendChild(video);
+
+    if (item.attachmentName) {
+        const videoName = document.createElement("div");
+        videoName.className = "wa-video-filename";
+        videoName.textContent = item.attachmentName;
+        videoContainer.appendChild(videoName);
+    }
+
+    messageElement.appendChild(videoContainer);
+
+} else if (
+    item.attachmentUrl &&
+    item.attachmentType &&
+    item.attachmentType.startsWith("image/")
+) {
+    // IMAGE ATTACHMENT
+    const image = document.createElement("img");
+    image.className = "wa-image-attachment";
+    image.src = item.attachmentUrl;
+    image.alt = item.attachmentName || "Guest image";
+    image.loading = "lazy";
+
+    messageElement.appendChild(image);
+
+} else if (item.attachmentUrl) {
+    // OTHER FILE ATTACHMENT
+    const fileLink = document.createElement("a");
+    fileLink.className = "wa-file-attachment";
+    fileLink.href = item.attachmentUrl;
+    fileLink.target = "_blank";
+    fileLink.rel = "noopener noreferrer";
+    fileLink.textContent = item.attachmentName || "Open attachment";
+
+    messageElement.appendChild(fileLink);
+
 } else {
     // ORDINARY TEXT MESSAGE
     const textElement = document.createElement("span");
@@ -9702,6 +9750,7 @@ if (
 
     messageElement.appendChild(textElement);
 }
+
 
     // Display the message's sent time.
     const timeElement =
