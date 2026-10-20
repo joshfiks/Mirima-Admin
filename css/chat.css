@@ -1290,10 +1290,13 @@
    MIRIMA ADMIN — VIDEO ATTACHMENTS
    ========================================================= */
 
+/* MIRIMA ADMIN — FIT VIDEO INSIDE MESSAGE BUBBLE */
 .wa-chat .wa-video-attachment {
-    width: 300px;
-    max-width: 100%;
+    display: block;
+    width: 100%;
+    max-width: 300px;
     min-width: 0;
+    box-sizing: border-box;
     overflow: hidden;
     border-radius: 10px;
 }
@@ -1302,11 +1305,23 @@
     display: block;
     width: 100%;
     max-width: 100%;
-    max-height: 280px;
+    height: auto;
+    max-height: 200px;
     aspect-ratio: 16 / 9;
     object-fit: contain;
+    box-sizing: border-box;
     background: #000;
     border-radius: 10px;
+}
+
+@media (max-width: 600px) {
+    .wa-chat .wa-video-attachment {
+        max-width: 240px;
+    }
+
+    .wa-chat .wa-video-player {
+        max-height: 160px;
+    }
 }
 
 .wa-chat .wa-video-filename {
