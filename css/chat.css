@@ -493,3 +493,43 @@
     color: #aeb8b3;
     vertical-align: baseline;
 }
+
+/* =========================================================
+   RECEPTION CHAT — WHATSAPP-STYLE CONVERSATION VIEW
+   ========================================================= */
+
+/* Keep the conversation list and chat inside one layout */
+.live-chat-layout {
+    min-width: 0;
+}
+
+/* Allow the selected chat to shrink inside its layout */
+.live-chat-window {
+    min-width: 0;
+    min-height: 0;
+}
+
+/* Mobile: show only the selected conversation */
+@media (max-width: 600px) {
+
+    .live-chat-layout.chat-conversation-open
+    .live-chat-conversations {
+        display: none;
+    }
+
+    .live-chat-layout.chat-conversation-open
+    .live-chat-window {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        min-width: 0;
+        min-height: 0;
+    }
+
+    .live-chat-window .wa-chat {
+        width: 100%;
+        min-width: 0;
+        min-height: 0;
+        flex: 1;
+    }
+}
