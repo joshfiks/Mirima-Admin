@@ -1644,3 +1644,152 @@
         max-height: 96%;
     }
 }
+
+/* ========================================
+   MIRIMA ADMIN — PDF ATTACHMENT PREVIEW
+======================================== */
+
+/* Small PDF card inside the chat bubble */
+.wa-chat .wa-pdf-attachment {
+    display: block;
+    width: 260px;
+    max-width: 100%;
+    overflow: hidden;
+    border: 1px solid #d2d9d4;
+    border-radius: 9px;
+    background: #fff;
+    color: #17271e;
+    box-sizing: border-box;
+}
+
+.wa-chat .wa-pdf-thumbnail {
+    display: block;
+    width: 100%;
+    height: 170px;
+    border: 0;
+    background: #f1f3f2;
+    pointer-events: none;
+}
+
+.wa-chat .wa-pdf-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px;
+    background: #f8faf8;
+}
+
+.wa-chat .wa-pdf-icon {
+    display: flex;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    width: 38px;
+    height: 44px;
+    border-radius: 5px;
+    background: #b64040;
+    color: #fff;
+    font-size: 11px;
+    font-weight: bold;
+}
+
+.wa-chat .wa-pdf-details {
+    min-width: 0;
+    flex: 1;
+}
+
+.wa-chat .wa-pdf-name {
+    overflow-wrap: anywhere;
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 1.4;
+}
+
+.wa-chat .wa-pdf-label {
+    margin-top: 4px;
+    color: #657269;
+    font-size: 10px;
+}
+
+/* Large PDF preview overlay */
+.wa-pdf-preview-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 100001;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 16px;
+    box-sizing: border-box;
+    background: rgba(0, 0, 0, 0.88);
+}
+
+.wa-pdf-preview-panel {
+    display: flex;
+    flex-direction: column;
+    width: min(1000px, 96vw);
+    height: 92vh;
+    max-height: 92vh;
+    overflow: hidden;
+    border-radius: 10px;
+    background: #101411;
+}
+
+.wa-pdf-preview-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 10px 14px;
+    background: #26362c;
+    color: #f4efe3;
+}
+
+.wa-pdf-preview-title {
+    overflow: hidden;
+    font-size: 13px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.wa-pdf-preview-close {
+    flex-shrink: 0;
+    width: 36px;
+    height: 36px;
+    border: 0;
+    border-radius: 6px;
+    background: #58352f;
+    color: #fff;
+    font-size: 18px;
+    cursor: pointer;
+}
+
+.wa-pdf-preview-frame {
+    flex: 1;
+    width: 100%;
+    height: 100%;
+    min-height: 0;
+    border: 0;
+    background: #fff;
+}
+
+/* Mobile layout */
+@media (max-width: 600px) {
+    .wa-chat .wa-pdf-attachment {
+        width: 230px;
+    }
+
+    .wa-chat .wa-pdf-thumbnail {
+        height: 145px;
+    }
+
+    .wa-pdf-preview-overlay {
+        padding: 6px;
+    }
+
+    .wa-pdf-preview-panel {
+        width: 100%;
+        height: 94vh;
+        max-height: 94vh;
+    }
+}
