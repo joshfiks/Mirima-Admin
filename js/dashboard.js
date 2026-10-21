@@ -9331,11 +9331,45 @@ const wasNearBottom =
     previousScrollTop -
     previousClientHeight < 150;
 console.count("Reception chat message list rebuilt");
-messagesContainer.innerHTML = "";
+// Keep existing message elements to prevent PDF and media flickering.
+if (!messagesContainer._renderedMessages) {
+    messagesContainer._renderedMessages = new Map();
+}
 
 let previousMessageDate = "";
 
 messages.forEach(function (item) {
+
+       const messageId = item.id;
+
+    const cachedMessage =
+        messagesContainer._renderedMessages.get(messageId);
+
+    const messageSignature = JSON.stringify({
+        sender: item.sender,
+        senderName: item.senderName,
+        message: item.message,
+        createdAt: item.createdAt?.toDate
+            ? item.createdAt.toDate().getTime()
+            : item.createdAt,
+        attachmentUrl: item.attachmentUrl,
+        attachmentName: item.attachmentName,
+        attachmentType: item.attachmentType,
+        attachmentSize: item.attachmentSize,
+        guestDeliveredAt: item.guestDeliveredAt?.toDate
+            ? item.guestDeliveredAt.toDate().getTime()
+            : item.guestDeliveredAt,
+        guestReadAt: item.guestReadAt?.toDate
+            ? item.guestReadAt.toDate().getTime()
+            : item.guestReadAt
+    });
+
+    if (
+        cachedMessage &&
+        cachedMessage.signature === messageSignature
+    ) {
+       return;
+    }
 
     const messageElement =
         document.createElement("div");
@@ -10282,7 +10316,19 @@ if (item.sender === "reception") {
 }
 
 
-messagesContainer.appendChild(messageElement);
+const existingMessage =
+    messagesContainer._renderedMessages.get(messageId);
+
+if (existingMessage) {
+    existingMessage.element.replaceWith(messageElement);
+} else {
+    messagesContainer.appendChild(messageElement);
+}
+
+messagesContainer._renderedMessages.set(messageId, {
+    signature: messageSignature,
+    element: messageElement
+});
 
 });
 
