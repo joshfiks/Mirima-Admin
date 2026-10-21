@@ -10270,12 +10270,19 @@ if (item.sender === "reception") {
 }
 
 
-    messagesContainer.appendChild(messageElement);
+messagesContainer.appendChild(messageElement);
 
 });
 
-messagesContainer.scrollTop =
-messagesContainer.scrollHeight;
+const isNearBottom =
+    messagesContainer.scrollHeight -
+    messagesContainer.scrollTop -
+    messagesContainer.clientHeight < 150;
+
+if (isNearBottom) {
+    messagesContainer.scrollTop =
+        messagesContainer.scrollHeight;
+}
     
 
             },
