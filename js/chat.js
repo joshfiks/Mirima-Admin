@@ -40,6 +40,13 @@ export function listenToDepartmentConversations(
         conversationsQuery,
         (snapshot) => {
         console.count("Firestore message snapshot received");
+            console.log(
+    "SNAPSHOT CHANGES:",
+    snapshot.docChanges().map(change => ({
+        type: change.type,
+        id: change.doc.id
+    }))
+);
         console.log("Snapshot document count:", snapshot.size);
             const conversations = snapshot.docs.map(
                 (item) => ({
