@@ -9069,9 +9069,17 @@ function openReceptionChatConversation(conversation) {
     }
 
     if (activeReceptionMessageListener) {
-        activeReceptionMessageListener();
-        activeReceptionMessageListener = null;
-    }
+    activeReceptionMessageListener();
+    activeReceptionMessageListener = null;
+}
+
+// Reset the rendered-message cache for the new conversation.
+const oldMessagesContainer =
+    document.querySelector(".wa-chat-messages");
+
+if (oldMessagesContainer) {
+    oldMessagesContainer._renderedMessages = new Map();
+}
 
 // Mark this conversation as read by Reception.
 const unreadIndicator =
