@@ -36,39 +36,23 @@ export function listenToDepartmentConversations(
         where("department", "==", department)
     );
 
-   
-return onSnapshot(
-    messagesQuery,
-    (snapshot) => {
+    return onSnapshot(
+        conversationsQuery,
+        (snapshot) => {
         console.count("Firestore message snapshot received");
-        console.log(
-            "Snapshot document count:",
-            snapshot.size
-        );
-        console.log(
-            "Changed document types:",
-            snapshot.docChanges().map((change) => ({
-                type: change.type,
-                id: change.doc.id,
-                data: change.doc.data()
-            }))
-        );
+        console.log("Snapshot document count:", snapshot.size);
+            const conversations = snapshot.docs.map(
+                (item) => ({
+                    id: item.id,
+                    ...item.data()
+                })
+            );
 
-        const messages = snapshot.docs.map((item) => ({
-            id: item.id,
-            ...item.data()
-        }));
-
-        console.log(
-            "Messages passed to dashboard:",
-            messages.length
-        );
-
-        callback(messages);
-    },
-    onError
-);
-
+            callback(conversations);
+        },
+        onError
+    );
+}
 
 // Listen to messages inside one conversation.
 export function listenToConversationMessages(
