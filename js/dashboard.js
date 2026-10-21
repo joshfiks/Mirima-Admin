@@ -9330,7 +9330,7 @@ const wasNearBottom =
     previousScrollHeight -
     previousScrollTop -
     previousClientHeight < 150;
-
+console.count("Reception chat message list rebuilt");
 messagesContainer.innerHTML = "";
 
 let previousMessageDate = "";
