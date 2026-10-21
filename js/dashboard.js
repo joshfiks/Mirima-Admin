@@ -9319,6 +9319,18 @@ chatWindow.innerHTML = `
                 }
 
             
+// Remember the current scroll position before rebuilding messages.
+const previousScrollTop = messagesContainer.scrollTop;
+
+const previousScrollHeight = messagesContainer.scrollHeight;
+
+const previousClientHeight = messagesContainer.clientHeight;
+
+const wasNearBottom =
+    previousScrollHeight -
+    previousScrollTop -
+    previousClientHeight < 150;
+
 messagesContainer.innerHTML = "";
 
 let previousMessageDate = "";
@@ -10274,16 +10286,18 @@ messagesContainer.appendChild(messageElement);
 
 });
 
-const isNearBottom =
-    messagesContainer.scrollHeight -
-    messagesContainer.scrollTop -
-    messagesContainer.clientHeight < 150;
-
-if (isNearBottom) {
+if (wasNearBottom) {
+    // Keep the latest message visible when already near the bottom.
     messagesContainer.scrollTop =
         messagesContainer.scrollHeight;
-}
-    
+} else {
+    // Preserve the reader's position when viewing older messages.
+    const scrollHeightDifference =
+        messagesContainer.scrollHeight - previousScrollHeight;
+
+    messagesContainer.scrollTop =
+        previousScrollTop + scrollHeightDifference;
+}              
 
             },
             function (error) {
