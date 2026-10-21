@@ -9372,12 +9372,28 @@ messages.forEach(function (item) {
             : item.guestReadAt
     });
 
-    if (
-        cachedMessage &&
-        cachedMessage.signature === messageSignature
-    ) {
-       return;
+if (
+    cachedMessage &&
+    cachedMessage.signature === messageSignature
+) {
+    const cachedDate = item.createdAt
+        ? (
+            item.createdAt.toDate
+                ? item.createdAt.toDate()
+                : new Date(item.createdAt)
+        )
+        : null;
+
+    if (cachedDate && !isNaN(cachedDate.getTime())) {
+        previousMessageDate = [
+            cachedDate.getFullYear(),
+            String(cachedDate.getMonth() + 1).padStart(2, "0"),
+            String(cachedDate.getDate()).padStart(2, "0")
+        ].join("-");
     }
+
+    return;
+}
 
     const messageElement =
         document.createElement("div");
