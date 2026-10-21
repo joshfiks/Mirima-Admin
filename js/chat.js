@@ -54,7 +54,8 @@ export function listenToDepartmentConversations(
     );
 }
 
-// Listen to messages inside one conversation.
+
+ // Listen to messages inside one conversation.
 export function listenToConversationMessages(
     conversationId,
     callback,
@@ -75,19 +76,30 @@ export function listenToConversationMessages(
     return onSnapshot(
         messagesQuery,
         (snapshot) => {
-            const messages = snapshot.docs.map(
-                (item) => ({
-                    id: item.id,
-                    ...item.data()
-                })
+            console.count("Firestore message snapshot received");
+            console.log("Snapshot document count:", snapshot.size);
+
+            console.log(
+                "Changed document types:",
+                snapshot.docChanges().map((change) => ({
+                    type: change.type,
+                    id: change.doc.id,
+                    data: change.doc.data()
+                }))
             );
+
+            const messages = snapshot.docs.map((item) => ({
+                id: item.id,
+                ...item.data()
+            }));
+
+            console.log("Messages passed to dashboard:", messages.length);
 
             callback(messages);
         },
         onError
     );
 }
-
 
  // Send a text reply or attachment from Mirima Admin.
 export async function sendChatMessage(
