@@ -80,13 +80,12 @@ export function listenToConversationMessages(
             console.log("Snapshot document count:", snapshot.size);
 
             console.log(
-                "Changed document types:",
-                snapshot.docChanges().map((change) => ({
-                    type: change.type,
-                    id: change.doc.id,
-                    data: change.doc.data()
-                }))
-            );
+    "Changed document types:",
+    snapshot.docChanges().map((change) => ({
+        type: change.type,
+        id: change.doc.id
+    }))
+);
 
             const messages = snapshot.docs.map((item) => ({
                 id: item.id,
