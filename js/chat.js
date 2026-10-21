@@ -79,11 +79,12 @@ export function listenToConversationMessages(
             console.count("Firestore message snapshot received");
             console.log("Snapshot document count:", snapshot.size);
 
-            console.log(
-    "Changed document types:",
+        console.log(
+    "Changed document details:",
     snapshot.docChanges().map((change) => ({
         type: change.type,
-        id: change.doc.id
+        id: change.doc.id,
+        data: change.doc.data()
     }))
 );
 
