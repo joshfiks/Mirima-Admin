@@ -86,17 +86,25 @@ export function listenToConversationMessages(
     );
 }
 
-// Send a reply from Mirima Admin.
+
+ // Send a text reply or attachment from Mirima Admin.
 export async function sendChatMessage(
     conversationId,
     sender,
-    message
+    message,
+    attachment = null
 ) {
-    const cleanMessage = message.trim();
+    const cleanMessage =
+        typeof message === "string" ? message.trim() : "";
 
-    if (!conversationId || !cleanMessage) {
+    if (!conversationId) {
+        throw new Error("A conversation is required.");
+    }
+
+    // Require either text or an attachment.
+    if (!cleanMessage && !attachment?.attachmentUrl) {
         throw new Error(
-            "A conversation and message are required."
+            "A message or attachment is required."
         );
     }
 
@@ -114,6 +122,23 @@ export async function sendChatMessage(
         throw new Error("Conversation not found.");
     }
 
+    // Build the message using the existing Firestore structure.
+    const messageData = {
+        sender,
+        senderName: "Reception",
+        message: cleanMessage,
+        createdAt: serverTimestamp()
+    };
+
+    // Add attachment fields only when an attachment is provided.
+    if (attachment?.attachmentUrl) {
+        messageData.attachmentUrl = attachment.attachmentUrl;
+        messageData.attachmentName = attachment.attachmentName || "Attachment";
+        messageData.attachmentType =
+            attachment.attachmentType || "application/octet-stream";
+        messageData.attachmentSize = attachment.attachmentSize || 0;
+    }
+
     await addDoc(
         collection(
             db,
@@ -121,21 +146,14 @@ export async function sendChatMessage(
             conversationId,
             "messages"
         ),
-        {
-            sender,
-            senderName: "Reception",
-            message: cleanMessage,
-            createdAt: serverTimestamp()
-        }
+        messageData
     );
 
-    await updateDoc(
-        conversationRef,
-        {
-            updatedAt: serverTimestamp()
-        }
-    );
+    await updateDoc(conversationRef, {
+        updatedAt: serverTimestamp()
+    });
 }
+
 // ==========================================
 // GET LATEST MESSAGE FOR A CONVERSATION
 // ==========================================
