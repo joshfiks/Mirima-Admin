@@ -9253,6 +9253,29 @@ updateDoc(
                     </svg>
                 </button>
 
+
+                <!-- Pending attachment preview -->
+                <div
+                    id="waAttachmentPreview"
+                    class="wa-attachment-preview"
+                    hidden
+                >
+                    <div
+                        id="waAttachmentPreviewContent"
+                        class="wa-attachment-preview-content"
+                    ></div>
+
+                    <button
+                        type="button"
+                        id="waCancelAttachment"
+                        class="wa-cancel-attachment"
+                        aria-label="Cancel attachment"
+                        title="Remove attachment"
+                    >
+                        &times;
+                    </button>
+                </div>
+
                 <button
                     type="submit"
                     class="wa-send-button"
@@ -9319,6 +9342,7 @@ updateDoc(
     }
 
 
+    
     // Connect the paperclip button to the file picker
     const attachButton =
         chatWindow.querySelector("#waAttachButton");
@@ -9326,27 +9350,135 @@ updateDoc(
     const attachmentInput =
         chatWindow.querySelector("#waAttachmentInput");
 
+    const attachmentPreview =
+        chatWindow.querySelector("#waAttachmentPreview");
+
+    const previewContent =
+        chatWindow.querySelector("#waAttachmentPreviewContent");
+
+    const cancelAttachmentButton =
+        chatWindow.querySelector("#waCancelAttachment");
+
+    let pendingAttachmentPreviewUrl = null;
+
+    function clearAttachmentPreview() {
+        if (pendingAttachmentPreviewUrl) {
+            URL.revokeObjectURL(pendingAttachmentPreviewUrl);
+            pendingAttachmentPreviewUrl = null;
+        }
+
+        if (previewContent) {
+            previewContent.replaceChildren();
+        }
+
+        if (attachmentPreview) {
+            attachmentPreview.hidden = true;
+        }
+
+        if (attachmentInput) {
+            attachmentInput.value = "";
+        }
+    }
+
     if (attachButton && attachmentInput) {
         attachButton.addEventListener("click", function () {
             attachmentInput.click();
         });
     }
 
-   // Detect the selected attachment
-if (attachmentInput) {
-    attachmentInput.addEventListener("change", function () {
-        const file = attachmentInput.files[0];
+    // Preview the selected file before sending
+    if (attachmentInput) {
+        attachmentInput.addEventListener("change", function () {
+            const file = attachmentInput.files[0];
 
-        if (!file) return;
+            if (!file || !attachmentPreview || !previewContent) {
+                return;
+            }
 
-        console.log("Reception attachment selected:", {
-            name: file.name,
-            type: file.type,
-            size: file.size
+            clearAttachmentPreview();
+
+            // Restore the selected file after clearing the preview UI.
+            attachmentInput.files = (() => {
+                const transfer = new DataTransfer();
+                transfer.items.add(file);
+                return transfer.files;
+            })();
+
+            const fileInfo = document.createElement("div");
+            fileInfo.className = "wa-pending-file-info";
+
+            const fileName = document.createElement("div");
+            fileName.className = "wa-pending-file-name";
+            fileName.textContent = file.name;
+
+            const fileSize = document.createElement("div");
+            fileSize.className = "wa-pending-file-size";
+            fileSize.textContent =
+                (file.size / (1024 * 1024)).toFixed(2) + " MB";
+
+            fileInfo.append(fileName, fileSize);
+
+            const fileType = file.type || "";
+
+            if (fileType.startsWith("image/")) {
+                const image = document.createElement("img");
+                pendingAttachmentPreviewUrl =
+                    URL.createObjectURL(file);
+                image.src = pendingAttachmentPreviewUrl;
+                image.alt = file.name;
+                image.className = "wa-pending-image";
+                previewContent.appendChild(image);
+
+            } else if (fileType.startsWith("audio/")) {
+                const audio = document.createElement("audio");
+                pendingAttachmentPreviewUrl =
+                    URL.createObjectURL(file);
+                audio.src = pendingAttachmentPreviewUrl;
+                audio.controls = true;
+                audio.preload = "metadata";
+                audio.className = "wa-pending-audio";
+                previewContent.appendChild(audio);
+
+            } else if (fileType.startsWith("video/")) {
+                const video = document.createElement("video");
+                pendingAttachmentPreviewUrl =
+                    URL.createObjectURL(file);
+                video.src = pendingAttachmentPreviewUrl;
+                video.controls = true;
+                video.preload = "metadata";
+                video.playsInline = true;
+                video.className = "wa-pending-video";
+                previewContent.appendChild(video);
+
+            } else {
+                const fileIcon = document.createElement("div");
+                fileIcon.className = "wa-pending-document-icon";
+                fileIcon.textContent =
+                    fileType === "application/pdf" ||
+                    file.name.toLowerCase().endsWith(".pdf")
+                        ? "📕 PDF"
+                        : "📎 Document";
+
+                previewContent.appendChild(fileIcon);
+            }
+
+            previewContent.appendChild(fileInfo);
+            attachmentPreview.hidden = false;
+
+            console.log("Reception attachment ready to send:", {
+                name: file.name,
+                type: file.type,
+                size: file.size
+            });
         });
-    });
-}
+    }
 
+    // Cancel the selected attachment
+    if (cancelAttachmentButton) {
+        cancelAttachmentButton.addEventListener("click", function () {
+            clearAttachmentPreview();
+        });
+    }
 
    
     // Reception voice-note recording
