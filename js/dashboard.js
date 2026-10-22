@@ -9232,7 +9232,7 @@ updateDoc(
                     type="text"
                     placeholder="Type a message"
                     autocomplete="off"
-                    required
+                    
                 >
 
                 <button
