@@ -10275,8 +10275,6 @@ const replyForm =
 const replyInput =
     document.getElementById("liveChatReplyInput");
 
-const attachmentInput =
-    chatWindow.querySelector("#waAttachmentInput");
 
 replyForm.addEventListener("submit", async function (event) {
     event.preventDefault();
