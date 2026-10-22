@@ -9069,17 +9069,9 @@ function openReceptionChatConversation(conversation) {
     }
 
     if (activeReceptionMessageListener) {
-    activeReceptionMessageListener();
-    activeReceptionMessageListener = null;
-}
-
-// Reset the rendered-message cache for the new conversation.
-const oldMessagesContainer =
-    document.querySelector(".wa-chat-messages");
-
-if (oldMessagesContainer) {
-    oldMessagesContainer._renderedMessages = new Map();
-}
+        activeReceptionMessageListener();
+        activeReceptionMessageListener = null;
+    }
 
 // Mark this conversation as read by Reception.
 const unreadIndicator =
@@ -9327,73 +9319,11 @@ chatWindow.innerHTML = `
                 }
 
             
-// Remember the current scroll position before rebuilding messages.
-const previousScrollTop = messagesContainer.scrollTop;
-
-const previousScrollHeight = messagesContainer.scrollHeight;
-
-const previousClientHeight = messagesContainer.clientHeight;
-
-const wasNearBottom =
-    previousScrollHeight -
-    previousScrollTop -
-    previousClientHeight < 150;
-console.count("Reception chat message list rebuilt");
-// Keep existing message elements to prevent PDF and media flickering.
-if (!messagesContainer._renderedMessages) {
-    messagesContainer._renderedMessages = new Map();
-}
+messagesContainer.innerHTML = "";
 
 let previousMessageDate = "";
 
 messages.forEach(function (item) {
-
-       const messageId = item.id;
-
-    const cachedMessage =
-        messagesContainer._renderedMessages.get(messageId);
-
-    const messageSignature = JSON.stringify({
-        sender: item.sender,
-        senderName: item.senderName,
-        message: item.message,
-        createdAt: item.createdAt?.toDate
-            ? item.createdAt.toDate().getTime()
-            : item.createdAt,
-        attachmentUrl: item.attachmentUrl,
-        attachmentName: item.attachmentName,
-        attachmentType: item.attachmentType,
-        attachmentSize: item.attachmentSize,
-        guestDeliveredAt: item.guestDeliveredAt?.toDate
-            ? item.guestDeliveredAt.toDate().getTime()
-            : item.guestDeliveredAt,
-        guestReadAt: item.guestReadAt?.toDate
-            ? item.guestReadAt.toDate().getTime()
-            : item.guestReadAt
-    });
-
-if (
-    cachedMessage &&
-    cachedMessage.signature === messageSignature
-) {
-    const cachedDate = item.createdAt
-        ? (
-            item.createdAt.toDate
-                ? item.createdAt.toDate()
-                : new Date(item.createdAt)
-        )
-        : null;
-
-    if (cachedDate && !isNaN(cachedDate.getTime())) {
-        previousMessageDate = [
-            cachedDate.getFullYear(),
-            String(cachedDate.getMonth() + 1).padStart(2, "0"),
-            String(cachedDate.getDate()).padStart(2, "0")
-        ].join("-");
-    }
-
-    return;
-}
 
     const messageElement =
         document.createElement("div");
@@ -10340,34 +10270,20 @@ if (item.sender === "reception") {
 }
 
 
-const existingMessage =
-    messagesContainer._renderedMessages.get(messageId);
-
-if (existingMessage) {
-    existingMessage.element.replaceWith(messageElement);
-} else {
-    messagesContainer.appendChild(messageElement);
-}
-
-messagesContainer._renderedMessages.set(messageId, {
-    signature: messageSignature,
-    element: messageElement
-});
+messagesContainer.appendChild(messageElement);
 
 });
 
-if (wasNearBottom) {
-    // Keep the latest message visible when already near the bottom.
+const isNearBottom =
+    messagesContainer.scrollHeight -
+    messagesContainer.scrollTop -
+    messagesContainer.clientHeight < 150;
+
+if (isNearBottom) {
     messagesContainer.scrollTop =
         messagesContainer.scrollHeight;
-} else {
-    // Preserve the reader's position when viewing older messages.
-    const scrollHeightDifference =
-        messagesContainer.scrollHeight - previousScrollHeight;
-
-    messagesContainer.scrollTop =
-        previousScrollTop + scrollHeightDifference;
-}              
+}
+    
 
             },
             function (error) {
