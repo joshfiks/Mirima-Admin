@@ -10268,39 +10268,105 @@ messagesContainer.scrollHeight;
             }
         );
 
-    const replyForm =
-        document.getElementById("liveChatReplyForm");
 
-    replyForm.addEventListener("submit", async function (event) {
-        event.preventDefault();
+const replyForm =
+    document.getElementById("liveChatReplyForm");
 
-        const replyInput =
-            document.getElementById("liveChatReplyInput");
+const replyInput =
+    document.getElementById("liveChatReplyInput");
 
-        const reply = replyInput.value.trim();
+const attachmentInput =
+    chatWindow.querySelector("#waAttachmentInput");
 
-        if (!reply) {
-            return;
-        }
+replyForm.addEventListener("submit", async function (event) {
+    event.preventDefault();
 
-        const sendButton =
-            replyForm.querySelector("button");
+    const reply = replyInput.value.trim();
+    const file = attachmentInput?.files?.[0] || null;
 
+    // Allow text-only, attachment-only, or combined messages.
+    if (!reply && !file) {
+        return;
+    }
+
+    const sendButton =
+        replyForm.querySelector('button[type="submit"]');
+
+    if (sendButton) {
         sendButton.disabled = true;
+    }
 
-        try {
-            await sendChatMessage(
-                conversation.id,
-                "reception",
-                reply
+    try {
+        let attachment = null;
+
+        // Upload the selected file to Cloudinary first.
+        if (file) {
+            const uploadData = new FormData();
+
+            uploadData.append("file", file);
+            uploadData.append(
+                "upload_preset",
+                "mirima_chat_uploads"
             );
 
-            replyInput.value = "";
-        } catch (error) {
-            console.error("Reception reply failed:", error);
-            alert("Message could not be sent. Please try again.");
-        } finally {
+            const response = await fetch(
+                "https://api.cloudinary.com/v1_1/cqsnkbge/auto/upload",
+                {
+                    method: "POST",
+                    body: uploadData
+                }
+            );
+
+            const uploadResult = await response.json();
+
+            if (!response.ok || !uploadResult.secure_url) {
+                console.error(
+                    "Cloudinary upload failed:",
+                    uploadResult
+                );
+
+                throw new Error("Attachment upload failed.");
+            }
+
+            attachment = {
+                attachmentUrl: uploadResult.secure_url,
+                attachmentName: file.name,
+                attachmentType:
+                    file.type || "application/octet-stream",
+                attachmentSize: file.size
+            };
+        }
+
+        // Save the message using the existing chat function.
+        await sendChatMessage(
+            conversation.id,
+            "reception",
+            reply,
+            attachment
+        );
+
+        // Clear the composer only after a successful send.
+        replyInput.value = "";
+
+        if (attachmentInput) {
+            attachmentInput.value = "";
+        }
+
+    } catch (error) {
+        console.error(
+            "Reception message or attachment failed:",
+            error
+        );
+
+        alert(
+            "Message or attachment could not be sent. Please try again."
+        );
+
+    } finally {
+        if (sendButton) {
             sendButton.disabled = false;
         }
-    });
+    }
+});
+
 }
