@@ -9117,16 +9117,24 @@ updateDoc(
                     </svg>
                 </button>
 
-                <div class="wa-avatar" aria-hidden="true">
-                    <svg viewBox="0 0 24 24">
-                        <circle cx="12" cy="8" r="4"
-                            fill="none" stroke="currentColor"
-                            stroke-width="1.8"/>
-                        <path d="M4 21c0-4.2 3.2-7 8-7s8 2.8 8 7"
-                            fill="none" stroke="currentColor"
-                            stroke-width="1.8" stroke-linecap="round"/>
-                    </svg>
-                </div>
+                
+<button
+    type="button"
+    class="wa-avatar wa-profile-avatar"
+    id="waProfileAvatar"
+    aria-label="View guest profile photo"
+    title="View guest profile photo"
+>
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+        <circle cx="12" cy="8" r="4"
+            fill="none" stroke="currentColor"
+            stroke-width="1.8"/>
+        <path d="M4 21c0-4.2 3.2-7 8-7s8 2.8 8 7"
+            fill="none" stroke="currentColor"
+            stroke-width="1.8" stroke-linecap="round"/>
+    </svg>
+</button>
+
 
                 <div class="wa-chat-contact">
                     <h4>${conversation.guestName || "Guest"}</h4>
