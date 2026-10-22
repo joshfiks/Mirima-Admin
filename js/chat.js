@@ -40,15 +40,6 @@ export function listenToDepartmentConversations(
         conversationsQuery,
         (snapshot) => {
         console.count("Firestore message snapshot received");
-         console.log(
-    "SNAPSHOT CHANGES:",
-    snapshot.docChanges().map(change => ({
-        type: change.type,
-        id: change.doc.id,
-        guestDeliveredAt: change.doc.data().guestDeliveredAt,
-        guestReadAt: change.doc.data().guestReadAt
-    }))
-);
         console.log("Snapshot document count:", snapshot.size);
             const conversations = snapshot.docs.map(
                 (item) => ({
@@ -63,8 +54,7 @@ export function listenToDepartmentConversations(
     );
 }
 
-
- // Listen to messages inside one conversation.
+// Listen to messages inside one conversation.
 export function listenToConversationMessages(
     conversationId,
     callback,
@@ -85,39 +75,19 @@ export function listenToConversationMessages(
     return onSnapshot(
         messagesQuery,
         (snapshot) => {
-            console.count("Firestore message snapshot received");
-            console.log("Snapshot document count:", snapshot.size);
-
-       
-snapshot.docChanges().forEach((change) => {
-    console.log("CHANGED MESSAGE ID:", change.doc.id);
-
-    console.log(
-        "CHANGED FIELD VALUES (JSON):",
-        JSON.stringify(
-            change.doc.data(),
-            (key, value) =>
-                value && typeof value.toDate === "function"
-                    ? value.toDate().toISOString()
-                    : value,
-            2
-        )
-    );
-});
-
-
-            const messages = snapshot.docs.map((item) => ({
-                id: item.id,
-                ...item.data()
-            }));
-
-            console.log("Messages passed to dashboard:", messages.length);
+            const messages = snapshot.docs.map(
+                (item) => ({
+                    id: item.id,
+                    ...item.data()
+                })
+            );
 
             callback(messages);
         },
         onError
     );
 }
+
 
  // Send a text reply or attachment from Mirima Admin.
 export async function sendChatMessage(
