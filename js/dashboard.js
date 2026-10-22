@@ -9221,10 +9221,11 @@ updateDoc(
                 </button>
 
                 <input
-                    type="file"
-                    id="waAttachmentInput"
-                    hidden
-                >
+                 type="file"
+                id="waAttachmentInput"
+                accept="image/*,audio/*,video/*,.pdf,.doc,.docx,.xls,.xlsx,.ppt,.pptx,.txt,.csv,.rtf,.odt,.ods,.odp"
+                  hidden
+                 >
 
                 <input
                     id="liveChatReplyInput"
