@@ -10299,15 +10299,70 @@ if (
 
     messageElement.appendChild(image);
 
+} else if (
+    item.attachmentUrl &&
+    item.attachmentType &&
+    item.attachmentType.startsWith("audio/")
+) {
+    // AUDIO OR SONG ATTACHMENT
+    const audio = document.createElement("audio");
+    audio.className = "wa-audio-attachment";
+    audio.controls = true;
+    audio.preload = "metadata";
+    audio.src = item.attachmentUrl;
+
+    audio.setAttribute(
+        "aria-label",
+        item.attachmentName || "Audio attachment"
+    );
+
+    messageElement.appendChild(audio);
+
+    const audioName = document.createElement("a");
+    audioName.className = "wa-file-attachment";
+    audioName.href = item.attachmentUrl;
+    audioName.target = "_blank";
+    audioName.rel = "noopener noreferrer";
+    audioName.textContent =
+        item.attachmentName || "Open audio file";
+
+    messageElement.appendChild(audioName);
+
+} else if (
+    item.attachmentUrl &&
+    item.attachmentType &&
+    item.attachmentType.startsWith("video/")
+) {
+    // VIDEO ATTACHMENT
+    const video = document.createElement("video");
+    video.className = "wa-video-attachment";
+    video.controls = true;
+    video.preload = "metadata";
+    video.src = item.attachmentUrl;
+    video.playsInline = true;
+    video.style.maxWidth = "100%";
+
+    messageElement.appendChild(video);
+
+    const videoName = document.createElement("a");
+    videoName.className = "wa-file-attachment";
+    videoName.href = item.attachmentUrl;
+    videoName.target = "_blank";
+    videoName.rel = "noopener noreferrer";
+    videoName.textContent =
+        item.attachmentName || "Open video";
+
+    messageElement.appendChild(videoName);
 
 } else if (item.attachmentUrl) {
-    // OTHER FILE ATTACHMENT
+    // PDF OR OTHER DOCUMENT ATTACHMENT
     const fileLink = document.createElement("a");
     fileLink.className = "wa-file-attachment";
     fileLink.href = item.attachmentUrl;
     fileLink.target = "_blank";
     fileLink.rel = "noopener noreferrer";
-    fileLink.textContent = item.attachmentName || "Open attachment";
+    fileLink.textContent =
+        "📎 " + (item.attachmentName || "Open attachment");
 
     messageElement.appendChild(fileLink);
 
@@ -10320,7 +10375,6 @@ if (
 
     messageElement.appendChild(textElement);
 }
-
 
     // Display the message's sent time.
     const timeElement =
