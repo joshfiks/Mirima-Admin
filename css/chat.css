@@ -1807,3 +1807,45 @@
         max-height: 94vh;
     }
 }
+
+/* Reception guest profile photo preview */
+.wa-profile-photo-preview {
+    position: fixed;
+    inset: 0;
+    z-index: 10000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    background: rgba(0, 0, 0, 0.75);
+}
+
+.wa-profile-photo-preview-content {
+    position: relative;
+    width: min(360px, 100%);
+    min-height: 220px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    border-radius: 12px;
+    background: #26362c;
+    color: #ffffff;
+    text-align: center;
+}
+
+.wa-profile-photo-close {
+    position: absolute;
+    top: 8px;
+    right: 12px;
+    border: 0;
+    background: transparent;
+    color: #ffffff;
+    font-size: 28px;
+    cursor: pointer;
+}
+
+.wa-profile-photo-placeholder {
+    padding: 20px;
+    color: #d1b675;
+}
