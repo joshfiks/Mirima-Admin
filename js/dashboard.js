@@ -9272,6 +9272,53 @@ updateDoc(
         </div>
     `;
 
+
+    // Handle clicks on the guest profile avatar
+    const profileAvatar =
+        chatWindow.querySelector("#waProfileAvatar");
+
+    if (profileAvatar) {
+        profileAvatar.addEventListener("click", function () {
+            console.log("Guest avatar clicked!");
+
+            let preview =
+                document.getElementById("waProfilePhotoPreview");
+
+            if (!preview) {
+                preview = document.createElement("div");
+                preview.id = "waProfilePhotoPreview";
+                preview.className = "wa-profile-photo-preview";
+
+                preview.innerHTML = `
+                    <div class="wa-profile-photo-preview-content"
+                         role="dialog"
+                         aria-modal="true"
+                         aria-label="Guest profile photo">
+                        <button type="button"
+                                class="wa-profile-photo-close"
+                                aria-label="Close photo preview">&times;</button>
+                        <div class="wa-profile-photo-placeholder">
+                            Guest profile photo is not available yet.
+                        </div>
+                    </div>
+                `;
+
+                document.body.appendChild(preview);
+
+                preview.addEventListener("click", function (event) {
+                    if (
+                        event.target === preview ||
+                        event.target.closest(".wa-profile-photo-close")
+                    ) {
+                        preview.remove();
+                    }
+                });
+            }
+        });
+    }
+
+
+   
     const messagesContainer =
         document.getElementById("liveChatMessages");
 
