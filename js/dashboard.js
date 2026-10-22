@@ -9331,6 +9331,20 @@ updateDoc(
         });
     }
 
+   // Detect the selected attachment
+if (attachmentInput) {
+    attachmentInput.addEventListener("change", function () {
+        const file = attachmentInput.files[0];
+
+        if (!file) return;
+
+        console.log("Reception attachment selected:", {
+            name: file.name,
+            type: file.type,
+            size: file.size
+        });
+    });
+}
    
     const messagesContainer =
         document.getElementById("liveChatMessages");
