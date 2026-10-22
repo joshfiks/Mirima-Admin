@@ -9351,6 +9351,10 @@ if (attachmentInput) {
     // Reception voice-note recording
     const voiceButton =
         chatWindow.querySelector("#waVoiceButton");
+   
+   if (voiceButton) {
+    voiceButton.title = "Tap to record voice note";
+}
 
     let voiceRecorder = null;
     let voiceChunks = [];
@@ -9418,12 +9422,15 @@ if (attachmentInput) {
                             track => track.stop()
                         );
 
-                        voiceButton.title =
-                            "Voice note recorded. Click Send to send it.";
-                        voiceButton.setAttribute(
-                            "aria-label",
-                            "Voice note recorded"
-                        );
+                       
+                   voiceButton.classList.remove("wa-recording");
+
+                  voiceButton.title = "Voice note ready — click Send";
+                voiceButton.setAttribute(
+                "aria-label",
+                 "Voice note ready — click Send"
+               );
+
 
                         alert(
                             "Voice note recorded. Click Send to send it."
@@ -9433,12 +9440,13 @@ if (attachmentInput) {
 
                 voiceRecorder.start();
 
-                voiceButton.title =
-                    "Recording... click to stop";
-                voiceButton.setAttribute(
-                    "aria-label",
-                    "Stop recording"
-                );
+           voiceButton.title = "Tap to stop recording";
+            voiceButton.setAttribute(
+             "aria-label",
+             "Tap to stop recording"
+          );
+          voiceButton.classList.add("wa-recording");
+               
 
             } catch (error) {
                 console.error(
