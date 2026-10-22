@@ -1873,6 +1873,7 @@
    PENDING ATTACHMENT PREVIEW
    ========================================= */
 
+
 .wa-attachment-preview {
     position: relative;
     display: flex;
@@ -1885,11 +1886,13 @@
     padding: 8px 36px 8px 8px;
     gap: 10px;
 
-    background: #f0f2f5;
-    border: 1px solid #dfe3e8;
+    background: #e9edf2;
+    border: 1px solid #aeb8c5;
     border-radius: 12px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.10);
     overflow: hidden;
 }
+
 
 .wa-attachment-preview[hidden] {
     display: none !important;
