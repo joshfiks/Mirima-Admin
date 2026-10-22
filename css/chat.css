@@ -1849,3 +1849,21 @@
     padding: 20px;
     color: #d1b675;
 }
+
+/* Reception voice-note recording indicator */
+#waVoiceButton.wa-recording {
+    color: #dc2626;
+    background-color: #fee2e2;
+    border-radius: 50%;
+    animation: waVoicePulse 1s ease-in-out infinite;
+}
+
+@keyframes waVoicePulse {
+    0%, 100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.45;
+    }
+}
