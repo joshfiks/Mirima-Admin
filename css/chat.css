@@ -77,6 +77,20 @@
     height: 26px;
 }
 
+
+/* Clickable guest profile avatar */
+.wa-chat .wa-profile-avatar {
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    font: inherit;
+}
+
+.wa-chat .wa-profile-avatar:focus-visible {
+    outline: 2px solid #d1b675;
+    outline-offset: 3px;
+}
+
 .wa-chat .wa-chat-contact {
     flex: 1;
     min-width: 0;
