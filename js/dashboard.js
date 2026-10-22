@@ -10102,111 +10102,6 @@ if (
     messageElement.appendChild(image);
 
 
-
-} else if (
-    item.attachmentUrl &&
-    (
-        item.attachmentType === "application/pdf" ||
-        (item.attachmentName || "").toLowerCase().endsWith(".pdf")
-    )
-) {
-    // PDF DOCUMENT PREVIEW
-    const pdfCard = document.createElement("div");
-    pdfCard.className = "wa-pdf-attachment";
-
-    const pdfPreview = document.createElement("iframe");
-    pdfPreview.className = "wa-pdf-thumbnail";
-    pdfPreview.src = item.attachmentUrl + "#toolbar=0&navpanes=0&scrollbar=0";
-    pdfPreview.title = item.attachmentName || "PDF document preview";
-    pdfPreview.loading = "lazy";
-    pdfPreview.setAttribute("aria-label", "PDF preview");
-
-    const pdfInfo = document.createElement("div");
-    pdfInfo.className = "wa-pdf-info";
-
-    const pdfIcon = document.createElement("div");
-    pdfIcon.className = "wa-pdf-icon";
-    pdfIcon.textContent = "PDF";
-
-    const pdfDetails = document.createElement("div");
-    pdfDetails.className = "wa-pdf-details";
-
-    const pdfName = document.createElement("div");
-    pdfName.className = "wa-pdf-name";
-    pdfName.textContent = item.attachmentName || "Document.pdf";
-
-    const pdfLabel = document.createElement("div");
-    pdfLabel.className = "wa-pdf-label";
-    pdfLabel.textContent = "PDF document · Click to open";
-
-    pdfDetails.append(pdfName, pdfLabel);
-    pdfInfo.append(pdfIcon, pdfDetails);
-    pdfCard.append(pdfPreview, pdfInfo);
-
-    // Open a larger PDF preview inside Admin.
-    pdfCard.style.cursor = "pointer";
-
-    pdfCard.addEventListener("click", function () {
-        let overlay = document.getElementById("waPdfPreviewOverlay");
-
-        if (!overlay) {
-            overlay = document.createElement("div");
-            overlay.id = "waPdfPreviewOverlay";
-            overlay.className = "wa-pdf-preview-overlay";
-
-            const panel = document.createElement("div");
-            panel.className = "wa-pdf-preview-panel";
-
-            const header = document.createElement("div");
-            header.className = "wa-pdf-preview-header";
-
-            const title = document.createElement("span");
-            title.className = "wa-pdf-preview-title";
-
-            const closeButton = document.createElement("button");
-            closeButton.type = "button";
-            closeButton.className = "wa-pdf-preview-close";
-            closeButton.textContent = "✕";
-            closeButton.setAttribute("aria-label", "Close PDF preview");
-
-            const frame = document.createElement("iframe");
-            frame.className = "wa-pdf-preview-frame";
-            frame.title = "PDF document";
-
-            function closePdfPreview() {
-                overlay.style.display = "none";
-                frame.src = "about:blank";
-            }
-
-            closeButton.addEventListener("click", closePdfPreview);
-
-            overlay.addEventListener("click", function (event) {
-                if (event.target === overlay) {
-                    closePdfPreview();
-                }
-            });
-
-            header.append(title, closeButton);
-            panel.append(header, frame);
-            overlay.appendChild(panel);
-            document.body.appendChild(overlay);
-
-            // Save references for the selected document.
-            overlay._pdfFrame = frame;
-            overlay._pdfTitle = title;
-        }
-
-        overlay._pdfTitle.textContent =
-            item.attachmentName || "PDF document";
-
-        overlay._pdfFrame.src =
-            item.attachmentUrl + "#toolbar=1&navpanes=0";
-
-        overlay.style.display = "flex";
-    });
-
-    messageElement.appendChild(pdfCard);
-
 } else if (item.attachmentUrl) {
     // OTHER FILE ATTACHMENT
     const fileLink = document.createElement("a");
@@ -10217,7 +10112,7 @@ if (
     fileLink.textContent = item.attachmentName || "Open attachment";
 
     messageElement.appendChild(fileLink);
-  
+
 } else {
     // ORDINARY TEXT MESSAGE
     const textElement = document.createElement("span");
@@ -10227,6 +10122,7 @@ if (
 
     messageElement.appendChild(textElement);
 }
+
 
     // Display the message's sent time.
     const timeElement =
