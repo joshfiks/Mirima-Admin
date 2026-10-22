@@ -9345,7 +9345,114 @@ if (attachmentInput) {
         });
     });
 }
+
+
    
+    // Reception voice-note recording
+    const voiceButton =
+        chatWindow.querySelector("#waVoiceButton");
+
+    let voiceRecorder = null;
+    let voiceChunks = [];
+    let recordedVoiceFile = null;
+
+    if (voiceButton) {
+        voiceButton.addEventListener("click", async function () {
+            // Stop recording when the microphone is clicked again.
+            if (
+                voiceRecorder &&
+                voiceRecorder.state === "recording"
+            ) {
+                voiceRecorder.stop();
+                return;
+            }
+
+            if (!navigator.mediaDevices?.getUserMedia ||
+                typeof MediaRecorder === "undefined") {
+                alert(
+                    "Voice recording is not supported by this browser."
+                );
+                return;
+            }
+
+            try {
+                const stream =
+                    await navigator.mediaDevices.getUserMedia({
+                        audio: true
+                    });
+
+                voiceChunks = [];
+                recordedVoiceFile = null;
+
+                voiceRecorder = new MediaRecorder(stream);
+
+                voiceRecorder.addEventListener(
+                    "dataavailable",
+                    function (event) {
+                        if (event.data.size > 0) {
+                            voiceChunks.push(event.data);
+                        }
+                    }
+                );
+
+                voiceRecorder.addEventListener(
+                    "stop",
+                    function () {
+                        const audioBlob = new Blob(
+                            voiceChunks,
+                            {
+                                type: voiceRecorder.mimeType ||
+                                    "audio/webm"
+                            }
+                        );
+
+                        recordedVoiceFile = new File(
+                            [audioBlob],
+                            "voice-note.webm",
+                            {
+                                type: audioBlob.type
+                            }
+                        );
+
+                        stream.getTracks().forEach(
+                            track => track.stop()
+                        );
+
+                        voiceButton.title =
+                            "Voice note recorded. Click Send to send it.";
+                        voiceButton.setAttribute(
+                            "aria-label",
+                            "Voice note recorded"
+                        );
+
+                        alert(
+                            "Voice note recorded. Click Send to send it."
+                        );
+                    }
+                );
+
+                voiceRecorder.start();
+
+                voiceButton.title =
+                    "Recording... click to stop";
+                voiceButton.setAttribute(
+                    "aria-label",
+                    "Stop recording"
+                );
+
+            } catch (error) {
+                console.error(
+                    "Reception voice recording failed:",
+                    error
+                );
+
+                alert(
+                    "Could not access the microphone. Please allow microphone access and try again."
+                );
+            }
+        });
+    }
+
     const messagesContainer =
         document.getElementById("liveChatMessages");
 
@@ -10280,7 +10387,10 @@ replyForm.addEventListener("submit", async function (event) {
     event.preventDefault();
 
     const reply = replyInput.value.trim();
-    const file = attachmentInput?.files?.[0] || null;
+   const file =
+    recordedVoiceFile ||
+    attachmentInput?.files?.[0] ||
+    null;
 
     // Allow text-only, attachment-only, or combined messages.
     if (!reply && !file) {
@@ -10346,10 +10456,20 @@ replyForm.addEventListener("submit", async function (event) {
         // Clear the composer only after a successful send.
         replyInput.value = "";
 
-        if (attachmentInput) {
-            attachmentInput.value = "";
-        }
+if (attachmentInput) {
+    attachmentInput.value = "";
+}
 
+recordedVoiceFile = null;
+
+if (voiceButton) {
+    voiceButton.title = "Record voice note";
+    voiceButton.setAttribute(
+        "aria-label",
+        "Record voice note"
+    );
+}
+       
     } catch (error) {
         console.error(
             "Reception message or attachment failed:",
