@@ -10270,19 +10270,12 @@ if (item.sender === "reception") {
 }
 
 
-messagesContainer.appendChild(messageElement);
+    messagesContainer.appendChild(messageElement);
 
 });
 
-const isNearBottom =
-    messagesContainer.scrollHeight -
-    messagesContainer.scrollTop -
-    messagesContainer.clientHeight < 150;
-
-if (isNearBottom) {
-    messagesContainer.scrollTop =
-        messagesContainer.scrollHeight;
-}
+messagesContainer.scrollTop =
+messagesContainer.scrollHeight;
     
 
             },
@@ -10332,91 +10325,4 @@ if (isNearBottom) {
             sendButton.disabled = false;
         }
     });
-
-   
-const attachmentInput =
-    document.getElementById("waAttachmentInput");
-
-const attachButton =
-    document.getElementById("waAttachButton");
-
-attachButton.addEventListener("click", function () {
-    attachmentInput.click();
-});
-
-attachmentInput.addEventListener("change", async function () {
-    const file = this.files[0];
-
-    if (!file) {
-        return;
-    }
-
-    const maxFileSize = 20 * 1024 * 1024; // 20 MB
-
-    if (file.size > maxFileSize) {
-        alert("Please choose a file smaller than 20 MB.");
-        this.value = "";
-        return;
-    }
-
-    attachButton.disabled = true;
-
-    try {
-        // Upload the selected file to Cloudinary.
-        const uploadData = new FormData();
-        uploadData.append("file", file);
-        uploadData.append(
-            "upload_preset",
-            "mirima_chat_uploads"
-        );
-
-        const response = await fetch(
-            "https://api.cloudinary.com/v1_1/cqsnkbge/auto/upload",
-            {
-                method: "POST",
-                body: uploadData
-            }
-        );
-
-        const uploadResult = await response.json();
-
-        if (!response.ok || !uploadResult.secure_url) {
-            console.error(
-                "Cloudinary upload error:",
-                uploadResult
-            );
-            throw new Error("File upload failed.");
-        }
-
-        // Save the attachment as a Reception message.
-        await sendChatMessage(
-            conversation.id,
-            "reception",
-            "",
-            {
-                attachmentUrl: uploadResult.secure_url,
-                attachmentName: file.name,
-                attachmentType:
-                    file.type || "application/octet-stream",
-                attachmentSize: file.size
-            }
-        );
-
-        alert("Attachment sent successfully.");
-
-    } catch (error) {
-        console.error(
-            "Reception attachment error:",
-            error
-        );
-
-        alert(
-            "Could not send the attachment. Please try again."
-        );
-    } finally {
-        this.value = "";
-        attachButton.disabled = false;
-    }
-});
-
 }
