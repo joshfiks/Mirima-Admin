@@ -9318,6 +9318,19 @@ updateDoc(
     }
 
 
+    // Connect the paperclip button to the file picker
+    const attachButton =
+        chatWindow.querySelector("#waAttachButton");
+
+    const attachmentInput =
+        chatWindow.querySelector("#waAttachmentInput");
+
+    if (attachButton && attachmentInput) {
+        attachButton.addEventListener("click", function () {
+            attachmentInput.click();
+        });
+    }
+
    
     const messagesContainer =
         document.getElementById("liveChatMessages");
