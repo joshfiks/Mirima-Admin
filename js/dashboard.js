@@ -9538,15 +9538,37 @@ updateDoc(
 </div>
 
 
+
 <div class="wa-search-panel" id="waSearchPanel" hidden>
-    <input
-        type="search"
-        id="waSearchInput"
-        placeholder="Search messages..."
-        autocomplete="off"
-        aria-label="Search conversation messages"
-    >
+    <div class="wa-search-input-wrap">
+        <svg
+            class="wa-search-icon"
+            xmlns="http://www.w3.org/2000/svg"
+            width="19"
+            height="19"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+        >
+            <circle cx="11" cy="11" r="8"></circle>
+            <path d="m21 21-4.35-4.35"></path>
+        </svg>
+
+        <input
+            type="search"
+            id="waSearchInput"
+            placeholder="Search messages..."
+            autocomplete="off"
+            aria-label="Search conversation messages"
+        >
+    </div>
+
     <span id="waSearchCount" aria-live="polite"></span>
+
     <button
         type="button"
         id="waSearchClose"
@@ -9556,6 +9578,7 @@ updateDoc(
         &times;
     </button>
 </div>
+
 
                     </div>
 
