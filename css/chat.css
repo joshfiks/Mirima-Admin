@@ -2026,3 +2026,82 @@
         width: 150px;
     }
 }
+
+/* =========================================================
+   MIRIMA RECEPTION CHAT — MESSAGE CONTEXT MENU
+   ========================================================= */
+
+.reception-message-context-menu {
+    position: fixed;
+    z-index: 100000;
+    min-width: 200px;
+    max-width: 260px;
+    padding: 6px;
+    background: #ffffff;
+    color: #202c33;
+    border: 1px solid #e5e7eb;
+    border-radius: 10px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18);
+    font-family: inherit;
+    font-size: 14px;
+    box-sizing: border-box;
+}
+
+.reception-message-context-menu[hidden] {
+    display: none !important;
+}
+
+.reception-message-context-menu button {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    min-height: 42px;
+    padding: 10px 12px;
+    border: none;
+    border-radius: 6px;
+    background: transparent;
+    color: inherit;
+    text-align: left;
+    font-family: inherit;
+    font-size: inherit;
+    cursor: pointer;
+    box-sizing: border-box;
+    transition: background-color 0.15s ease;
+}
+
+.reception-message-context-menu button:hover,
+.reception-message-context-menu button:focus-visible {
+    background: #f0f2f5;
+    outline: none;
+}
+
+.reception-message-context-menu button:active {
+    background: #e4e6eb;
+}
+
+.reception-message-context-menu button[data-action="delete-for-everyone"] {
+    color: #d32f2f;
+}
+
+.reception-message-context-menu button[data-action="delete-for-everyone"]:hover {
+    background: #fff0f0;
+}
+
+.reception-message-context-menu button[hidden] {
+    display: none !important;
+}
+
+@media (max-width: 600px) {
+    .reception-message-context-menu {
+        min-width: 190px;
+        max-width: calc(100vw - 24px);
+        border-radius: 12px;
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.22);
+    }
+
+    .reception-message-context-menu button {
+        min-height: 46px;
+        padding: 12px;
+    }
+}
