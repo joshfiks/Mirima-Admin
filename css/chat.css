@@ -2313,3 +2313,11 @@
     + .wa-search-icon {
     color: #25a56a;
 }
+
+/* Reception chat: selected messages */
+.wa-message-selected {
+    outline: 2px solid #25a56a !important;
+    outline-offset: 2px;
+    background-color: rgba(37, 165, 106, 0.12) !important;
+    border-radius: 8px;
+}
