@@ -9675,47 +9675,51 @@ updateDoc(
                 `;
 
 
-    // Reception chat: three-dot menu
-    const waMenuButton = chatWindow.querySelector("#waMenuButton");
-    const waChatMenu = chatWindow.querySelector("#waChatMenu");
+    
+const waMenuButton = chatWindow.querySelector("#waMenuButton");
+const waChatMenu = chatWindow.querySelector("#waChatMenu");
 
-    console.log("MENU BUTTON:", waMenuButton);
-    console.log("CHAT MENU:", waChatMenu);
+if (waMenuButton && waChatMenu) {
+    waMenuButton.onclick = function (event) {
+        event.preventDefault();
+        event.stopPropagation();
 
-    if (waMenuButton && waChatMenu) {
-        waMenuButton.addEventListener("click", function (event) {
-            event.stopPropagation();
+        waChatMenu.hidden = !waChatMenu.hidden;
 
-            const isOpening = waChatMenu.hidden;
-            waChatMenu.hidden = !isOpening;
+        waMenuButton.setAttribute(
+            "aria-expanded",
+            String(!waChatMenu.hidden)
+        );
 
-            waMenuButton.setAttribute(
-                "aria-expanded",
-                String(isOpening)
-            );
-        });
+        console.log(
+            "Reception menu is now:",
+            waChatMenu.hidden ? "closed" : "open"
+        );
+    };
 
-        // Close the menu when clicking outside it.
-        document.addEventListener("click", function (event) {
+    // Close the menu when clicking outside.
+    if (!document._waChatMenuOutsideHandler) {
+        document._waChatMenuOutsideHandler = function (event) {
+            const button = document.querySelector("#waMenuButton");
+            const menu = document.querySelector("#waChatMenu");
+
+            if (!button || !menu || menu.hidden) return;
+
             if (
-                !waChatMenu.hidden &&
-                !waChatMenu.contains(event.target) &&
-                !waMenuButton.contains(event.target)
+                !menu.contains(event.target) &&
+                !button.contains(event.target)
             ) {
-                waChatMenu.hidden = true;
-                waMenuButton.setAttribute("aria-expanded", "false");
+                menu.hidden = true;
+                button.setAttribute("aria-expanded", "false");
             }
-        });
+        };
 
-        // Close the menu with Escape.
-        document.addEventListener("keydown", function (event) {
-            if (event.key === "Escape" && !waChatMenu.hidden) {
-                waChatMenu.hidden = true;
-                waMenuButton.setAttribute("aria-expanded", "false");
-            }
-        });
+        document.addEventListener(
+            "click",
+            document._waChatMenuOutsideHandler
+        );
     }
-
+}
 
                
                 document.body.appendChild(preview);
