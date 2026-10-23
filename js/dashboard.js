@@ -9580,6 +9580,113 @@ updateDoc(
 </div>
 
 
+<!-- Reception chat Settings panel -->
+<div class="wa-settings-panel" id="waSettingsPanel" hidden>
+    <div class="wa-settings-header">
+        <h3>Chat settings</h3>
+
+        <button
+            type="button"
+            id="waSettingsClose"
+            aria-label="Close settings"
+            title="Close settings"
+        >
+            &times;
+        </button>
+    </div>
+
+    <div class="wa-settings-content">
+
+        <section class="wa-settings-section">
+            <h4>Sound</h4>
+
+            <label class="wa-setting-row">
+                <span>
+                    <strong>Message sounds</strong>
+                    <small>Play a sound for incoming messages</small>
+                </span>
+
+                <input
+                    type="checkbox"
+                    id="waSettingSounds"
+                    checked
+                >
+            </label>
+        </section>
+
+        <section class="wa-settings-section">
+            <h4>Appearance</h4>
+
+            <label class="wa-setting-field" for="waSettingTheme">
+                Chat theme
+            </label>
+            <select id="waSettingTheme">
+                <option value="system">System default</option>
+                <option value="light">Light</option>
+                <option value="dark">Dark</option>
+            </select>
+
+            <label class="wa-setting-field" for="waSettingBackground">
+                Chat background
+            </label>
+            <select id="waSettingBackground">
+                <option value="default">Default</option>
+                <option value="soft">Soft grey</option>
+                <option value="green">Soft green</option>
+                <option value="blue">Soft blue</option>
+                <option value="warm">Warm cream</option>
+            </select>
+
+            <label class="wa-setting-field" for="waSettingTextSize">
+                Text size
+            </label>
+            <select id="waSettingTextSize">
+                <option value="small">Small</option>
+                <option value="medium" selected>Medium</option>
+                <option value="large">Large</option>
+            </select>
+        </section>
+
+        <section class="wa-settings-section">
+            <h4>Data usage</h4>
+
+            <label class="wa-setting-row">
+                <span>
+                    <strong>Data saver</strong>
+                    <small>Reduce automatic media loading</small>
+                </span>
+
+                <input
+                    type="checkbox"
+                    id="waSettingDataSaver"
+                >
+            </label>
+        </section>
+
+        <section class="wa-settings-section">
+            <h4>Message selection</h4>
+            <p>
+                Use the three-dot menu to select messages,
+                select all, or cancel selection.
+            </p>
+        </section>
+
+        <section class="wa-settings-section">
+            <button
+                type="button"
+                id="waSettingsReset"
+                class="wa-settings-reset"
+            >
+                Reset settings
+            </button>
+        </section>
+
+    </div>
+</div>
+<!-- End Reception chat Settings panel -->
+
+
+
                     </div>
 
                 </div>
