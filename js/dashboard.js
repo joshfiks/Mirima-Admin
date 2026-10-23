@@ -9900,8 +9900,11 @@ if (waMenuButton && waChatMenu) {
     const waChatMenuForSearch = chatWindow.querySelector("#waChatMenu");
 
     
+
 function runReceptionMessageSearch() {
-    if (!waSearchInput || !messagesContainer) return;
+    if (!waSearchInput || !messagesContainer) {
+        return;
+    }
 
     const term = waSearchInput.value.trim().toLowerCase();
 
@@ -9916,11 +9919,14 @@ function runReceptionMessageSearch() {
         const text = element.textContent.toLowerCase();
         const isMatch = term !== "" && text.includes(term);
 
+        // Highlight matching messages.
         element.style.outline = isMatch
             ? "2px solid #25a56a"
             : "";
 
-        element.style.outlineOffset = isMatch ? "2px" : "";
+        element.style.outlineOffset = isMatch
+            ? "2px"
+            : "";
 
         if (isMatch) {
             matches++;
@@ -9931,13 +9937,17 @@ function runReceptionMessageSearch() {
         }
     });
 
+    // Update the number of search matches.
     if (waSearchCount) {
-        waSearchCount.textContent = term
-            ? matches + (matches === 1 ? " match" : " matches")
-            : "";
+        if (term !== "") {
+            waSearchCount.textContent =
+                matches + (matches === 1 ? " match" : " matches");
+        } else {
+            waSearchCount.textContent = "";
+        }
     }
 
-    // Automatically bring the first matching message into view.
+    // Scroll to the first matching message.
     if (firstMatch) {
         firstMatch.scrollIntoView({
             behavior: "smooth",
