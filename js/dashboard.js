@@ -10363,15 +10363,15 @@ function applyReceptionSettings() {
         chatWindow.querySelector("#liveChatMessages");
 
     if (settingsMessagesContainer) {
-        const wallpapers = {
-            default: "../images/chat-wallpaper.png",
-            wallpaper1: "../images/chat-wallpaper1.png",
-            wallpaper2: "../images/chat-wallpaper2.png",
-            wallpaper3: "../images/chat-wallpaper3.png",
-            wallpaper4: "../images/chat-wallpaper4.png",
-            wallpaper5: "../images/chat-wallpaper5.png",
-            wallpaper6: "../images/chat-wallpaper6.png"
-        };
+const wallpapers = {
+    default: "/Mirima-Admin/images/chat-wallpaper.png",
+    wallpaper1: "/Mirima-Admin/images/chat-wallpaper1.png",
+    wallpaper2: "/Mirima-Admin/images/chat-wallpaper2.png",
+    wallpaper3: "/Mirima-Admin/images/chat-wallpaper3.png",
+    wallpaper4: "/Mirima-Admin/images/chat-wallpaper4.png",
+    wallpaper5: "/Mirima-Admin/images/chat-wallpaper5.png",
+    wallpaper6: "/Mirima-Admin/images/chat-wallpaper6.png"
+};
 
         const wallpaper =
             wallpapers[receptionSettings.background] ||
