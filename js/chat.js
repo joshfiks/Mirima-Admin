@@ -209,3 +209,23 @@ export async function getLatestConversationMessage(
         ...latestMessage.data()
     };
 }
+export async function getReceptionHiddenMessageIds(conversationId) {
+    const hiddenMessagesRef = collection(
+        db,
+        "chatConversations",
+        conversationId,
+        "receptionHiddenMessages"
+    );
+
+    const snapshot = await getDocs(hiddenMessagesRef);
+
+    return new Set(
+        snapshot.docs
+            .filter(function (messageDoc) {
+                return messageDoc.data().hidden === true;
+            })
+            .map(function (messageDoc) {
+                return messageDoc.id;
+            })
+    );
+}
