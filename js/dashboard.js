@@ -10354,17 +10354,22 @@ function runReceptionMessageSearch() {
         chatWindow.dataset.waTheme =
             receptionSettings.theme;
 
-        // Apply background to the message area.
-        const backgroundColors = {
-            default: "",
-            soft: "#f0f2f5",
-            green: "#eaf5ee",
-            blue: "#eaf2fb",
-            warm: "#fbf3e7"
-        };
+// Apply background to the message area when available.
+const backgroundColors = {
+    default: "",
+    soft: "#f0f2f5",
+    green: "#eaf5ee",
+    blue: "#eaf2fb",
+    warm: "#fbf3e7"
+};
 
-        messagesContainer.style.backgroundColor =
-            backgroundColors[receptionSettings.background] || "";
+const settingsMessagesContainer =
+    chatWindow.querySelector("#liveChatMessages");
+
+if (settingsMessagesContainer) {
+    settingsMessagesContainer.style.backgroundColor =
+        backgroundColors[receptionSettings.background] || "";
+}
 
         // Apply text size to rendered messages.
         const textSizes = {
