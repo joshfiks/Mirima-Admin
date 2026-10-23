@@ -9679,6 +9679,9 @@ updateDoc(
     const waMenuButton = chatWindow.querySelector("#waMenuButton");
     const waChatMenu = chatWindow.querySelector("#waChatMenu");
 
+    console.log("MENU BUTTON:", waMenuButton);
+    console.log("CHAT MENU:", waChatMenu);
+
     if (waMenuButton && waChatMenu) {
         waMenuButton.addEventListener("click", function (event) {
             event.stopPropagation();
