@@ -2442,3 +2442,37 @@
 .wa-settings-reset:hover {
     background: #fff3f2;
 }
+
+/* Reception chat: theme settings */
+.wa-chat-window[data-wa-theme="dark"] {
+    background: #1e1e1e;
+    color: #f1f1f1;
+}
+
+.wa-chat-window[data-wa-theme="dark"] .wa-chat-messages {
+    color: #f1f1f1;
+}
+
+.wa-chat-window[data-wa-theme="dark"] .wa-settings-panel {
+    background: #252525;
+    color: #f1f1f1;
+    border-color: #444444;
+}
+
+.wa-chat-window[data-wa-theme="dark"] .wa-settings-section {
+    border-top-color: #444444;
+}
+
+.wa-chat-window[data-wa-theme="dark"] .wa-settings-content select {
+    background: #333333;
+    color: #f1f1f1;
+    border-color: #555555;
+}
+
+.wa-chat-window[data-wa-theme="light"] {
+    color-scheme: light;
+}
+
+.wa-chat-window[data-wa-theme="dark"] {
+    color-scheme: dark;
+}
