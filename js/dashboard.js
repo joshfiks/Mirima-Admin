@@ -10195,6 +10195,7 @@ function runReceptionMessageSearch() {
             });
 
        
+   
         waSelectionMenu
             .querySelector('[data-wa-action="cancel-selection"]')
             ?.addEventListener("click", function () {
@@ -10216,6 +10217,45 @@ function runReceptionMessageSearch() {
 
                 console.log("Reception message selection cancelled.");
             });
+    }
+
+
+   
+    // Reception chat: Settings panel
+    const waSettingsPanel =
+        chatWindow.querySelector("#waSettingsPanel");
+
+    const waSettingsClose =
+        chatWindow.querySelector("#waSettingsClose");
+
+    const waSettingsMenuButton =
+        chatWindow.querySelector(
+            '#waChatMenu [data-wa-action="settings"]'
+        );
+
+    if (
+        waSettingsPanel &&
+        waSettingsClose &&
+        waSettingsMenuButton
+    ) {
+        // Open Settings from the three-dot menu.
+        waSettingsMenuButton.addEventListener("click", function () {
+            waSelectionMenu.hidden = true;
+
+            const menuButton =
+                chatWindow.querySelector("#waMenuButton");
+
+            if (menuButton) {
+                menuButton.setAttribute("aria-expanded", "false");
+            }
+
+            waSettingsPanel.hidden = false;
+        });
+
+        // Close Settings.
+        waSettingsClose.addEventListener("click", function () {
+            waSettingsPanel.hidden = true;
+        });
     }
 
     // Connect the paperclip button to the file picker
