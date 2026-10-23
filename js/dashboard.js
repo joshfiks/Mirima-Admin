@@ -9906,6 +9906,47 @@ function runReceptionMessageSearch() {
                 console.log("Reception message selection enabled.");
             });
 
+
+
+        // Select all messages currently displayed.
+        waSelectionMenu
+            .querySelector('[data-wa-action="select-all"]')
+            ?.addEventListener("click", function () {
+                receptionSelectionMode = true;
+                selectedReceptionMessageIds.clear();
+
+                const messageElements =
+                    messagesContainer.querySelectorAll(
+                        ".wa-message-guest, .wa-message-reception"
+                    );
+
+                messageElements.forEach(function (element) {
+                    const messageId = element.dataset.messageId;
+
+                    if (!messageId) {
+                        return;
+                    }
+
+                    selectedReceptionMessageIds.add(messageId);
+                    element.classList.add("wa-message-selected");
+                });
+
+                waSelectionMenu.hidden = true;
+
+                const menuButton =
+                    chatWindow.querySelector("#waMenuButton");
+
+                if (menuButton) {
+                    menuButton.setAttribute("aria-expanded", "false");
+                }
+
+                console.log(
+                    "Selected Reception messages:",
+                    selectedReceptionMessageIds.size
+                );
+            });
+
+       
         waSelectionMenu
             .querySelector('[data-wa-action="cancel-selection"]')
             ?.addEventListener("click", function () {
