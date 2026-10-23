@@ -9198,64 +9198,99 @@ document.addEventListener("click", async function (event) {
                 return;
             }
 
-            const link = document.createElement("a");
-            link.href = item.attachmentUrl;
-            link.download = item.attachmentName || "attachment";
-            link.target = "_blank";
-            link.rel = "noopener noreferrer";
+            
+const response = await fetch(item.attachmentUrl);
 
-            document.body.appendChild(link);
-            link.click();
-            link.remove();
+if (!response.ok) {
+    throw new Error("Could not fetch the attachment.");
+}
 
-            return;
+const blob = await response.blob();
+const blobUrl = URL.createObjectURL(blob);
+
+const link = document.createElement("a");
+link.href = blobUrl;
+link.download = item.attachmentName || "attachment";
+document.body.appendChild(link);
+link.click();
+link.remove();
+
+setTimeout(function () {
+    URL.revokeObjectURL(blobUrl);
+}, 1000);
+
+return;
+
         }
 
-        if (action === "edit") {
-            if (item.sender !== "reception") {
-                alert("You can only edit your own messages.");
-                return;
-            }
+      
+if (action === "edit") {
+    if (item.sender !== "reception") {
+        alert("You can only edit your own messages.");
+        return;
+    }
 
-            if (item.attachmentUrl) {
-                alert(
-                    "Editing attachments is not enabled here. " +
-                    "This option is for text messages."
-                );
-                return;
-            }
+    // Check when the message was sent.
+    let sentAt = null;
 
-            const newMessage = prompt(
-                "Edit your message:",
-                item.message || ""
-            );
+    if (item.createdAt) {
+        sentAt = item.createdAt.toDate
+            ? item.createdAt.toDate()
+            : new Date(item.createdAt);
+    }
 
-            if (newMessage === null) {
-                return;
-            }
+    if (!sentAt || Number.isNaN(sentAt.getTime())) {
+        alert("The message timestamp is unavailable.");
+        return;
+    }
 
-            if (!newMessage.trim()) {
-                alert("A message cannot be empty.");
-                return;
-            }
+    // Allow editing only within two minutes of sending.
+    if (Date.now() - sentAt.getTime() > 2 * 60 * 1000) {
+        alert(
+            "You can only edit a message within two minutes of sending it."
+        );
+        return;
+    }
 
-            await updateDoc(
-                doc(
-                    db,
-                    "chatConversations",
-                    conversationId,
-                    "messages",
-                    item.id
-                ),
-                {
-                    message: newMessage.trim(),
-                    editedAt: new Date()
-                }
-            );
+    if (item.attachmentUrl) {
+        alert(
+            "Editing attachments is not enabled here. " +
+            "This option is for text messages."
+        );
+        return;
+    }
 
-            alert("Message updated.");
-            return;
+    const newMessage = prompt(
+        "Edit your message:",
+        item.message || ""
+    );
+
+    if (newMessage === null) {
+        return;
+    }
+
+    if (!newMessage.trim()) {
+        alert("A message cannot be empty.");
+        return;
+    }
+
+    await updateDoc(
+        doc(
+            db,
+            "chatConversations",
+            conversationId,
+            "messages",
+            item.id
+        ),
+        {
+            message: newMessage.trim(),
+            editedAt: new Date()
         }
+    );
+
+    alert("Message updated.");
+    return;
+}
 
         if (action === "delete-for-me") {
             const confirmed = confirm(
