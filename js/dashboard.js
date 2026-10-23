@@ -9880,6 +9880,55 @@ function runReceptionMessageSearch() {
     }
 
     
+    // Reception chat: message selection controls
+    const waSelectionMenu = chatWindow.querySelector("#waChatMenu");
+
+    if (waSelectionMenu) {
+        waSelectionMenu
+            .querySelector('[data-wa-action="select-messages"]')
+            ?.addEventListener("click", function () {
+                receptionSelectionMode = true;
+                selectedReceptionMessageIds.clear();
+
+                messagesContainer
+                    .querySelectorAll(".wa-message-selected")
+                    .forEach(function (element) {
+                        element.classList.remove("wa-message-selected");
+                    });
+
+                waSelectionMenu.hidden = true;
+
+                const menuButton = chatWindow.querySelector("#waMenuButton");
+                if (menuButton) {
+                    menuButton.setAttribute("aria-expanded", "false");
+                }
+
+                console.log("Reception message selection enabled.");
+            });
+
+        waSelectionMenu
+            .querySelector('[data-wa-action="cancel-selection"]')
+            ?.addEventListener("click", function () {
+                receptionSelectionMode = false;
+                selectedReceptionMessageIds.clear();
+
+                messagesContainer
+                    .querySelectorAll(".wa-message-selected")
+                    .forEach(function (element) {
+                        element.classList.remove("wa-message-selected");
+                    });
+
+                waSelectionMenu.hidden = true;
+
+                const menuButton = chatWindow.querySelector("#waMenuButton");
+                if (menuButton) {
+                    menuButton.setAttribute("aria-expanded", "false");
+                }
+
+                console.log("Reception message selection cancelled.");
+            });
+    }
+
     // Connect the paperclip button to the file picker
     const attachButton =
         chatWindow.querySelector("#waAttachButton");
@@ -10134,6 +10183,11 @@ function runReceptionMessageSearch() {
     const messagesContainer =
         document.getElementById("liveChatMessages");
 
+   
+let receptionSelectionMode = false;
+const selectedReceptionMessageIds = new Set();
+
+
        // Return to the conversation list
     const backButton =
         chatWindow.querySelector(".wa-back-button");
@@ -10217,6 +10271,8 @@ messages.forEach(function (item) {
 
     const messageElement =
         document.createElement("div");
+   // Store the Firestore message ID for selection.
+messageElement.dataset.messageId = item.id;
 
     messageElement.classList.add(
         item.sender === "guest"
@@ -10227,6 +10283,37 @@ messages.forEach(function (item) {
     messageElement.style.marginBottom = "12px";
     messageElement.style.padding = "10px";
     messageElement.style.borderRadius = "8px";
+
+   // Select or deselect a message when selection mode is active.
+messageElement.addEventListener("click", function (event) {
+    if (!receptionSelectionMode) {
+        return;
+    }
+
+    // Don't select a message when interacting with a link or control.
+    if (event.target.closest("button, a, input, video, audio")) {
+        return;
+    }
+
+    event.stopPropagation();
+
+    const messageId = messageElement.dataset.messageId;
+
+    if (!messageId) {
+        return;
+    }
+
+    if (selectedReceptionMessageIds.has(messageId)) {
+        selectedReceptionMessageIds.delete(messageId);
+        messageElement.classList.remove("wa-message-selected");
+    } else {
+        selectedReceptionMessageIds.add(messageId);
+        messageElement.classList.add("wa-message-selected");
+    }
+
+    const selectedCount = selectedReceptionMessageIds.size;
+    console.log("Selected Reception messages:", selectedCount);
+});
 
    
     // Open the message menu with right-click on desktop.
