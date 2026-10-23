@@ -9792,36 +9792,53 @@ if (waMenuButton && waChatMenu) {
     const waSearchClose = chatWindow.querySelector("#waSearchClose");
     const waChatMenuForSearch = chatWindow.querySelector("#waChatMenu");
 
-    function runReceptionMessageSearch() {
-        if (!waSearchInput || !messagesContainer) return;
+    
+function runReceptionMessageSearch() {
+    if (!waSearchInput || !messagesContainer) return;
 
-        const term = waSearchInput.value.trim().toLowerCase();
-        const messageElements = messagesContainer.querySelectorAll(
-            ".wa-message-guest, .wa-message-reception"
-        );
+    const term = waSearchInput.value.trim().toLowerCase();
 
-        let matches = 0;
+    const messageElements = messagesContainer.querySelectorAll(
+        ".wa-message-guest, .wa-message-reception"
+    );
 
-        messageElements.forEach(function (element) {
-            // Search the visible text of each message.
-            const text = element.textContent.toLowerCase();
-            const isMatch = term !== "" && text.includes(term);
+    let matches = 0;
+    let firstMatch = null;
 
-            element.style.outline = isMatch
-                ? "2px solid #25a56a"
-                : "";
+    messageElements.forEach(function (element) {
+        const text = element.textContent.toLowerCase();
+        const isMatch = term !== "" && text.includes(term);
 
-            element.style.outlineOffset = isMatch ? "2px" : "";
+        element.style.outline = isMatch
+            ? "2px solid #25a56a"
+            : "";
 
-            if (isMatch) matches++;
-        });
+        element.style.outlineOffset = isMatch ? "2px" : "";
 
-        if (waSearchCount) {
-            waSearchCount.textContent = term
-                ? matches + (matches === 1 ? " match" : " matches")
-                : "";
+        if (isMatch) {
+            matches++;
+
+            if (!firstMatch) {
+                firstMatch = element;
+            }
         }
+    });
+
+    if (waSearchCount) {
+        waSearchCount.textContent = term
+            ? matches + (matches === 1 ? " match" : " matches")
+            : "";
     }
+
+    // Automatically bring the first matching message into view.
+    if (firstMatch) {
+        firstMatch.scrollIntoView({
+            behavior: "smooth",
+            block: "center"
+        });
+    }
+}
+
 
     if (
         waSearchPanel &&
