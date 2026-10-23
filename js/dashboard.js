@@ -9674,6 +9674,47 @@ updateDoc(
                     </div>
                 `;
 
+
+    // Reception chat: three-dot menu
+    const waMenuButton = chatWindow.querySelector("#waMenuButton");
+    const waChatMenu = chatWindow.querySelector("#waChatMenu");
+
+    if (waMenuButton && waChatMenu) {
+        waMenuButton.addEventListener("click", function (event) {
+            event.stopPropagation();
+
+            const isOpening = waChatMenu.hidden;
+            waChatMenu.hidden = !isOpening;
+
+            waMenuButton.setAttribute(
+                "aria-expanded",
+                String(isOpening)
+            );
+        });
+
+        // Close the menu when clicking outside it.
+        document.addEventListener("click", function (event) {
+            if (
+                !waChatMenu.hidden &&
+                !waChatMenu.contains(event.target) &&
+                !waMenuButton.contains(event.target)
+            ) {
+                waChatMenu.hidden = true;
+                waMenuButton.setAttribute("aria-expanded", "false");
+            }
+        });
+
+        // Close the menu with Escape.
+        document.addEventListener("keydown", function (event) {
+            if (event.key === "Escape" && !waChatMenu.hidden) {
+                waChatMenu.hidden = true;
+                waMenuButton.setAttribute("aria-expanded", "false");
+            }
+        });
+    }
+
+
+               
                 document.body.appendChild(preview);
 
                 preview.addEventListener("click", function (event) {
