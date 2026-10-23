@@ -10258,6 +10258,207 @@ function runReceptionMessageSearch() {
         });
     }
 
+
+    // Reception chat: load and apply saved settings
+    const waSettingSounds =
+        chatWindow.querySelector("#waSettingSounds");
+
+    const waSettingTheme =
+        chatWindow.querySelector("#waSettingTheme");
+
+    const waSettingBackground =
+        chatWindow.querySelector("#waSettingBackground");
+
+    const waSettingTextSize =
+        chatWindow.querySelector("#waSettingTextSize");
+
+    const waSettingDataSaver =
+        chatWindow.querySelector("#waSettingDataSaver");
+
+    const waSettingsReset =
+        chatWindow.querySelector("#waSettingsReset");
+
+    const receptionSettingsKey =
+        "mirimaReceptionChatSettings";
+
+    const receptionDefaultSettings = {
+        sounds: true,
+        theme: "system",
+        background: "default",
+        textSize: "medium",
+        dataSaver: false
+    };
+
+    let receptionSettings = {
+        ...receptionDefaultSettings
+    };
+
+    try {
+        const savedSettings =
+            localStorage.getItem(receptionSettingsKey);
+
+        if (savedSettings) {
+            receptionSettings = {
+                ...receptionDefaultSettings,
+                ...JSON.parse(savedSettings)
+            };
+        }
+    } catch (error) {
+        console.warn(
+            "Could not load Reception chat settings:",
+            error
+        );
+    }
+
+    function saveReceptionSettings() {
+        try {
+            localStorage.setItem(
+                receptionSettingsKey,
+                JSON.stringify(receptionSettings)
+            );
+        } catch (error) {
+            console.warn(
+                "Could not save Reception chat settings:",
+                error
+            );
+        }
+    }
+
+    function applyReceptionSettings() {
+        if (waSettingSounds) {
+            waSettingSounds.checked =
+                receptionSettings.sounds;
+        }
+
+        if (waSettingTheme) {
+            waSettingTheme.value =
+                receptionSettings.theme;
+        }
+
+        if (waSettingBackground) {
+            waSettingBackground.value =
+                receptionSettings.background;
+        }
+
+        if (waSettingTextSize) {
+            waSettingTextSize.value =
+                receptionSettings.textSize;
+        }
+
+        if (waSettingDataSaver) {
+            waSettingDataSaver.checked =
+                receptionSettings.dataSaver;
+        }
+
+        // Apply theme to this Reception chat window.
+        chatWindow.dataset.waTheme =
+            receptionSettings.theme;
+
+        // Apply background to the message area.
+        const backgroundColors = {
+            default: "",
+            soft: "#f0f2f5",
+            green: "#eaf5ee",
+            blue: "#eaf2fb",
+            warm: "#fbf3e7"
+        };
+
+        messagesContainer.style.backgroundColor =
+            backgroundColors[receptionSettings.background] || "";
+
+        // Apply text size to rendered messages.
+        const textSizes = {
+            small: "13px",
+            medium: "15px",
+            large: "17px"
+        };
+
+        messagesContainer
+            .querySelectorAll(
+                ".wa-message-guest, .wa-message-reception"
+            )
+            .forEach(function (element) {
+                element.style.fontSize =
+                    textSizes[receptionSettings.textSize] ||
+                    textSizes.medium;
+            });
+    }
+
+    function updateReceptionSetting(name, value) {
+        receptionSettings[name] = value;
+        saveReceptionSettings();
+        applyReceptionSettings();
+    }
+
+    if (waSettingSounds) {
+        waSettingSounds.addEventListener("change", function () {
+            updateReceptionSetting(
+                "sounds",
+                waSettingSounds.checked
+            );
+        });
+    }
+
+    if (waSettingTheme) {
+        waSettingTheme.addEventListener("change", function () {
+            updateReceptionSetting(
+                "theme",
+                waSettingTheme.value
+            );
+        });
+    }
+
+    if (waSettingBackground) {
+        waSettingBackground.addEventListener("change", function () {
+            updateReceptionSetting(
+                "background",
+                waSettingBackground.value
+            );
+        });
+    }
+
+    if (waSettingTextSize) {
+        waSettingTextSize.addEventListener("change", function () {
+            updateReceptionSetting(
+                "textSize",
+                waSettingTextSize.value
+            );
+        });
+    }
+
+    if (waSettingDataSaver) {
+        waSettingDataSaver.addEventListener("change", function () {
+            updateReceptionSetting(
+                "dataSaver",
+                waSettingDataSaver.checked
+            );
+        });
+    }
+
+    if (waSettingsReset) {
+        waSettingsReset.addEventListener("click", function () {
+            const confirmed = confirm(
+                "Reset Reception chat settings to their defaults? " +
+                "Your messages will not be deleted."
+            );
+
+            if (!confirmed) {
+                return;
+            }
+
+            receptionSettings = {
+                ...receptionDefaultSettings
+            };
+
+            saveReceptionSettings();
+            applyReceptionSettings();
+        });
+    }
+
+    applyReceptionSettings();
+
+
+   
     // Connect the paperclip button to the file picker
     const attachButton =
         chatWindow.querySelector("#waAttachButton");
