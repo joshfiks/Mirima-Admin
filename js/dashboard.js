@@ -9629,14 +9629,15 @@ updateDoc(
             <label class="wa-setting-field" for="waSettingBackground">
                 Chat background
             </label>
-            <select id="waSettingBackground">
-                <option value="default">Default</option>
-                <option value="soft">Soft grey</option>
-                <option value="green">Soft green</option>
-                <option value="blue">Soft blue</option>
-                <option value="warm">Warm cream</option>
-            </select>
-
+<select id="waSettingBackground">
+    <option value="default">Mirima Default</option>
+    <option value="wallpaper1">Wallpaper 1</option>
+    <option value="wallpaper2">Wallpaper 2</option>
+    <option value="wallpaper3">Wallpaper 3</option>
+    <option value="wallpaper4">Wallpaper 4</option>
+    <option value="wallpaper5">Wallpaper 5</option>
+    <option value="wallpaper6">Wallpaper 6</option>
+</select>
             <label class="wa-setting-field" for="waSettingTextSize">
                 Text size
             </label>
@@ -10362,49 +10363,49 @@ function applyReceptionSettings() {
         chatWindow.querySelector("#liveChatMessages");
 
     if (settingsMessagesContainer) {
-        const backgroundColors = {
-            default: "#06110f",
-            soft: "#f0f2f5",
-            green: "#eaf5ee",
-            blue: "#eaf2fb",
-            warm: "#fbf3e7"
+        const wallpapers = {
+            default: "../images/chat-wallpaper.png",
+            wallpaper1: "../images/chat-wallpaper1.png",
+            wallpaper2: "../images/chat-wallpaper2.png",
+            wallpaper3: "../images/chat-wallpaper3.png",
+            wallpaper4: "../images/chat-wallpaper4.png",
+            wallpaper5: "../images/chat-wallpaper5.png",
+            wallpaper6: "../images/chat-wallpaper6.png"
         };
 
-        if (receptionSettings.background === "default") {
-            // Restore the original Mirima wallpaper.
-            settingsMessagesContainer.style.removeProperty(
-                "background-image"
-            );
-            settingsMessagesContainer.style.removeProperty(
-                "background-repeat"
-            );
-            settingsMessagesContainer.style.removeProperty(
-                "background-size"
-            );
-            settingsMessagesContainer.style.removeProperty(
-                "background-position"
-            );
+        const wallpaper =
+            wallpapers[receptionSettings.background] ||
+            wallpapers.default;
 
-            settingsMessagesContainer.style.setProperty(
-                "background-color",
-                backgroundColors.default,
-                "important"
-            );
-        } else {
-            // Apply the selected custom background.
-            settingsMessagesContainer.style.setProperty(
-                "background-image",
-                "none",
-                "important"
-            );
+        settingsMessagesContainer.style.setProperty(
+            "background-color",
+            "#06110f",
+            "important"
+        );
 
-            settingsMessagesContainer.style.setProperty(
-                "background-color",
-                backgroundColors[receptionSettings.background] ||
-                    backgroundColors.default,
-                "important"
-            );
-        }
+        settingsMessagesContainer.style.setProperty(
+            "background-image",
+            `linear-gradient(
+                rgba(3,10,8,.78),
+                rgba(3,10,8,.78)
+            ), url("${wallpaper}")`,
+            "important"
+        );
+
+        settingsMessagesContainer.style.setProperty(
+            "background-repeat",
+            "repeat"
+        );
+
+        settingsMessagesContainer.style.setProperty(
+            "background-size",
+            "auto, 400px auto"
+        );
+
+        settingsMessagesContainer.style.setProperty(
+            "background-position",
+            "center top"
+        );
 
         const textSizes = {
             small: "13px",
@@ -10423,8 +10424,6 @@ function applyReceptionSettings() {
             });
     }
 }
-
-
     function updateReceptionSetting(name, value) {
         receptionSettings[name] = value;
         saveReceptionSettings();
