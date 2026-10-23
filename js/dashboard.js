@@ -52,7 +52,8 @@ import {
     listenToDepartmentConversations,
     listenToConversationMessages,
     sendChatMessage,
-    getLatestConversationMessage
+    getLatestConversationMessage,
+    hideReceptionMessageForMe
 } from "./chat.js";
 
 // =========================================================
