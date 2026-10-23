@@ -9095,9 +9095,14 @@ function showReceptionMessageContextMenu(messageElement, item, x, y) {
 
     const isReceptionMessage = item.sender === "reception";
 
-    // Only the receptionist's own messages can be edited.
-    menu.querySelector('[data-action="edit"]').hidden =
-        !isReceptionMessage;
+   
+ // Show Edit only for Reception's own text-only messages.
+menu.querySelector('[data-action="edit"]').hidden =
+    !isReceptionMessage ||
+    Boolean(item.attachmentUrl) ||
+    !item.message ||
+    !item.message.trim();
+
 
     // Show Download only when the message has an attachment URL.
     menu.querySelector('[data-action="download"]').hidden =
