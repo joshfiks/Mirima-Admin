@@ -9946,6 +9946,147 @@ function runReceptionMessageSearch() {
                 );
             });
 
+
+       
+        // Delete selected Reception messages.
+        waSelectionMenu
+            .querySelector('[data-wa-action="delete-selected"]')
+            ?.addEventListener("click", async function () {
+                if (selectedReceptionMessageIds.size === 0) {
+                    alert("Please select at least one message first.");
+                    return;
+                }
+
+                const selectedIds = Array.from(
+                    selectedReceptionMessageIds
+                );
+
+                // Find the selected messages in the currently rendered list.
+                const messageElements = Array.from(
+                    messagesContainer.querySelectorAll(
+                        ".wa-message-guest, .wa-message-reception"
+                    )
+                );
+
+                const selectedItems = selectedIds.map(function (id) {
+                    const element = messageElements.find(function (el) {
+                        return el.dataset.messageId === id;
+                    });
+
+                    return element
+                        ? {
+                            id: id,
+                            sender: element.classList.contains(
+                                "wa-message-reception"
+                            ) ? "reception" : "guest"
+                        }
+                        : null;
+                });
+
+                if (selectedItems.some(function (item) {
+                    return !item || item.sender !== "reception";
+                })) {
+                    alert(
+                        "Delete selected can only delete Reception messages. " +
+                        "Please select only your own messages."
+                    );
+                    return;
+                }
+
+                // Check each selected message against the existing one-minute limit.
+                const now = Date.now();
+                const eligibleIds = [];
+
+                for (const id of selectedIds) {
+                    const messageElement = messageElements.find(
+                        function (el) {
+                            return el.dataset.messageId === id;
+                        }
+                    );
+
+                    if (!messageElement) continue;
+
+                    // Timestamp metadata must be attached to the element
+                    // before bulk deletion can validate eligibility.
+                    const sentAtValue = messageElement.dataset.createdAt;
+
+                    if (!sentAtValue) {
+                        alert(
+                            "A selected message has no timestamp available. " +
+                            "No messages were deleted."
+                        );
+                        return;
+                    }
+
+                    const sentAt = new Date(sentAtValue);
+
+                    if (
+                        Number.isNaN(sentAt.getTime()) ||
+                        now - sentAt.getTime() > 60 * 1000
+                    ) {
+                        alert(
+                            "One or more selected messages are older than " +
+                            "one minute. No messages were deleted."
+                        );
+                        return;
+                    }
+
+                    eligibleIds.push(id);
+                }
+
+                const confirmed = confirm(
+                    "Delete " + eligibleIds.length +
+                    " selected message(s) for both Reception and the guest? " +
+                    "This cannot be undone."
+                );
+
+                if (!confirmed) return;
+
+                try {
+                    for (const id of eligibleIds) {
+                        await deleteDoc(
+                            doc(
+                                db,
+                                "chatConversations",
+                                conversationId,
+                                "messages",
+                                id
+                            )
+                        );
+                    }
+
+                    receptionSelectionMode = false;
+                    selectedReceptionMessageIds.clear();
+
+                    messagesContainer
+                        .querySelectorAll(".wa-message-selected")
+                        .forEach(function (element) {
+                            element.classList.remove("wa-message-selected");
+                        });
+
+                    waSelectionMenu.hidden = true;
+
+                    const menuButton =
+                        chatWindow.querySelector("#waMenuButton");
+
+                    if (menuButton) {
+                        menuButton.setAttribute("aria-expanded", "false");
+                    }
+
+                    alert("Selected messages deleted.");
+                } catch (error) {
+                    console.error(
+                        "Failed to delete selected messages:",
+                        error
+                    );
+
+                    alert(
+                        "Some messages may not have been deleted. " +
+                        "Please check the conversation and try again."
+                    );
+                }
+            });
+
        
         waSelectionMenu
             .querySelector('[data-wa-action="cancel-selection"]')
@@ -10435,6 +10576,10 @@ messageElement.addEventListener("click", function (event) {
             ? item.createdAt.toDate()
             : new Date(item.createdAt);
     }
+
+   if (sentDate && !isNaN(sentDate.getTime())) {
+    messageElement.dataset.createdAt = sentDate.toISOString();
+}
 
     // Add a date separator when the message day changes.
     if (sentDate && !isNaN(sentDate.getTime())) {
