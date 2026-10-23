@@ -2279,3 +2279,10 @@
 #waSearchClose:hover {
     background: #e8eef1;
 }
+
+/* Remove the outer white search bar background */
+.wa-search-panel {
+    background: transparent !important;
+    box-shadow: none !important;
+    border-bottom: none !important;
+}
