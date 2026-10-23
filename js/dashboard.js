@@ -9055,6 +9055,35 @@ conversationList
 
 let activeReceptionMessageListener = null;
 
+
+let receptionMessageContextMenu = null;
+
+function createReceptionMessageContextMenu() {
+    if (receptionMessageContextMenu) {
+        return receptionMessageContextMenu;
+    }
+
+    receptionMessageContextMenu = document.createElement("div");
+    receptionMessageContextMenu.id = "receptionMessageContextMenu";
+    receptionMessageContextMenu.className =
+        "reception-message-context-menu";
+
+    receptionMessageContextMenu.hidden = true;
+
+    receptionMessageContextMenu.innerHTML = `
+        <button type="button" data-action="edit">Edit</button>
+        <button type="button" data-action="copy">Copy</button>
+        <button type="button" data-action="download" hidden>Download</button>
+        <button type="button" data-action="delete-for-me">Delete for me</button>
+        <button type="button" data-action="delete-for-everyone">Delete for everyone</button>
+    `;
+
+    document.body.appendChild(receptionMessageContextMenu);
+
+    return receptionMessageContextMenu;
+}
+
+
 function openReceptionChatConversation(conversation) {
        const chatLayout =
         document.querySelector(".live-chat-layout");
