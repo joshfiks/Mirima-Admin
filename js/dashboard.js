@@ -45,6 +45,7 @@ import {
     setDoc,
     doc,
     updateDoc,
+    deleteDoc,
     onSnapshot
 } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
 
@@ -9055,6 +9056,7 @@ conversationList
 
 let activeReceptionMessageListener = null;
 
+let activeReceptionConversationId = null;
 
 let receptionMessageContextMenu = null;
 
@@ -9149,7 +9151,192 @@ document.addEventListener("keydown", function (event) {
 });
 
 
+const receptionContextMenuActions =
+    document.createElement("div");
+
+document.addEventListener("click", async function (event) {
+    const button = event.target.closest(
+        "#receptionMessageContextMenu [data-action]"
+    );
+
+    if (!button) {
+        return;
+    }
+
+    const menu = receptionMessageContextMenu;
+
+    if (!menu || !menu.currentMessageItem) {
+        return;
+    }
+
+    event.preventDefault();
+    event.stopPropagation();
+
+    const action = button.dataset.action;
+    const item = menu.currentMessageItem;
+    const conversationId = activeReceptionConversationId;
+
+    hideReceptionMessageContextMenu();
+
+    try {
+        if (action === "copy") {
+            const textToCopy = item.message || "";
+
+            if (textToCopy) {
+                await navigator.clipboard.writeText(textToCopy);
+                alert("Message copied.");
+            } else {
+                alert("There is no text to copy.");
+            }
+
+            return;
+        }
+
+        if (action === "download") {
+            if (!item.attachmentUrl) {
+                alert("This message has no attachment to download.");
+                return;
+            }
+
+            const link = document.createElement("a");
+            link.href = item.attachmentUrl;
+            link.download = item.attachmentName || "attachment";
+            link.target = "_blank";
+            link.rel = "noopener noreferrer";
+
+            document.body.appendChild(link);
+            link.click();
+            link.remove();
+
+            return;
+        }
+
+        if (action === "edit") {
+            if (item.sender !== "reception") {
+                alert("You can only edit your own messages.");
+                return;
+            }
+
+            if (item.attachmentUrl) {
+                alert(
+                    "Editing attachments is not enabled here. " +
+                    "This option is for text messages."
+                );
+                return;
+            }
+
+            const newMessage = prompt(
+                "Edit your message:",
+                item.message || ""
+            );
+
+            if (newMessage === null) {
+                return;
+            }
+
+            if (!newMessage.trim()) {
+                alert("A message cannot be empty.");
+                return;
+            }
+
+            await updateDoc(
+                doc(
+                    db,
+                    "chatConversations",
+                    conversationId,
+                    "messages",
+                    item.id
+                ),
+                {
+                    message: newMessage.trim(),
+                    editedAt: new Date()
+                }
+            );
+
+            alert("Message updated.");
+            return;
+        }
+
+        if (action === "delete-for-me") {
+            const confirmed = confirm(
+                "Hide this message from your Reception chat? " +
+                "The guest will still see it."
+            );
+
+            if (!confirmed) {
+                return;
+            }
+
+            await hideReceptionMessageForMe(
+                conversationId,
+                item.id
+            );
+
+            if (menu.currentMessageElement) {
+                menu.currentMessageElement.remove();
+            }
+
+            return;
+        }
+
+        if (action === "delete-for-everyone") {
+            if (item.sender !== "reception") {
+                alert("You can only delete your own messages for everyone.");
+                return;
+            }
+
+            let sentAt = null;
+
+            if (item.createdAt) {
+                sentAt = item.createdAt.toDate
+                    ? item.createdAt.toDate()
+                    : new Date(item.createdAt);
+            }
+
+            if (!sentAt || Number.isNaN(sentAt.getTime())) {
+                alert("The message timestamp is unavailable.");
+                return;
+            }
+
+            if (Date.now() - sentAt.getTime() > 60 * 1000) {
+                alert(
+                    "You can only delete a message for everyone " +
+                    "within one minute of sending it."
+                );
+                return;
+            }
+
+            const confirmed = confirm(
+                "Delete this message for both Reception and the guest? " +
+                "This cannot be undone."
+            );
+
+            if (!confirmed) {
+                return;
+            }
+
+            await deleteDoc(
+                doc(
+                    db,
+                    "chatConversations",
+                    conversationId,
+                    "messages",
+                    item.id
+                )
+            );
+
+            return;
+        }
+    } catch (error) {
+        console.error("Reception message action failed:", error);
+        alert("The action failed. Please check the console and try again.");
+    }
+});
+
+
 function openReceptionChatConversation(conversation) {
+
+   activeReceptionConversationId = conversation.id;
        const chatLayout =
         document.querySelector(".live-chat-layout");
 
