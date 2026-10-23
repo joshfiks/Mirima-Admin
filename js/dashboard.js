@@ -9356,14 +9356,14 @@ if (action === "edit") {
             }
 
             await deleteDoc(
-                doc(
-                    db,
-                    "chatConversations",
-                    conversationId,
-                    "messages",
-                    item.id
-                )
-            );
+             doc(
+                   db,
+        "chatConversations",
+        conversation.id,
+        "messages",
+        id
+    )
+);
 
             return;
         }
