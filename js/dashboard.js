@@ -9537,6 +9537,26 @@ updateDoc(
     </button>
 </div>
 
+
+<div class="wa-search-panel" id="waSearchPanel" hidden>
+    <input
+        type="search"
+        id="waSearchInput"
+        placeholder="Search messages..."
+        autocomplete="off"
+        aria-label="Search conversation messages"
+    >
+    <span id="waSearchCount" aria-live="polite"></span>
+    <button
+        type="button"
+        id="waSearchClose"
+        aria-label="Close message search"
+        title="Close search"
+    >
+        &times;
+    </button>
+</div>
+
                     </div>
 
                 </div>
@@ -9740,6 +9760,85 @@ if (waMenuButton && waChatMenu) {
         );
     }
 }
+
+   
+    // Reception chat: search messages
+    const waSearchPanel = chatWindow.querySelector("#waSearchPanel");
+    const waSearchInput = chatWindow.querySelector("#waSearchInput");
+    const waSearchCount = chatWindow.querySelector("#waSearchCount");
+    const waSearchClose = chatWindow.querySelector("#waSearchClose");
+    const waChatMenuForSearch = chatWindow.querySelector("#waChatMenu");
+
+    function runReceptionMessageSearch() {
+        if (!waSearchInput || !messagesContainer) return;
+
+        const term = waSearchInput.value.trim().toLowerCase();
+        const messageElements = messagesContainer.querySelectorAll(
+            ".wa-message-guest, .wa-message-reception"
+        );
+
+        let matches = 0;
+
+        messageElements.forEach(function (element) {
+            // Search the visible text of each message.
+            const text = element.textContent.toLowerCase();
+            const isMatch = term !== "" && text.includes(term);
+
+            element.style.outline = isMatch
+                ? "2px solid #25a56a"
+                : "";
+
+            element.style.outlineOffset = isMatch ? "2px" : "";
+
+            if (isMatch) matches++;
+        });
+
+        if (waSearchCount) {
+            waSearchCount.textContent = term
+                ? matches + (matches === 1 ? " match" : " matches")
+                : "";
+        }
+    }
+
+    if (
+        waSearchPanel &&
+        waSearchInput &&
+        waSearchClose &&
+        waChatMenuForSearch
+    ) {
+        // Open search from the existing More options menu.
+        waChatMenuForSearch
+            .querySelector('[data-wa-action="search"]')
+            ?.addEventListener("click", function () {
+                waChatMenuForSearch.hidden = true;
+
+                const menuButton =
+                    chatWindow.querySelector("#waMenuButton");
+
+                if (menuButton) {
+                    menuButton.setAttribute("aria-expanded", "false");
+                }
+
+                waSearchPanel.hidden = false;
+                waSearchInput.value = "";
+                runReceptionMessageSearch();
+                waSearchInput.focus();
+            });
+
+        // Search as the user types.
+        waSearchInput.addEventListener(
+            "input",
+            runReceptionMessageSearch
+        );
+
+        // Close search and remove all highlights.
+        waSearchClose.addEventListener("click", function () {
+            waSearchPanel.hidden = true;
+            waSearchInput.value = "";
+            runReceptionMessageSearch();
+        });
+    }
+
     
     // Connect the paperclip button to the file picker
     const attachButton =
