@@ -10043,18 +10043,18 @@ function runReceptionMessageSearch() {
                 if (!confirmed) return;
 
                 try {
-                    for (const id of eligibleIds) {
+                    
+                  for (const id of eligibleIds) {
                         await deleteDoc(
-                            doc(
-                                db,
-                                "chatConversations",
-                                conversationId,
-                                "messages",
-                                id
-                            )
-                        );
-                    }
-
+                           doc(
+                          db,
+                      "chatConversations",
+                     conversation.id,
+                     "messages",
+                     id
+                      )
+                  );
+                }
                     receptionSelectionMode = false;
                     selectedReceptionMessageIds.clear();
 
