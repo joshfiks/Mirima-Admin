@@ -9,6 +9,7 @@ import {
     getDoc,
     getDocs,
     updateDoc,
+    setDoc,
     query,
     where,
     orderBy,
@@ -53,6 +54,22 @@ export function listenToDepartmentConversations(
         },
         onError
     );
+}
+
+
+export async function hideReceptionMessageForMe(conversationId, messageId) {
+    const hiddenMessageRef = doc(
+        db,
+        "chatConversations",
+        conversationId,
+        "receptionHiddenMessages",
+        messageId
+    );
+
+    await setDoc(hiddenMessageRef, {
+        hidden: true,
+        hiddenAt: serverTimestamp()
+    });
 }
 
 // Listen to messages inside one conversation.
