@@ -9502,17 +9502,41 @@ updateDoc(
                             </svg>
                         </button>
 
-                        <div class="wa-menu" id="waChatMenu" hidden>
-                            <button type="button" data-wa-action="contact">
-                                Contact details
-                            </button>
-                            <button type="button" data-wa-action="search">
-                                Search messages
-                            </button>
-                            <button type="button" data-wa-action="clear">
-                                Clear chat view
-                            </button>
-                        </div>
+                        
+<div class="wa-menu" id="waChatMenu" hidden>
+    <button type="button" data-wa-action="contact">
+        Contact details
+    </button>
+
+    <button type="button" data-wa-action="search">
+        Search messages
+    </button>
+
+    <button type="button" data-wa-action="select-messages">
+        Select messages
+    </button>
+
+    <button type="button" data-wa-action="select-all">
+        Select all
+    </button>
+
+    <button type="button" data-wa-action="delete-selected">
+        Delete selected
+    </button>
+
+    <button type="button" data-wa-action="cancel-selection">
+        Cancel selection
+    </button>
+
+    <button type="button" data-wa-action="settings">
+        Settings
+    </button>
+
+    <button type="button" data-wa-action="clear">
+        Clear chat view
+    </button>
+</div>
+
                     </div>
 
                 </div>
