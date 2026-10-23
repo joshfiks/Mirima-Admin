@@ -10363,15 +10363,48 @@ function applyReceptionSettings() {
 
     if (settingsMessagesContainer) {
         const backgroundColors = {
-            default: "",
+            default: "#06110f",
             soft: "#f0f2f5",
             green: "#eaf5ee",
             blue: "#eaf2fb",
             warm: "#fbf3e7"
         };
 
-        settingsMessagesContainer.style.backgroundColor =
-            backgroundColors[receptionSettings.background] || "";
+        if (receptionSettings.background === "default") {
+            // Restore the original Mirima wallpaper.
+            settingsMessagesContainer.style.removeProperty(
+                "background-image"
+            );
+            settingsMessagesContainer.style.removeProperty(
+                "background-repeat"
+            );
+            settingsMessagesContainer.style.removeProperty(
+                "background-size"
+            );
+            settingsMessagesContainer.style.removeProperty(
+                "background-position"
+            );
+
+            settingsMessagesContainer.style.setProperty(
+                "background-color",
+                backgroundColors.default,
+                "important"
+            );
+        } else {
+            // Apply the selected custom background.
+            settingsMessagesContainer.style.setProperty(
+                "background-image",
+                "none",
+                "important"
+            );
+
+            settingsMessagesContainer.style.setProperty(
+                "background-color",
+                backgroundColors[receptionSettings.background] ||
+                    backgroundColors.default,
+                "important"
+            );
+        }
 
         const textSizes = {
             small: "13px",
