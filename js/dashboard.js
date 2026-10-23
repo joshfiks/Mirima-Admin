@@ -53,7 +53,8 @@ import {
     listenToConversationMessages,
     sendChatMessage,
     getLatestConversationMessage,
-    hideReceptionMessageForMe
+    hideReceptionMessageForMe,
+    getReceptionHiddenMessageIds
 } from "./chat.js";
 
 // =========================================================
@@ -9631,13 +9632,36 @@ chatWindow.innerHTML = `
         });
     }
    
-    activeReceptionMessageListener =
-        listenToConversationMessages(
-            conversation.id,
-            function (messages) {
+   activeReceptionMessageListener =
+    listenToConversationMessages(
+        conversation.id,
+        async function (messages) {
 
-         console.log("RECEPTION CHAT MESSAGES:", messages);
-         console.log("RECEPTION CHAT MESSAGE COUNT:", messages.length);
+            if (!messagesContainer) {
+                return;
+            }
+
+            let hiddenMessageIds;
+
+            try {
+                hiddenMessageIds =
+                    await getReceptionHiddenMessageIds(
+                        conversation.id
+                    );
+            } catch (error) {
+                console.error(
+                    "Could not load hidden Reception messages:",
+                    error
+                );
+                return;
+            }
+
+            messages = messages.filter(function (item) {
+                return !hiddenMessageIds.has(item.id);
+            });
+
+            console.log("RECEPTION CHAT MESSAGES:", messages);
+            console.log("RECEPTION CHAT MESSAGE COUNT:", messages.length);
 
                 if (!messagesContainer) {
                     return;
