@@ -9674,43 +9674,48 @@ updateDoc(
                     </div>
                 `;
 
-
     
 const waMenuButton = chatWindow.querySelector("#waMenuButton");
 const waChatMenu = chatWindow.querySelector("#waChatMenu");
 
 if (waMenuButton && waChatMenu) {
-    waMenuButton.onclick = function (event) {
+    // Use a fresh button to avoid previously attached click handlers.
+    const freshButton = waMenuButton.cloneNode(true);
+    waMenuButton.replaceWith(freshButton);
+
+    freshButton.addEventListener("click", function (event) {
         event.preventDefault();
         event.stopPropagation();
 
         waChatMenu.hidden = !waChatMenu.hidden;
 
-        waMenuButton.setAttribute(
+        freshButton.setAttribute(
             "aria-expanded",
             String(!waChatMenu.hidden)
         );
 
         console.log(
-            "Reception menu is now:",
+            "Menu state:",
             waChatMenu.hidden ? "closed" : "open"
         );
-    };
+    });
 
-    // Close the menu when clicking outside.
+    // Close the menu when clicking outside it.
     if (!document._waChatMenuOutsideHandler) {
         document._waChatMenuOutsideHandler = function (event) {
-            const button = document.querySelector("#waMenuButton");
-            const menu = document.querySelector("#waChatMenu");
+            const currentButton = document.querySelector("#waMenuButton");
+            const currentMenu = document.querySelector("#waChatMenu");
 
-            if (!button || !menu || menu.hidden) return;
+            if (!currentButton || !currentMenu || currentMenu.hidden) {
+                return;
+            }
 
             if (
-                !menu.contains(event.target) &&
-                !button.contains(event.target)
+                !currentMenu.contains(event.target) &&
+                !currentButton.contains(event.target)
             ) {
-                menu.hidden = true;
-                button.setAttribute("aria-expanded", "false");
+                currentMenu.hidden = true;
+                currentButton.setAttribute("aria-expanded", "false");
             }
         };
 
