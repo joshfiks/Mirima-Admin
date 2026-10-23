@@ -9675,6 +9675,21 @@ updateDoc(
                 `;
 
     
+               
+                document.body.appendChild(preview);
+
+                preview.addEventListener("click", function (event) {
+                    if (
+                        event.target === preview ||
+                        event.target.closest(".wa-profile-photo-close")
+                    ) {
+                        preview.remove();
+                    }
+                });
+            }
+        });
+    }
+
 const waMenuButton = chatWindow.querySelector("#waMenuButton");
 const waChatMenu = chatWindow.querySelector("#waChatMenu");
 
@@ -9725,23 +9740,6 @@ if (waMenuButton && waChatMenu) {
         );
     }
 }
-
-               
-                document.body.appendChild(preview);
-
-                preview.addEventListener("click", function (event) {
-                    if (
-                        event.target === preview ||
-                        event.target.closest(".wa-profile-photo-close")
-                    ) {
-                        preview.remove();
-                    }
-                });
-            }
-        });
-    }
-
-
     
     // Connect the paperclip button to the file picker
     const attachButton =
