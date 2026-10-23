@@ -10334,75 +10334,63 @@ function runReceptionMessageSearch() {
         }
     }
 
-    function applyReceptionSettings() {
-        if (waSettingSounds) {
-            waSettingSounds.checked =
-                receptionSettings.sounds;
-        }
 
-        if (waSettingTheme) {
-            waSettingTheme.value =
-                receptionSettings.theme;
-        }
+function applyReceptionSettings() {
+    if (waSettingSounds) {
+        waSettingSounds.checked = receptionSettings.sounds;
+    }
 
-        if (waSettingBackground) {
-            waSettingBackground.value =
-                receptionSettings.background;
-        }
+    if (waSettingTheme) {
+        waSettingTheme.value = receptionSettings.theme;
+    }
 
-        if (waSettingTextSize) {
-            waSettingTextSize.value =
-                receptionSettings.textSize;
-        }
+    if (waSettingBackground) {
+        waSettingBackground.value = receptionSettings.background;
+    }
 
-        if (waSettingDataSaver) {
-            waSettingDataSaver.checked =
-                receptionSettings.dataSaver;
-        }
+    if (waSettingTextSize) {
+        waSettingTextSize.value = receptionSettings.textSize;
+    }
 
-        // Apply theme to this Reception chat window.
-        chatWindow.dataset.waTheme =
-            receptionSettings.theme;
+    if (waSettingDataSaver) {
+        waSettingDataSaver.checked = receptionSettings.dataSaver;
+    }
 
-// Apply background to the message area when available.
-const backgroundColors = {
-    default: "",
-    soft: "#f0f2f5",
-    green: "#eaf5ee",
-    blue: "#eaf2fb",
-    warm: "#fbf3e7"
-};
+    chatWindow.dataset.waTheme = receptionSettings.theme;
 
-const settingsMessagesContainer =
-    chatWindow.querySelector("#liveChatMessages");
+    const settingsMessagesContainer =
+        chatWindow.querySelector("#liveChatMessages");
 
-if (settingsMessagesContainer) {
-    settingsMessagesContainer.style.backgroundColor =
-        backgroundColors[receptionSettings.background] || "";
+    if (settingsMessagesContainer) {
+        const backgroundColors = {
+            default: "",
+            soft: "#f0f2f5",
+            green: "#eaf5ee",
+            blue: "#eaf2fb",
+            warm: "#fbf3e7"
+        };
+
+        settingsMessagesContainer.style.backgroundColor =
+            backgroundColors[receptionSettings.background] || "";
+
+        const textSizes = {
+            small: "13px",
+            medium: "15px",
+            large: "17px"
+        };
+
+        settingsMessagesContainer
+            .querySelectorAll(
+                ".wa-message-guest, .wa-message-reception"
+            )
+            .forEach(function (element) {
+                element.style.fontSize =
+                    textSizes[receptionSettings.textSize] ||
+                    textSizes.medium;
+            });
+    }
 }
 
-      
-        // Apply text size to rendered messages safely.
-        const settingsMessagesContainer =
-            chatWindow.querySelector("#liveChatMessages");
-
-        if (settingsMessagesContainer) {
-            const textSizes = {
-                small: "13px",
-                medium: "15px",
-                large: "17px"
-            };
-
-            settingsMessagesContainer
-                .querySelectorAll(
-                    ".wa-message-guest, .wa-message-reception"
-                )
-                .forEach(function (element) {
-                    element.style.fontSize =
-                        textSizes[receptionSettings.textSize] ||
-                        textSizes.medium;
-                });
-        }
 
     function updateReceptionSetting(name, value) {
         receptionSettings[name] = value;
