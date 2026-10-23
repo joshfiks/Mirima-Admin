@@ -2286,3 +2286,30 @@
     box-shadow: none !important;
     border-bottom: none !important;
 }
+
+/* Search icon inside the message search input */
+.wa-search-input-wrap {
+    position: relative;
+    flex: 1;
+    min-width: 0;
+}
+
+.wa-search-input-wrap .wa-search-icon {
+    position: absolute;
+    left: 13px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #8696a0;
+    pointer-events: none;
+}
+
+.wa-search-input-wrap input[type="search"] {
+    width: 100%;
+    box-sizing: border-box;
+    padding-left: 40px;
+}
+
+.wa-search-input-wrap input[type="search"]:focus
+    + .wa-search-icon {
+    color: #25a56a;
+}
