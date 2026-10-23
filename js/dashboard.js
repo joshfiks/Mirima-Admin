@@ -10381,23 +10381,28 @@ if (settingsMessagesContainer) {
         backgroundColors[receptionSettings.background] || "";
 }
 
-        // Apply text size to rendered messages.
-        const textSizes = {
-            small: "13px",
-            medium: "15px",
-            large: "17px"
-        };
+      
+        // Apply text size to rendered messages safely.
+        const settingsMessagesContainer =
+            chatWindow.querySelector("#liveChatMessages");
 
-        messagesContainer
-            .querySelectorAll(
-                ".wa-message-guest, .wa-message-reception"
-            )
-            .forEach(function (element) {
-                element.style.fontSize =
-                    textSizes[receptionSettings.textSize] ||
-                    textSizes.medium;
-            });
-    }
+        if (settingsMessagesContainer) {
+            const textSizes = {
+                small: "13px",
+                medium: "15px",
+                large: "17px"
+            };
+
+            settingsMessagesContainer
+                .querySelectorAll(
+                    ".wa-message-guest, .wa-message-reception"
+                )
+                .forEach(function (element) {
+                    element.style.fontSize =
+                        textSizes[receptionSettings.textSize] ||
+                        textSizes.medium;
+                });
+        }
 
     function updateReceptionSetting(name, value) {
         receptionSettings[name] = value;
