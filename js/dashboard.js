@@ -9084,6 +9084,71 @@ function createReceptionMessageContextMenu() {
 }
 
 
+function showReceptionMessageContextMenu(messageElement, item, x, y) {
+    const menu = createReceptionMessageContextMenu();
+
+    // Remember which message the user selected.
+    menu.currentMessageElement = messageElement;
+    menu.currentMessageItem = item;
+
+    const isReceptionMessage = item.sender === "reception";
+
+    // Only the receptionist's own messages can be edited.
+    menu.querySelector('[data-action="edit"]').hidden =
+        !isReceptionMessage;
+
+    // Show Download only when the message has an attachment URL.
+    menu.querySelector('[data-action="download"]').hidden =
+        !item.attachmentUrl;
+
+    // Delete for everyone is only offered for the receptionist's messages.
+    menu.querySelector('[data-action="delete-for-everyone"]').hidden =
+        !isReceptionMessage;
+
+    menu.hidden = false;
+
+    // Position the menu within the visible browser window.
+    const margin = 8;
+    const menuWidth = menu.offsetWidth;
+    const menuHeight = menu.offsetHeight;
+
+    menu.style.left =
+        Math.max(
+            margin,
+            Math.min(x, window.innerWidth - menuWidth - margin)
+        ) + "px";
+
+    menu.style.top =
+        Math.max(
+            margin,
+            Math.min(y, window.innerHeight - menuHeight - margin)
+        ) + "px";
+}
+
+function hideReceptionMessageContextMenu() {
+    if (receptionMessageContextMenu) {
+        receptionMessageContextMenu.hidden = true;
+    }
+}
+
+
+document.addEventListener("click", function (event) {
+    if (
+        receptionMessageContextMenu &&
+        !receptionMessageContextMenu.hidden &&
+        !receptionMessageContextMenu.contains(event.target)
+    ) {
+        hideReceptionMessageContextMenu();
+    }
+});
+
+document.addEventListener("keydown", function (event) {
+    if (event.key === "Escape") {
+        hideReceptionMessageContextMenu();
+    }
+});
+
+
 function openReceptionChatConversation(conversation) {
        const chatLayout =
         document.querySelector(".live-chat-layout");
@@ -9721,6 +9786,78 @@ messages.forEach(function (item) {
     messageElement.style.marginBottom = "12px";
     messageElement.style.padding = "10px";
     messageElement.style.borderRadius = "8px";
+
+   
+    // Open the message menu with right-click on desktop.
+    messageElement.addEventListener("contextmenu", function (event) {
+        event.preventDefault();
+
+        showReceptionMessageContextMenu(
+            messageElement,
+            item,
+            event.clientX,
+            event.clientY
+        );
+    });
+
+    // Open the message menu with a long-press on touchscreens.
+    let receptionLongPressTimer = null;
+    let receptionTouchStartX = 0;
+    let receptionTouchStartY = 0;
+
+    messageElement.addEventListener("touchstart", function (event) {
+        if (event.touches.length !== 1) {
+            return;
+        }
+
+        const touch = event.touches[0];
+
+        receptionTouchStartX = touch.clientX;
+        receptionTouchStartY = touch.clientY;
+
+        receptionLongPressTimer = setTimeout(function () {
+            showReceptionMessageContextMenu(
+                messageElement,
+                item,
+                receptionTouchStartX,
+                receptionTouchStartY
+            );
+
+            receptionLongPressTimer = null;
+        }, 600);
+    }, { passive: true });
+
+    messageElement.addEventListener("touchmove", function (event) {
+        if (!receptionLongPressTimer) {
+            return;
+        }
+
+        const touch = event.touches[0];
+
+        if (
+            !touch ||
+            Math.abs(touch.clientX - receptionTouchStartX) > 10 ||
+            Math.abs(touch.clientY - receptionTouchStartY) > 10
+        ) {
+            clearTimeout(receptionLongPressTimer);
+            receptionLongPressTimer = null;
+        }
+    }, { passive: true });
+
+    messageElement.addEventListener("touchend", function () {
+        if (receptionLongPressTimer) {
+            clearTimeout(receptionLongPressTimer);
+            receptionLongPressTimer = null;
+        }
+    });
+
+    messageElement.addEventListener("touchcancel", function () {
+        if (receptionLongPressTimer) {
+            clearTimeout(receptionLongPressTimer);
+            receptionLongPressTimer = null;
+        }
+    });
+
 
     let sentDate = null;
 
