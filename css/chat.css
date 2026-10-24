@@ -2494,3 +2494,78 @@
     color: #202020;
     border-color: #cccccc;
 }
+
+/* Reception voice-note preview — polished styling */
+#liveChatWindow .wa-voice-preview {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 12px 16px;
+    background: var(--wa-composer-bg, #f7f8fa);
+    border-top: 1px solid var(--wa-border, #e5e7eb);
+}
+
+/* Hide the preview completely when there is no recording */
+#liveChatWindow .wa-voice-preview[hidden] {
+    display: none !important;
+}
+
+/* Compact, responsive audio player */
+#liveChatWindow #waVoicePreviewAudio {
+    display: block;
+    flex: 1 1 180px;
+    width: 100%;
+    max-width: 320px;
+    min-width: 0;
+    height: 40px;
+}
+
+/* Proper Discard button */
+#liveChatWindow .wa-voice-discard-button {
+    flex: 0 0 auto;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 9px 14px;
+    border: 1px solid #dc5555;
+    border-radius: 20px;
+    background: #fff;
+    color: #c93636;
+    font-size: 13px;
+    font-weight: 600;
+    line-height: 1.2;
+    cursor: pointer;
+    transition:
+        background-color 0.2s ease,
+        color 0.2s ease;
+}
+
+#liveChatWindow .wa-voice-discard-button:hover {
+    background: #dc5555;
+    color: #fff;
+}
+
+#liveChatWindow .wa-voice-discard-button:focus-visible {
+    outline: 2px solid #dc5555;
+    outline-offset: 3px;
+}
+
+/* Fit smaller screens */
+@media (max-width: 480px) {
+    #liveChatWindow .wa-voice-preview {
+        gap: 8px;
+        padding: 10px;
+    }
+
+    #liveChatWindow #waVoicePreviewAudio {
+        flex-basis: 140px;
+        height: 36px;
+    }
+
+    #liveChatWindow .wa-voice-discard-button {
+        padding: 8px 10px;
+        font-size: 12px;
+    }
+}
