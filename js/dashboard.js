@@ -10805,10 +10805,7 @@ if (selectedTheme === "system") {
 
     const voiceTime =
         chatWindow.querySelector("#waVoiceTime");
-
-    const replyForm =
-        chatWindow.querySelector("#liveChatReplyForm");
-
+   
     let voicePreviewUrl = null;
     let voiceRecorder = null;
     let voiceChunks = [];
