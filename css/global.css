@@ -11,6 +11,20 @@
 
 
 /* =========================
+   MIRIMA THEME COLORS
+   ========================= */
+
+:root {
+    --theme-page-bg: #101411;
+    --theme-surface: #172019;
+    --theme-surface-alt: #1e2921;
+    --theme-text: #f4efe3;
+    --theme-text-muted: #c0c7bd;
+    --theme-accent: #bda15c;
+    --theme-border: #344435;
+}
+
+/* =========================
    RESET
    ========================= */
 
@@ -39,8 +53,8 @@ body {
         Helvetica,
         sans-serif;
 
-    background: #101411;
-    color: #f4efe3;
+        background: var(--theme-page-bg);
+        color: var(--theme-text);
 
     -webkit-font-smoothing: antialiased;
 }
