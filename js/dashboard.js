@@ -10030,7 +10030,39 @@ function runReceptionMessageSearch() {
                 console.log("Reception message selection enabled.");
             });
 
+        // Clear the visible chat view without deleting saved messages.
+        waSelectionMenu
+            .querySelector('[data-wa-action="clear"]')
+            ?.addEventListener("click", function () {
+                const confirmed = confirm(
+                    "Clear the messages from this chat view? " +
+                    "Saved messages will not be deleted."
+                );
 
+                if (!confirmed) {
+                    return;
+                }
+
+                // Clear only the currently displayed messages.
+                messagesContainer.replaceChildren();
+
+                // Exit message-selection mode.
+                receptionSelectionMode = false;
+                selectedReceptionMessageIds.clear();
+
+                // Close the menu.
+                waSelectionMenu.hidden = true;
+
+                const menuButton =
+                    chatWindow.querySelector("#waMenuButton");
+
+                if (menuButton) {
+                    menuButton.setAttribute("aria-expanded", "false");
+                }
+
+                console.log("Reception chat view cleared.");
+            });
+       
 
         // Select all messages currently displayed.
         waSelectionMenu
