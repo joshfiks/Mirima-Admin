@@ -2443,10 +2443,14 @@
     background: #fff3f2;
 }
 
+
 /* Reception chat: theme settings */
+
+/* DARK THEME */
 .wa-chat-window[data-wa-theme="dark"] {
-    background: #1e1e1e;
+    background-color: #1e1e1e;
     color: #f1f1f1;
+    color-scheme: dark;
 }
 
 .wa-chat-window[data-wa-theme="dark"] .wa-chat-messages {
@@ -2454,7 +2458,7 @@
 }
 
 .wa-chat-window[data-wa-theme="dark"] .wa-settings-panel {
-    background: #252525;
+    background-color: #252525;
     color: #f1f1f1;
     border-color: #444444;
 }
@@ -2464,15 +2468,30 @@
 }
 
 .wa-chat-window[data-wa-theme="dark"] .wa-settings-content select {
-    background: #333333;
+    background-color: #333333;
     color: #f1f1f1;
     border-color: #555555;
 }
 
+/* LIGHT THEME */
 .wa-chat-window[data-wa-theme="light"] {
+    background-color: #ffffff;
+    color: #202020;
     color-scheme: light;
 }
 
-.wa-chat-window[data-wa-theme="dark"] {
-    color-scheme: dark;
+.wa-chat-window[data-wa-theme="light"] .wa-settings-panel {
+    background-color: #ffffff;
+    color: #202020;
+    border-color: #dddddd;
+}
+
+.wa-chat-window[data-wa-theme="light"] .wa-settings-section {
+    border-top-color: #dddddd;
+}
+
+.wa-chat-window[data-wa-theme="light"] .wa-settings-content select {
+    background-color: #ffffff;
+    color: #202020;
+    border-color: #cccccc;
 }
