@@ -299,6 +299,29 @@ function renderHousekeepingDashboard(session) {
 
                     <div class="housekeeping-header-actions">
 
+                    <!-- HOUSEKEEPING THEME SWITCHER -->
+
+<div class="housekeeping-theme-switcher">
+
+    <label for="housekeepingThemeSelect">
+        Theme
+    </label>
+
+    <select
+        id="housekeepingThemeSelect"
+        class="housekeeping-theme-select"
+        aria-label="Choose dashboard theme"
+    >
+        <option value="midnight">Midnight</option>
+        <option value="ivory">Ivory</option>
+        <option value="ocean">Ocean</option>
+        <option value="emerald">Emerald</option>
+        <option value="royal">Royal</option>
+        <option value="slate">Slate</option>
+    </select>
+
+</div>
+
                         <button
                             id="housekeepingNotificationButton"
                             class="housekeeping-header-icon-button"
@@ -517,6 +540,86 @@ function renderHousekeepingDashboard(session) {
     setupHousekeepingMobileMenu();
 
     setupAdminRequestNotifications();
+
+   
+/* =========================================================
+   HOUSEKEEPING THEME SWITCHER
+   ========================================================= */
+
+function setupHousekeepingThemeSwitcher() {
+    const desktopSelect =
+        document.getElementById("housekeepingThemeSelect");
+
+    const mobileSelect =
+        document.getElementById("housekeepingMobileThemeSelect");
+
+    const themeStorageKey = "mirima-theme";
+
+    const validThemes = [
+        "midnight",
+        "ivory",
+        "ocean",
+        "emerald",
+        "royal",
+        "slate"
+    ];
+
+    function applyTheme(theme) {
+        if (!validThemes.includes(theme)) {
+            theme = "midnight";
+        }
+
+        // Apply theme to the entire website.
+        document.documentElement.dataset.theme = theme;
+
+        // Save the selected theme.
+        try {
+            localStorage.setItem(themeStorageKey, theme);
+        } catch (error) {
+            console.warn("Could not save the selected theme.", error);
+        }
+
+        // Keep both selectors synchronized.
+        if (desktopSelect) {
+            desktopSelect.value = theme;
+        }
+
+        if (mobileSelect) {
+            mobileSelect.value = theme;
+        }
+    }
+
+    // Load the saved theme, or use the current theme.
+    let savedTheme = "midnight";
+
+    try {
+        savedTheme =
+            localStorage.getItem(themeStorageKey) ||
+            document.documentElement.dataset.theme ||
+            "midnight";
+    } catch (error) {
+        savedTheme =
+            document.documentElement.dataset.theme ||
+            "midnight";
+    }
+
+    applyTheme(savedTheme);
+
+    // Desktop theme selection.
+    if (desktopSelect) {
+        desktopSelect.addEventListener("change", function () {
+            applyTheme(this.value);
+        });
+    }
+
+    // Mobile theme selection.
+    if (mobileSelect) {
+        mobileSelect.addEventListener("change", function () {
+            applyTheme(this.value);
+        });
+    }
+}
+
 
    document
     .getElementById("housekeepingLogout")
