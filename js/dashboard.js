@@ -9693,7 +9693,6 @@ updateDoc(
 <!-- End Reception chat Settings panel -->
 
 
-
                     </div>
 
                 </div>
@@ -9709,66 +9708,136 @@ updateDoc(
 
             <form id="liveChatReplyForm" class="wa-chat-composer">
 
+                <!-- Attach file button -->
                 <button
                     type="button"
-                    class="wa-composer-icon"
+                    class="wa-composer-icon wa-normal-composer-control"
                     id="waAttachButton"
                     aria-label="Attach file"
                     title="Attach file"
                 >
                     <svg viewBox="0 0 24 24" aria-hidden="true">
-                        <path d="m8 12.5 7.2-7.2a4 4 0 0 1 5.7 5.7l-9.1 9.1a6 6 0 0 1-8.5-8.5l9-9"
-                            fill="none" stroke="currentColor"
-                            stroke-width="2" stroke-linecap="round"
-                            stroke-linejoin="round"/>
+                        <path
+                            d="m8 12.5 7.2-7.2a4 4 0 0 1 5.7 5.7l-9.1 9.1a6 6 0 0 1-8.5-8.5l9-9"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                        />
                     </svg>
                 </button>
 
+                <!-- Hidden file input -->
                 <input
-                 type="file"
-                id="waAttachmentInput"
-                accept="image/*,audio/*,video/*,.pdf,.doc,.docx,.xls,.xlsx,.ppt,.pptx,.txt,.csv,.rtf,.odt,.ods,.odp"
-                  hidden
-                 >
+                    type="file"
+                    id="waAttachmentInput"
+                    accept="image/*,audio/*,video/*,.pdf,.doc,.docx,.xls,.xlsx,.ppt,.pptx,.txt,.csv,.rtf,.odt,.ods,.odp"
+                    hidden
+                >
 
-<div id="waVoicePreview" class="wa-voice-preview" hidden>
-    <audio id="waVoicePreviewAudio" controls></audio>
+                <!-- Voice note preview -->
+                <div
+                    id="waVoicePreview"
+                    class="wa-voice-preview"
+                    hidden
+                >
+                    <button
+                        type="button"
+                        id="waVoicePlayButton"
+                        class="wa-voice-play-button"
+                        aria-label="Play voice note"
+                        title="Play voice note"
+                    >
+                        <svg viewBox="0 0 24 24" aria-hidden="true">
+                            <path
+                                d="M8 5v14l11-7z"
+                                fill="currentColor"
+                            />
+                        </svg>
+                    </button>
 
-    <button
-        type="button"
-        id="waVoiceDiscardButton"
-        class="wa-voice-discard-button"
-    >
-        Discard
-    </button>
-</div>
+                    <div class="wa-voice-wave-area">
+                        <div
+                            id="waVoiceWaveform"
+                            class="wa-voice-waveform"
+                            role="progressbar"
+                            aria-label="Voice note playback progress"
+                            aria-valuemin="0"
+                            aria-valuemax="100"
+                            aria-valuenow="0"
+                        ></div>
 
+                        <div
+                            id="waVoiceTime"
+                            class="wa-voice-time"
+                        >
+                            0:00 / 0:00
+                        </div>
+                    </div>
+
+                    <button
+                        type="button"
+                        id="waVoiceDiscardButton"
+                        class="wa-voice-discard-button"
+                        aria-label="Delete voice note"
+                        title="Delete voice note"
+                    >
+                        <svg viewBox="0 0 24 24" aria-hidden="true">
+                            <path
+                                d="M3 6h18M9 6V4h6v2m-9 0 1 14h10l1-14M10 10v6m4-6v6"
+                                fill="none"
+                                stroke="currentColor"
+                                stroke-width="1.8"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                            />
+                        </svg>
+                    </button>
+
+                    <audio
+                        id="waVoicePreviewAudio"
+                        preload="metadata"
+                    ></audio>
+                </div>
+
+                <!-- Message input -->
                 <input
                     id="liveChatReplyInput"
-                    class="wa-chat-input"
+                    class="wa-chat-input wa-normal-composer-control"
                     type="text"
                     placeholder="Type a message"
                     autocomplete="off"
-                    
                 >
 
+                <!-- Record voice note button -->
                 <button
                     type="button"
-                    class="wa-composer-icon"
+                    class="wa-composer-icon wa-normal-composer-control"
                     id="waVoiceButton"
                     aria-label="Record voice note"
                     title="Record voice note"
                 >
                     <svg viewBox="0 0 24 24" aria-hidden="true">
-                        <rect x="9" y="2" width="6" height="13" rx="3"
-                            fill="none" stroke="currentColor"
-                            stroke-width="1.8"/>
-                        <path d="M5 11a7 7 0 0 0 14 0M12 18v4m-4 0h8"
-                            fill="none" stroke="currentColor"
-                            stroke-width="1.8" stroke-linecap="round"/>
+                        <rect
+                            x="9"
+                            y="2"
+                            width="6"
+                            height="13"
+                            rx="3"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="1.8"
+                        />
+                        <path
+                            d="M5 11a7 7 0 0 0 14 0M12 18v4m-4 0h8"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="1.8"
+                            stroke-linecap="round"
+                        />
                     </svg>
                 </button>
-
 
                 <!-- Pending attachment preview -->
                 <div
@@ -9792,6 +9861,7 @@ updateDoc(
                     </button>
                 </div>
 
+                <!-- Send button -->
                 <button
                     type="submit"
                     class="wa-send-button"
@@ -9799,19 +9869,26 @@ updateDoc(
                     title="Send message"
                 >
                     <svg viewBox="0 0 24 24" aria-hidden="true">
-                        <path d="M22 2 11 13"
-                            fill="none" stroke="currentColor"
-                            stroke-width="2" stroke-linecap="round"/>
-                        <path d="m22 2-7 20-4-9-9-4Z"
-                            fill="currentColor" stroke="currentColor"
-                            stroke-width="1.5" stroke-linejoin="round"/>
+                        <path
+                            d="M22 2 11 13"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                        />
+                        <path
+                            d="m22 2-7 20-4-9-9-4Z"
+                            fill="currentColor"
+                            stroke="currentColor"
+                            stroke-width="1.5"
+                            stroke-linejoin="round"
+                        />
                     </svg>
                 </button>
 
             </form>
         </div>
     `;
-
 
     // Handle clicks on the guest profile avatar
     const profileAvatar =
