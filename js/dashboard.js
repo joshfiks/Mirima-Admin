@@ -12391,6 +12391,7 @@ if (attachmentInput) {
     attachmentInput.value = "";
 }
 
+
 recordedVoiceFile = null;
 
 // Clear the voice-note preview after a successful send.
@@ -12409,15 +12410,30 @@ if (voicePreview) {
     voicePreview.hidden = true;
 }
 
+if (voiceWaveform) {
+    voiceWaveform.replaceChildren();
+    voiceWaveform.setAttribute("aria-valuenow", "0");
+}
+
+if (voiceTime) {
+    voiceTime.textContent = "0:00 / 0:00";
+}
+
+if (replyForm) {
+    replyForm.classList.remove("wa-voice-preview-mode");
+}
+
 voiceChunks = [];
 
 if (voiceButton) {
-    voiceButton.title = "Record voice note";
+    voiceButton.classList.remove("wa-recording");
+    voiceButton.title = "Tap to record voice note";
     voiceButton.setAttribute(
         "aria-label",
         "Record voice note"
     );
 }
+
        
     } catch (error) {
         console.error(
