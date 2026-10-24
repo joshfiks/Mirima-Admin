@@ -2089,34 +2089,44 @@ export function showDashboard(session) {
                     </div>
 
 
-                    <div class="reception-header-actions">
 
-                        <button
-                            id="notificationButton"
-                            class="header-icon-button"
-                            aria-label="Notifications"
-                        >
-                            🔔
+<div class="reception-header-actions">
 
-                            <span
-                                id="headerNotificationCount"
-                                class="header-notification-count"
-                            >
-                                0
-                            </span>
+    <button
+        id="themeToggleButton"
+        class="header-icon-button theme-toggle-button"
+        type="button"
+        aria-label="Switch to light mode"
+        aria-pressed="false"
+        title="Switch to light mode"
+    >
+        <span id="themeToggleIcon" aria-hidden="true">☀️</span>
+        <span id="themeToggleLabel">Light mode</span>
+    </button>
 
-                        </button>
+    <button
+        id="notificationButton"
+        class="header-icon-button"
+        aria-label="Notifications"
+    >
+        🔔
 
+        <span
+            id="headerNotificationCount"
+            class="header-notification-count"
+        >
+            0
+        </span>
+    </button>
 
-                        <div class="header-staff">
+    <div class="header-staff">
+        <span>
+            ${escapeHTML(session.name)}
+        </span>
+    </div>
 
-                            <span>
-                                ${escapeHTML(session.name)}
-                            </span>
+</div>
 
-                        </div>
-
-                    </div>
 
                 </header>
 
@@ -2133,6 +2143,92 @@ export function showDashboard(session) {
         </div>
 
     `;
+
+   
+    // =========================================================
+    // MIRIMA THEME SWITCHER
+    // =========================================================
+
+    const themeToggleButton =
+        document.getElementById("themeToggleButton");
+
+    const themeToggleIcon =
+        document.getElementById("themeToggleIcon");
+
+    const themeToggleLabel =
+        document.getElementById("themeToggleLabel");
+
+    function applyMirimaTheme(theme) {
+        const selectedTheme =
+            theme === "light" ? "light" : "dark";
+
+        document.documentElement.dataset.theme =
+            selectedTheme;
+
+        if (themeToggleButton) {
+            const isDark = selectedTheme === "dark";
+
+            themeToggleButton.setAttribute(
+                "aria-pressed",
+                String(!isDark)
+            );
+
+            themeToggleButton.setAttribute(
+                "aria-label",
+                isDark
+                    ? "Switch to light mode"
+                    : "Switch to dark mode"
+            );
+
+            themeToggleButton.setAttribute(
+                "title",
+                isDark
+                    ? "Switch to light mode"
+                    : "Switch to dark mode"
+            );
+        }
+
+        if (themeToggleIcon) {
+            themeToggleIcon.textContent =
+                selectedTheme === "dark" ? "☀️" : "🌙";
+        }
+
+        if (themeToggleLabel) {
+            themeToggleLabel.textContent =
+                selectedTheme === "dark"
+                    ? "Light mode"
+                    : "Dark mode";
+        }
+    }
+
+    let savedTheme = "dark";
+
+    try {
+        savedTheme =
+            localStorage.getItem("mirima-theme") || "dark";
+    } catch (error) {
+        // Continue with dark mode if storage is unavailable.
+    }
+
+    applyMirimaTheme(savedTheme);
+
+    if (themeToggleButton) {
+        themeToggleButton.addEventListener("click", () => {
+            const currentTheme =
+                document.documentElement.dataset.theme || "dark";
+
+            const nextTheme =
+                currentTheme === "dark" ? "light" : "dark";
+
+            applyMirimaTheme(nextTheme);
+
+            try {
+                localStorage.setItem("mirima-theme", nextTheme);
+            } catch (error) {
+                // Theme still works for this page session.
+            }
+        });
+    }
 
 
     // Render overview
