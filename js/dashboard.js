@@ -10783,142 +10783,154 @@ if (selectedTheme === "system") {
     }
 
    
-    // Reception voice-note recording
+
+    // Reception voice-note recording and custom preview
     const voiceButton =
         chatWindow.querySelector("#waVoiceButton");
 
-   const voicePreview =
-    chatWindow.querySelector("#waVoicePreview");
+    const voicePreview =
+        chatWindow.querySelector("#waVoicePreview");
 
-const voicePreviewAudio =
-    chatWindow.querySelector("#waVoicePreviewAudio");
+    const voicePreviewAudio =
+        chatWindow.querySelector("#waVoicePreviewAudio");
 
-const voiceDiscardButton =
-    chatWindow.querySelector("#waVoiceDiscardButton");
+    const voiceDiscardButton =
+        chatWindow.querySelector("#waVoiceDiscardButton");
 
-let voicePreviewUrl = null;
-   
-   if (voiceButton) {
-    voiceButton.title = "Tap to record voice note";
-}
+    const voicePlayButton =
+        chatWindow.querySelector("#waVoicePlayButton");
 
+    const voiceWaveform =
+        chatWindow.querySelector("#waVoiceWaveform");
+
+    const voiceTime =
+        chatWindow.querySelector("#waVoiceTime");
+
+    const replyForm =
+        chatWindow.querySelector("#liveChatReplyForm");
+
+    let voicePreviewUrl = null;
     let voiceRecorder = null;
     let voiceChunks = [];
     let recordedVoiceFile = null;
 
     if (voiceButton) {
-        voiceButton.addEventListener("click", async function () {
-            // Stop recording when the microphone is clicked again.
-            if (
-                voiceRecorder &&
-                voiceRecorder.state === "recording"
-            ) {
-                voiceRecorder.stop();
-                return;
-            }
-
-            if (!navigator.mediaDevices?.getUserMedia ||
-                typeof MediaRecorder === "undefined") {
-                alert(
-                    "Voice recording is not supported by this browser."
-                );
-                return;
-            }
-
-            try {
-                const stream =
-                    await navigator.mediaDevices.getUserMedia({
-                        audio: true
-                    });
-
-                voiceChunks = [];
-                recordedVoiceFile = null;
-
-                voiceRecorder = new MediaRecorder(stream);
-
-                voiceRecorder.addEventListener(
-                    "dataavailable",
-                    function (event) {
-                        if (event.data.size > 0) {
-                            voiceChunks.push(event.data);
-                        }
-                    }
-                );
-
-                voiceRecorder.addEventListener("stop", function () {
-    const audioBlob = new Blob(voiceChunks, {
-        type: voiceRecorder.mimeType || "audio/webm"
-    });
-
-    // Release the microphone.
-    stream.getTracks().forEach(track => track.stop());
-
-    voiceButton.classList.remove("wa-recording");
-    voiceButton.title = "Voice note ready — click Send";
-    voiceButton.setAttribute(
-        "aria-label",
-        "Voice note ready — click Send"
-    );
-
-    // Ignore empty recordings.
-    if (!audioBlob.size) {
-        alert("No audio was recorded. Please try again.");
-        return;
+        voiceButton.title = "Tap to record voice note";
     }
 
-    recordedVoiceFile = new File(
-        [audioBlob],
-        "voice-note.webm",
-        { type: audioBlob.type }
-    );
-
-    // Prepare the audio preview.
-    if (voicePreview && voicePreviewAudio) {
-        if (voicePreviewUrl) {
-            URL.revokeObjectURL(voicePreviewUrl);
+    // Format seconds as minutes:seconds.
+    function formatVoiceTime(seconds) {
+        if (!Number.isFinite(seconds) || seconds < 0) {
+            seconds = 0;
         }
 
-        voicePreviewUrl = URL.createObjectURL(audioBlob);
-        voicePreviewAudio.src = voicePreviewUrl;
-        voicePreviewAudio.load();
+        const minutes = Math.floor(seconds / 60);
+        const remainingSeconds = Math.floor(seconds % 60);
 
-        voicePreview.hidden = false;
+        return `${minutes}:${String(remainingSeconds).padStart(2, "0")}`;
     }
 
-    console.log("Voice note ready for preview:", {
-        name: recordedVoiceFile.name,
-        type: recordedVoiceFile.type,
-        size: recordedVoiceFile.size
-    });
-});
+    // Update the playback counter.
+    function updateVoiceTime() {
+        if (!voiceTime || !voicePreviewAudio) return;
 
-                voiceRecorder.start();
+        voiceTime.textContent =
+            `${formatVoiceTime(voicePreviewAudio.currentTime)} / ` +
+            `${formatVoiceTime(voicePreviewAudio.duration)}`;
 
-           voiceButton.title = "Tap to stop recording";
-            voiceButton.setAttribute(
-             "aria-label",
-             "Tap to stop recording"
-          );
-          voiceButton.classList.add("wa-recording");
-               
+        if (voiceWaveform) {
+            const duration = voicePreviewAudio.duration;
 
-            } catch (error) {
-                console.error(
-                    "Reception voice recording failed:",
-                    error
+            const progress = Number.isFinite(duration) && duration > 0
+                ? (voicePreviewAudio.currentTime / duration) * 100
+                : 0;
+
+            voiceWaveform.setAttribute(
+                "aria-valuenow",
+                String(Math.round(progress))
+            );
+
+            const bars = voiceWaveform.querySelectorAll("span");
+            const playedBars = Math.floor(
+                (progress / 100) * bars.length
+            );
+
+            bars.forEach((bar, index) => {
+                bar.classList.toggle(
+                    "is-played",
+                    index < playedBars
                 );
+            });
+        }
+    }
 
-                alert(
-                    "Could not access the microphone. Please allow microphone access and try again."
-                );
-            }
+    // Create decorative waveform bars.
+    function buildVoiceWaveform() {
+        if (!voiceWaveform) return;
+
+        voiceWaveform.replaceChildren();
+
+        // Fixed bar heights create a decorative waveform.
+        const heights = [
+            30, 48, 68, 42, 78, 55, 34, 64, 88, 45,
+            58, 76, 36, 50, 82, 62, 40, 72, 46, 90,
+            56, 32, 68, 48, 80, 38, 60, 74, 44, 86,
+            52, 34, 66, 42, 78, 58, 36, 70, 48, 84,
+            54, 40, 64, 32, 76, 46, 60, 88, 38, 56
+        ];
+
+        heights.forEach(height => {
+            const bar = document.createElement("span");
+
+            bar.style.setProperty(
+                "--bar-height",
+                `${height}%`
+            );
+
+            voiceWaveform.appendChild(bar);
         });
+
+        updateVoiceTime();
     }
 
+    // Switch between play and pause icons.
+    function updateVoicePlayButton() {
+        if (!voicePlayButton || !voicePreviewAudio) return;
 
-   if (voiceDiscardButton) {
-    voiceDiscardButton.addEventListener("click", function () {
-        // Stop playback and release the preview URL.
+        if (voicePreviewAudio.paused) {
+            voicePlayButton.innerHTML = `
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M8 5v14l11-7z" fill="currentColor"/>
+                </svg>
+            `;
+
+            voicePlayButton.setAttribute(
+                "aria-label",
+                "Play voice note"
+            );
+
+            voicePlayButton.title = "Play voice note";
+        } else {
+            voicePlayButton.innerHTML = `
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path
+                        d="M7 5h4v14H7zM15 5h4v14h-4z"
+                        fill="currentColor"
+                    />
+                </svg>
+            `;
+
+            voicePlayButton.setAttribute(
+                "aria-label",
+                "Pause voice note"
+            );
+
+            voicePlayButton.title = "Pause voice note";
+        }
+    }
+
+    // Remove the current recording and its preview.
+    function clearVoicePreview() {
         if (voicePreviewAudio) {
             voicePreviewAudio.pause();
             voicePreviewAudio.removeAttribute("src");
@@ -10937,14 +10949,244 @@ let voicePreviewUrl = null;
             voicePreview.hidden = true;
         }
 
-        voiceButton.classList.remove("wa-recording");
-        voiceButton.title = "Tap to record voice note";
-        voiceButton.setAttribute(
-            "aria-label",
-            "Record voice note"
+        if (voiceWaveform) {
+            voiceWaveform.replaceChildren();
+            voiceWaveform.setAttribute("aria-valuenow", "0");
+        }
+
+        if (voiceTime) {
+            voiceTime.textContent = "0:00 / 0:00";
+        }
+
+        if (replyForm) {
+            replyForm.classList.remove("wa-voice-preview-mode");
+        }
+
+        if (voiceButton) {
+            voiceButton.classList.remove("wa-recording");
+            voiceButton.title = "Tap to record voice note";
+            voiceButton.setAttribute(
+                "aria-label",
+                "Record voice note"
+            );
+        }
+
+        updateVoicePlayButton();
+    }
+
+    // Play or pause the preview.
+    if (voicePlayButton && voicePreviewAudio) {
+        voicePlayButton.addEventListener("click", async function () {
+            if (!voicePreviewAudio.src) return;
+
+            if (voicePreviewAudio.paused) {
+                try {
+                    await voicePreviewAudio.play();
+                } catch (error) {
+                    console.error(
+                        "Could not play voice-note preview:",
+                        error
+                    );
+                }
+            } else {
+                voicePreviewAudio.pause();
+            }
+
+            updateVoicePlayButton();
+        });
+    }
+
+    // Keep the timer, waveform and button in sync with playback.
+    if (voicePreviewAudio) {
+        voicePreviewAudio.addEventListener(
+            "loadedmetadata",
+            function () {
+                updateVoiceTime();
+            }
         );
-    });
-}
+
+        voicePreviewAudio.addEventListener(
+            "timeupdate",
+            updateVoiceTime
+        );
+
+        voicePreviewAudio.addEventListener("play", function () {
+            updateVoicePlayButton();
+        });
+
+        voicePreviewAudio.addEventListener("pause", function () {
+            updateVoicePlayButton();
+        });
+
+        voicePreviewAudio.addEventListener("ended", function () {
+            updateVoicePlayButton();
+            updateVoiceTime();
+        });
+    }
+
+    // Allow clicking the waveform to seek through the recording.
+    if (voiceWaveform && voicePreviewAudio) {
+        voiceWaveform.addEventListener("click", function (event) {
+            const duration = voicePreviewAudio.duration;
+
+            if (!Number.isFinite(duration) || duration <= 0) {
+                return;
+            }
+
+            const bounds = voiceWaveform.getBoundingClientRect();
+
+            if (!bounds.width) return;
+
+            const clickPosition = Math.max(
+                0,
+                Math.min(1, (event.clientX - bounds.left) / bounds.width)
+            );
+
+            voicePreviewAudio.currentTime = clickPosition * duration;
+            updateVoiceTime();
+        });
+    }
+
+    // Start and stop recording using the microphone button.
+    if (voiceButton) {
+        voiceButton.addEventListener("click", async function () {
+            if (
+                voiceRecorder &&
+                voiceRecorder.state === "recording"
+            ) {
+                voiceRecorder.stop();
+                return;
+            }
+
+            if (
+                !navigator.mediaDevices?.getUserMedia ||
+                typeof MediaRecorder === "undefined"
+            ) {
+                alert(
+                    "Voice recording is not supported by this browser."
+                );
+                return;
+            }
+
+            try {
+                const stream =
+                    await navigator.mediaDevices.getUserMedia({
+                        audio: true
+                    });
+
+                voiceChunks = [];
+
+                // Remove any previous preview before recording again.
+                clearVoicePreview();
+
+                voiceRecorder = new MediaRecorder(stream);
+
+                voiceRecorder.addEventListener(
+                    "dataavailable",
+                    function (event) {
+                        if (event.data.size > 0) {
+                            voiceChunks.push(event.data);
+                        }
+                    }
+                );
+
+                voiceRecorder.addEventListener("stop", function () {
+                    const audioBlob = new Blob(voiceChunks, {
+                        type: voiceRecorder.mimeType || "audio/webm"
+                    });
+
+                    // Release the microphone.
+                    stream.getTracks().forEach(track => track.stop());
+
+                    voiceButton.classList.remove("wa-recording");
+
+                    // Ignore empty recordings.
+                    if (!audioBlob.size) {
+                        voiceButton.title = "Tap to record voice note";
+                        voiceButton.setAttribute(
+                            "aria-label",
+                            "Record voice note"
+                        );
+
+                        alert(
+                            "No audio was recorded. Please try again."
+                        );
+                        return;
+                    }
+
+                    recordedVoiceFile = new File(
+                        [audioBlob],
+                        "voice-note.webm",
+                        { type: audioBlob.type }
+                    );
+
+                    if (voicePreview && voicePreviewAudio) {
+                        if (voicePreviewUrl) {
+                            URL.revokeObjectURL(voicePreviewUrl);
+                        }
+
+                        voicePreviewUrl =
+                            URL.createObjectURL(audioBlob);
+
+                        voicePreviewAudio.src = voicePreviewUrl;
+                        voicePreviewAudio.load();
+
+                        voicePreview.hidden = false;
+
+                        if (replyForm) {
+                            replyForm.classList.add(
+                                "wa-voice-preview-mode"
+                            );
+                        }
+
+                        buildVoiceWaveform();
+                        updateVoicePlayButton();
+                        updateVoiceTime();
+                    }
+
+                    voiceButton.title = "Voice note ready — click Send";
+                    voiceButton.setAttribute(
+                        "aria-label",
+                        "Voice note ready — click Send"
+                    );
+
+                    console.log("Voice note ready for preview:", {
+                        name: recordedVoiceFile.name,
+                        type: recordedVoiceFile.type,
+                        size: recordedVoiceFile.size
+                    });
+                });
+
+                voiceRecorder.start();
+
+                voiceButton.title = "Tap to stop recording";
+                voiceButton.setAttribute(
+                    "aria-label",
+                    "Tap to stop recording"
+                );
+
+                voiceButton.classList.add("wa-recording");
+
+            } catch (error) {
+                console.error(
+                    "Reception voice recording failed:",
+                    error
+                );
+
+                alert(
+                    "Could not access the microphone. Please allow microphone access and try again."
+                );
+            }
+        });
+    }
+
+    // Delete/discard the recorded voice note.
+    if (voiceDiscardButton) {
+        voiceDiscardButton.addEventListener("click", function () {
+            clearVoicePreview();
+        });
+    }
+
     const messagesContainer =
         document.getElementById("liveChatMessages");
 
