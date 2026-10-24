@@ -2,6 +2,7 @@
 /* =========================================================
    MIRIMA ADMIN — WHATSAPP-STYLE RECEPTION CHAT
    All styles are scoped to .wa-chat
+   Theme-aware version
    ========================================================= */
 
 .wa-chat {
@@ -11,10 +12,10 @@
     height: 100%;
     min-height: 0;
     overflow: hidden;
-    background: #efeae2;
-    border: 1px solid #d9e0e3;
+    background: var(--theme-surface);
+    border: 1px solid var(--theme-border);
     border-radius: 12px;
-    color: #111b21;
+    color: var(--theme-text);
     font-family: Arial, Helvetica, sans-serif;
     box-sizing: border-box;
 }
@@ -33,9 +34,9 @@
     gap: 10px;
     padding: 12px 16px;
     min-height: 72px;
-    background: #101411;
-    border-bottom: 1px solid rgba(184, 155, 94, 0.35);
-    color: #ffffff;
+    background: var(--theme-surface);
+    border-bottom: 1px solid var(--theme-border);
+    color: var(--theme-text);
     flex-shrink: 0;
 }
 
@@ -57,7 +58,7 @@
     height: 36px;
     padding: 6px;
     background: transparent;
-    color: #ffffff;
+    color: var(--theme-text);
 }
 
 .wa-chat .wa-avatar {
@@ -68,8 +69,8 @@
     height: 44px;
     flex-shrink: 0;
     border-radius: 50%;
-    background: #26362c;
-    color: #d1b675;
+    background: var(--theme-surface-alt);
+    color: var(--theme-accent);
 }
 
 .wa-chat .wa-avatar svg {
@@ -77,8 +78,8 @@
     height: 26px;
 }
 
-
 /* Clickable guest profile avatar */
+
 .wa-chat .wa-profile-avatar {
     border: none;
     padding: 0;
@@ -87,7 +88,7 @@
 }
 
 .wa-chat .wa-profile-avatar:focus-visible {
-    outline: 2px solid #d1b675;
+    outline: 2px solid var(--theme-accent);
     outline-offset: 3px;
 }
 
@@ -98,7 +99,7 @@
 
 .wa-chat .wa-chat-contact h4 {
     margin: 0;
-    color: #ffffff;
+    color: var(--theme-text);
     font-size: 16px;
     font-weight: 600;
     overflow-wrap: anywhere;
@@ -106,7 +107,7 @@
 
 .wa-chat .wa-chat-contact p {
     margin: 4px 0 0;
-    color: #d3e8e4;
+    color: var(--theme-text-muted);
     font-size: 13px;
 }
 
@@ -122,12 +123,12 @@
     padding: 9px;
     border-radius: 50%;
     background: transparent;
-    color: #ffffff;
+    color: var(--theme-text);
 }
 
 .wa-chat .wa-icon-button:hover,
 .wa-chat .wa-back-button:hover {
-    background: rgba(255, 255, 255, 0.14);
+    background: var(--theme-surface-alt);
 }
 
 .wa-chat .wa-icon-button svg,
@@ -152,10 +153,11 @@
     right: 0;
     width: 190px;
     padding: 6px 0;
-    background: #ffffff;
+    background: var(--theme-surface);
+    border: 1px solid var(--theme-border);
     border-radius: 8px;
     box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
-    color: #222222;
+    color: var(--theme-text);
 }
 
 .wa-chat .wa-menu[hidden] {
@@ -175,11 +177,10 @@
 }
 
 .wa-chat .wa-menu button:hover {
-    background: #f0f2f5;
+    background: var(--theme-surface-alt);
 }
 
 /* Message area */
-
 
 .wa-chat .wa-chat-messages {
     display: flex;
@@ -190,12 +191,12 @@
     gap: 8px;
     overflow-y: auto;
 
-    /* Dark Mirima wallpaper */
-    background-color: #06110f;
+    /* Theme-aware chat wallpaper */
+    background-color: var(--theme-page-bg);
     background-image:
         linear-gradient(
-            rgba(3, 10, 8, 0.78),
-            rgba(3, 10, 8, 0.78)
+            rgba(0, 0, 0, 0.38),
+            rgba(0, 0, 0, 0.38)
         ),
         url("../images/chat-wallpaper.png");
     background-repeat: repeat;
@@ -205,20 +206,30 @@
     overscroll-behavior: contain;
 }
 
+:root[data-theme="ivory"] .wa-chat .wa-chat-messages {
+    background-image:
+        linear-gradient(
+            rgba(255, 255, 255, 0.78),
+            rgba(255, 255, 255, 0.78)
+        ),
+        url("../images/chat-wallpaper.png");
+}
 
 .wa-chat .wa-chat-messages > p {
     align-self: center;
     max-width: 90%;
     padding: 10px 14px;
     border-radius: 8px;
-    background: rgba(255, 255, 255, 0.9);
-    color: #667781;
+    background: var(--theme-surface-alt);
+    color: var(--theme-text-muted);
+    border: 1px solid var(--theme-border);
     font-size: 14px;
     text-align: center;
 }
 
-
-/* WhatsApp-style compact bubbles with rounded tails */
+/* =========================================================
+   WHATSAPP-STYLE MESSAGE BUBBLES
+   ========================================================= */
 
 .wa-chat .wa-chat-messages > div.wa-message-guest {
     position: relative;
@@ -227,8 +238,8 @@
     max-width: 65%;
     padding: 8px 12px;
     border-radius: 4px 18px 18px 18px;
-    background: #dce8d9;
-    color: #17271e;
+    background: var(--theme-surface-alt);
+    color: var(--theme-text);
     overflow-wrap: anywhere;
     box-shadow: 0 1px 2px rgba(0, 0, 0, 0.12);
     box-sizing: border-box;
@@ -241,7 +252,7 @@
     left: -6px;
     width: 10px;
     height: 12px;
-    background: #dce8d9;
+    background: var(--theme-surface-alt);
     clip-path: polygon(100% 0, 100% 100%, 0 0);
 }
 
@@ -252,8 +263,8 @@
     max-width: 65%;
     padding: 8px 12px;
     border-radius: 18px 4px 18px 18px;
-    background: #26362c;
-    color: #f4efe3;
+    background: var(--theme-surface);
+    color: var(--theme-text);
     overflow-wrap: anywhere;
     box-shadow: 0 1px 2px rgba(0, 0, 0, 0.18);
     box-sizing: border-box;
@@ -266,21 +277,21 @@
     right: -6px;
     width: 10px;
     height: 12px;
-    background: #26362c;
+    background: var(--theme-surface);
     clip-path: polygon(0 0, 0 100%, 100% 0);
 }
 
 .wa-chat .wa-chat-messages > div.wa-message-guest strong {
     display: block;
     margin-bottom: 4px;
-    color: #526b60;
+    color: var(--theme-text-muted);
     font-size: 12px;
 }
 
 .wa-chat .wa-chat-messages > div.wa-message-reception strong {
     display: block;
     margin-bottom: 4px;
-    color: #d1b675;
+    color: var(--theme-accent);
     font-size: 12px;
 }
 
@@ -299,15 +310,17 @@
 }
 
 
-/* Message composer */
+/* =========================================================
+   MESSAGE COMPOSER
+   ========================================================= */
 
 .wa-chat .wa-chat-composer {
     display: flex;
     align-items: center;
     gap: 8px;
     padding: 10px 12px;
-    background: #f0f2f5;
-    border-top: 1px solid #dfe3e5;
+    background: var(--theme-surface);
+    border-top: 1px solid var(--theme-border);
     flex-shrink: 0;
 }
 
@@ -317,11 +330,11 @@
     padding: 9px;
     border-radius: 50%;
     background: transparent;
-    color: #54656f;
+    color: var(--theme-text-muted);
 }
 
 .wa-chat .wa-composer-icon:hover {
-    background: #e1e6e9;
+    background: var(--theme-surface-alt);
 }
 
 .wa-chat .wa-chat-input {
@@ -330,22 +343,23 @@
     min-width: 0;
     height: 44px;
     padding: 0 16px;
-    border: 1px solid #dce1e4;
+    border: 1px solid var(--theme-border);
     border-radius: 24px;
     outline: none;
-    background: #ffffff;
-    color: #111b21;
+    background: var(--theme-surface-alt);
+    color: var(--theme-text);
     font: inherit;
     font-size: 14px;
 }
 
 .wa-chat .wa-chat-input:focus {
-    border-color: #8ab7ad;
-    box-shadow: 0 0 0 2px rgba(7, 94, 84, 0.08);
+    border-color: var(--theme-accent);
+    box-shadow: 0 0 0 2px var(--theme-border);
 }
 
 .wa-chat .wa-chat-input::placeholder {
-    color: #8696a0;
+    color: var(--theme-text-muted);
+    opacity: 0.8;
 }
 
 .wa-chat .wa-send-button {
@@ -353,13 +367,13 @@
     height: 44px;
     padding: 10px;
     border-radius: 50%;
-    background: #b89b5e;
-   color: #11150f;
+    background: var(--theme-accent);
+    color: var(--theme-page-bg);
     transition: background 0.15s ease;
 }
 
 .wa-chat .wa-send-button:hover {
-    background: #064c44;
+    filter: brightness(0.92);
 }
 
 .wa-chat .wa-send-button:disabled {
@@ -367,15 +381,21 @@
     cursor: not-allowed;
 }
 
-/* Keyboard accessibility */
+
+/* =========================================================
+   KEYBOARD ACCESSIBILITY
+   ========================================================= */
 
 .wa-chat button:focus-visible,
 .wa-chat input:focus-visible {
-    outline: 2px solid #34b7a0;
+    outline: 2px solid var(--theme-accent);
     outline-offset: 2px;
 }
 
-/* Smaller screens */
+
+/* =========================================================
+   SMALLER SCREENS
+   ========================================================= */
 
 @media (max-width: 600px) {
     .wa-chat {
@@ -435,7 +455,12 @@
         height: 40px;
     }
 }
-/* WhatsApp-style inline message timestamp */
+
+
+/* =========================================================
+   INLINE MESSAGE TIMESTAMP
+   ========================================================= */
+
 .wa-chat .wa-message-time {
     display: inline-block;
     margin-left: 10px;
@@ -446,12 +471,16 @@
     opacity: 0.75;
     vertical-align: baseline;
 }
+/* =========================================================
+   MESSAGE TEXT AND TIMESTAMPS
+   ========================================================= */
 
 /* Keep message text and timestamp on the same line when possible */
 .wa-chat .wa-message-text {
     display: inline;
     overflow-wrap: anywhere;
 }
+
 /* Tighter sender names and message text */
 .wa-chat .wa-chat-messages > div strong {
     margin-bottom: 2px;
@@ -460,18 +489,13 @@
 }
 
 .wa-chat .wa-chat-messages > div p {
-    margin: 2px 0 0;
-    font-size: 13px;
-    line-height: 1.35;
-}
-/* Compact message text */
-.wa-chat .wa-chat-messages > div p {
     margin: 0;
     font-size: 13px;
     line-height: 1.3;
     white-space: pre-wrap;
     overflow-wrap: anywhere;
 }
+
 /* WhatsApp-style inline message timestamp */
 .wa-chat .wa-message-time {
     display: inline-block;
@@ -483,28 +507,37 @@
     opacity: 0.75;
     vertical-align: baseline;
 }
-/* WhatsApp-style date separators */
+
+/* =========================================================
+   WHATSAPP-STYLE DATE SEPARATORS
+   ========================================================= */
+
 .wa-chat .wa-date-separator {
     width: fit-content;
     max-width: 90%;
     margin: 16px auto;
     padding: 6px 12px;
     border-radius: 8px;
-    background: #26362c;
-    color: #f4efe3;
+    background: var(--theme-surface-alt);
+    border: 1px solid var(--theme-border);
+    color: var(--theme-text);
     font-size: 11px;
     line-height: 1.4;
     text-align: center;
     box-shadow: 0 1px 2px rgba(0, 0, 0, 0.12);
 }
-/* Mirima message status ticks */
+
+/* =========================================================
+   MIRIMA MESSAGE STATUS TICKS
+   ========================================================= */
+
 .wa-chat .wa-message-ticks {
     display: inline-block;
     margin-left: 3px;
     font-size: 11px;
     line-height: 1;
     letter-spacing: -3px;
-    color: #aeb8b3;
+    color: var(--theme-text-muted);
     vertical-align: baseline;
 }
 
@@ -544,7 +577,6 @@
 
 /* Mobile: switch between the conversation list and chat */
 @media (max-width: 600px) {
-
     .live-chat-layout {
         display: flex;
         flex-direction: column;
@@ -574,6 +606,7 @@
     }
 }
 
+
 /* =========================================================
    MIRIMA ADMIN — RECEPTION CONVERSATION CARDS
    ========================================================= */
@@ -586,11 +619,11 @@
     text-align: left;
     cursor: pointer;
 
-    background: #17231b;
-    border: 1px solid rgba(184, 155, 94, 0.22);
+    background: var(--theme-surface);
+    border: 1px solid var(--theme-border);
     border-radius: 12px;
 
-    color: #f4efe3;
+    color: var(--theme-text);
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
 
     transition:
@@ -601,13 +634,13 @@
 }
 
 .live-chat-conversation-item:hover {
-    background: #202f24;
-    border-color: #b89b5e;
+    background: var(--theme-surface-alt);
+    border-color: var(--theme-accent);
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
 
 .live-chat-conversation-item:focus-visible {
-    outline: 2px solid #d1b675;
+    outline: 2px solid var(--theme-accent);
     outline-offset: 2px;
 }
 
@@ -621,7 +654,7 @@
 
 .live-chat-guest-name {
     min-width: 0;
-    color: #f4efe3;
+    color: var(--theme-text);
     font-size: 15px;
     font-weight: 700;
     overflow-wrap: anywhere;
@@ -630,14 +663,14 @@
 .live-chat-cottage {
     display: block;
     margin-top: 5px;
-    color: #d1b675;
+    color: var(--theme-accent);
     font-size: 13px;
 }
 
 .live-chat-conversation-item .latest-message-preview {
     display: block;
     margin-top: 9px;
-    color: #b8c6ba;
+    color: var(--theme-text-muted);
     font-size: 12px;
     line-height: 1.45;
     overflow-wrap: anywhere;
@@ -647,8 +680,8 @@
     flex-shrink: 0;
     padding: 4px 9px;
     border-radius: 12px;
-    background: #b89b5e;
-    color: #101411;
+    background: var(--theme-accent);
+    color: var(--theme-page-bg);
     font-size: 11px;
     font-weight: 700;
 }
@@ -660,7 +693,6 @@
         border-radius: 10px;
     }
 }
-
 /* =========================================================
    MIRIMA ADMIN — LIVE CHAT PANEL FINISHING
    ========================================================= */
@@ -669,8 +701,8 @@
 .live-chat-conversations {
     min-width: 0;
     padding: 18px;
-    background: #131b15;
-    border: 1px solid rgba(184, 155, 94, 0.22);
+    background: var(--theme-surface);
+    border: 1px solid var(--theme-border);
     border-radius: 14px;
     box-sizing: border-box;
 }
@@ -686,7 +718,7 @@
 
 .live-chat-panel-title h4 {
     margin: 0;
-    color: #f4efe3;
+    color: var(--theme-text);
     font-size: 16px;
     font-weight: 600;
 }
@@ -699,10 +731,10 @@
     min-width: 26px;
     height: 26px;
     padding: 0 8px;
-    border: 1px solid rgba(184, 155, 94, 0.4);
+    border: 1px solid var(--theme-border);
     border-radius: 20px;
-    background: #26362c;
-    color: #d1b675;
+    background: var(--theme-surface-alt);
+    color: var(--theme-accent);
     font-size: 12px;
     font-weight: 700;
 }
@@ -722,9 +754,9 @@
     min-width: 0;
     min-height: 0;
     overflow: hidden;
-    border: 1px solid rgba(184, 155, 94, 0.22);
+    border: 1px solid var(--theme-border);
     border-radius: 14px;
-    background: #131b15;
+    background: var(--theme-surface);
     box-sizing: border-box;
 }
 
@@ -740,7 +772,7 @@
     height: 100%;
     padding: 24px;
     text-align: center;
-    color: #f4efe3;
+    color: var(--theme-text);
     box-sizing: border-box;
 }
 
@@ -752,21 +784,21 @@
     height: 56px;
     margin-bottom: 4px;
     border-radius: 50%;
-    background: #20291f;
-    color: #d1b675;
+    background: var(--theme-surface-alt);
+    color: var(--theme-accent);
     font-size: 25px;
 }
 
 .live-chat-window-empty h4 {
     margin: 0;
-    color: #f4efe3;
+    color: var(--theme-text);
     font-size: 17px;
 }
 
 .live-chat-window-empty p {
     max-width: 300px;
     margin: 0;
-    color: #b8c6ba;
+    color: var(--theme-text-muted);
     font-size: 13px;
     line-height: 1.6;
 }
@@ -786,6 +818,7 @@
         padding: 18px;
     }
 }
+
 
 /* =========================================================
    MIRIMA ADMIN — COMPACT GUEST CONVERSATION CARDS
@@ -811,9 +844,9 @@
     width: 44px;
     height: 44px;
     border-radius: 50%;
-    background: #26362c;
-    color: #d1b675;
-    border: 1px solid rgba(184, 155, 94, 0.3);
+    background: var(--theme-surface-alt);
+    color: var(--theme-accent);
+    border: 1px solid var(--theme-border);
 }
 
 .live-chat-guest-avatar svg {
@@ -879,7 +912,6 @@
         height: 23px;
     }
 }
-
 /* =========================================================
    MIRIMA RECEPTION CHAT — FIXED PANEL, INTERNAL SCROLL
    ========================================================= */
@@ -925,6 +957,7 @@
     -webkit-overflow-scrolling: touch;
 }
 
+
 /* =========================================================
    RECEPTION CHAT — COMFORTABLE PANEL HEIGHT
    ========================================================= */
@@ -962,6 +995,7 @@
     }
 }
 
+
 /* =========================================================
    MIRIMA ADMIN — INDEPENDENT CONVERSATION LIST SCROLL
    ========================================================= */
@@ -988,7 +1022,7 @@
     overscroll-behavior-y: contain;
     -webkit-overflow-scrolling: touch;
     scrollbar-width: thin;
-    scrollbar-color: #657568 #131b15;
+    scrollbar-color: var(--theme-text-muted) var(--theme-surface);
 }
 
 /* Optional scrollbar styling for Chrome, Edge and Safari */
@@ -997,23 +1031,24 @@
 }
 
 .live-chat-conversation-list::-webkit-scrollbar-track {
-    background: #131b15;
+    background: var(--theme-surface);
     border-radius: 6px;
 }
 
 .live-chat-conversation-list::-webkit-scrollbar-thumb {
-    background: #657568;
+    background: var(--theme-text-muted);
     border-radius: 6px;
 }
 
 .live-chat-conversation-list::-webkit-scrollbar-thumb:hover {
-    background: #b89b5e;
+    background: var(--theme-accent);
 }
 
 /* Prevent cards from shrinking to fit the panel */
 .live-chat-conversation-item {
     flex-shrink: 0;
 }
+
 
 /* =========================================================
    MIRIMA ADMIN — VOICE NOTE PLAYER
@@ -1069,8 +1104,8 @@
     padding: 6px;
     border: none;
     border-radius: 50%;
-    background: #b89b5e;
-    color: #101411;
+    background: var(--theme-accent);
+    color: var(--theme-page-bg);
     cursor: pointer;
 }
 
@@ -1081,8 +1116,8 @@
 }
 
 .wa-chat .wa-message-guest .wa-voice-play {
-    background: #26362c;
-    color: #d1b675;
+    background: var(--theme-surface);
+    color: var(--theme-text);
 }
 
 .wa-chat .wa-voice-waveform {
@@ -1103,24 +1138,24 @@
     min-width: 2px;
     max-width: 3px;
     border-radius: 3px;
-    background: #829087;
+    background: var(--theme-text-muted);
     transition: background 0.12s ease;
 }
 
 .wa-chat .wa-message-guest .wa-voice-bar {
-    background: #8b9c8b;
+    background: var(--theme-text-muted);
 }
 
 .wa-chat .wa-message-reception .wa-voice-bar {
-    background: #819287;
+    background: var(--theme-text-muted);
 }
 
 .wa-chat .wa-voice-bar.played {
-    background: #b89b5e;
+    background: var(--theme-accent);
 }
 
 .wa-chat .wa-message-guest .wa-voice-bar.played {
-    background: #26362c;
+    background: var(--theme-accent);
 }
 
 .wa-chat .wa-voice-time {
@@ -1131,19 +1166,19 @@
     flex: 0 0 auto;
     gap: 2px;
     min-width: 30px;
-    color: #526b60;
+    color: var(--theme-text-muted);
     font-size: 9px;
     line-height: 1.1;
     white-space: nowrap;
 }
 
 .wa-chat .wa-message-reception .wa-voice-time {
-    color: #d1b675;
+    color: var(--theme-accent);
 }
 
 .wa-chat .wa-voice-play:focus-visible,
 .wa-chat .wa-voice-waveform:focus-visible {
-    outline: 2px solid #d1b675;
+    outline: 2px solid var(--theme-accent);
     outline-offset: 2px;
 }
 
@@ -1165,7 +1200,6 @@
         height: 28px;
     }
 }
-
 /* =========================================================
    MIRIMA ADMIN — MUSIC / SONG PLAYER
    ========================================================= */
@@ -1195,8 +1229,8 @@
     width: 38px;
     height: 38px;
     border-radius: 10px;
-    background: #26362c;
-    color: #d1b675;
+    background: var(--theme-surface-alt);
+    color: var(--theme-accent);
 }
 
 .wa-chat .wa-music-icon svg {
@@ -1221,7 +1255,8 @@
 .wa-chat .wa-music-label {
     margin-top: 3px;
     font-size: 10px;
-    opacity: 0.7;
+    color: var(--theme-text-muted);
+    opacity: 0.85;
 }
 
 .wa-chat .wa-music-play {
@@ -1234,8 +1269,8 @@
     padding: 7px;
     border: none;
     border-radius: 50%;
-    background: #b89b5e;
-    color: #101411;
+    background: var(--theme-accent);
+    color: var(--theme-page-bg);
     cursor: pointer;
 }
 
@@ -1255,10 +1290,10 @@
     border-radius: 5px;
     background: linear-gradient(
         to right,
-        #b89b5e 0%,
-        #b89b5e var(--music-progress, 0%),
-        #a5ada7 var(--music-progress, 0%),
-        #a5ada7 100%
+        var(--theme-accent) 0%,
+        var(--theme-accent) var(--music-progress, 0%),
+        var(--theme-text-muted) var(--music-progress, 0%),
+        var(--theme-text-muted) 100%
     );
     cursor: pointer;
 }
@@ -1269,7 +1304,7 @@
     width: 10px;
     height: 10px;
     border-radius: 50%;
-    background: #b89b5e;
+    background: var(--theme-accent);
 }
 
 .wa-chat .wa-music-progress::-moz-range-thumb {
@@ -1277,20 +1312,20 @@
     height: 10px;
     border: none;
     border-radius: 50%;
-    background: #b89b5e;
+    background: var(--theme-accent);
 }
 
 .wa-chat .wa-music-time {
     display: flex;
     justify-content: space-between;
-    color: inherit;
+    color: var(--theme-text-muted);
     font-size: 10px;
-    opacity: 0.8;
+    opacity: 0.9;
 }
 
 .wa-chat .wa-music-play:focus-visible,
 .wa-chat .wa-music-progress:focus-visible {
-    outline: 2px solid #d1b675;
+    outline: 2px solid var(--theme-accent);
     outline-offset: 3px;
 }
 
@@ -1343,7 +1378,8 @@
     overflow-wrap: anywhere;
     font-size: 11px;
     line-height: 1.4;
-    opacity: 0.85;
+    color: var(--theme-text-muted);
+    opacity: 0.9;
 }
 
 .wa-chat .wa-image-attachment {
@@ -1400,8 +1436,8 @@
     align-items: center;
     gap: 7px;
     padding: 7px;
-    background: #18231f;
-    color: #fff;
+    background: var(--theme-surface);
+    color: var(--theme-text);
     box-sizing: border-box;
 }
 
@@ -1409,7 +1445,7 @@
     flex-shrink: 0;
     border: 0;
     background: transparent;
-    color: #fff;
+    color: var(--theme-text);
     cursor: pointer;
     font-size: 15px;
 }
@@ -1418,21 +1454,21 @@
     flex-shrink: 0;
     font-size: 10px;
     white-space: nowrap;
-    color: #fff;
+    color: var(--theme-text-muted);
 }
 
 .wa-chat .wa-video-progress {
     flex: 1;
     min-width: 25px;
     width: 100%;
-    accent-color: #b89b5e;
+    accent-color: var(--theme-accent);
     cursor: pointer;
 }
 
 .wa-chat .wa-video-volume {
     width: 45px;
     min-width: 30px;
-    accent-color: #b89b5e;
+    accent-color: var(--theme-accent);
     cursor: pointer;
 }
 
@@ -1440,8 +1476,8 @@
     padding: 6px 8px;
     overflow-wrap: anywhere;
     font-size: 11px;
-    color: #fff;
-    background: #18231f;
+    color: var(--theme-text);
+    background: var(--theme-surface);
 }
 
 /* LARGE VIDEO PREVIEW */
@@ -1463,8 +1499,10 @@
     max-height: 90vh;
     padding: 42px 12px 12px;
     box-sizing: border-box;
+    border: 1px solid var(--theme-border);
     border-radius: 12px;
-    background: #101411;
+    background: var(--theme-page-bg);
+    color: var(--theme-text);
 }
 
 .wa-video-preview-close {
@@ -1475,8 +1513,8 @@
     height: 34px;
     border: 0;
     border-radius: 50%;
-    background: #26362c;
-    color: #fff;
+    background: var(--theme-surface-alt);
+    color: var(--theme-text);
     font-size: 19px;
     cursor: pointer;
 }
@@ -1556,9 +1594,10 @@
     width: min(1100px, 96vw);
     height: min(850px, 94vh);
     overflow: hidden;
-    border: 1px solid #39463e;
+    border: 1px solid var(--theme-border);
     border-radius: 12px;
-    background: #101411;
+    background: var(--theme-page-bg);
+    color: var(--theme-text);
 }
 
 .wa-image-preview-toolbar {
@@ -1568,23 +1607,23 @@
     justify-content: center;
     gap: 8px;
     padding: 12px;
-    background: #26362c;
+    background: var(--theme-surface-alt);
 }
 
 .wa-image-preview-toolbar button {
     min-width: 38px;
     min-height: 36px;
     padding: 6px 10px;
-    border: 1px solid #657267;
+    border: 1px solid var(--theme-border);
     border-radius: 7px;
-    background: #17231b;
-    color: #f4efe3;
+    background: var(--theme-surface);
+    color: var(--theme-text);
     font-size: 18px;
     cursor: pointer;
 }
 
 .wa-image-preview-toolbar button:hover {
-    background: #405442;
+    background: var(--theme-border);
 }
 
 .wa-image-preview-toolbar button:disabled {
@@ -1594,7 +1633,7 @@
 
 .wa-image-zoom-label {
     min-width: 48px;
-    color: #f4efe3;
+    color: var(--theme-text);
     font-size: 13px;
     text-align: center;
 }
@@ -1603,6 +1642,7 @@
     margin-left: auto;
     background: #58352f;
     border-color: #8a5a50;
+    color: #fff;
 }
 
 .wa-image-preview-viewport {
@@ -1669,10 +1709,10 @@
     width: 260px;
     max-width: 100%;
     overflow: hidden;
-    border: 1px solid #d2d9d4;
+    border: 1px solid var(--theme-border);
     border-radius: 9px;
-    background: #fff;
-    color: #17271e;
+    background: var(--theme-surface);
+    color: var(--theme-text);
     box-sizing: border-box;
 }
 
@@ -1681,7 +1721,7 @@
     width: 100%;
     height: 170px;
     border: 0;
-    background: #f1f3f2;
+    background: var(--theme-surface-alt);
     pointer-events: none;
 }
 
@@ -1690,7 +1730,8 @@
     align-items: center;
     gap: 10px;
     padding: 10px;
-    background: #f8faf8;
+    background: var(--theme-surface);
+    color: var(--theme-text);
 }
 
 .wa-chat .wa-pdf-icon {
@@ -1721,7 +1762,7 @@
 
 .wa-chat .wa-pdf-label {
     margin-top: 4px;
-    color: #657269;
+    color: var(--theme-text-muted);
     font-size: 10px;
 }
 
@@ -1745,8 +1786,10 @@
     height: 92vh;
     max-height: 92vh;
     overflow: hidden;
+    border: 1px solid var(--theme-border);
     border-radius: 10px;
-    background: #101411;
+    background: var(--theme-page-bg);
+    color: var(--theme-text);
 }
 
 .wa-pdf-preview-header {
@@ -1755,8 +1798,8 @@
     justify-content: space-between;
     gap: 12px;
     padding: 10px 14px;
-    background: #26362c;
-    color: #f4efe3;
+    background: var(--theme-surface-alt);
+    color: var(--theme-text);
 }
 
 .wa-pdf-preview-title {
@@ -1829,8 +1872,8 @@
     justify-content: center;
     padding: 24px;
     border-radius: 12px;
-    background: #26362c;
-    color: #ffffff;
+    background: var(--theme-surface-alt);
+    color: var(--theme-text);
     text-align: center;
 }
 
@@ -1840,14 +1883,14 @@
     right: 12px;
     border: 0;
     background: transparent;
-    color: #ffffff;
+    color: var(--theme-text);
     font-size: 28px;
     cursor: pointer;
 }
 
 .wa-profile-photo-placeholder {
     padding: 20px;
-    color: #d1b675;
+    color: var(--theme-accent);
 }
 
 /* Reception voice-note recording indicator */
@@ -1867,12 +1910,10 @@
         opacity: 0.45;
     }
 }
-
 /* =========================================
    MIRIMA RECEPTION CHAT
    PENDING ATTACHMENT PREVIEW
    ========================================= */
-
 
 .wa-attachment-preview {
     position: relative;
@@ -1885,14 +1926,13 @@
     margin: 0 0 8px;
     padding: 8px 36px 8px 8px;
     gap: 10px;
-
-    background: #e9edf2;
-    border: 1px solid #aeb8c5;
+    background: var(--theme-surface-alt);
+    border: 1px solid var(--theme-border);
     border-radius: 12px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.10);
+    color: var(--theme-text);
     overflow: hidden;
 }
-
 
 .wa-attachment-preview[hidden] {
     display: none !important;
@@ -1914,7 +1954,7 @@
     height: 68px;
     object-fit: cover;
     border-radius: 8px;
-    background: #e2e5e9;
+    background: var(--theme-surface);
 }
 
 /* Selected video preview */
@@ -1946,6 +1986,7 @@
 }
 
 .wa-pending-file-name {
+    color: var(--theme-text);
     font-size: 12px;
     font-weight: 600;
     line-height: 1.4;
@@ -1955,7 +1996,7 @@
 
 .wa-pending-file-size {
     margin-top: 3px;
-    color: #667085;
+    color: var(--theme-text-muted);
     font-size: 11px;
 }
 
@@ -1968,9 +2009,10 @@
     min-height: 52px;
     padding: 4px;
     box-sizing: border-box;
-
-    background: #e1e8f0;
+    background: var(--theme-surface);
+    border: 1px solid var(--theme-border);
     border-radius: 8px;
+    color: var(--theme-text);
     font-size: 11px;
     font-weight: 600;
     text-align: center;
@@ -1982,27 +2024,23 @@
     top: 5px;
     right: 5px;
     z-index: 1;
-
     display: flex;
     align-items: center;
     justify-content: center;
-
     width: 25px;
     height: 25px;
     padding: 0;
-
     border: none;
     border-radius: 50%;
-    background: #d9dde3;
-    color: #333;
-
+    background: var(--theme-surface);
+    color: var(--theme-text);
     font-size: 20px;
     line-height: 1;
     cursor: pointer;
 }
 
 .wa-cancel-attachment:hover {
-    background: #c5cad2;
+    background: var(--theme-border);
 }
 
 /* Smaller screens */
@@ -2037,9 +2075,9 @@
     min-width: 200px;
     max-width: 260px;
     padding: 6px;
-    background: #ffffff;
-    color: #202c33;
-    border: 1px solid #e5e7eb;
+    background: var(--theme-surface);
+    color: var(--theme-text);
+    border: 1px solid var(--theme-border);
     border-radius: 10px;
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18);
     font-family: inherit;
@@ -2072,12 +2110,12 @@
 
 .reception-message-context-menu button:hover,
 .reception-message-context-menu button:focus-visible {
-    background: #f0f2f5;
+    background: var(--theme-surface-alt);
     outline: none;
 }
 
 .reception-message-context-menu button:active {
-    background: #e4e6eb;
+    background: var(--theme-border);
 }
 
 .reception-message-context-menu button[data-action="delete-for-everyone"] {
@@ -2085,7 +2123,7 @@
 }
 
 .reception-message-context-menu button[data-action="delete-for-everyone"]:hover {
-    background: #fff0f0;
+    background: rgba(211, 47, 47, 0.12);
 }
 
 .reception-message-context-menu button[hidden] {
@@ -2117,8 +2155,9 @@
     width: 100%;
     box-sizing: border-box;
     padding: 12px 16px;
-    background: #ffffff;
-    border-bottom: 1px solid #e5e7eb;
+    background: var(--theme-surface);
+    color: var(--theme-text);
+    border-bottom: 1px solid var(--theme-border);
     box-shadow: 0 3px 8px rgba(0, 0, 0, 0.04);
     animation: waSearchSlideDown 0.2s ease-out;
 }
@@ -2134,10 +2173,10 @@
     height: 42px;
     box-sizing: border-box;
     padding: 0 15px;
-    border: 1px solid #d8dee4;
+    border: 1px solid var(--theme-border);
     border-radius: 12px;
-    background: #f5f7f8;
-    color: #202c33;
+    background: var(--theme-surface-alt);
+    color: var(--theme-text);
     font-family: inherit;
     font-size: 14px;
     outline: none;
@@ -2148,19 +2187,19 @@
 }
 
 .wa-search-panel input[type="search"]::placeholder {
-    color: #8696a0;
+    color: var(--theme-text-muted);
 }
 
 .wa-search-panel input[type="search"]:focus {
-    border-color: #25a56a;
-    background: #ffffff;
-    box-shadow: 0 0 0 3px rgba(37, 165, 106, 0.12);
+    border-color: var(--theme-accent);
+    background: var(--theme-surface);
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--theme-accent) 15%, transparent);
 }
 
 #waSearchCount {
     flex-shrink: 0;
     min-width: 55px;
-    color: #667781;
+    color: var(--theme-text-muted);
     font-size: 12px;
     font-weight: 500;
     text-align: center;
@@ -2178,7 +2217,7 @@
     border: none;
     border-radius: 50%;
     background: transparent;
-    color: #54656f;
+    color: var(--theme-text-muted);
     font-size: 26px;
     line-height: 1;
     cursor: pointer;
@@ -2188,15 +2227,14 @@
 }
 
 #waSearchClose:hover {
-    background: #edf2f4;
-    color: #202c33;
+    background: var(--theme-surface-alt);
+    color: var(--theme-text);
 }
 
 #waSearchClose:focus-visible {
-    outline: 2px solid #25a56a;
+    outline: 2px solid var(--theme-accent);
     outline-offset: 2px;
 }
-
 /* Highlight matching messages */
 .wa-message-guest,
 .wa-message-reception {
@@ -2246,8 +2284,9 @@
     align-items: center;
     gap: 10px;
     padding: 12px 16px;
-    background: #f8fafb;
-    border-bottom: 1px solid #e1e7eb;
+    background: var(--theme-surface);
+    color: var(--theme-text);
+    border-bottom: 1px solid var(--theme-border);
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.04);
 }
 
@@ -2256,20 +2295,23 @@
     min-width: 0;
     height: 42px;
     padding: 0 14px;
-    border: 1px solid #d7e0e5;
+    border: 1px solid var(--theme-border);
     border-radius: 12px;
-    background: #fff;
+    background: var(--theme-surface-alt);
+    color: var(--theme-text);
     font-size: 14px;
 }
 
+/* Search count */
 #waSearchCount {
     flex-shrink: 0;
     min-width: 65px;
-    color: #54656f;
+    color: var(--theme-text-muted);
     font-size: 12px;
     text-align: center;
 }
 
+/* Search close button */
 #waSearchClose {
     width: 36px;
     height: 36px;
@@ -2277,10 +2319,10 @@
 }
 
 #waSearchClose:hover {
-    background: #e8eef1;
+    background: var(--theme-surface-alt);
 }
 
-/* Remove the outer white search bar background */
+/* Remove the outer search bar background */
 .wa-search-panel {
     background: transparent !important;
     box-shadow: none !important;
@@ -2299,7 +2341,7 @@
     left: 13px;
     top: 50%;
     transform: translateY(-50%);
-    color: #8696a0;
+    color: var(--theme-text-muted);
     pointer-events: none;
 }
 
@@ -2311,14 +2353,18 @@
 
 .wa-search-input-wrap input[type="search"]:focus
     + .wa-search-icon {
-    color: #25a56a;
+    color: var(--theme-accent);
 }
 
 /* Reception chat: selected messages */
 .wa-message-selected {
-    outline: 2px solid #25a56a !important;
+    outline: 2px solid var(--theme-accent) !important;
     outline-offset: 2px;
-    background-color: rgba(37, 165, 106, 0.12) !important;
+    background-color: color-mix(
+        in srgb,
+        var(--theme-accent) 12%,
+        var(--theme-surface)
+    ) !important;
     border-radius: 8px;
 }
 
@@ -2332,9 +2378,9 @@
     max-height: min(70vh, 560px);
     overflow-y: auto;
     padding: 16px;
-    background: #ffffff;
-    color: #202124;
-    border: 1px solid #e0e0e0;
+    background: var(--theme-surface);
+    color: var(--theme-text);
+    border: 1px solid var(--theme-border);
     border-radius: 12px;
     box-shadow: 0 8px 28px rgba(0, 0, 0, 0.16);
     box-sizing: border-box;
@@ -2367,13 +2413,13 @@
 
 .wa-settings-section {
     padding: 12px 0;
-    border-top: 1px solid #eeeeee;
+    border-top: 1px solid var(--theme-border);
 }
 
 .wa-settings-section h4 {
     margin: 0 0 10px;
     font-size: 13px;
-    color: #168653;
+    color: var(--theme-accent);
 }
 
 .wa-setting-row {
@@ -2398,14 +2444,14 @@
     margin-top: 4px;
     font-size: 12px;
     line-height: 1.5;
-    color: #777777;
+    color: var(--theme-text-muted);
 }
 
 .wa-setting-row input {
     width: 18px;
     height: 18px;
     flex-shrink: 0;
-    accent-color: #168653;
+    accent-color: var(--theme-accent);
 }
 
 .wa-setting-field {
@@ -2420,10 +2466,10 @@
     width: 100%;
     min-height: 38px;
     padding: 8px;
-    border: 1px solid #d8d8d8;
+    border: 1px solid var(--theme-border);
     border-radius: 7px;
-    background: #ffffff;
-    color: #202124;
+    background: var(--theme-surface-alt);
+    color: var(--theme-text);
     font: inherit;
     box-sizing: border-box;
 }
@@ -2440,61 +2486,60 @@
 }
 
 .wa-settings-reset:hover {
-    background: #fff3f2;
+    background: rgba(217, 83, 79, 0.12);
 }
 
 /* Reception Chat: Theme Settings */
 
 /* Dark Theme */
 #liveChatWindow[data-wa-theme="dark"] {
-    background-color: #1e1e1e;
-    color: #f1f1f1;
+    background-color: var(--theme-page-bg);
+    color: var(--theme-text);
     color-scheme: dark;
 }
 
 #liveChatWindow[data-wa-theme="dark"] .wa-chat-messages {
-    color: #f1f1f1;
+    color: var(--theme-text);
 }
 
 #liveChatWindow[data-wa-theme="dark"] .wa-settings-panel {
-    background-color: #252525;
-    color: #f1f1f1;
-    border-color: #444444;
+    background-color: var(--theme-surface);
+    color: var(--theme-text);
+    border-color: var(--theme-border);
 }
 
 #liveChatWindow[data-wa-theme="dark"] .wa-settings-section {
-    border-top-color: #444444;
+    border-top-color: var(--theme-border);
 }
 
 #liveChatWindow[data-wa-theme="dark"] .wa-settings-content select {
-    background-color: #333333;
-    color: #f1f1f1;
-    border-color: #555555;
+    background-color: var(--theme-surface-alt);
+    color: var(--theme-text);
+    border-color: var(--theme-border);
 }
 
 /* Light Theme */
 #liveChatWindow[data-wa-theme="light"] {
-    background-color: #ffffff;
-    color: #202020;
+    background-color: var(--theme-page-bg);
+    color: var(--theme-text);
     color-scheme: light;
 }
 
 #liveChatWindow[data-wa-theme="light"] .wa-settings-panel {
-    background-color: #ffffff;
-    color: #202020;
-    border-color: #dddddd;
+    background-color: var(--theme-surface);
+    color: var(--theme-text);
+    border-color: var(--theme-border);
 }
 
 #liveChatWindow[data-wa-theme="light"] .wa-settings-section {
-    border-top-color: #dddddd;
+    border-top-color: var(--theme-border);
 }
 
 #liveChatWindow[data-wa-theme="light"] .wa-settings-content select {
-    background-color: #ffffff;
-    color: #202020;
-    border-color: #cccccc;
+    background-color: var(--theme-surface-alt);
+    color: var(--theme-text);
+    border-color: var(--theme-border);
 }
-
 
 /* =========================================
    RECEPTION VOICE NOTE PREVIEW
@@ -2510,8 +2555,9 @@
     min-width: 0;
     box-sizing: border-box;
     padding: 8px 10px;
-    background: var(--wa-composer-bg, #f7f8fa);
-    border-top: 1px solid var(--wa-border, #e5e7eb);
+    background: var(--theme-surface-alt);
+    border-top: 1px solid var(--theme-border);
+    color: var(--theme-text);
 }
 
 /* Keep hidden preview completely hidden */
@@ -2536,8 +2582,8 @@
     padding: 0;
     border: none;
     border-radius: 50%;
-    background: #168a54;
-    color: #fff;
+    background: var(--theme-accent);
+    color: var(--theme-page-bg);
     cursor: pointer;
 }
 
@@ -2549,11 +2595,15 @@
 }
 
 #liveChatWindow .wa-voice-play-button:hover {
-    background: #117443;
+    background: color-mix(
+        in srgb,
+        var(--theme-accent) 82%,
+        var(--theme-text)
+    );
 }
 
 #liveChatWindow .wa-voice-play-button:focus-visible {
-    outline: 2px solid #168a54;
+    outline: 2px solid var(--theme-accent);
     outline-offset: 3px;
 }
 
@@ -2589,20 +2639,20 @@
     max-width: 4px;
     height: var(--bar-height, 40%);
     border-radius: 3px;
-    background: #aeb8b2;
+    background: var(--theme-border);
     transition: background-color 0.12s ease;
 }
 
 /* Played portion of waveform */
 #liveChatWindow .wa-voice-waveform span.is-played {
-    background: #168a54;
+    background: var(--theme-accent);
 }
 
 /* Playback time counter */
 #liveChatWindow .wa-voice-time {
     font-size: 11px;
     line-height: 1.2;
-    color: #68736d;
+    color: var(--theme-text-muted);
     white-space: nowrap;
     font-variant-numeric: tabular-nums;
 }
@@ -2618,7 +2668,7 @@
     padding: 0;
     border: none;
     border-radius: 50%;
-    background: #fdeaea;
+    background: rgba(217, 48, 48, 0.12);
     color: #d93030;
     cursor: pointer;
     transition:
@@ -2634,7 +2684,7 @@
 
 #liveChatWindow .wa-voice-discard-button:hover {
     background: #d93030;
-    color: #fff;
+    color: #ffffff;
 }
 
 #liveChatWindow .wa-voice-discard-button:focus-visible {
