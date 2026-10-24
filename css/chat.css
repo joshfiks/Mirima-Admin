@@ -2674,3 +2674,17 @@
         height: 32px;
     }
 }
+
+/* Hide normal composer controls while a voice note is previewed */
+#liveChatWindow .wa-chat-composer.wa-voice-preview-mode
+.wa-normal-composer-control {
+    display: none !important;
+}
+
+/* Keep the custom voice preview visible in the composer */
+#liveChatWindow .wa-chat-composer.wa-voice-preview-mode
+.wa-voice-preview:not([hidden]) {
+    display: flex;
+    flex: 1 1 auto;
+    min-width: 0;
+}
