@@ -9731,6 +9731,18 @@ updateDoc(
                   hidden
                  >
 
+<div id="waVoicePreview" class="wa-voice-preview" hidden>
+    <audio id="waVoicePreviewAudio" controls></audio>
+
+    <button
+        type="button"
+        id="waVoiceDiscardButton"
+        class="wa-voice-discard-button"
+    >
+        Discard
+    </button>
+</div>
+
                 <input
                     id="liveChatReplyInput"
                     class="wa-chat-input"
@@ -10697,6 +10709,17 @@ if (selectedTheme === "system") {
     // Reception voice-note recording
     const voiceButton =
         chatWindow.querySelector("#waVoiceButton");
+
+   const voicePreview =
+    chatWindow.querySelector("#waVoicePreview");
+
+const voicePreviewAudio =
+    chatWindow.querySelector("#waVoicePreviewAudio");
+
+const voiceDiscardButton =
+    chatWindow.querySelector("#waVoiceDiscardButton");
+
+let voicePreviewUrl = null;
    
    if (voiceButton) {
     voiceButton.title = "Tap to record voice note";
@@ -10745,44 +10768,52 @@ if (selectedTheme === "system") {
                     }
                 );
 
-                voiceRecorder.addEventListener(
-                    "stop",
-                    function () {
-                        const audioBlob = new Blob(
-                            voiceChunks,
-                            {
-                                type: voiceRecorder.mimeType ||
-                                    "audio/webm"
-                            }
-                        );
+                voiceRecorder.addEventListener("stop", function () {
+    const audioBlob = new Blob(voiceChunks, {
+        type: voiceRecorder.mimeType || "audio/webm"
+    });
 
-                        recordedVoiceFile = new File(
-                            [audioBlob],
-                            "voice-note.webm",
-                            {
-                                type: audioBlob.type
-                            }
-                        );
+    // Release the microphone.
+    stream.getTracks().forEach(track => track.stop());
 
-                        stream.getTracks().forEach(
-                            track => track.stop()
-                        );
+    voiceButton.classList.remove("wa-recording");
+    voiceButton.title = "Voice note ready — click Send";
+    voiceButton.setAttribute(
+        "aria-label",
+        "Voice note ready — click Send"
+    );
 
-                       
-                   voiceButton.classList.remove("wa-recording");
+    // Ignore empty recordings.
+    if (!audioBlob.size) {
+        alert("No audio was recorded. Please try again.");
+        return;
+    }
 
-                  voiceButton.title = "Voice note ready — click Send";
-                voiceButton.setAttribute(
-                "aria-label",
-                 "Voice note ready — click Send"
-               );
+    recordedVoiceFile = new File(
+        [audioBlob],
+        "voice-note.webm",
+        { type: audioBlob.type }
+    );
 
+    // Prepare the audio preview.
+    if (voicePreview && voicePreviewAudio) {
+        if (voicePreviewUrl) {
+            URL.revokeObjectURL(voicePreviewUrl);
+        }
 
-                        alert(
-                            "Voice note recorded. Click Send to send it."
-                        );
-                    }
-                );
+        voicePreviewUrl = URL.createObjectURL(audioBlob);
+        voicePreviewAudio.src = voicePreviewUrl;
+        voicePreviewAudio.load();
+
+        voicePreview.hidden = false;
+    }
+
+    console.log("Voice note ready for preview:", {
+        name: recordedVoiceFile.name,
+        type: recordedVoiceFile.type,
+        size: recordedVoiceFile.size
+    });
+});
 
                 voiceRecorder.start();
 
@@ -10807,6 +10838,36 @@ if (selectedTheme === "system") {
         });
     }
 
+
+   if (voiceDiscardButton) {
+    voiceDiscardButton.addEventListener("click", function () {
+        // Stop playback and release the preview URL.
+        if (voicePreviewAudio) {
+            voicePreviewAudio.pause();
+            voicePreviewAudio.removeAttribute("src");
+            voicePreviewAudio.load();
+        }
+
+        if (voicePreviewUrl) {
+            URL.revokeObjectURL(voicePreviewUrl);
+            voicePreviewUrl = null;
+        }
+
+        recordedVoiceFile = null;
+        voiceChunks = [];
+
+        if (voicePreview) {
+            voicePreview.hidden = true;
+        }
+
+        voiceButton.classList.remove("wa-recording");
+        voiceButton.title = "Tap to record voice note";
+        voiceButton.setAttribute(
+            "aria-label",
+            "Record voice note"
+        );
+    });
+}
     const messagesContainer =
         document.getElementById("liveChatMessages");
 
@@ -12015,6 +12076,24 @@ if (attachmentInput) {
 }
 
 recordedVoiceFile = null;
+
+// Clear the voice-note preview after a successful send.
+if (voicePreviewAudio) {
+    voicePreviewAudio.pause();
+    voicePreviewAudio.removeAttribute("src");
+    voicePreviewAudio.load();
+}
+
+if (voicePreviewUrl) {
+    URL.revokeObjectURL(voicePreviewUrl);
+    voicePreviewUrl = null;
+}
+
+if (voicePreview) {
+    voicePreview.hidden = true;
+}
+
+voiceChunks = [];
 
 if (voiceButton) {
     voiceButton.title = "Record voice note";
