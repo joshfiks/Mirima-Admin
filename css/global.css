@@ -9,12 +9,15 @@
    CSS files later.
 */
 
-
 /* =========================
    MIRIMA THEME COLORS
    ========================= */
 
-:root {
+/* DEFAULT THEME: DARK */
+:root,
+:root[data-theme="dark"] {
+    color-scheme: dark;
+
     --theme-page-bg: #101411;
     --theme-surface: #172019;
     --theme-surface-alt: #1e2921;
@@ -23,6 +26,20 @@
     --theme-accent: #bda15c;
     --theme-border: #344435;
 }
+
+/* LIGHT THEME */
+:root[data-theme="light"] {
+    color-scheme: light;
+
+    --theme-page-bg: #f5f6f2;
+    --theme-surface: #ffffff;
+    --theme-surface-alt: #edf1e9;
+    --theme-text: #202820;
+    --theme-text-muted: #626c62;
+    --theme-accent: #8b702d;
+    --theme-border: #d4ddd1;
+}
+
 
 /* =========================
    RESET
@@ -47,21 +64,18 @@ html {
 
 body {
     min-height: 100vh;
-
     font-family:
         Arial,
         Helvetica,
         sans-serif;
-
-        background: var(--theme-page-bg);
-        color: var(--theme-text);
-
+    background: var(--theme-page-bg);
+    color: var(--theme-text);
     -webkit-font-smoothing: antialiased;
 }
 
 
 /* =========================
-   BUTTONS
+   BUTTONS AND FORM CONTROLS
    ========================= */
 
 button,
