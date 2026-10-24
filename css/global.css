@@ -9,13 +9,14 @@
    CSS files later.
 */
 
-/* =========================
-   MIRIMA THEME COLORS
-   ========================= */
 
-/* DEFAULT THEME: DARK */
+/* =========================================================
+   MIRIMA THEME COLORS
+   ========================================================= */
+
+/* 1. MIDNIGHT FOREST — DEFAULT THEME */
 :root,
-:root[data-theme="dark"] {
+:root[data-theme="midnight"] {
     color-scheme: dark;
 
     --theme-page-bg: #101411;
@@ -27,17 +28,69 @@
     --theme-border: #344435;
 }
 
-/* LIGHT THEME */
-:root[data-theme="light"] {
+/* 2. IVORY & GOLD */
+:root[data-theme="ivory"] {
     color-scheme: light;
 
-    --theme-page-bg: #f5f6f2;
+    --theme-page-bg: #f7f4eb;
     --theme-surface: #ffffff;
-    --theme-surface-alt: #edf1e9;
-    --theme-text: #202820;
-    --theme-text-muted: #626c62;
+    --theme-surface-alt: #eee8d9;
+    --theme-text: #27271f;
+    --theme-text-muted: #625c4e;
     --theme-accent: #8b702d;
-    --theme-border: #d4ddd1;
+    --theme-border: #ded5bd;
+}
+
+/* 3. OCEAN BLUE */
+:root[data-theme="ocean"] {
+    color-scheme: dark;
+
+    --theme-page-bg: #0b1728;
+    --theme-surface: #12243a;
+    --theme-surface-alt: #1b3450;
+    --theme-text: #e5f3ff;
+    --theme-text-muted: #a9c5df;
+    --theme-accent: #54b8e8;
+    --theme-border: #25496b;
+}
+
+/* 4. EMERALD GREEN */
+:root[data-theme="emerald"] {
+    color-scheme: dark;
+
+    --theme-page-bg: #10251c;
+    --theme-surface: #183528;
+    --theme-surface-alt: #224735;
+    --theme-text: #e5f7ec;
+    --theme-text-muted: #b1d9bf;
+    --theme-accent: #50c878;
+    --theme-border: #2f674a;
+}
+
+/* 5. ROYAL PURPLE */
+:root[data-theme="royal"] {
+    color-scheme: dark;
+
+    --theme-page-bg: #1c1429;
+    --theme-surface: #291d3b;
+    --theme-surface-alt: #38264f;
+    --theme-text: #f3eaff;
+    --theme-text-muted: #d1b9f5;
+    --theme-accent: #b58aff;
+    --theme-border: #65458c;
+}
+
+/* 6. SLATE GREY */
+:root[data-theme="slate"] {
+    color-scheme: dark;
+
+    --theme-page-bg: #20242b;
+    --theme-surface: #292f38;
+    --theme-surface-alt: #363e49;
+    --theme-text: #f0f3f7;
+    --theme-text-muted: #c4ccd6;
+    --theme-accent: #9daec2;
+    --theme-border: #525d6c;
 }
 
 
