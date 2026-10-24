@@ -3153,3 +3153,59 @@ color: var(--theme-text);
     font-size: 18px;
     flex-shrink: 0;
 }
+
+/* =========================================================
+   MIRIMA THEME SWITCHER
+   ========================================================= */
+
+.theme-toggle-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    min-height: 40px;
+    padding: 0 12px;
+    border: 1px solid var(--theme-border);
+    border-radius: 10px;
+    background: var(--theme-surface);
+    color: var(--theme-text);
+    font-size: 12px;
+    font-weight: 600;
+    white-space: nowrap;
+    transition:
+        background 0.2s ease,
+        border-color 0.2s ease,
+        color 0.2s ease;
+}
+
+.theme-toggle-button:hover {
+    background: var(--theme-surface-alt);
+    border-color: var(--theme-accent);
+}
+
+.theme-toggle-button:focus-visible {
+    outline: 2px solid var(--theme-accent);
+    outline-offset: 3px;
+}
+
+#themeToggleIcon {
+    font-size: 16px;
+    line-height: 1;
+}
+
+#themeToggleLabel {
+    line-height: 1.2;
+}
+
+@media (max-width: 480px) {
+    .theme-toggle-button {
+        gap: 0;
+        width: 40px;
+        min-width: 40px;
+        padding: 0;
+    }
+
+    #themeToggleLabel {
+        display: none;
+    }
+}
