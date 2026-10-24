@@ -10031,38 +10031,41 @@ function runReceptionMessageSearch() {
             });
 
         // Clear the visible chat view without deleting saved messages.
-        waSelectionMenu
-            .querySelector('[data-wa-action="clear"]')
-            ?.addEventListener("click", function () {
-                const confirmed = confirm(
-                    "Clear the messages from this chat view? " +
-                    "Saved messages will not be deleted."
-                );
+       // Clear the visible Reception chat view.
+waSelectionMenu
+    .querySelector('[data-wa-action="clear"]')
+    ?.addEventListener("click", function () {
+        const confirmed = confirm(
+            "Clear the messages from this chat view? " +
+            "Saved messages will not be deleted."
+        );
 
-                if (!confirmed) {
-                    return;
-                }
+        if (!confirmed) {
+            return;
+        }
 
-                // Clear only the currently displayed messages.
-                messagesContainer.replaceChildren();
+        // Remember that this conversation's view was cleared.
+        sessionStorage.setItem(
+            "mirimaClearedReceptionView_" + conversation.id,
+            "true"
+        );
 
-                // Exit message-selection mode.
-                receptionSelectionMode = false;
-                selectedReceptionMessageIds.clear();
+        messagesContainer.replaceChildren();
 
-                // Close the menu.
-                waSelectionMenu.hidden = true;
+        receptionSelectionMode = false;
+        selectedReceptionMessageIds.clear();
 
-                const menuButton =
-                    chatWindow.querySelector("#waMenuButton");
+        waSelectionMenu.hidden = true;
 
-                if (menuButton) {
-                    menuButton.setAttribute("aria-expanded", "false");
-                }
+        const menuButton =
+            chatWindow.querySelector("#waMenuButton");
 
-                console.log("Reception chat view cleared.");
-            });
-       
+        if (menuButton) {
+            menuButton.setAttribute("aria-expanded", "false");
+        }
+
+        console.log("Reception chat view cleared.");
+    });
 
         // Select all messages currently displayed.
         waSelectionMenu
@@ -10872,6 +10875,15 @@ chatWindow.innerHTML = `
             messages = messages.filter(function (item) {
                 return !hiddenMessageIds.has(item.id);
             });
+
+           // Keep the cleared view empty when old messages are reloaded.
+const clearedViewKey =
+    "mirimaClearedReceptionView_" + conversation.id;
+
+if (sessionStorage.getItem(clearedViewKey) === "true") {
+    messagesContainer.replaceChildren();
+    return;
+}
 
             console.log("RECEPTION CHAT MESSAGES:", messages);
             console.log("RECEPTION CHAT MESSAGE COUNT:", messages.length);
