@@ -97,6 +97,25 @@ function renderHousekeepingDashboard(session) {
 
                 </div>
 
+                <!-- MOBILE THEME SWITCHER -->
+
+                <div class="housekeeping-theme-switcher housekeeping-mobile-theme-switcher">
+
+                    <select
+                        id="housekeepingMobileThemeSelect"
+                        class="housekeeping-theme-select"
+                        aria-label="Choose dashboard theme"
+                    >
+                        <option value="midnight">Midnight</option>
+                        <option value="ivory">Ivory</option>
+                        <option value="ocean">Ocean</option>
+                        <option value="emerald">Emerald</option>
+                        <option value="royal">Royal</option>
+                        <option value="slate">Slate</option>
+                    </select>
+
+                </div>
+
                 <button
                     id="housekeepingMobileNotificationButton"
                     class="housekeeping-mobile-notification-button"
