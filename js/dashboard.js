@@ -533,105 +533,112 @@ function renderHousekeepingDashboard(session) {
         </div>
     `;
 
+
     updateHousekeepingRequestCount();
-   
+
     setupHousekeepingNavigation(session);
 
     setupHousekeepingMobileMenu();
 
     setupAdminRequestNotifications();
 
-   
-/* =========================================================
-   HOUSEKEEPING THEME SWITCHER
-   ========================================================= */
 
-function setupHousekeepingThemeSwitcher() {
-    const desktopSelect =
-        document.getElementById("housekeepingThemeSelect");
+    // =========================================================
+    // HOUSEKEEPING THEME SWITCHER
+    // =========================================================
 
-    const mobileSelect =
-        document.getElementById("housekeepingMobileThemeSelect");
+    function setupHousekeepingThemeSwitcher() {
+        const desktopSelect =
+            document.getElementById("housekeepingThemeSelect");
 
-    const themeStorageKey = "mirima-theme";
+        const mobileSelect =
+            document.getElementById("housekeepingMobileThemeSelect");
 
-    const validThemes = [
-        "midnight",
-        "ivory",
-        "ocean",
-        "emerald",
-        "royal",
-        "slate"
-    ];
+        const themeStorageKey = "mirima-theme";
 
-    function applyTheme(theme) {
-        if (!validThemes.includes(theme)) {
-            theme = "midnight";
+        const validThemes = [
+            "midnight",
+            "ivory",
+            "ocean",
+            "emerald",
+            "royal",
+            "slate"
+        ];
+
+        function applyTheme(theme) {
+            if (!validThemes.includes(theme)) {
+                theme = "midnight";
+            }
+
+            // Apply the theme to the entire website.
+            document.documentElement.dataset.theme = theme;
+
+            // Save the selected theme.
+            try {
+                localStorage.setItem(themeStorageKey, theme);
+            } catch (error) {
+                console.warn(
+                    "Could not save the selected theme.",
+                    error
+                );
+            }
+
+            // Keep both selectors synchronized.
+            if (desktopSelect) {
+                desktopSelect.value = theme;
+            }
+
+            if (mobileSelect) {
+                mobileSelect.value = theme;
+            }
         }
 
-        // Apply theme to the entire website.
-        document.documentElement.dataset.theme = theme;
+        // Load the saved theme.
+        let savedTheme = "midnight";
 
-        // Save the selected theme.
         try {
-            localStorage.setItem(themeStorageKey, theme);
+            savedTheme =
+                localStorage.getItem(themeStorageKey) ||
+                document.documentElement.dataset.theme ||
+                "midnight";
         } catch (error) {
-            console.warn("Could not save the selected theme.", error);
+            savedTheme =
+                document.documentElement.dataset.theme ||
+                "midnight";
         }
 
-        // Keep both selectors synchronized.
+        applyTheme(savedTheme);
+
+        // Desktop theme selection.
         if (desktopSelect) {
-            desktopSelect.value = theme;
+            desktopSelect.addEventListener("change", function () {
+                applyTheme(this.value);
+            });
         }
 
+        // Mobile theme selection.
         if (mobileSelect) {
-            mobileSelect.value = theme;
+            mobileSelect.addEventListener("change", function () {
+                applyTheme(this.value);
+            });
         }
     }
 
-    // Load the saved theme, or use the current theme.
-    let savedTheme = "midnight";
+    // Activate the theme switcher.
+    setupHousekeepingThemeSwitcher();
 
-    try {
-        savedTheme =
-            localStorage.getItem(themeStorageKey) ||
-            document.documentElement.dataset.theme ||
-            "midnight";
-    } catch (error) {
-        savedTheme =
-            document.documentElement.dataset.theme ||
-            "midnight";
-    }
 
-    applyTheme(savedTheme);
+    // =========================================================
+    // HOUSEKEEPING LOGOUT
+    // =========================================================
 
-    // Desktop theme selection.
-    if (desktopSelect) {
-        desktopSelect.addEventListener("change", function () {
-            applyTheme(this.value);
+    document
+        .getElementById("housekeepingLogout")
+        .addEventListener("click", function () {
+            sessionStorage.removeItem("mirimaSession");
+            location.reload();
         });
-    }
 
-    // Mobile theme selection.
-    if (mobileSelect) {
-        mobileSelect.addEventListener("change", function () {
-            applyTheme(this.value);
-        });
-    }
-}
-
-
-   document
-    .getElementById("housekeepingLogout")
-    .addEventListener("click", function () {
-
-    sessionStorage.removeItem(
-    "mirimaSession"
-);
-
-        location.reload();
-
-    });
 }
 
 function setupHousekeepingNavigation(session) {
