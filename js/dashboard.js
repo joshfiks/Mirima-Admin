@@ -9637,6 +9637,12 @@ updateDoc(
     <option value="wallpaper4">Wallpaper 4</option>
     <option value="wallpaper5">Wallpaper 5</option>
     <option value="wallpaper6">Wallpaper 6</option>
+    <option value="wallpaper7">Wallpaper 7</option>
+    <option value="wallpaper8">Wallpaper 8</option>
+    <option value="wallpaper9">Wallpaper 9</option>
+    <option value="wallpaper10">Wallpaper 10</option>
+    <option value="wallpaper11">Wallpaper 11</option>
+    <option value="wallpaper12">Wallpaper 12</option>
 </select>
             <label class="wa-setting-field" for="waSettingTextSize">
                 Text size
@@ -10363,14 +10369,20 @@ function applyReceptionSettings() {
         chatWindow.querySelector("#liveChatMessages");
 
     if (settingsMessagesContainer) {
-const wallpapers = {
+    const wallpapers = {
     default: "/Mirima-Admin/images/chat-wallpaper.png",
     wallpaper1: "/Mirima-Admin/images/chat-wallpaper1.png",
     wallpaper2: "/Mirima-Admin/images/chat-wallpaper2.png",
     wallpaper3: "/Mirima-Admin/images/chat-wallpaper3.png",
     wallpaper4: "/Mirima-Admin/images/chat-wallpaper4.png",
     wallpaper5: "/Mirima-Admin/images/chat-wallpaper5.png",
-    wallpaper6: "/Mirima-Admin/images/chat-wallpaper6.png"
+    wallpaper6: "/Mirima-Admin/images/chat-wallpaper6.png",
+    wallpaper7: "/Mirima-Admin/images/chat-wallpaper7.png",
+    wallpaper8: "/Mirima-Admin/images/chat-wallpaper8.png",
+    wallpaper9: "/Mirima-Admin/images/chat-wallpaper9.png",
+    wallpaper10: "/Mirima-Admin/images/chat-wallpaper10.png",
+    wallpaper11: "/Mirima-Admin/images/chat-wallpaper11.png",
+    wallpaper12: "/Mirima-Admin/images/chat-wallpaper12.png"
 };
 
         const wallpaper =
