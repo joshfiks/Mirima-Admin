@@ -2143,10 +2143,10 @@ export function showDashboard(session) {
         </div>
 
     `;
-
-   
+  
+  
     // =========================================================
-    // MIRIMA THEME SWITCHER
+    // MIRIMA MULTI-THEME SWITCHER
     // =========================================================
 
     const themeToggleButton =
@@ -2158,74 +2158,73 @@ export function showDashboard(session) {
     const themeToggleLabel =
         document.getElementById("themeToggleLabel");
 
+    const themeNames = {
+        midnight: "Midnight Forest",
+        ivory: "Ivory & Gold",
+        ocean: "Ocean Blue",
+        emerald: "Emerald Green",
+        royal: "Royal Purple",
+        slate: "Slate Grey"
+    };
+
     function applyMirimaTheme(theme) {
         const selectedTheme =
-            theme === "light" ? "light" : "dark";
+            Object.prototype.hasOwnProperty.call(themeNames, theme)
+                ? theme
+                : "midnight";
 
-        document.documentElement.dataset.theme =
-            selectedTheme;
+        document.documentElement.dataset.theme = selectedTheme;
 
         if (themeToggleButton) {
-            const isDark = selectedTheme === "dark";
-
-            themeToggleButton.setAttribute(
-                "aria-pressed",
-                String(!isDark)
-            );
-
             themeToggleButton.setAttribute(
                 "aria-label",
-                isDark
-                    ? "Switch to light mode"
-                    : "Switch to dark mode"
+                "Current theme: " + themeNames[selectedTheme]
             );
 
             themeToggleButton.setAttribute(
                 "title",
-                isDark
-                    ? "Switch to light mode"
-                    : "Switch to dark mode"
+                "Current theme: " + themeNames[selectedTheme]
             );
         }
 
         if (themeToggleIcon) {
             themeToggleIcon.textContent =
-                selectedTheme === "dark" ? "☀️" : "🌙";
+                selectedTheme === "ivory" ? "🌙" : "🎨";
         }
 
         if (themeToggleLabel) {
-            themeToggleLabel.textContent =
-                selectedTheme === "dark"
-                    ? "Light mode"
-                    : "Dark mode";
+            themeToggleLabel.textContent = themeNames[selectedTheme];
         }
     }
 
-    let savedTheme = "dark";
+    let savedTheme = "midnight";
 
     try {
-        savedTheme =
-            localStorage.getItem("mirima-theme") || "dark";
+        savedTheme = localStorage.getItem("mirima-theme") || "midnight";
     } catch (error) {
-        // Continue with dark mode if storage is unavailable.
+        // Use the default theme if browser storage is unavailable.
     }
 
     applyMirimaTheme(savedTheme);
 
     if (themeToggleButton) {
         themeToggleButton.addEventListener("click", () => {
+            const themes = Object.keys(themeNames);
+
             const currentTheme =
-                document.documentElement.dataset.theme || "dark";
+                document.documentElement.dataset.theme || "midnight";
+
+            const currentIndex = themes.indexOf(currentTheme);
 
             const nextTheme =
-                currentTheme === "dark" ? "light" : "dark";
+                themes[(currentIndex + 1) % themes.length];
 
             applyMirimaTheme(nextTheme);
 
             try {
                 localStorage.setItem("mirima-theme", nextTheme);
             } catch (error) {
-                // Theme still works for this page session.
+                // The theme still changes for the current page.
             }
         });
     }
