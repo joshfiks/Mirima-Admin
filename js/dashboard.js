@@ -10363,7 +10363,17 @@ function applyReceptionSettings() {
         waSettingDataSaver.checked = receptionSettings.dataSaver;
     }
 
-    chatWindow.dataset.waTheme = receptionSettings.theme;
+    const selectedTheme = receptionSettings.theme || "system";
+
+if (selectedTheme === "system") {
+    const prefersDark = window.matchMedia(
+        "(prefers-color-scheme: dark)"
+    ).matches;
+
+    chatWindow.dataset.waTheme = prefersDark ? "dark" : "light";
+} else {
+    chatWindow.dataset.waTheme = selectedTheme;
+}
 
     const settingsMessagesContainer =
         chatWindow.querySelector("#liveChatMessages");
