@@ -9075,9 +9075,82 @@ function renderSpaDashboard(session) {
             window.location.reload();
         };
     }
-   setupSpaMobileMenu();
+       setupSpaMobileMenu();
+
+    setupSpaThemeSwitcher();
 }
  
+function setupSpaThemeSwitcher() {
+    const desktopSelect =
+        document.getElementById("spaThemeSelect");
+
+    const mobileSelect =
+        document.getElementById("spaMobileThemeSelect");
+
+    const themeStorageKey = "mirima-theme";
+
+    const validThemes = [
+        "midnight",
+        "ivory",
+        "ocean",
+        "emerald",
+        "royal",
+        "slate"
+    ];
+
+    function applyTheme(theme) {
+        if (!validThemes.includes(theme)) {
+            theme = "midnight";
+        }
+
+        // Apply the theme across the website.
+        document.documentElement.dataset.theme = theme;
+
+        // Save the selection for future visits.
+        try {
+            localStorage.setItem(themeStorageKey, theme);
+        } catch (error) {
+            console.warn("Could not save the selected theme.", error);
+        }
+
+        // Synchronize both dropdowns.
+        if (desktopSelect) {
+            desktopSelect.value = theme;
+        }
+
+        if (mobileSelect) {
+            mobileSelect.value = theme;
+        }
+    }
+
+    let savedTheme = "midnight";
+
+    try {
+        savedTheme =
+            localStorage.getItem(themeStorageKey) ||
+            document.documentElement.dataset.theme ||
+            "midnight";
+    } catch (error) {
+        savedTheme =
+            document.documentElement.dataset.theme ||
+            "midnight";
+    }
+
+    applyTheme(savedTheme);
+
+    if (desktopSelect) {
+        desktopSelect.addEventListener("change", function () {
+            applyTheme(this.value);
+        });
+    }
+
+    if (mobileSelect) {
+        mobileSelect.addEventListener("change", function () {
+            applyTheme(this.value);
+        });
+    }
+}
+
 // =========================================================
 // RECEPTION LIVE CHAT — LOAD CONVERSATIONS
 // =========================================================
