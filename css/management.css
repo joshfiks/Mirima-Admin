@@ -15,12 +15,11 @@
 .management-sidebar {
     width: 270px;
     min-height: 100vh;
-    height: 100vh;
     background: var(--theme-surface);
     border-right: 1px solid var(--theme-border);
     display: flex;
     flex-direction: column;
-    padding: 16px 14px;
+    padding: 24px 14px;
     flex-shrink: 0;
 }
 
