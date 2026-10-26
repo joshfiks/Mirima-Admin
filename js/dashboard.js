@@ -1267,17 +1267,18 @@ function renderSecurityDashboard(session) {
     }
    setupSecurityMobileMenu();
    
-   setupSecurityThemeSwitcher();
-}
+  }
+
 
 /* =========================================================
-   SECURITY TAP-TO-CHANGE THEME
+   SECURITY THEME TOGGLE
 ========================================================= */
 
-(() => {
-    const themeToggle = document.getElementById("securityThemeToggle");
+document.addEventListener("DOMContentLoaded", function () {
 
-    if (!themeToggle) return;
+    const themeToggle = document.getElementById(
+        "securityThemeToggle"
+    );
 
     const validThemes = [
         "midnight",
@@ -1288,39 +1289,61 @@ function renderSecurityDashboard(session) {
         "slate"
     ];
 
-    // Get the saved theme, or use midnight by default.
-    function getCurrentTheme() {
-        const currentTheme =
-            document.documentElement.dataset.theme ||
-            localStorage.getItem("mirima-theme") ||
-            "midnight";
+    console.log(
+        "Security theme button found:",
+        !!themeToggle
+    );
 
-        return validThemes.includes(currentTheme)
-            ? currentTheme
-            : "midnight";
+    if (!themeToggle) {
+        console.error(
+            "Theme button not found. Check securityThemeToggle in your HTML."
+        );
+        return;
     }
 
-    // Apply and save the selected theme.
     function applyTheme(theme) {
-        if (!validThemes.includes(theme)) return;
+        if (!validThemes.includes(theme)) {
+            console.error("Invalid theme:", theme);
+            return;
+        }
 
         document.documentElement.dataset.theme = theme;
         localStorage.setItem("mirima-theme", theme);
+
+        console.log(
+            "Theme applied:",
+            theme,
+            "| HTML data-theme:",
+            document.documentElement.dataset.theme
+        );
     }
 
-    // Start with the theme already in use.
-    applyTheme(getCurrentTheme());
+    const savedTheme = localStorage.getItem("mirima-theme");
+    const currentTheme = document.documentElement.dataset.theme;
 
-    // Cycle to the next theme whenever the button is clicked.
-    themeToggle.addEventListener("click", () => {
-        const currentTheme = getCurrentTheme();
-        const currentIndex = validThemes.indexOf(currentTheme);
-        const nextIndex = (currentIndex + 1) % validThemes.length;
-        const nextTheme = validThemes[nextIndex];
+    applyTheme(
+        validThemes.includes(currentTheme)
+            ? currentTheme
+            : validThemes.includes(savedTheme)
+                ? savedTheme
+                : "midnight"
+    );
+
+    themeToggle.addEventListener("click", function () {
+
+        const activeTheme =
+            document.documentElement.dataset.theme || "midnight";
+
+        const currentIndex = validThemes.indexOf(activeTheme);
+
+        const nextTheme =
+            validThemes[(currentIndex + 1) % validThemes.length];
 
         applyTheme(nextTheme);
+
     });
-})();
+
+});
 
 function setupSecurityMobileMenu() {
 
