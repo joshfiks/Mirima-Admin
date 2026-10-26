@@ -3154,12 +3154,13 @@ color: var(--theme-text);
     flex-shrink: 0;
 }
 
-
 /* =========================================================
-   MIRIMA THEME SWITCHER — HEADER FIX
-   ========================================================= */
+   MIRIMA THEME SWITCHER — DESKTOP + MOBILE HEADER FIX
+========================================================= */
 
-.reception-header-actions .theme-toggle-button {
+/* DESKTOP THEME BUTTON */
+.reception-header-actions .theme-toggle-button,
+.mobile-header-actions .reception-mobile-theme-toggle {
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -3167,7 +3168,7 @@ color: var(--theme-text);
     gap: 7px;
     width: auto;
     min-width: 108px;
-    max-width: 140px;
+    max-width: 160px;
     min-height: 40px;
     padding: 0 12px;
     box-sizing: border-box;
@@ -3179,8 +3180,11 @@ color: var(--theme-text);
     background: var(--theme-surface);
     color: var(--theme-text);
 
+    font: inherit;
     font-size: 12px;
     font-weight: 600;
+
+    cursor: pointer;
 
     transition:
         background 0.2s ease,
@@ -3188,22 +3192,28 @@ color: var(--theme-text);
         color 0.2s ease;
 }
 
-.reception-header-actions .theme-toggle-button:hover {
+/* HOVER */
+.reception-header-actions .theme-toggle-button:hover,
+.mobile-header-actions .reception-mobile-theme-toggle:hover {
     background: var(--theme-surface-alt);
     border-color: var(--theme-accent);
 }
 
-.reception-header-actions .theme-toggle-button:focus-visible {
+/* KEYBOARD ACCESSIBILITY */
+.reception-header-actions .theme-toggle-button:focus-visible,
+.mobile-header-actions .reception-mobile-theme-toggle:focus-visible {
     outline: 2px solid var(--theme-accent);
     outline-offset: 3px;
 }
 
+/* DESKTOP ICON */
 .reception-header-actions #themeToggleIcon {
     flex: 0 0 auto;
     font-size: 16px;
     line-height: 1;
 }
 
+/* DESKTOP THEME LABEL */
 .reception-header-actions #themeToggleLabel {
     display: inline-block;
     flex: 0 0 auto;
@@ -3211,6 +3221,39 @@ color: var(--theme-text);
     white-space: nowrap;
 }
 
+/* MOBILE HEADER ACTIONS */
+.mobile-header-actions {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 8px;
+    flex: 0 0 auto;
+    min-width: 0;
+}
+
+/* MOBILE THEME BUTTON */
+.mobile-header-actions .reception-mobile-theme-toggle {
+    min-width: 76px;
+    max-width: 90px;
+    width: auto;
+    min-height: 36px;
+    padding: 0 8px;
+    gap: 5px;
+    font-size: 12px;
+}
+
+/* MOBILE THEME LABEL */
+.mobile-header-actions .reception-mobile-theme-toggle span {
+    display: inline-block;
+    white-space: nowrap;
+}
+
+/* MOBILE NOTIFICATION BUTTON */
+.mobile-header-actions .mobile-notification-button {
+    flex: 0 0 auto;
+}
+
+/* SMALL MOBILE SCREENS */
 @media (max-width: 480px) {
     .reception-header-actions .theme-toggle-button {
         min-width: 40px;
@@ -3221,5 +3264,38 @@ color: var(--theme-text);
 
     .reception-header-actions #themeToggleLabel {
         display: none;
+    }
+
+    .mobile-header-actions .reception-mobile-theme-toggle {
+        min-width: 68px;
+        width: 68px;
+        max-width: 68px;
+        min-height: 34px;
+        padding: 0 6px;
+        gap: 4px;
+        font-size: 11px;
+    }
+
+    .mobile-header-actions .reception-mobile-theme-toggle span {
+        display: inline-block;
+    }
+
+    .mobile-header {
+        gap: 6px;
+    }
+}
+
+/* EXTRA-SMALL SCREENS */
+@media (max-width: 360px) {
+    .mobile-header-actions {
+        gap: 5px;
+    }
+
+    .mobile-header-actions .reception-mobile-theme-toggle {
+        min-width: 62px;
+        width: 62px;
+        max-width: 62px;
+        padding: 0 4px;
+        font-size: 10px;
     }
 }
