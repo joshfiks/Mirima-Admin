@@ -690,3 +690,38 @@
         transition: none;
     }
 }
+/* KITCHEN THEME SWITCHER */
+.kitchen-theme-toggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    min-height: 40px;
+    padding: 0 13px;
+    border: 1px solid var(--theme-border);
+    border-radius: 10px;
+    background: var(--theme-surface);
+    color: var(--theme-text);
+    font: inherit;
+    font-size: 12px;
+    cursor: pointer;
+    transition: background-color 0.2s ease,
+                border-color 0.2s ease;
+}
+
+.kitchen-theme-toggle:hover {
+    background: var(--theme-surface-alt);
+    border-color: var(--theme-accent);
+}
+
+.kitchen-theme-toggle:focus-visible {
+    outline: 2px solid var(--theme-accent);
+    outline-offset: 3px;
+}
+
+@media (max-width: 700px) {
+    .kitchen-theme-toggle {
+        min-height: 36px;
+        padding: 0 10px;
+    }
+}
