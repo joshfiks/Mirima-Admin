@@ -8677,15 +8677,14 @@ setupKitchenThemeSwitcher();
    
 }
 
-
 /* ==========================================
    MIRIMA KITCHEN THEME SWITCHER
 ========================================== */
 
-(function initKitchenThemeSwitcher() {
-    const themeButton = document.getElementById("kitchenThemeToggle");
+function setupKitchenThemeSwitcher() {
+    const themeButton =
+        document.getElementById("kitchenThemeToggle");
 
-    // Stop safely if the Kitchen theme button is not on this page.
     if (!themeButton) return;
 
     const availableThemes = [
@@ -8713,7 +8712,6 @@ setupKitchenThemeSwitcher();
             theme = "midnight";
         }
 
-        // Use the shared Mirima theme system.
         document.documentElement.dataset.theme = theme;
 
         try {
@@ -8722,43 +8720,45 @@ setupKitchenThemeSwitcher();
             console.warn("Could not save the selected theme:", error);
         }
 
-        themeButton.title = `Current theme: ${themeNames[theme]}. Click to change.`;
+        themeButton.innerHTML =
+            `🎨 <span>${themeNames[theme]}</span>`;
+
+        themeButton.title =
+            `Current theme: ${themeNames[theme]}. Click to change.`;
+
         themeButton.setAttribute(
             "aria-label",
             `Current theme: ${themeNames[theme]}. Click to change theme.`
         );
-
-        themeButton.innerHTML =
-            `🎨 <span>${themeNames[theme]}</span>`;
     }
 
-    function getSavedTheme() {
-        try {
-            const savedTheme = localStorage.getItem(storageKey);
+    let savedTheme = "midnight";
 
-            if (availableThemes.includes(savedTheme)) {
-                return savedTheme;
-            }
-        } catch (error) {
-            console.warn("Could not read the saved theme:", error);
+    try {
+        const storedTheme = localStorage.getItem(storageKey);
+
+        if (availableThemes.includes(storedTheme)) {
+            savedTheme = storedTheme;
         }
-
-        return "midnight";
+    } catch (error) {
+        console.warn("Could not read the saved theme:", error);
     }
 
-    // Restore the saved theme when the Kitchen dashboard loads.
-    applyKitchenTheme(getSavedTheme());
+    applyKitchenTheme(savedTheme);
 
-    // Cycle through all six themes whenever the button is clicked.
     themeButton.addEventListener("click", function () {
-        const currentTheme = document.documentElement.dataset.theme;
-        const currentIndex = availableThemes.indexOf(currentTheme);
-        const nextIndex = (currentIndex + 1) % availableThemes.length;
+        const currentTheme =
+            document.documentElement.dataset.theme;
+
+        const currentIndex =
+            availableThemes.indexOf(currentTheme);
+
+        const nextIndex =
+            (currentIndex + 1) % availableThemes.length;
 
         applyKitchenTheme(availableThemes[nextIndex]);
     });
-})();
-
+}
 
 function setupKitchenMobileMenu() {
 
