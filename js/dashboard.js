@@ -8172,57 +8172,63 @@ function closeMobileMenu() {
 
 }
 
+
 function setupHousekeepingMobileMenu() {
+    const menuButton = document.getElementById(
+        "housekeepingMobileMenuButton"
+    );
 
-    const menuButton =
-        document.getElementById(
-            "housekeepingMobileMenuButton"
-        );
+    const sidebar = document.getElementById(
+        "housekeepingSidebar"
+    );
 
-    const sidebar =
-        document.getElementById(
-            "housekeepingSidebar"
-        );
-
-    const overlay =
-        document.getElementById(
-            "housekeepingSidebarOverlay"
-        );
+    const overlay = document.getElementById(
+        "housekeepingSidebarOverlay"
+    );
 
     if (!menuButton || !sidebar || !overlay) {
         return;
     }
 
-    menuButton.addEventListener(
-        "click",
-        function () {
+    function closeMenu() {
+        sidebar.classList.remove("mobile-open");
+        overlay.classList.remove("visible");
+        menuButton.setAttribute("aria-expanded", "false");
+    }
 
-            sidebar.classList.toggle(
-                "mobile-open"
-            );
+    function openMenu() {
+        sidebar.classList.add("mobile-open");
+        overlay.classList.add("visible");
+        menuButton.setAttribute("aria-expanded", "true");
+    }
 
-            overlay.classList.toggle(
-                "visible"
-            );
+    menuButton.setAttribute("aria-expanded", "false");
 
+    menuButton.addEventListener("click", function (event) {
+        event.stopPropagation();
+
+        if (sidebar.classList.contains("mobile-open")) {
+            closeMenu();
+        } else {
+            openMenu();
+        }
+    });
+
+    overlay.addEventListener("click", closeMenu);
+
+    // Close the menu when a navigation item is selected.
+    sidebar.querySelectorAll(".housekeeping-nav-item").forEach(
+        function (item) {
+            item.addEventListener("click", closeMenu);
         }
     );
 
-    overlay.addEventListener(
-        "click",
-        function () {
-
-            sidebar.classList.remove(
-                "mobile-open"
-            );
-
-            overlay.classList.remove(
-                "visible"
-            );
-
+    // Close the menu when Escape is pressed.
+    document.addEventListener("keydown", function (event) {
+        if (event.key === "Escape") {
+            closeMenu();
         }
-    );
-   
+    });
 }
 
 // =========================================================
