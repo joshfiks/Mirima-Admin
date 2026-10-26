@@ -8426,7 +8426,16 @@ function renderKitchenDashboard(session) {
 
 
                     <div class="kitchen-header-actions">
-
+                    
+<button
+    type="button"
+    class="kitchen-theme-toggle"
+    id="kitchenThemeToggle"
+    aria-label="Change dashboard theme"
+    title="Change theme"
+>
+    🎨 <span>Theme</span>
+</button>
                         <button
                             id="kitchenNotificationButton"
                             class="kitchen-header-icon-button"
