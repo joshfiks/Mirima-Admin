@@ -2481,21 +2481,13 @@ export function showDashboard(session) {
         </div>
 
     `;
+   
   
-  
-    // =========================================================
-    // MIRIMA MULTI-THEME SWITCHER
-    // =========================================================
+ // =========================================================
+ // MIRIMA MULTI-THEME SWITCHER — DESKTOP + MOBILE
+ // =========================================================
 
-    const themeToggleButton =
-        document.getElementById("themeToggleButton");
-
-    const themeToggleIcon =
-        document.getElementById("themeToggleIcon");
-
-    const themeToggleLabel =
-        document.getElementById("themeToggleLabel");
-
+(() => {
     const themeNames = {
         midnight: "Midnight Forest",
         ivory: "Ivory & Gold",
@@ -2505,6 +2497,21 @@ export function showDashboard(session) {
         slate: "Slate Grey"
     };
 
+    const themes = Object.keys(themeNames);
+
+    // Find both desktop and mobile theme buttons.
+    const themeButtons = [
+        document.getElementById("themeToggleButton"),
+        document.getElementById("receptionMobileThemeToggle")
+    ].filter(Boolean);
+
+    const themeToggleIcon =
+        document.getElementById("themeToggleIcon");
+
+    const themeToggleLabel =
+        document.getElementById("themeToggleLabel");
+
+    // Apply the theme everywhere.
     function applyMirimaTheme(theme) {
         const selectedTheme =
             Object.prototype.hasOwnProperty.call(themeNames, theme)
@@ -2513,42 +2520,59 @@ export function showDashboard(session) {
 
         document.documentElement.dataset.theme = selectedTheme;
 
-        if (themeToggleButton) {
-            themeToggleButton.setAttribute(
-                "aria-label",
-                "Current theme: " + themeNames[selectedTheme]
-            );
-
-            themeToggleButton.setAttribute(
-                "title",
-                "Current theme: " + themeNames[selectedTheme]
-            );
+        // Save the theme safely.
+        try {
+            localStorage.setItem("mirima-theme", selectedTheme);
+        } catch (error) {
+            console.warn("Could not save the theme preference.");
         }
 
+        // Update the desktop button's icon and label, if present.
         if (themeToggleIcon) {
             themeToggleIcon.textContent =
                 selectedTheme === "ivory" ? "🌙" : "🎨";
         }
 
         if (themeToggleLabel) {
-            themeToggleLabel.textContent = themeNames[selectedTheme];
+            themeToggleLabel.textContent =
+                themeNames[selectedTheme];
         }
+
+        // Update both buttons' accessibility labels.
+        themeButtons.forEach((button) => {
+            button.setAttribute(
+                "aria-label",
+                "Current theme: " + themeNames[selectedTheme]
+            );
+
+            button.setAttribute(
+                "title",
+                "Current theme: " + themeNames[selectedTheme]
+            );
+        });
     }
 
+    // Restore the previously selected theme.
     let savedTheme = "midnight";
 
     try {
         savedTheme = localStorage.getItem("mirima-theme") || "midnight";
     } catch (error) {
-        // Use the default theme if browser storage is unavailable.
+        // Use midnight if storage is unavailable.
     }
 
     applyMirimaTheme(savedTheme);
 
-    if (themeToggleButton) {
-        themeToggleButton.addEventListener("click", () => {
-            const themes = Object.keys(themeNames);
+    // Both buttons cycle through the same six themes.
+    themeButtons.forEach((button) => {
+        // Avoid registering this switcher's listener twice.
+        if (button.dataset.mirimaThemeBound === "true") {
+            return;
+        }
 
+        button.dataset.mirimaThemeBound = "true";
+
+        button.addEventListener("click", () => {
             const currentTheme =
                 document.documentElement.dataset.theme || "midnight";
 
@@ -2559,14 +2583,10 @@ export function showDashboard(session) {
 
             applyMirimaTheme(nextTheme);
 
-            try {
-                localStorage.setItem("mirima-theme", nextTheme);
-            } catch (error) {
-                // The theme still changes for the current page.
-            }
+            console.log("Mirima theme changed to:", nextTheme);
         });
-    }
-
+    });
+})();
 
     // Render overview
 
