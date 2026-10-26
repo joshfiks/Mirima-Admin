@@ -1267,6 +1267,59 @@ function renderSecurityDashboard(session) {
     }
    setupSecurityMobileMenu();
 }
+
+/* =========================================================
+   SECURITY TAP-TO-CHANGE THEME
+========================================================= */
+
+(() => {
+    const themeToggle = document.getElementById("securityThemeToggle");
+
+    if (!themeToggle) return;
+
+    const validThemes = [
+        "midnight",
+        "ivory",
+        "ocean",
+        "emerald",
+        "royal",
+        "slate"
+    ];
+
+    // Get the saved theme, or use midnight by default.
+    function getCurrentTheme() {
+        const currentTheme =
+            document.documentElement.dataset.theme ||
+            localStorage.getItem("mirima-theme") ||
+            "midnight";
+
+        return validThemes.includes(currentTheme)
+            ? currentTheme
+            : "midnight";
+    }
+
+    // Apply and save the selected theme.
+    function applyTheme(theme) {
+        if (!validThemes.includes(theme)) return;
+
+        document.documentElement.dataset.theme = theme;
+        localStorage.setItem("mirima-theme", theme);
+    }
+
+    // Start with the theme already in use.
+    applyTheme(getCurrentTheme());
+
+    // Cycle to the next theme whenever the button is clicked.
+    themeToggle.addEventListener("click", () => {
+        const currentTheme = getCurrentTheme();
+        const currentIndex = validThemes.indexOf(currentTheme);
+        const nextIndex = (currentIndex + 1) % validThemes.length;
+        const nextTheme = validThemes[nextIndex];
+
+        applyTheme(nextTheme);
+    });
+})();
+
 function setupSecurityMobileMenu() {
 
     const menuButton =
@@ -1319,53 +1372,6 @@ function setupSecurityMobileMenu() {
     );
 
 }
-
-
-/* =========================================================
-   SECURITY TAP-TO-CHANGE THEME
-========================================================= */
-
-document.querySelectorAll(".security-theme-dot").forEach((button) => {
-    button.addEventListener("click", () => {
-        const theme = button.dataset.themeChoice;
-
-        const validThemes = [
-            "midnight",
-            "ivory",
-            "ocean",
-            "emerald",
-            "royal",
-            "slate"
-        ];
-
-        if (!validThemes.includes(theme)) return;
-
-        document.documentElement.dataset.theme = theme;
-        localStorage.setItem("mirima-theme", theme);
-
-        document.querySelectorAll(".security-theme-dot").forEach((dot) => {
-            dot.setAttribute(
-                "aria-pressed",
-                String(dot.dataset.themeChoice === theme)
-            );
-        });
-    });
-});
-
-/* Highlight the theme already in use */
-(() => {
-    const savedTheme =
-        document.documentElement.dataset.theme ||
-        localStorage.getItem("mirima-theme") ||
-        "midnight";
-
-    document.querySelectorAll(".security-theme-dot").forEach((button) => {
-        button.setAttribute(
-            "aria-pressed",
-            String(button.dataset.themeChoice === savedTheme)
-        );
-    });
-})();
 
 // =========================================================
 // MANAGEMENT DASHBOARD
