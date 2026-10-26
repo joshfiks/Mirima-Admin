@@ -1620,3 +1620,24 @@
         transition: none;
     }
 }
+/* Desktop: show desktop bell, hide mobile bell */
+.housekeeping-header-icon-button {
+    display: flex;
+}
+
+.housekeeping-mobile-notification-button {
+    display: none;
+}
+
+/* Mobile: show mobile bell, hide desktop bell */
+@media (max-width: 900px) {
+    .housekeeping-header-icon-button {
+        display: none;
+    }
+
+    .housekeeping-mobile-notification-button {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+}
