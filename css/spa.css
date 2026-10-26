@@ -601,3 +601,74 @@
         padding: 18px;
     }
 }
+
+/* =========================================================
+   SPA THEME SWITCHER
+   ========================================================= */
+
+.spa-theme-switcher {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    min-width: 0;
+    max-width: 100%;
+}
+
+.spa-theme-switcher label {
+    color: var(--theme-text-muted);
+    font-size: 12px;
+}
+
+.spa-theme-select {
+    width: auto;
+    min-width: 0;
+    max-width: 140px;
+    padding: 9px 25px 9px 10px;
+    border: 1px solid var(--theme-border);
+    border-radius: 9px;
+    background: var(--theme-surface);
+    color: var(--theme-text);
+    font-family: inherit;
+    font-size: 12px;
+    cursor: pointer;
+}
+
+.spa-theme-select:focus-visible {
+    outline: 2px solid var(--theme-accent);
+    outline-offset: 2px;
+}
+
+.spa-theme-select option {
+    background: var(--theme-surface);
+    color: var(--theme-text);
+}
+
+.spa-mobile-theme-switcher {
+    display: none;
+}
+
+@media (max-width: 900px) {
+    .spa-header-actions .spa-theme-switcher {
+        display: none;
+    }
+
+    .spa-mobile-theme-switcher {
+        display: flex;
+        flex: 0 1 auto;
+    }
+
+    .spa-mobile-theme-switcher .spa-theme-select {
+        max-width: 105px;
+        padding: 8px 18px 8px 6px;
+        font-size: 11px;
+    }
+}
+
+@media (max-width: 360px) {
+    .spa-mobile-theme-switcher .spa-theme-select {
+        max-width: 88px;
+        padding-left: 5px;
+        padding-right: 15px;
+        font-size: 10px;
+    }
+}
