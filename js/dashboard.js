@@ -8602,6 +8602,26 @@ function renderSpaDashboard(session) {
 
             <header class="spa-mobile-header">
 
+            
+<!-- SPA MOBILE THEME SWITCHER -->
+<div class="spa-theme-switcher spa-mobile-theme-switcher">
+
+    <select
+        id="spaMobileThemeSelect"
+        class="spa-theme-select"
+        aria-label="Choose dashboard theme"
+    >
+        <option value="midnight">Midnight</option>
+        <option value="ivory">Ivory</option>
+        <option value="ocean">Ocean</option>
+        <option value="emerald">Emerald</option>
+        <option value="royal">Royal</option>
+        <option value="slate">Slate</option>
+    </select>
+
+</div>
+
+
                 <button
                     id="spaMobileMenuButton"
                     class="spa-mobile-menu-button"
@@ -8796,6 +8816,28 @@ function renderSpaDashboard(session) {
 
 
                     <div class="spa-header-actions">
+
+                    
+<!-- SPA DESKTOP THEME SWITCHER -->
+<div class="spa-theme-switcher">
+
+    <label for="spaThemeSelect">Theme</label>
+
+    <select
+        id="spaThemeSelect"
+        class="spa-theme-select"
+        aria-label="Choose dashboard theme"
+    >
+        <option value="midnight">Midnight</option>
+        <option value="ivory">Ivory</option>
+        <option value="ocean">Ocean</option>
+        <option value="emerald">Emerald</option>
+        <option value="royal">Royal</option>
+        <option value="slate">Slate</option>
+    </select>
+
+</div>
+
 
                         <button
                             id="spaNotificationButton"
