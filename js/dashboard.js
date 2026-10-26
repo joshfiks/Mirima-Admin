@@ -1348,6 +1348,23 @@ function renderManagementDashboard(session) {
 
         </div>
 
+
+<!-- MANAGEMENT MOBILE THEME SWITCHER -->
+<div class="management-theme-switcher management-mobile-theme-switcher">
+    <select
+        id="managementMobileThemeSelect"
+        class="management-theme-select"
+        aria-label="Choose dashboard theme"
+    >
+        <option value="midnight">Midnight</option>
+        <option value="ivory">Ivory</option>
+        <option value="ocean">Ocean</option>
+        <option value="emerald">Emerald</option>
+        <option value="royal">Royal</option>
+        <option value="slate">Slate</option>
+    </select>
+</div>
+
         <button
             id="managementMobileNotificationButton"
             class="management-mobile-notification-button"
@@ -1523,6 +1540,26 @@ function renderManagementDashboard(session) {
 
 
             <div class="management-header-actions">
+
+            
+<!-- MANAGEMENT DESKTOP THEME SWITCHER -->
+<div class="management-theme-switcher">
+    <label for="managementThemeSelect">Theme</label>
+
+    <select
+        id="managementThemeSelect"
+        class="management-theme-select"
+        aria-label="Choose dashboard theme"
+    >
+        <option value="midnight">Midnight</option>
+        <option value="ivory">Ivory</option>
+        <option value="ocean">Ocean</option>
+        <option value="emerald">Emerald</option>
+        <option value="royal">Royal</option>
+        <option value="slate">Slate</option>
+    </select>
+</div>
+
 
                 <button
                     id="managementNotificationButton"
