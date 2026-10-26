@@ -1050,44 +1050,16 @@ function renderSecurityDashboard(session) {
 
             <div class="security-header-actions">
 
+<button
+    type="button"
+    class="security-theme-toggle"
+    id="securityThemeToggle"
+    aria-label="Change dashboard theme"
+    title="Change theme"
+>
+    🎨 <span>Theme</span>
+</button>
             
-<div class="security-theme-switcher" aria-label="Choose dashboard theme">
-    <button type="button" class="security-theme-dot"
-        data-theme-choice="midnight" title="Midnight"
-        aria-label="Midnight theme" aria-pressed="false">
-        <span class="theme-dot midnight-dot"></span>
-    </button>
-
-    <button type="button" class="security-theme-dot"
-        data-theme-choice="ivory" title="Ivory"
-        aria-label="Ivory theme" aria-pressed="false">
-        <span class="theme-dot ivory-dot"></span>
-    </button>
-
-    <button type="button" class="security-theme-dot"
-        data-theme-choice="ocean" title="Ocean"
-        aria-label="Ocean theme" aria-pressed="false">
-        <span class="theme-dot ocean-dot"></span>
-    </button>
-
-    <button type="button" class="security-theme-dot"
-        data-theme-choice="emerald" title="Emerald"
-        aria-label="Emerald theme" aria-pressed="false">
-        <span class="theme-dot emerald-dot"></span>
-    </button>
-
-    <button type="button" class="security-theme-dot"
-        data-theme-choice="royal" title="Royal"
-        aria-label="Royal theme" aria-pressed="false">
-        <span class="theme-dot royal-dot"></span>
-    </button>
-
-    <button type="button" class="security-theme-dot"
-        data-theme-choice="slate" title="Slate"
-        aria-label="Slate theme" aria-pressed="false">
-        <span class="theme-dot slate-dot"></span>
-    </button>
-</div>
 
                 <button
                     id="securityNotificationButton"
