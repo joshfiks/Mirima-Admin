@@ -2200,7 +2200,15 @@ export function showDashboard(session) {
 
                 </div>
 
-
+      <button
+            type="button"
+            id="receptionMobileThemeToggle"
+            class="reception-mobile-theme-toggle"
+            aria-label="Change dashboard theme"
+            title="Change theme"
+        >
+            🎨 <span>Theme</span>
+        </button>
                 <button
                     id="mobileNotificationButton"
                     class="mobile-notification-button"
