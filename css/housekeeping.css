@@ -1306,3 +1306,504 @@
         font-size: 11px;
     }
 }
+
+/* =========================================================
+   MIRIMA HOUSEKEEPING — RESPONSIVE LAYOUT REFINEMENT
+   Add at the VERY END of style.css
+   ========================================================= */
+
+/* ---------- MAIN LAYOUT ---------- */
+
+.login-screen.housekeeping-mode,
+.housekeeping-app,
+.housekeeping-main,
+.housekeeping-content {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
+}
+
+.login-screen.housekeeping-mode,
+.housekeeping-app {
+    overflow-x: clip;
+}
+
+.housekeeping-sidebar {
+    width: 270px;
+    flex: 0 0 270px;
+    box-sizing: border-box;
+}
+
+.housekeeping-main {
+    min-width: 0;
+    margin-left: 270px;
+}
+
+.housekeeping-content {
+    padding: 28px 30px 36px;
+}
+
+/* ---------- MAIN PAGE HEADER ---------- */
+
+.housekeeping-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+
+    min-width: 0;
+    padding: 22px 30px;
+    box-sizing: border-box;
+}
+
+.housekeeping-header > div:first-child {
+    flex: 1 1 auto;
+    min-width: 0;
+}
+
+.housekeeping-header h2 {
+    margin: 0;
+    font-size: clamp(19px, 1.7vw, 24px);
+    line-height: 1.35;
+    overflow-wrap: break-word;
+}
+
+.housekeeping-eyebrow {
+    font-size: 10px;
+    line-height: 1.5;
+    letter-spacing: 1.5px;
+    overflow-wrap: break-word;
+}
+
+.housekeeping-header-actions {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    flex: 0 1 auto;
+    flex-wrap: wrap;
+    gap: 12px;
+    min-width: 0;
+}
+
+.housekeeping-header-staff {
+    min-width: 0;
+    max-width: 180px;
+    overflow-wrap: anywhere;
+}
+
+/* ---------- WELCOME PANEL ---------- */
+
+.housekeeping-welcome {
+    padding: clamp(20px, 2.5vw, 32px);
+    border-radius: 18px;
+}
+
+.housekeeping-welcome h3 {
+    font-size: clamp(23px, 2.2vw, 30px);
+    line-height: 1.25;
+    overflow-wrap: break-word;
+}
+
+.housekeeping-welcome p:last-child {
+    max-width: 680px;
+    line-height: 1.7;
+}
+
+/* ---------- STATISTICS GRID ---------- */
+
+.housekeeping-stat-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 16px;
+
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+}
+
+.housekeeping-stat-card {
+    gap: 12px;
+    min-width: 0;
+    padding: 18px;
+    border-radius: 16px;
+}
+
+.housekeeping-stat-card > div:last-child {
+    flex: 1 1 0;
+    min-width: 0;
+}
+
+.housekeeping-stat-card span {
+    font-size: 12px;
+    line-height: 1.45;
+    overflow-wrap: break-word;
+}
+
+.housekeeping-stat-card strong {
+    font-size: clamp(20px, 1.8vw, 25px);
+    line-height: 1.2;
+    overflow-wrap: break-word;
+}
+
+.housekeeping-stat-card small {
+    line-height: 1.45;
+    overflow-wrap: break-word;
+}
+
+/* ---------- RECENT REQUESTS PANEL ---------- */
+
+.housekeeping-panel {
+    padding: 22px;
+}
+
+.housekeeping-panel-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    min-width: 0;
+}
+
+.housekeeping-panel-heading > div {
+    flex: 1 1 auto;
+    min-width: 0;
+}
+
+.housekeeping-panel-heading h4 {
+    font-size: 17px;
+    line-height: 1.45;
+    overflow-wrap: break-word;
+}
+
+.housekeeping-text-action {
+    flex: 0 0 auto;
+    white-space: nowrap;
+    text-align: center;
+}
+
+.housekeeping-empty-state {
+    margin-top: 20px;
+}
+
+/* ---------- REQUEST CATEGORY CARDS ---------- */
+
+.housekeeping-request-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px;
+}
+
+.housekeeping-request-card {
+    min-width: 0;
+    padding: 17px;
+    gap: 13px;
+}
+
+.housekeeping-request-card > div:last-child {
+    flex: 1 1 0;
+    min-width: 0;
+}
+
+.housekeeping-request-card strong {
+    line-height: 1.45;
+    overflow-wrap: break-word;
+}
+
+.housekeeping-request-card span {
+    line-height: 1.5;
+    overflow-wrap: break-word;
+}
+
+/* =========================================================
+   MEDIUM DESKTOPS AND SMALL LAPTOPS
+   ========================================================= */
+
+@media (max-width: 1200px) and (min-width: 901px) {
+
+    .housekeeping-content {
+        padding: 24px;
+    }
+
+    .housekeeping-header {
+        padding: 20px 24px;
+        gap: 14px;
+    }
+
+    .housekeeping-stat-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .housekeeping-stat-card {
+        min-height: 100px;
+    }
+
+    .housekeeping-panel {
+        padding: 20px;
+    }
+}
+
+/* =========================================================
+   TABLETS AND MOBILE
+   ========================================================= */
+
+@media (max-width: 900px) {
+
+    .housekeeping-main {
+        width: 100%;
+        max-width: 100%;
+        min-width: 0;
+        margin-left: 0;
+    }
+
+    .housekeeping-sidebar {
+        width: 270px;
+        max-width: min(270px, 85vw);
+        flex: 0 0 270px;
+    }
+
+    .housekeeping-header {
+        gap: 14px;
+        padding: 20px 22px;
+    }
+
+    .housekeeping-content {
+        padding: 22px;
+    }
+
+    .housekeeping-stat-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .housekeeping-request-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .housekeeping-panel-heading h4 {
+        font-size: 16px;
+    }
+
+    .housekeeping-mobile-header {
+        gap: 10px;
+        padding: 12px 16px;
+    }
+
+    .housekeeping-mobile-brand {
+        flex: 1 1 0;
+        min-width: 0;
+    }
+
+    .housekeeping-mobile-brand strong {
+        font-size: 15px;
+        line-height: 1.3;
+    }
+
+    .housekeeping-mobile-brand span {
+        letter-spacing: 0.8px;
+        overflow-wrap: break-word;
+    }
+}
+
+/* =========================================================
+   MOBILE PHONES
+   ========================================================= */
+
+@media (max-width: 600px) {
+
+    .housekeeping-header {
+        align-items: flex-start;
+        flex-wrap: wrap;
+        gap: 12px;
+        padding: 18px 16px;
+    }
+
+    .housekeeping-header > div:first-child {
+        flex: 1 1 100%;
+        width: 100%;
+    }
+
+    .housekeeping-header h2 {
+        font-size: 21px;
+        line-height: 1.35;
+    }
+
+    .housekeeping-header-actions {
+        width: 100%;
+        flex: 1 1 100%;
+        justify-content: flex-start;
+        gap: 10px;
+    }
+
+    .housekeeping-header-staff {
+        margin-left: auto;
+        max-width: calc(100% - 60px);
+        text-align: right;
+        overflow-wrap: anywhere;
+    }
+
+    .housekeeping-content {
+        padding: 16px;
+    }
+
+    .housekeeping-welcome {
+        padding: 22px 18px;
+        border-radius: 16px;
+    }
+
+    .housekeeping-welcome h3 {
+        font-size: 24px;
+    }
+
+    .housekeeping-stat-grid {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 12px;
+        margin-top: 16px;
+    }
+
+    .housekeeping-stat-card {
+        min-height: 92px;
+        padding: 16px;
+        gap: 14px;
+    }
+
+    .housekeeping-stat-card strong {
+        font-size: 23px;
+    }
+
+    .housekeeping-panel {
+        margin-top: 18px;
+        padding: 17px;
+        border-radius: 16px;
+    }
+
+    .housekeeping-panel-heading {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .housekeeping-panel-heading h4 {
+        font-size: 16px;
+    }
+
+    .housekeeping-text-action {
+        align-self: flex-start;
+        padding: 5px 0;
+        white-space: normal;
+        text-align: left;
+    }
+
+    .housekeeping-empty-state {
+        margin-top: 16px;
+        padding: 26px 14px;
+    }
+
+    .housekeeping-request-grid {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 12px;
+        margin-top: 16px;
+    }
+
+    .housekeeping-request-card {
+        min-height: 78px;
+        padding: 15px;
+        gap: 12px;
+    }
+
+    .housekeeping-mobile-header {
+        padding: 10px 12px;
+    }
+
+    .housekeeping-mobile-brand strong {
+        font-size: 14px;
+    }
+
+    .housekeeping-mobile-theme-switcher .housekeeping-theme-select {
+        max-width: 94px;
+        padding: 8px 18px 8px 6px;
+        font-size: 11px;
+    }
+}
+
+/* =========================================================
+   EXTRA-NARROW PHONES
+   ========================================================= */
+
+@media (max-width: 360px) {
+
+    .housekeeping-content {
+        padding: 12px;
+    }
+
+    .housekeeping-header {
+        padding: 16px 12px;
+    }
+
+    .housekeeping-header h2 {
+        font-size: 19px;
+    }
+
+    .housekeeping-welcome {
+        padding: 18px 14px;
+    }
+
+    .housekeeping-welcome h3 {
+        font-size: 22px;
+    }
+
+    .housekeeping-stat-card {
+        padding: 13px;
+        gap: 11px;
+    }
+
+    .housekeeping-stat-icon {
+        flex-basis: 40px;
+        width: 40px;
+        height: 40px;
+        font-size: 19px;
+    }
+
+    .housekeeping-panel {
+        padding: 14px;
+        border-radius: 14px;
+    }
+
+    .housekeeping-panel-heading h4 {
+        font-size: 15px;
+    }
+
+    .housekeeping-empty-state {
+        padding: 22px 10px;
+    }
+
+    .housekeeping-request-card {
+        padding: 12px;
+        gap: 10px;
+    }
+
+    .housekeeping-request-icon {
+        flex-basis: 40px;
+        width: 40px;
+        height: 40px;
+        font-size: 19px;
+    }
+
+    .housekeeping-mobile-header {
+        gap: 6px;
+        padding-right: 8px;
+        padding-left: 8px;
+    }
+
+    .housekeeping-mobile-theme-switcher .housekeeping-theme-select {
+        max-width: 82px;
+        padding-right: 15px;
+        font-size: 10px;
+    }
+}
+
+/* ---------- ACCESSIBILITY ---------- */
+
+@media (prefers-reduced-motion: reduce) {
+    .housekeeping-request-card {
+        transition: none;
+    }
+}
