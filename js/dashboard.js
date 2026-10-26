@@ -1050,6 +1050,45 @@ function renderSecurityDashboard(session) {
 
             <div class="security-header-actions">
 
+            
+<div class="security-theme-switcher" aria-label="Choose dashboard theme">
+    <button type="button" class="security-theme-dot"
+        data-theme-choice="midnight" title="Midnight"
+        aria-label="Midnight theme" aria-pressed="false">
+        <span class="theme-dot midnight-dot"></span>
+    </button>
+
+    <button type="button" class="security-theme-dot"
+        data-theme-choice="ivory" title="Ivory"
+        aria-label="Ivory theme" aria-pressed="false">
+        <span class="theme-dot ivory-dot"></span>
+    </button>
+
+    <button type="button" class="security-theme-dot"
+        data-theme-choice="ocean" title="Ocean"
+        aria-label="Ocean theme" aria-pressed="false">
+        <span class="theme-dot ocean-dot"></span>
+    </button>
+
+    <button type="button" class="security-theme-dot"
+        data-theme-choice="emerald" title="Emerald"
+        aria-label="Emerald theme" aria-pressed="false">
+        <span class="theme-dot emerald-dot"></span>
+    </button>
+
+    <button type="button" class="security-theme-dot"
+        data-theme-choice="royal" title="Royal"
+        aria-label="Royal theme" aria-pressed="false">
+        <span class="theme-dot royal-dot"></span>
+    </button>
+
+    <button type="button" class="security-theme-dot"
+        data-theme-choice="slate" title="Slate"
+        aria-label="Slate theme" aria-pressed="false">
+        <span class="theme-dot slate-dot"></span>
+    </button>
+</div>
+
                 <button
                     id="securityNotificationButton"
                     class="security-header-icon-button"
@@ -1308,6 +1347,53 @@ function setupSecurityMobileMenu() {
     );
 
 }
+
+
+/* =========================================================
+   SECURITY TAP-TO-CHANGE THEME
+========================================================= */
+
+document.querySelectorAll(".security-theme-dot").forEach((button) => {
+    button.addEventListener("click", () => {
+        const theme = button.dataset.themeChoice;
+
+        const validThemes = [
+            "midnight",
+            "ivory",
+            "ocean",
+            "emerald",
+            "royal",
+            "slate"
+        ];
+
+        if (!validThemes.includes(theme)) return;
+
+        document.documentElement.dataset.theme = theme;
+        localStorage.setItem("mirima-theme", theme);
+
+        document.querySelectorAll(".security-theme-dot").forEach((dot) => {
+            dot.setAttribute(
+                "aria-pressed",
+                String(dot.dataset.themeChoice === theme)
+            );
+        });
+    });
+});
+
+/* Highlight the theme already in use */
+(() => {
+    const savedTheme =
+        document.documentElement.dataset.theme ||
+        localStorage.getItem("mirima-theme") ||
+        "midnight";
+
+    document.querySelectorAll(".security-theme-dot").forEach((button) => {
+        button.setAttribute(
+            "aria-pressed",
+            String(button.dataset.themeChoice === savedTheme)
+        );
+    });
+})();
 
 // =========================================================
 // MANAGEMENT DASHBOARD
