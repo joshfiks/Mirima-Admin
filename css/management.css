@@ -7,6 +7,7 @@
     min-height: 100vh;
     width: 100%;
     display: flex;
+    align-items: stretch;
     background: var(--theme-page-bg);
     color: var(--theme-text);
 }
@@ -14,11 +15,12 @@
 .management-sidebar {
     width: 270px;
     min-height: 100vh;
+    height: 100vh;
     background: var(--theme-surface);
     border-right: 1px solid var(--theme-border);
     display: flex;
     flex-direction: column;
-    padding: 28px 18px;
+    padding: 16px 14px;
     flex-shrink: 0;
 }
 
@@ -31,7 +33,7 @@
 }
 
 .management-brand {
-    padding: 24px 20px;
+    padding: 14px 12px;
     display: flex;
     align-items: center;
     gap: 12px;
@@ -66,7 +68,7 @@
 }
 
 .management-staff {
-    padding: 13px;
+    padding: 10px 12px;
     display: flex;
     align-items: center;
     gap: 11px;
@@ -133,7 +135,8 @@
 }
 
 .management-sidebar-bottom {
-    padding: 16px 20px;
+    padding: 12px;
+    margin-top: auto;
     border-top: 1px solid var(--theme-border);
 }
 
@@ -748,144 +751,5 @@
         padding-left: 5px;
         padding-right: 15px;
         font-size: 10px;
-    }
-}
-
-/* =========================================================
-   MANAGEMENT LAYOUT FIX
-   Full-window dashboard and compact sidebar
-   ========================================================= */
-
-/* Remove the outer frame and unwanted spacing */
-html,
-body {
-    margin: 0;
-    padding: 0;
-}
-
-body:has(.management-app) {
-    margin: 0;
-    padding: 0;
-    overflow-x: hidden;
-}
-
-body:has(.management-app) #managementDashboard,
-body:has(.management-app) .management-app {
-    margin: 0;
-    width: 100%;
-    max-width: none;
-}
-
-.management-app {
-    width: 100%;
-    min-height: 100vh;
-    min-height: 100dvh;
-    height: auto;
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    align-items: stretch;
-    border-radius: 0;
-    box-shadow: none;
-}
-
-.management-app *,
-.management-app *::before,
-.management-app *::after {
-    box-sizing: border-box;
-}
-
-/* Make the sidebar fit the viewport */
-.management-sidebar {
-    width: 270px;
-    min-width: 270px;
-    min-height: 100vh;
-    min-height: 100dvh;
-    height: 100vh;
-    height: 100dvh;
-    padding: 14px 14px;
-    overflow-y: auto;
-    overflow-x: hidden;
-    box-sizing: border-box;
-}
-
-/* Reduce unnecessary vertical space in the sidebar */
-.management-brand {
-    padding: 14px 12px;
-}
-
-.management-staff {
-    padding: 10px 12px;
-}
-
-.management-navigation {
-    flex: 1 0 auto;
-    padding-top: 4px;
-}
-
-.management-nav-item {
-    padding: 10px 12px;
-    margin-bottom: 3px;
-}
-
-.management-sidebar-bottom {
-    padding: 12px;
-    margin-top: auto;
-}
-
-/* Let the main area fill the remaining window */
-.management-main {
-    flex: 1 1 auto;
-    width: 0;
-    min-width: 0;
-    min-height: 100vh;
-    min-height: 100dvh;
-    margin: 0;
-    padding: 0;
-    border-radius: 0;
-    box-shadow: none;
-}
-
-.management-header {
-    width: 100%;
-}
-
-.management-content {
-    width: 100%;
-    max-width: none;
-    margin: 0;
-}
-
-/* Mobile layout */
-@media (max-width: 900px) {
-    .management-app {
-        display: block;
-        width: 100%;
-        min-height: 100vh;
-        min-height: 100dvh;
-    }
-
-    .management-sidebar {
-        width: 270px;
-        min-width: 0;
-        height: 100vh;
-        height: 100dvh;
-        min-height: 0;
-        padding: 14px;
-    }
-
-    .management-main {
-        width: 100%;
-        min-height: calc(100vh - 60px);
-        min-height: calc(100dvh - 60px);
-    }
-
-    .management-mobile-header {
-        width: 100%;
-        margin: 0;
-    }
-
-    .management-header {
-        min-height: 76px;
     }
 }
