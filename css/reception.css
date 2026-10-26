@@ -3299,3 +3299,66 @@ color: var(--theme-text);
         font-size: 10px;
     }
 }
+
+/* =========================================================
+   MIRIMA RECEPTION — MOBILE THEME BUTTON FIX
+   Place at the VERY BOTTOM of the CSS file
+========================================================= */
+
+.mobile-header #receptionMobileThemeToggle {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    flex: 0 0 auto !important;
+    gap: 5px !important;
+
+    width: auto !important;
+    min-width: 68px !important;
+    max-width: 80px !important;
+    min-height: 34px !important;
+    height: 34px !important;
+
+    padding: 0 7px !important;
+    margin: 0 !important;
+    box-sizing: border-box !important;
+
+    background: var(--theme-surface) !important;
+    color: var(--theme-text) !important;
+    border: 1px solid var(--theme-border) !important;
+    border-radius: 8px !important;
+
+    font-family: inherit !important;
+    font-size: 11px !important;
+    font-weight: 600 !important;
+    line-height: 1 !important;
+    white-space: nowrap !important;
+
+    cursor: pointer !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+}
+
+.mobile-header #receptionMobileThemeToggle span {
+    display: inline-block !important;
+    visibility: visible !important;
+    white-space: nowrap !important;
+}
+
+.mobile-header #receptionMobileThemeToggle:hover {
+    background: var(--theme-surface-alt) !important;
+    border-color: var(--theme-accent) !important;
+}
+
+.mobile-header #receptionMobileThemeToggle:focus-visible {
+    outline: 2px solid var(--theme-accent) !important;
+    outline-offset: 2px !important;
+}
+
+@media (max-width: 360px) {
+    .mobile-header #receptionMobileThemeToggle {
+        min-width: 60px !important;
+        max-width: 68px !important;
+        padding: 0 4px !important;
+        font-size: 10px !important;
+    }
+}
