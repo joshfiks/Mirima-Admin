@@ -539,10 +539,12 @@ function renderHousekeepingDashboard(session) {
         class="housekeeping-empty-state"
     >
 
-        <div class="housekeeping-empty-icon">
-            🧹
-        </div>
 
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+    <path d="M4 20h16M7 16l9-9 3 3-9 9H7zM14 6l2-2 4 4-2 2"/>
+    <path d="M5 4l1 2M3 8h3"/>
+</svg>
+      
         <h4>
             No housekeeping requests
         </h4>
