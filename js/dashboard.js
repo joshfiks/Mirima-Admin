@@ -322,20 +322,37 @@ function renderHousekeepingDashboard(session) {
 
 </div>
 
-                        <button
-                            id="housekeepingNotificationButton"
-                            class="housekeeping-header-icon-button"
-                        >
-                            🔔
+                       
+<button
+    id="housekeepingNotificationButton"
+    class="housekeeping-header-icon-button"
+    type="button"
+    aria-label="Notifications"
+>
+    <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="20"
+        height="20"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="1.8"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        aria-hidden="true"
+    >
+        <path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9"/>
+        <path d="M10 21h4"/>
+    </svg>
 
-                            <span
-                                id="housekeepingHeaderNotificationCount"
-                                class="housekeeping-header-notification-count"
-                            >
-                                0
-                            </span>
+    <span
+        id="housekeepingHeaderNotificationCount"
+        class="housekeeping-header-notification-count"
+    >
+        0
+    </span>
+</button>
 
-                        </button>
 
 
                         <div class="housekeeping-header-staff">
@@ -384,9 +401,12 @@ function renderHousekeepingDashboard(session) {
 
     <article class="housekeeping-stat-card">
 
-        <div class="housekeeping-stat-icon">
-            🧹
-        </div>
+
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+    <path d="M4 20h16M7 16l9-9 3 3-9 9H7zM14 6l2-2 4 4-2 2"/>
+    <path d="M5 4l1 2M3 8h3"/>
+</svg>
+      
 
         <div>
 
@@ -408,9 +428,12 @@ function renderHousekeepingDashboard(session) {
 
     <article class="housekeeping-stat-card">
 
-        <div class="housekeeping-stat-icon">
-            🔄
-        </div>
+
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+    <path d="M20 7v5h-5M4 17v-5h5"/>
+    <path d="M5.6 9A7 7 0 0 1 18 6l2 6M4 12l2 6a7 7 0 0 0 12.4-3"/>
+</svg>
+      
 
         <div>
             <span>
@@ -431,9 +454,12 @@ function renderHousekeepingDashboard(session) {
 
     <article class="housekeeping-stat-card">
 
-        <div class="housekeeping-stat-icon">
-            💬
-        </div>
+
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+    <path d="M5 5h14v11H9l-4 3z"/>
+    <path d="M8 9h8M8 12h5"/>
+</svg>
+      
 
         <div>
             <span>
@@ -454,9 +480,12 @@ function renderHousekeepingDashboard(session) {
 
     <article class="housekeeping-stat-card">
 
-        <div class="housekeeping-stat-icon">
-            📢
-        </div>
+
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+    <path d="M3 10l9-7 9 7v10H3z"/>
+    <path d="M7 20v-7h10v7M12 3v4"/>
+</svg>
+      
 
         <div>
             <span>
