@@ -10849,13 +10849,51 @@ waSelectionMenu
             return;
         }
 
-        // Remember that this conversation's view was cleared.
-        sessionStorage.setItem(
-            "mirimaClearedReceptionView_" + conversation.id,
-            "true"
-        );
+const clearedMessageIdsKey =
+    "mirimaClearedReceptionMessageIds_" + conversation.id;
 
-        messagesContainer.replaceChildren();
+const clearedViewKey =
+    "mirimaClearedReceptionView_" + conversation.id;
+
+try {
+    const savedIds = sessionStorage.getItem(
+        clearedMessageIdsKey
+    );
+
+    const clearedIds = new Set(
+        savedIds ? JSON.parse(savedIds) : []
+    );
+
+    // Record the IDs of messages currently visible.
+    messagesContainer
+        .querySelectorAll("[data-message-id]")
+        .forEach(function (element) {
+            const messageId = element.dataset.messageId;
+
+            if (messageId) {
+                clearedIds.add(messageId);
+            }
+        });
+
+    sessionStorage.setItem(
+        clearedMessageIdsKey,
+        JSON.stringify([...clearedIds])
+    );
+
+    // Remove the old flag that hid every future message.
+    sessionStorage.removeItem(clearedViewKey);
+
+} catch (error) {
+    console.error(
+        "Could not save cleared Reception message IDs:",
+        error
+    );
+
+    alert("Could not clear the chat view. Please try again.");
+    return;
+}
+
+messagesContainer.replaceChildren();
 
         receptionSelectionMode = false;
         selectedReceptionMessageIds.clear();
@@ -11969,13 +12007,54 @@ chatWindow.innerHTML = `
                 return !hiddenMessageIds.has(item.id);
             });
 
-           // Keep the cleared view empty when old messages are reloaded.
+        // Hide only messages that existed when Clear Chat was used.
+// Newly received or sent messages should still appear.
 const clearedViewKey =
     "mirimaClearedReceptionView_" + conversation.id;
 
-if (sessionStorage.getItem(clearedViewKey) === "true") {
-    messagesContainer.replaceChildren();
-    return;
+const clearedMessageIdsKey =
+    "mirimaClearedReceptionMessageIds_" + conversation.id;
+
+let clearedMessageIds = new Set();
+
+try {
+    const savedIds = sessionStorage.getItem(
+        clearedMessageIdsKey
+    );
+
+    if (savedIds) {
+        clearedMessageIds = new Set(JSON.parse(savedIds));
+    }
+
+    // Migrate the old clear flag once, preserving the old
+    // behavior of hiding messages that were already present.
+    if (
+        sessionStorage.getItem(clearedViewKey) === "true" &&
+        !savedIds
+    ) {
+        messages.forEach(function (item) {
+            clearedMessageIds.add(item.id);
+        });
+
+        sessionStorage.setItem(
+            clearedMessageIdsKey,
+            JSON.stringify([...clearedMessageIds])
+        );
+    }
+
+    // The old flag must not block future messages.
+    sessionStorage.removeItem(clearedViewKey);
+
+    // Exclude only the messages recorded as cleared.
+    messages = messages.filter(function (item) {
+        return !clearedMessageIds.has(item.id);
+    });
+
+} catch (error) {
+    console.error(
+        "Could not restore cleared Reception chat view:",
+        error
+    );
 }
 
             console.log("RECEPTION CHAT MESSAGES:", messages);
